@@ -1,5 +1,7 @@
 # Introducció a la criptografia
 
+Transparències a [jig.github.io/crypto](https://jig.github.io/crypto)
+
   - [Índex](https://jig.github.io/crypto)
   - [Introducció, història](https://jig.github.io/crypto/intro.html)
   - [Cryptografia simètrica](https://jig.github.io/crypto/symmetric.html)
