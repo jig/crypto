@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="ca">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>MAC</title>
+
+        <meta name="description" content="Codi d'Autenticació de Missatge">
+        <meta name="author" content="Jordi Íñigo Griera">
+        <!-- Implementat amb revealjs: https://github.com/hakimel/reveal.js -->
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+        <!-- Code syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+                    var link = document.createElement( 'link' );
+                    link.rel = 'stylesheet';
+                    link.type = 'text/css';
+                    link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+                    document.getElementsByTagName( 'head' )[0].appendChild( link );
+                </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+    <div class="reveal">
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section>
+                <h1>MAC</h1>
+                <p>Codi d'Autenticació de missatge<br/>
+                    <em>Message Authentication Code</em>
+                </p>
+            </section>
+
+            <section>
+                <h3>MAC: objectiu</h3>
+                <p>prova d'integritat:
+                <br/>impedeix que un atacant pugui modificar el missatge sense que el receptor se n'adoni</br>
+                <p>aquesta funcionalitat és ortogonal amb el xifrat:
+                    <br/>xifrat i MAC es fan servir juntes per a obtenir confidencialitat i integritat</p>
+                <p class="fragment">Nota sobre el xifrat: un atacant pot modificar el missatge, encara que no el pugui
+                llegir
+                    <br/>(fins hi tot en alguns casos pot realitzar operacions: e.g. $\oplus$ en xifrat de flux)</p>
+            </section>
+
+            <section>
+                <h3>MAC: casos d'ús </h3>
+                <ul>
+                <li>en una transmissió, volem validar que el que ens envien no ha estat modificat per un atacant
+                    <br/>(cal acordar una clau $k$ prèviament)</li>
+                <li>en una sistema de fitxers, volem saber que els fitxers que varem guardar-hi no han estat
+                    alterats per un atacant, virus, etc. quan hi accedim
+                    <br/>(cal recordar la clau $k$)</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>MAC: funcionament</h3>
+                <p>ens caldrà una clau secreta que aplicarem al missatge amb la funció $\text{MAC}$:</p>
+                <p><!-- tag -->$t = \text{MAC}(k, m)$</p>
+
+                <svg width="480" height="120" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+                    <g>
+                        <title>Layer 1</title>
+                        <rect fill="#f7cfcf" stroke="#000000" stroke-width="5" stroke-linejoin="null" stroke-linecap="null" x="324" y="31.5" width="137.75" height="37.25" id="svg_3"/>
+                        <rect fill="#f7cfcf" stroke="#000000" stroke-width="5" x="29" y="32" width="282.99999" height="37" id="svg_1"/>
+                        <text font-style="italic" fill="#000000" stroke="#000000" stroke-width="0" x="391.75" y="38.4708" id="svg_2" font-size="24" font-family="Sans-serif" text-anchor="middle" xml:space="preserve" transform="matrix(1,0,0,0.953496220250237,-0.25,22.196207110658804) ">t</text>
+  <text font-style="italic" fill="#000000" stroke="#000000" stroke-width="0" x="188.5" y="37.94641" font-size="24" font-family="Sans-serif" text-anchor="middle" xml:space="preserve" transform="matrix(1,0,0,0.953496220250237,-0.25,22.196207110658804) " id="svg_4">m</text>
+                    </g>
+                </svg>
+            </section>
+
+            <section>
+                <h3>MAC: primera implementació</h3>
+                <p>podem fer servir directament una funció de xifrat de bloc, d'aquesta manera:
+                <br/>$t = e(k, m)$</p>
+
+                <svg width="480" height="120" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+                    <g>
+                        <title>Layer 1</title>
+                        <rect fill="#f7cfcf" stroke="#000000" stroke-width="5" stroke-linejoin="null" stroke-linecap="null" x="324" y="31.5" width="137.75" height="37.25" id="svg_3"/>
+                        <rect fill="#f7cfcf" stroke="#000000" stroke-width="5" x="29" y="32" width="282.99999" height="37" id="svg_1"/>
+                        <text font-style="italic" fill="#000000" stroke="#000000" stroke-width="0" x="391.75" y="38.4708" id="svg_2" font-size="24" font-family="Sans-serif" text-anchor="middle" xml:space="preserve" transform="matrix(1,0,0,0.953496220250237,-0.25,22.196207110658804) ">t</text>
+  <text font-style="italic" fill="#000000" stroke="#000000" stroke-width="0" x="188.5" y="37.94641" font-size="24" font-family="Sans-serif" text-anchor="middle" xml:space="preserve" transform="matrix(1,0,0,0.953496220250237,-0.25,22.196207110658804) " id="svg_4">m</text>
+                    </g>
+                </svg>
+                <p>Nota: no podem fer servir xifrat de flux (directament), ja que el càlcul de $k$ seria trivial</p>
+            </section>
+
+            <section id="fixed-mac">
+                <h3>MAC: primera implementació</h3>
+                <p>$t = e(k, m)$</p>
+                <p>aquesta construcció té una limitació:
+                <br/>només podem autenticar <u>missatges de la longitut de bloc</u></p>
+                <span class="fragment">
+                    <p>Alternatives: ECBC i <a href="hash.html#hmac">HMAC</a></p>
+                </span>
+            </section>
+
+            <section id="raw-cbc">
+                <h3>rawCBC-MAC</h3>
+                <p>derivat del <a href="symmetric.html#mode-of-operation">mode d'operació</a> CBC (<em>Cipher Block Chaining</em>)</p>
+                <p><img border="9" src="img/CBC-MAC_structure_(en).svg"/>
+                    <br/><small>(font <a href="https://en.wikipedia.org/wiki/CBC-MAC">Wikipedia</a>)</small></p>
+                <p>però en lloc de fer servir un IV, iniciarem la cadena amb $0$ (equivalent a $IV=0$)</p>
+                <p class="fragment">rawCBC-MAC és insegur però...</p>
+            </section>
+
+            <section>
+                <h3>ECBC-MAC</h3>
+                <p>CBC-MAC és insegur ja que un atacant pot combinar missatges bons per generar-ne de bons</p>
+                <p>per evitar el problema podem canviar l'$IV=0$ per la longitud inicial $IV=\ell$</p>
+            </section>
+
+            <section>
+                <h3>ECBC-MAC</h3>
+                <p>...o habitualment el que es fa és fer servir una segona clau per a tancar el càlcul i impedir el
+                    concatenat
+                    <br/>(ECBC: <em>Encrypted CBC</em>)</p>
+                <p><img border="9" src="img/CBC-MAC_(encrypt_last_block)_structure.svg"/>
+                    <br/><small>(font <a href="https://en.wikipedia.org/wiki/CBC-MAC">Wikipedia</a>)</small></p>
+            </section>
+
+            <section>
+                <h3>ECBC-MAC: seguretat</h3>
+                <p>ECBC-MAC és segur mentre sigui improbable trobar una <a href="hash.html#collision">col·lisió</a></p>
+                <p>la probabilita de col·lisió és propera a $0,5$ per a $\sqrt{|\text{bloc}|}$</p>
+                <p>e.g. en el cas de l'AES el bloc és de 128 b, per tant, no podrem fer servir la mateixa clau:
+                <br/>$\text{ops} \ll \sqrt{2^{128}} = 2^{64}$</p>
+                <p>(valors acceptats per una clau AES-128/192/256:
+                    <br/> $2^{48}$ missatges autenticats)</p>
+            </section>
+
+            <section>
+                <h3>Altres MACs usats</h3>
+                <p>Poly1305-AES: longitut $\|t\| = 128 \text{b}$</p>
+                <p>Poly1305-ChaCha20: longitut $\|t\| = 128 \text{b}$</p>   <!-- https://tools.ietf.org/html/draft-ietf-cose-msg-08#page-36 -->
+                <p>HMAC (<em>Hash MAC</em>): longitut = longitut hash base</p>
+            </section>
+        </div>
+
+    </div>
+
+    <!-- <script type="text/javascript" src="js/svg_mathjax.js"></script> -->
+    <!-- <script type="text/javascript">new Svg_MathJax().install();</script> -->
+    <script type="text/javascript" src="lib/js/head.min.js"></script>
+    <script type="text/javascript" src="js/reveal.js"></script>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            slideNumber: true,
+            // history: false,
+            // fragments: true,
+            // help: true,
+            // previewLinks: false,
+            width: 1024,
+            height: 768,
+
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            math: {
+                mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+                config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+            },
+
+            // Optional reveal.js plugins
+            dependencies: [
+                { src: 'plugin/math/math.js', async: true },
+                { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true },
+                { src: 'plugin/notes/notes.js', async: true }
+            ]
+        });
+    </script>
+
+    </body>
+</html>

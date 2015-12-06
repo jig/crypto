@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Diffie-Hellman</title>
+
+        <meta name="description" content="Introducció a l'algorisme DH">
+        <meta name="author" content="Jordi Íñigo Griera">
+        <!-- Implementat amb revealjs: https://github.com/hakimel/reveal.js -->
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+        <!-- Code syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+                    var link = document.createElement( 'link' );
+                    link.rel = 'stylesheet';
+                    link.type = 'text/css';
+                    link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+                    document.getElementsByTagName( 'head' )[0].appendChild( link );
+                </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+    <div class="reveal">
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+
+            <section>
+                <h2>Acord de claus DH</h2>
+                <p>{Diffie, Hellman; 1976}</p>
+                <p>Permet acordar un nombre aleatori entre dos usuaris a partir de la hipòtesi CDH (Computational Diffie-Hellman).
+                    Aquest nombre aleatori es pot fer servir de clau per a xifrar les posteriors comunicacions
+                    fent servir xifrat simètric.
+                    <br>
+                    (DH no permet signar ni xifrar, però és la base d'altres algorismes que sí ho permeten)
+                </p>
+                <p>CDH és un <em>problema amb trampa</em> relacionat amb el problema DLP (Problema del logaritme discret).
+                    El DLP conjectura que es difícil el càlcul del logaritme (inversa de l'exponenciació) en certs grups
+                </p>
+            </section>
+
+            <section>
+                <section id="dlp">
+                    <h2>DLP</h2>
+                    <h3>(el problema del logaritme discret)</h3>
+                    <p>Tenim un $\mathbb{Z}_{p}^{*}$ ($p$ primer) i seleccionem
+                        <br/>un element <a href="number-theory.html#generator">generador</a> $\alpha\,$
+                        ($\mathbb{Z}_{p}^{*}$ és <a href="number-theory.html#cyclic">cíclic</a>)
+                        <!-- <br>($g^{\phi{(p)}} \equiv 1 \pmod p$)-->
+                    </p>
+                    <br>
+                    <p>Llavors, existeix un $0 \leq x \leq p-2$ únic que compleix per a cada $\beta \in \mathbb{Z}_{p}^{*}$:</p>
+                    <p>$x \equiv \log_{\alpha} \beta \pmod p$</p>
+                    <p class="fragment">(o de forma equivalent: $\beta \equiv \alpha^x \pmod p$)</p>
+                    <p>
+                        ...però és <em>computacionalment difícil</em>* calcular-lo
+                    </p>
+                </section>
+                <section>
+                    <p>He de cobrir tota la mida (ordre) de \mathbb{Z}_{p}^{*}, que és $\phi(p)$, per tant:</p>
+                    <p>\[
+                        \begin{eqnarray}
+                        0 &< x &< \phi(p)-1 \\
+                        0 &< x &< (p-1)-1 \\
+                        0 &< x &< (p-2)
+                        \end{eqnarray}
+                    \]</p>
+                </section>
+            </section>
+
+            <section>
+                <section id="cdh">
+                    <h2>CDH</h2>
+                    <h3>(hipòtesi computacional<br>Diffie-Hellman)</h3>
+                    <p>Suposem que tenim un <a href="">grup cíclic</a> sobre un conjunt $\mathbb{Z}_{p}^{*}$
+                        <br>($p$ primer) amb l'element <a href="number-theory.html#generator">generador</a> $\alpha$
+                    </p>
+                    <br>
+                    <p>A partir de conèixer $\alpha$, $\alpha^i$ i $\alpha^j$ per a $0 < i,j < (p-2)$
+                        <br>llavors el càlcul de $\alpha^{ij}$ és computacionalment difícil...
+                    </p>
+                    <p class="fragment">...si és que no coneixem "la trampa"</p>
+                </section>
+
+                <section id="ddh">
+                    <p>CDH requereix que DLP sigui computacionalment difícil</p>
+                    <p>CDH està relacionat amb la hipòtesi DDH (<em>Decisional DH</em>):
+                        <br>que diu que $\alpha^{ij}$ és indistingible d'un valor escollit aleatòriament
+                        de $\mathbb{Z}_{p}^{*}$</p>
+                    <p>Totes les hipòtesis han de ser certes per a que DH sigui segur</p>
+                </section>
+            </section>
+
+            <section>
+                <h2>La trampa</h2>
+                <p>Si coneixem $i$ (o coneixem $j$) llavors<br>el càlcul de $\alpha^{ij}$ és fàcil coneixent $\alpha^j$ (ò $\alpha^i$):</p>
+                <p>Si coneixes $i$: $\alpha^{ij} = {(\alpha^j)}^{i} \pmod p$</p>
+                <p>Si coneixes $j$: $\alpha^{ij} = {(\alpha^i)}^{j} \pmod p$</p>
+            </section>
+
+            <section style="text-align: left;">
+                <h3>protocol</h3>
+                <ol>
+                    <li>Donats dos usuaris $I$ i $J$ cal que generin respectivament dos nombres $i$ i $j$ i que els
+                    mantinguin en secret</li>
+
+                    <li>$I$ ha d'enviar $\alpha^i \pmod p$ a $J$;
+                        <br>$J$ calcula $\alpha^{ij} = {(\alpha^i)}^{j} \pmod p$</li>
+
+                    <li>$J$ ha d'enviar $\alpha^j \pmod p$ a $I$;
+                        <br>$I$ calcula $\alpha^{ij} = {(\alpha^j)}^{i} \pmod p$</li>
+                </ol>
+                <p>A partir d'aquí $I$ i $J$ comparteixen el secret $\alpha^{ij}$</p>
+                <p>Un atacant que vegi el tràfic ($\alpha^i$ i $\alpha^j$) i conegui $\alpha$ no és capaç d'aprendre res sobre
+                    el secret $\alpha^{ij}$</p>
+            </section>
+
+            <section style="text-align: left;" id="parameter-selection">
+                <h3>Selecció dels paràmetres $p$, <!-- i --> $\alpha$</h3>
+                <p>Els paràmetres $p$ i $\alpha$ es poden seleccionar a priori, poden ser públics
+                    i fer-se servir múltiples vegades:</p>
+                <!--<ul>
+                <li>DLP a $\mathbb{Z}_{p}^{*}$ força que $p$ sigui un nombre primer que compleixi:</li>
+                    <p style="text-align: center;">$p = 2q+1$ amb $q$ sent un altre primer</p>
+                <li>$\alpha$ pot ser qualsevol enter $1 < \alpha < (p-1)$ i habitualment es pren un valor baix (e.g $2$)</li>
+                </ul>-->
+                <ul>
+                    <li>$p$: ha de ser un primer gran en la forma $p=2q+1$ per a
+                        <a href="number-theory.html#generator-quantity">facilitar la cerca</a>
+                        de generadors $\alpha$</li>
+                    <li>$\alpha$: <a href="">seleccionar</a> un valor aleatori $\alpha \in \mathbb{Z}_{p}^{*}$ que
+                        sigui generador de $\mathbb{Z}_{p}^{*}$</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>debilitats $\rightarrow$ contramesures</h3>
+                <ul>
+                    <li>MITM $\rightarrow$ cal combinar DH amb algún protocol per a autenticar els extrems</li>
+                </ul>
+            </section>
+        </div>
+
+    </div>
+
+    <!-- <script type="text/javascript" src="js/svg_mathjax.js"></script> -->
+    <!-- <script type="text/javascript">new Svg_MathJax().install();</script> -->
+    <script type="text/javascript" src="lib/js/head.min.js"></script>
+    <script type="text/javascript" src="js/reveal.js"></script>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            // history: false,
+            // fragments: true,
+            // help: true,
+            // previewLinks: false,
+            width: 1024,
+            height: 768,
+
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            math: {
+                mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+                config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+            },
+
+            // Optional reveal.js plugins
+            dependencies: [
+                { src: 'plugin/math/math.js', async: true },
+                { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true },
+                { src: 'plugin/notes/notes.js', async: true }
+            ]
+        });
+    </script>
+
+    </body>
+</html>

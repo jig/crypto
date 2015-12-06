@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="ca">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>HSM</title>
+
+        <meta name="description" content="Hardware Secure Module">
+        <meta name="author" content="Jordi Íñigo Griera">
+        <!-- Implementat amb revealjs: https://github.com/hakimel/reveal.js -->
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+        <!-- Code syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+                    var link = document.createElement( 'link' );
+                    link.rel = 'stylesheet';
+                    link.type = 'text/css';
+                    link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+                    document.getElementsByTagName( 'head' )[0].appendChild( link );
+                </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+    <div class="reveal">
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+
+            <section>
+                <h1>HSM</h1>
+            </section>
+
+
+
+
+
+            <section>
+                <h1>RNG</h1>
+            </section>
+
+            <section>
+                <h1>RNG</h1>
+                <p>o TRNG (<em>True Random Number Generation</em>)</p>
+            </section>
+
+            <section>
+                <h3>RNG: generació</h3>
+                <p>Com implementem un RNG si no és algorísmic?</p>
+                <ul>
+                    <li>Recopilant events d'entrada (I/O) i acumulant els seus paràmatres (habitualment les xifres menys significatives de l'hora en ns ò μs)</li>
+                    <li>Mitjançant dispositius especialitzats (<a href="hsm.html">HSM</a>*)</p>
+                        <p><br/></p>
+                        <p>*) HSM: Hardware Secure Module</p>
+            </section>
+
+            <section id="rng">
+                <h3>RNG: acumulació d'aleatorietat</h3>
+                <p>les diverses fonts que farem servir per a generar la seqüència del RNG
+                    &mdash;ja sigui d'I/O, o de dispositius hardware especialitzats&mdash;
+                    les podem acumular de diferents fonts individuals mitjançant $\oplus$
+                </p>
+                <p>en el cas de que una de les fonts no sigui del tot uniforme, això no empitjora la qualitat final del RNG
+                a condició de que al menys una de elles si que ho sigui</p>
+            </section>
+            <section>
+                <h3>RNG: acumulació d'aleatorietat</h3>
+                <p>s'ha de vigilar però que la acumulació garanteixi que:</p>
+                <ul>
+                    <li>RNG tingui una distribució uniforme</li>
+                    <li>després de $n$ no s'ha de poder predir el $n+1$ amb una probabilitat diferent de $\frac{1}{2}$</li>
+                </ul>
+            </section>
+            <section>
+                <h3>RNG: entropia</h3>
+                <p>el que podem fer és marcar cada font individual d'aleatorietat amb una <em>entropia</em></p>
+                <ul>
+                <li>per a fonts perfectes tenim 1 bit d'entropia per a cada bit generat</li>
+                <li>per a fonts menys perfectes podem necessitar diversos bits per a generar un bit d'aleatorietat</li>
+                </ul>
+            </section>
+            <section>
+                <h3>RNG: entropia</h3>
+                <ul>
+                <li>és important "etiquetar" bé les nostres fonts (entropia)</li>
+                <li>hem de reduir els bits rebuts a bits amb entropia 1</li>
+                <li>els bps del RNG (abans i sobretot després de reduir) poden ser pocs (lentitut)</li>
+                </ul>
+            </section>
+            <section>
+                <h3>RNG: fonts</h3>
+                <p>HUI ($\approx 1$ bps després de reducció)</p>
+                <p>latencia disc dur ($\approx 1$ bps després de reducció)</p>
+                <p>Xarxa ($\approx 10$ bps després de reducció)</p>
+                <p>funcions de processador (Intel: 3 Gbps)</p>
+            </section>
+            <section>
+                <h3>RNG: vulnerabilitats</h3>
+                <img data-src="img/random_number.png"/>
+                <p><small>(de <a href="https://xkcd.com/221/">xkcd.com/221</a>)</small></p>
+                <p class="fragment"><a href="https://en.wikipedia.org/wiki/Random_number_generator_attack">Wikipedia: Random number generator attack</a></p>
+                <p class="fragment">Cloud: random... amb poca entropia per poca I/O</p>
+                <p class="fragment">Debian: random... amb poca entropia per errors de codi</p>
+                <p class="fragment">Intel: random... implementació tancada</p>
+                <p class="fragment">PlayStation 3: random... constant</p>
+            </section>
+            <section>
+                <h3>RNG: distribució uniforme</h3>
+                <p>Els RNG han de tenir unes propietats</p>
+                <p>aquestes propietats no aplican al nombre generat (o el bit) en sí, si no a les seqüències de nombres generats</p>
+                <p>la seqüència de nombres (o de bits) ha de tenir una <em>distribució uniforme</em></p>
+            </section>
+            <section>
+                <h3>RNG: distribució uniforme</h3>
+                <p>per a $n$ bits generats, la probabilitat d'una seqüència donada és la mateixa de la de cap altra ($2^{-n}$)</p>
+                <p>cap algorisme pot predir el següent bit coneguts els anteriors</p>
+            </section>
+            <section>
+                <h3>RNG: validació</h3>
+                <p>per seqüències prou llargues el nombre d'$1$'s i $0$'s tendeix a ser el mateix</p>
+                <p>per seqüències prou llargues el nombre de grups ${00, 01, 10, 11}$ tendeix a ser el mateix</p>
+                <p>etc.</p>
+                <p class="fragment">aquests tipus de tests permeten saber que la meva font no té problemes obvis, però no és suficient contra un
+                atacant capaç de modificar convenient el sistema RNG</p>
+            </section>
+            <section>
+                <h3>RNG: validació</h3>
+                <p>per a què un RNG només es pot considerar segur si sabem com el generem, i el generem de forma segura</p>
+            </section>
+
+        </div>
+
+    </div>
+
+
+    <!-- <script type="text/javascript" src="js/svg_mathjax.js"></script> -->
+    <!-- <script type="text/javascript">new Svg_MathJax().install();</script> -->
+    <script type="text/javascript" src="lib/js/head.min.js"></script>
+    <script type="text/javascript" src="js/reveal.js"></script>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            slideNumber: true,
+            // history: false,
+            // fragments: true,
+            // help: true,
+            // previewLinks: false,
+            width: 1024,
+            height: 768,
+
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            math: {
+                mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+                config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+            },
+
+            // Optional reveal.js plugins
+            dependencies: [
+                { src: 'plugin/math/math.js', async: true },
+                { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true },
+                { src: 'plugin/notes/notes.js', async: true }
+            ]
+        });
+    </script>
+
+    </body>
+</html>
