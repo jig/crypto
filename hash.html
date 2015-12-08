@@ -148,10 +148,10 @@
                 <p>el HMAC que es fa servir habitualment fa servir com a xifrat el propi hash i $\oplus$</p>
                 <p>
                     $\begin{aligned}
-                    k_\text{o} &= k \oplus \text{opad} \\
-                    k_\text{i} &= k \oplus \text{ipad} \\
-                    t &= \color{red}{h}( k_\text{o} \, \| \, \color{red}{h}( k_\text{i} \| m ) )
+                    k_\text{o} = k \oplus \text{opad} \; &| \; \text{opad} = \text{5C5C}\cdots \\
+                    k_\text{i} = k \oplus \text{ipad} \; &| \; \text{ipad} = \text{3636}\cdots \\
                     \end{aligned}$</p>
+                <p>$t = \color{red}{h}( k_\text{o} \, \| \, \color{red}{h}( k_\text{i} \| m ) )$</p>
                 <p>Nota: $\|$ denota concatenació</p>
                 <p class="fragment">Nota: variants òbvies com $t = h(k \| m)$ són insegures <a href="http://cacr.uwaterloo.ca/hac/about/chap9.pdf">[9.64][9.65]</a></p>
                 <!-- SHA-3 HMAC encara no està definit -->
@@ -159,6 +159,7 @@
 
             <section>
                 <h3>xifrar i autenticar</h3>
+                <p><em>(Authenticated Encryption)</em></p>
                 <p>aquestes dues funcions es fan servir juntes molt sovint</p>
                 <p>enviarem la concatenació $(c, t)$ on:<br/>
                     $\begin{aligned}

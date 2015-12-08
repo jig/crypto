@@ -126,18 +126,18 @@
             </section>
 
             <section id="raw-cbc">
-                <h3>rawCBC-MAC</h3>
+                <h3 style="text-transform:none;">rawCBC-MAC</h3>
                 <p>derivat del <a href="symmetric.html#mode-of-operation">mode d'operació</a> CBC (<em>Cipher Block Chaining</em>)</p>
                 <p><img border="9" src="img/CBC-MAC_structure_(en).svg"/>
                     <br/><small>(font <a href="https://en.wikipedia.org/wiki/CBC-MAC">Wikipedia</a>)</small></p>
-                <p>però en lloc de fer servir un IV, iniciarem la cadena amb $0$ (equivalent a $IV=0$)</p>
+                <p>però en lloc de fer servir un $\text{IV}$, iniciarem la cadena amb $0$ (equivalent a $\text{IV}=0$)</p>
                 <p class="fragment">rawCBC-MAC és insegur però...</p>
             </section>
 
             <section>
                 <h3>ECBC-MAC</h3>
                 <p>CBC-MAC és insegur ja que un atacant pot combinar missatges bons per generar-ne de bons</p>
-                <p>per evitar el problema podem canviar l'$IV=0$ per la longitud inicial $IV=\ell$</p>
+                <p>per evitar el problema podem canviar l'$\text{IV}=0$ per la longitud inicial $\text{IV}=\ell$</p>
             </section>
 
             <section>
