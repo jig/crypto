@@ -13,8 +13,8 @@ Transparències a [jig.github.io/crypto](https://jig.github.io/crypto)
   - [DSA](https://jig.github.io/crypto/dsa.html)
   - [Criptografia de corba el·líptica](https://jig.github.io/crypto/ecc.html)
   - [HSM](https://jig.github.io/crypto/hsm.html)
-  - Connexions ([TLS]())
-  - Infraestructura de Clau Pública [PKI]()
+  - Connexions (TLS...)
+  - Infraestructura de Clau Pública (PKI)
   - [Advanced Electronic Signatures (AdES)](http://jig.github.io/crypto/ades.html)
 
 Exercicis:
@@ -22,7 +22,7 @@ Exercicis:
   - criptografia simètrica (amb `openSSL`)
   - criptografia asimètrica (amb `openSSL`)
   - connexions ssh (amb `ssh/d`)
-  - connexions tls/https (amb `cipherscan`)
+  - connexions tls/https (amb [`cipherscan`](https://github.com/jig/docker-cipherscan))
   - connexions tls/https (amb `nginx` i `navegador`)
   - emissió de certificats (amb `openSSL`)
   
