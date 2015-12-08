@@ -11,20 +11,20 @@ Transparències a [jig.github.io/crypto](https://jig.github.io/crypto)
   - [Acord de claus Diffie-Hellman](https://jig.github.io/crypto/dh.html)
   - [RSA](https://jig.github.io/crypto/rsa.html)
   - [DSA](https://jig.github.io/crypto/dsa.html)
-  - [Criptografia de corba el·líptica](https://jig.github.io/crypto/ecc.html)
-  - [HSM](https://jig.github.io/crypto/hsm.html)
-  - Connexions (TLS...)
-  - Infraestructura de Clau Pública (PKI)
+  - *[Criptografia de corba el·líptica](https://jig.github.io/crypto/ecc.html) (per fer)*
+  - *[HSM](https://jig.github.io/crypto/hsm.html) (per fer)*
+  - *[Connexions (TLS...)](http://jig.github.io/crypto/tls.html)) (per fer)*
+  - *[Infraestructura de Clau Pública (PKI)](http://jig.github.io/crypto/pki.html) (per fer)*
   - [Advanced Electronic Signatures (AdES)](http://jig.github.io/crypto/ades.html)
 
 Exercicis:
 
-  - criptografia simètrica (amb `openSSL`)
-  - criptografia asimètrica (amb `openSSL`)
-  - connexions ssh (amb `ssh/d`)
+  - *criptografia simètrica (amb `openSSL`) (per fer)*
+  - *criptografia asimètrica (amb `openSSL`) (per fer)*
+  - *connexions ssh (amb `ssh/d`) (per fer)*
   - connexions tls/https (amb [`cipherscan`](https://github.com/jig/docker-cipherscan))
-  - connexions tls/https (amb `nginx` i `navegador`)
-  - emissió de certificats (amb `openSSL`)
+  - *connexions tls/https (amb `nginx` i `navegador`) (per fer)*
+  - *emissió de certificats (amb `openSSL`) (per fer)*
   
 # Llicència
 
