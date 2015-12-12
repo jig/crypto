@@ -44,17 +44,189 @@
         <section>
             <h1>TLS</h1>
             <p><em>(Transport Layer Security/HTTPS)</em></p>
-            <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
+            <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
+                <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" />
+            </a><br />
 
-                <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">
+            <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">
                 &ldquo;Curs d'Introducció a la criptografia&rdquo;
-                </span>
+            </span>
 
-                by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/jig" property="cc:attributionName" rel="cc:attributionURL">Jordi Íñigo Griera</a> is licensed under a<br/>
+            by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/jig" property="cc:attributionName" rel="cc:attributionURL">Jordi Íñigo Griera</a> is licensed under a<br/>
 
-                <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+            <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 
-                <br />Project hosted at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/jig/crypto" rel="dct:source">github.com/jig/crypto</a></em></small>
+            <br />Project hosted at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/jig/crypto" rel="dct:source">github.com/jig/crypto</a></em></small>
+        </section>
+
+        <section>
+            <h3>TLS: funcions</h3>
+            <p>Funcionalment equivalent a un socket
+                <a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol">TCP</a>
+                aportant-hi:
+            </p>
+            <ul>
+            <li>autenticitat: Clau pública + <a href="pki.html">PKI</a></li>
+            <li>integritat: <a href="hmac.html">HMAC</a></li>
+            <li>confidencialitat: <a href="dh.html">acord de claus</a> + <a href="symmetric.html">xifrat simètric</a></li>
+            <li>confidencialitat persistent</li>
+            </ul>
+            <p><br/></p>
+            <p>*) PFS: <em>Perfect Forward Secrecy</em>; acord de claus independent de l'autenticació</p>
+        </section>
+
+        <section>
+            <h3>TLS: història</h3>
+            <p>TLS és el successor de l'SSL i ha anat evolucionant per diferents versions en resposta als diferents atacs
+            teòrics i pràctics que han anat sortint</p>
+            <p>els clients quan es connecten acorden fer servir la versió més moderna que suportin ambdós</p>
+            <p>versions:</p>
+            <ul>
+                <li>SSL 3.0 $\rightarrow$ obsolet</li>
+                <li>TLS 1.0 $\rightarrow$ mínim algorisme utilitzable</li>
+                <li>TLS 1.1</li>
+                <li>TLS 1.2</li>
+                <li>TLS 1.3 draft $\rightarrow$ es força a utilitzar DHE/ECDHE per acord de claus</li>
+            </ul>
+        </section>
+        <section>
+            <h3>Protocol: inicialització <em>(handshake)</em></h3>
+            <p>Protocol en una connexió amb autenticació mútua, estructures de dades enviades després de la inicialització TCP:</p>
+            <pre>
+              Client                                               Server
+
+              ClientHello                  -------->
+                                                              ServerHello
+                                                             Certificate*
+                                                       ServerKeyExchange*
+                                                      CertificateRequest*
+                                           <--------      ServerHelloDone
+              Certificate*
+              ClientKeyExchange
+              CertificateVerify*
+             -- a partir d'aquí s'inicia l'intercanvi de dades protegit --
+            </pre>
+        </section>
+        <section>
+            <small>
+            <h3>inicialització (resum; suposant caché TLS buida)</h3>
+            <p style="text-align: left;">ClientHello $\longrightarrow$<br/>conté un random, cipher-suites suportats, versió</p>
+                <p><br/></p>
+            <p style="text-align: right;">$\longleftarrow$ ServerHello<br/>conté un random, versió màx comú, </p>
+            <p style="text-align: right;">$\longleftarrow$ Certificate<br/>cadena de certificats incloent el del servidor</p>
+            <p style="text-align: right;">$\longleftarrow$ ServerKeyExchange<br/>(si DHE) paràmetres DH i la seva clau pública (efímera: preMasterSecret)</p>
+            <p style="text-align: right;">$\longleftarrow$ CertificateRequest<br/>(si el servidor requereix autenticació de client) DN's de les CA acceptades</p>
+                <p><br/></p>
+            <p style="text-align: left;">Certificate $\longrightarrow$<br/>(si el servidor requereix autenticació de client) cadena de certificats incloent la del client</p>
+            <p style="text-align: left;">ClientKeyExchange $\longrightarrow$<br/>(si DHE) clau pública DH (efímera: preMasterSecret)</p>
+                </small>
+        </section>
+
+        <section>
+            <h3>Protocol: inicialització</h3>
+            <p>a partir dels dos <code>PreMasterSecret</code> és genera el <code>MasterSecret</code></p>
+            <p>del <code>MasterSecret</code> se'n deriven 4 claus i 2 IV:</p>
+            <ul>
+                <li>clau de xifrat de client a servidor (i viceversa)</li>
+                <li>IV, pel xifrat de client a servidor (i viceversa)</li>
+                <li>clau HMAC de client a servidor (i viceversa)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>protocol: transport <em>(record)</em></h3>
+            <p>les dades es fragmenten en blocs de fins 16 kB</p>
+            <p>cada bloc està protegit pels algorismes simètrics acordats durant la inicialització i les claus i IV's
+            derivats de la <code>MasterKey</code>...</p>
+            <p>i per un nombre de seqüència</p>
+        </section>
+        <section>
+            <h3><em>Cipher suites</em></h3>
+            <p>S'identifiquen amb la cadena <code>TLS_<span style="color:blue;">KEA</span>_<span style="color:green;">SIGN</span>_WITH_<span style="color:red;">CIPHER</span>_<span style="color:orange;">HASH</span></code></p>
+            <table>
+                <thead>
+                <tr>
+                    <td>Component</td>
+                    <td>Contingut</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr><td><span style="color:blue;">KEA</span></td><td>algorisme d'acord de claus</td></tr>
+                <tr><td><span style="color:green;">SIGN</span></td><td>algorisme de signatura</td></tr>
+                <tr><td><span style="color:red;">CIPHER</span></td><td>algorisme de xifrat simètric</td></tr>
+                <tr><td><span style="color:orange;">HASH</span></td><td>algorisme de hash</td></tr>
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h3>Algorismes a TLS v1.3 <span style="text-transform:none;">(esborrany-10)</span></h3>
+            <pre>
+                TLS_DHE_RSA_WITH_AES_128_GCM_SHA256
+                TLS_DHE_RSA_WITH_AES_256_GCM_SHA384
+                TLS_DHE_RSA_WITH_AES_128_CCM
+                TLS_DHE_RSA_WITH_AES_256_CCM
+                TLS_DHE_RSA_WITH_AES_128_CCM_8
+                TLS_DHE_RSA_WITH_AES_256_CCM_8
+                TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
+                TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
+                TLS_DHE_RSA_WITH_CHACHA20_POLY1305
+                TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+                TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+                TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+                TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+                TLS_ECDHE_ECDSA_WITH_AES_128_CCM
+                TLS_ECDHE_ECDSA_WITH_AES_256_CCM
+                TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8
+                TLS_ECDHE_ECDSA_WITH_AES_256_CCM_8
+                TLS_DHE_RSA_WITH_ARIA_128_GCM_SHA256
+                TLS_DHE_RSA_WITH_ARIA_256_GCM_SHA384
+                TLS_ECDHE_ECDSA_WITH_ARIA_128_GCM_SHA256
+                TLS_ECDHE_ECDSA_WITH_ARIA_256_GCM_SHA384
+                TLS_ECDHE_RSA_WITH_ARIA_128_GCM_SHA256
+                TLS_ECDHE_RSA_WITH_ARIA_256_GCM_SHA384
+                TLS_DHE_RSA_WITH_CAMELLIA_128_GCM_SHA256
+                TLS_DHE_RSA_WITH_CAMELLIA_256_GCM_SHA384
+                TLS_ECDHE_ECDSA_WITH_CAMELLIA_128_GCM_SHA256
+                TLS_ECDHE_ECDSA_WITH_CAMELLIA_256_GCM_SHA384
+                TLS_ECDHE_RSA_WITH_CAMELLIA_128_GCM_SHA256
+                TLS_ECDHE_RSA_WITH_CAMELLIA_256_GCM_SHA384
+            </pre>
+
+        </section>
+        <section>
+            <h3><em>Cipher suites</em></h3>
+            <p>Valors previstos per a cada camp de <code>TLS_<span style="color:blue;">KEA</span>_<span style="color:green;">SIGN</span>_WITH_<span style="color:red;">CIPHER</span>_<span style="color:orange;">HASH</span></code>
+            <br/>encara que poden canviar</p>
+            <table>
+                <thead>
+                <tr>
+                    <td>Component</td>
+                    <td>Contingut</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr><td><span style="color:blue;">KEA</span></td><td>DHE, ECDHE
+                    <br/>$\quad \Rightarrow$ només variants efímeres DH</td></tr>
+                <tr><td><span style="color:green;">SIGN</span></td><td>RSA, ECDSA
+                    <br/>$\quad \Rightarrow$ desapareix DSA</td></tr>
+                <tr><td><span style="color:red;">CIPHER</span></td><td>AES-128, AES-256, ChaCha20, Camellia, Aria
+                    <br/>$\quad \Rightarrow$ desapareixen 3DES, RC4</td></tr>
+                <tr><td><span style="color:orange;">HASH</span></td><td>SHA-2, Poly1305
+                    <br/>$\quad \Rightarrow$ desapareixen MD5, SHA-1, SHA-2/224</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h3>Confiança</h3>
+            <p>les dades es protegeixen amb <code><span style="color:red;">CIPHER</span>_<span style="color:orange;">HASH</span></code></p>
+            <p>$\downarrow$</p>
+            <p>derivades amb <code><span style="color:blue;">KEA</span></code></p>
+            <p>$\downarrow$</p>
+            <p>autenticats (els secrets) amb amb <code><span style="color:green;">SIGN</span></code></p>
+            <p>$\downarrow$</p>
+            <p>Claus públiques de servidor i client (opcionalment)
+            <br/><a href="pki.html">?</a></p>
         </section>
     </div>
 
