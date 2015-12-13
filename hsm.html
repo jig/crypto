@@ -56,17 +56,10 @@
                     <br />Project hosted at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/jig/crypto" rel="dct:source">github.com/jig/crypto</a></em></small>
             </section>
 
-
-
-
-
-            <section>
-                <h1>RNG</h1>
-            </section>
-
-            <section>
+            <section id="rng">
                 <h1>RNG</h1>
                 <p>o TRNG (<em>True Random Number Generation</em>)</p>
+                <p>parèntesi: RNG en ordinadors tradicionalrs (no HSM)</p>
             </section>
 
             <section>
@@ -79,14 +72,14 @@
                         <p>*) HSM: Hardware Secure Module</p>
             </section>
 
-            <section id="rng">
+            <section>
                 <h3>RNG: acumulació d'aleatorietat</h3>
                 <p>les diverses fonts que farem servir per a generar la seqüència del RNG
                     &mdash;ja sigui d'I/O, o de dispositius hardware especialitzats&mdash;
                     les podem acumular de diferents fonts individuals mitjançant $\oplus$
                 </p>
                 <p>en el cas de que una de les fonts no sigui del tot uniforme, això no empitjora la qualitat final del RNG
-                a condició de que al menys una de elles si que ho sigui</p>
+                    a condició de que al menys una de elles si que ho sigui</p>
             </section>
             <section>
                 <h3>RNG: acumulació d'aleatorietat</h3>
@@ -100,34 +93,24 @@
                 <h3>RNG: entropia</h3>
                 <p>el que podem fer és marcar cada font individual d'aleatorietat amb una <em>entropia</em></p>
                 <ul>
-                <li>per a fonts perfectes tenim 1 bit d'entropia per a cada bit generat</li>
-                <li>per a fonts menys perfectes podem necessitar diversos bits per a generar un bit d'aleatorietat</li>
+                    <li>per a fonts perfectes tenim 1 bit d'entropia per a cada bit generat</li>
+                    <li>per a fonts menys perfectes podem necessitar diversos bits per a generar un bit d'aleatorietat</li>
                 </ul>
             </section>
             <section>
                 <h3>RNG: entropia</h3>
                 <ul>
-                <li>és important "etiquetar" bé les nostres fonts (entropia)</li>
-                <li>hem de reduir els bits rebuts a bits amb entropia 1</li>
-                <li>els bps del RNG (abans i sobretot després de reduir) poden ser pocs (lentitut)</li>
+                    <li>és important "etiquetar" bé les nostres fonts (entropia)</li>
+                    <li>hem de reduir els bits rebuts a bits amb entropia 1</li>
+                    <li>els bps del RNG (abans i sobretot després de reduir) poden ser pocs (lentitut)</li>
                 </ul>
             </section>
             <section>
                 <h3>RNG: fonts</h3>
-                <p>HUI ($\approx 1$ bps després de reducció)</p>
-                <p>latencia disc dur ($\approx 1$ bps després de reducció)</p>
-                <p>Xarxa ($\approx 10$ bps després de reducció)</p>
-                <p>funcions de processador (Intel: 3 Gbps)</p>
-            </section>
-            <section>
-                <h3>RNG: vulnerabilitats</h3>
-                <img data-src="img/random_number.png"/>
-                <p><small>(de <a href="https://xkcd.com/221/">xkcd.com/221</a>)</small></p>
-                <p class="fragment"><a href="https://en.wikipedia.org/wiki/Random_number_generator_attack">Wikipedia: Random number generator attack</a></p>
-                <p class="fragment">Cloud: random... amb poca entropia per poca I/O</p>
-                <p class="fragment">Debian: random... amb poca entropia per errors de codi</p>
-                <p class="fragment">Intel: random... implementació tancada</p>
-                <p class="fragment">PlayStation 3: random... constant</p>
+                <p>HUI ($\ll 1$ kbps després de reducció)</p>
+                <p>latencia disc dur ($\ll 1$ kbps després de reducció)</p>
+                <p>Xarxa ($\approx 1$ kbps després de reducció)</p>
+                <p>funcions de processador (Intel: $\gg$ Mbps)</p>
             </section>
             <section>
                 <h3>RNG: distribució uniforme</h3>
@@ -146,13 +129,214 @@
                 <p>per seqüències prou llargues el nombre de grups ${00, 01, 10, 11}$ tendeix a ser el mateix</p>
                 <p>etc.</p>
                 <p class="fragment">aquests tipus de tests permeten saber que la meva font no té problemes obvis, però no és suficient contra un
-                atacant capaç de modificar convenient el sistema RNG</p>
+                    atacant capaç de modificar convenient el sistema RNG</p>
             </section>
             <section>
                 <h3>RNG: validació</h3>
                 <p>per a què un RNG només es pot considerar segur si sabem com el generem, i el generem de forma segura</p>
             </section>
+            <section>
+                <h3>RNG: vulnerabilitats</h3>
+                <p>la criptografia és segura sempre que les hipòtesis de funcionament es compleixin</p>
+                <p>l'aleatorietat real de la font RNG és una d'elles</p>
+                <p class="fragment"><img data-src="img/random_number.png"/>
+                    <br/><small>(de <a href="https://xkcd.com/221/">xkcd.com/221</a>)</small></p>
+            </section>
 
+            <section>
+                <h3>RNG: dispositius ad-hoc de generació</h3>
+                <p>basats en la mesura de paràmetres físics:</p>
+                <p>soroll tèrmic</p>
+                <p>indeterminació quàntica</p>
+            </section>
+
+            <section>
+                <h3>RNG: soroll tèrmic</h3>
+                <p><img data-src="img/sorolltermic.png" width="480"/></p>
+                <p>una resistència a temperatura ambient, té electrons lliures que es mouen aleatòriament (càrrega negativa)
+                    i podem mesurar-ne el desequilibri momentani amb un conversor Analògic/Digital</p>
+                <p>el conversor donarà una seqüència indefinida de bits aleatoris</p>
+            </section>
+
+            <section>
+                <h3>RNG: soroll tèrmic</h3>
+                <p>el soroll tèrmic és el resultat d'un fenòmen caòtic (no estrictament aleatori)</p>
+                <p>(...)</p>
+            </section>
+
+            <section>
+                <h3>RNG: indeterminació quàntica</h3>
+                <p><img data-src="img/randomquantic.png" width="480"/></p>
+                <p>amb una font (tènue) apuntem a un mirall semireflectant; dos fotodetectors detecten un o l'altre el fotó
+                de forma totalment aleatòria</p>
+            </section>
+
+            <section>
+                <h3>generador random quàntic</h3>
+                <p><img data-src="img/idquantiquerng.png" width="480"/>
+                    <br/><small>(d'<a href="http://www.idquantique.com/random-number-generation/quantis-rng-oem-component/">idquantique.com</a>)</small></p>
+            </section>
+
+            <section>
+                <h3>RNG?</h3>
+                <p>les dues famílies de dispositius generen nombres aleatoris... però no uniformes</p>
+                <ul>
+                    <li>RNG tèrmic: limitat pel BW (oscil·la)</li>
+                    <li>RNG quàntic: limitat per la precisió del mirall (semireflectància del 50,000...%)</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Reducció/condicionament</h3>
+                <p>el flux en cru es processa sempre, típicament:</p>
+                <ul>
+                    <li>es descarten les seqüències de '1' i de '0' i només es genera un random en els canvis</li>
+                    <p><img data-src="img/condicionatrng.png" width="480"/>
+                        <br/>això redueix els bps però "uniformitza" la seqüència
+                    </p>
+                    <li>s'aplica una PRF/PRP sobre el flux anterior (e.g. les CPU's Intel xifren la seqüència amb AES-128 i la clau 0..0)</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>RNG a Linux</h3>
+                <p>a Linux (Ubuntu) tenim dues fonts random:</p>
+                <ul>
+                    <li><code>/dev/random</code>: sortida RNG basada en I/O ($\approx$ bps)</li>
+                    <li><code>/dev/urandom</code>: <em>unblocking random</em>, sortida PRNG enriquida amb <code>/dev/random</code>; ($\approx$ Mbps)</li>
+                </ul>
+                <p>a altres Linux tenim diferents combinacions de <code>/dev/random</code> i amb aleatorietat obtinguda de fonts diferents</p>
+            </section>
+
+            <section>
+                <h3>RNG: vulnerabilitats</h3>
+                <p><a href="https://en.wikipedia.org/wiki/Random_number_generator_attack">Wikipedia: Random number generator attack</a></p>
+                <p class="fragment">Cloud: random... amb poca entropia per poca I/O</p>
+                <p class="fragment">Debian: random... amb poca entropia per errors de codi</p>
+                <p class="fragment">Intel: random... <a href="https://en.wikipedia.org/wiki/RdRand#Reception">implementació tancada</a>
+                    (<a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.473.8078&rep=rep1&type=pdf">...</a>)</p>
+                <p class="fragment">PlayStation 3: random...
+                    <a href="http://www.engadget.com/2010/12/29/hackers-obtain-ps3-private-cryptography-key-due-to-epic-programm/">constant</a></p>
+            </section>
+
+
+
+
+
+
+
+            <section>
+                <h1>HSM</h1>
+                <p><em>(Hardware Secure Module)</em></p>
+            </section>
+
+            <section>
+                <h3>HSM</h3>
+                <p><em>(Hardware Secure Module)</em></p>
+                <p>les funcions d'un HSM són:</p>
+                <ul>
+                    <li>generar claus de qualitat</li>
+                    <li>custodiar-les de forma segura</li>
+                    <li>protegir-les contra ús ilegítim</li>
+                    <li>assegurar-ne l'ús correcte</li>
+                    <li>secundàries: <ul>
+                        <li>velocitat (TPS, acceleració TLS)</li>
+                        <li>volum (quantitat de claus)</li>
+                        <li>portabilitat (mobilitat física)</li>
+                        <li>clau compartida (n/m)</li>
+                    </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Exemples: portabilitat</h3>
+                <p>
+                    <img src="img/dni30xip.png"/>
+                    <br/><small>(font
+                        <a href="http://www.dnielectronico.es/PDFs/Guia_de_Referencia_DNIe_con_NFC.pdf">DGP</a>)
+                    </small>
+                </p>
+            </section>
+
+            <section>
+                <h3>Exemples: portabilitat</h3>
+                <img src="img/yubikey4nano.png"/>
+            </section>
+
+            <section>
+                <h3>Exemples: servidors</h3>
+                <img src="img/pci.jpg"/>
+            </section>
+
+            <section>
+                <h3>Exemples: servei en xarxa</h3>
+                <img src="img/rack-hsm.jpg"/>
+            </section>
+
+            <section>
+                <h3>subsistemes</h3>
+                <p>per a implentar les funcions anteriors cal:</p>
+                <ul>
+                    <li>generador de claus aleatòries (RNG)</li>
+                    <li>ús controlat verificable
+                        <ul>
+                            <li>protecció física (no es pot llegir el sistema de fitxers, o modificar el software
+                                sense fer malbé l'HSM)</li>
+                            <li>protecció software (API amb control d'accés)</li>
+                        </ul>
+                    </li>
+                    <li>àrea d'atac mínima (API "minimalista", fa més improbable els <em>bugs</em> o els <em>security flaws</em>)</li>
+                </ul>
+            </section>
+
+            <section>
+                <img src="img/esquemahsm.png"/>
+            </section>
+
+            <section>
+                <h3>FIPS 140-2</h3>
+                <p>els HSM poden ser certificats segons
+                    <a href="https://web.archive.org/web/20070817151620/http://csrc.nist.gov/publications/fips/fips140-2/fips1402.pdf">FIPS 140-2</a>
+                    <br/>en diferents nivells:
+                </p>
+                <p>aquest estàndar defineix els requeriments de seguretat que han de seguir els HSM (certificats):</p>
+                <p><em>
+                    The security requirements cover areas related to the secure design and implementation of a
+                    cryptographic module. These areas include cryptographic module specification; cryptographic module
+                    ports and interfaces; roles, services, and authentication; finite state model; physical security;
+                    operational environment; cryptographic key management; electromagnetic interference/electromagnetic
+                    compatibility (EMI/EMC); self-tests; design assurance; and mitigation of other attacks.
+                </em></p>
+            </section>
+            <section>
+               <h3>FIPS 140-2</h3>
+                <ul>
+                    <li>FIPS 140-2 <strong>nivell 1</strong>: sense mesures físiques (llibreries); anàlisi lògic i de algorismes</li>
+                    <li>FIPS 140-2 <strong>nivell 2</strong>: nivell 1, i ha de disposar de mesures passives per a detectar l'accés físic (segells, evidències)</li>
+                    <li>FIPS 140-2 <strong>nivell 3</strong>: nivell 2, i ha de disposar de mesures actives per a contrarestar l'accéss físic (zeroització)
+                    i només permet exporta les claus xifrades</li>
+                    <li>FIPS 140-2 <strong>nivell 4</strong>: nivell 3, i ha de disposar de validació formal del funcionament</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>FIPS 140-2</h3>
+                <p>per a gestionar claus d'usuaris per a signatura avançada habitualment es requereix FIPS 140-2 <strong>nivell 2</strong></p>
+                <p>per a autoritats de validació o de segell de temps, habitualment es requereix FIPS 140-2 <strong>nivell 2</strong></p>
+                <p>per a autoritats de certificació habitualment es requereix FIPS 140-2 <strong>nivell 3</strong></p>
+            </section>
+
+            <section>
+                <h3>PKCS #11</h3>
+                <p><a href="https://www.emc.com/emc-plus/rsa-labs/standards-initiatives/pkcs-11-cryptographic-token-interface-standard.htm">PKCS #11</a>
+                    és una especificació de la API dels HSM en llenguatge C (literalment un <code>.h</code>)</p>
+                <p><br/></p>
+                <p>PKCS: <em>Public Key Cryptographic Standard</em>. Estàndards de facto publicats per RSA Labs. Inc. (ara EMC<sup>2</sup>);
+                    actualment la gestió de l'estàndard ha passat a
+                    <a href="https://www.oasis-open.org/committees/documents.php?wg_abbrev=pkcs11">OASIS</a>
+                </p>
+            </section>
         </div>
 
     </div>
