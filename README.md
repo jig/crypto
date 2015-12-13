@@ -12,7 +12,7 @@ Transparències a [jig.github.io/crypto](https://jig.github.io/crypto)
   - [RSA](https://jig.github.io/crypto/rsa.html)
   - [DSA](https://jig.github.io/crypto/dsa.html)
   - *[Criptografia de corba el·líptica](https://jig.github.io/crypto/ecc.html) (per fer)*
-  - *[HSM](https://jig.github.io/crypto/hsm.html) (per fer)*
+  - [HSM](https://jig.github.io/crypto/hsm.html)
   - [Connexions (TLS...)](http://jig.github.io/crypto/tls.html)
   - *[Infraestructura de Clau Pública (PKI)](http://jig.github.io/crypto/pki.html) (per fer)*
   - [Advanced Electronic Signatures (AdES)](http://jig.github.io/crypto/ades.html)
@@ -31,4 +31,3 @@ Exercicis:
 Aquesta obra està subjecta a una llicència de [Reconeixement 4.0 Internacional de Creative Commons](http://creativecommons.org/licenses/by/4.0/)
 
 [![Llicència de Creative Commons](https://i.creativecommons.org/l/by/4.0/88x31.png)](http://creativecommons.org/licenses/by/4.0/)
-
