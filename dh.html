@@ -70,44 +70,32 @@
                 </p>
             </section>
 
-            <section>
-                <section id="dlp">
-                    <h2>DLP</h2>
-                    <h3>(el problema del logaritme discret)</h3>
-                    <p>Tenim un $\mathbb{Z}_{p}^{*}$ ($p$ primer) i seleccionem
-                        <br/>un element <a href="number-theory.html#generator">generador</a> $\alpha\,$
-                        ($\mathbb{Z}_{p}^{*}$ és <a href="number-theory.html#cyclic">cíclic</a>)
-                        <!-- <br>($g^{\phi{(p)}} \equiv 1 \pmod p$)-->
-                    </p>
-                    <br>
-                    <p>Llavors, existeix un $0 \leq x \leq p-2$ únic que compleix per a cada $\beta \in \mathbb{Z}_{p}^{*}$:</p>
-                    <p>$x \equiv \log_{\alpha} \beta \pmod p$</p>
-                    <p class="fragment">(o de forma equivalent: $\beta \equiv \alpha^x \pmod p$)</p>
-                    <p>
-                        ...però és <em>computacionalment difícil</em>* calcular-lo
-                    </p>
-                </section>
-                <section>
-                    <p>He de cobrir tota la mida (ordre) de \mathbb{Z}_{p}^{*}, que és $\phi(p)$, per tant:</p>
-                    <p>\[
-                        \begin{eqnarray}
-                        0 &< x &< \phi(p)-1 \\
-                        0 &< x &< (p-1)-1 \\
-                        0 &< x &< (p-2)
-                        \end{eqnarray}
-                    \]</p>
-                </section>
+            <section id="dlp">
+                <h2>DLP</h2>
+                <h3>(el problema del logaritme discret)</h3>
+                <p>Tenim un $\mathbb{Z}_{p}^{*}$ ($p$ primer) i seleccionem
+                    <br/>un element <a href="number-theory.html#generator">generador</a> $\alpha\,$
+                    ($\mathbb{Z}_{p}^{*}$ és <a href="number-theory.html#cyclic">cíclic</a>)
+                    <!-- <br>($g^{\phi{(p)}} \equiv 1 \pmod p$)-->
+                </p>
+                <br>
+                <p>Llavors, existeix un $0 \leq x < p-1$ únic que compleix per a cada $\beta \in \mathbb{Z}_{p}^{*}$:</p>
+                <p>$x \equiv \log_{\alpha} \beta \pmod p$</p>
+                <p class="fragment">(o de forma equivalent: $\beta \equiv \alpha^x \pmod p$)</p>
+                <p>
+                    ...però és <em>computacionalment difícil</em>* calcular-lo
+                </p>
             </section>
 
             <section>
                 <section id="cdh">
                     <h2>CDH</h2>
                     <h3>(hipòtesi computacional<br>Diffie-Hellman)</h3>
-                    <p>Suposem que tenim un <a href="">grup cíclic</a> sobre un conjunt $\mathbb{Z}_{p}^{*}$
+                    <p>Suposem que tenim un <a href="number-theory.html#cyclic">grup cíclic</a> sobre un conjunt $\mathbb{Z}_{p}^{*}$
                         <br>($p$ primer) amb l'element <a href="number-theory.html#generator">generador</a> $\alpha$
                     </p>
                     <br>
-                    <p>A partir de conèixer $\alpha$, $\alpha^i$ i $\alpha^j$ per a $0 < i,j < (p-2)$
+                    <p>A partir de conèixer $\alpha$, $\alpha^i$ i $\alpha^j$ per a $0 \leq i,j < p-1$
                         <br>llavors el càlcul de $\alpha^{ij}$ és computacionalment difícil...
                     </p>
                     <p class="fragment">...si és que no coneixem "la trampa"</p>
@@ -159,16 +147,75 @@
                     <li>$p$: ha de ser un primer gran en la forma $p=2q+1$ per a
                         <a href="number-theory.html#generator-quantity">facilitar la cerca</a>
                         de generadors $\alpha$</li>
-                    <li>$\alpha$: <a href="">seleccionar</a> un valor aleatori $\alpha \in \mathbb{Z}_{p}^{*}$ que
+                    <li>$\alpha$: <a href="number-theory.html#generator-selection">seleccionar</a> un valor aleatori $\alpha \in \mathbb{Z}_{p}^{*}$ que
                         sigui generador de $\mathbb{Z}_{p}^{*}$</li>
                 </ul>
             </section>
 
-            <section>
+            <section style="text-align: left;">
                 <h3>debilitats $\rightarrow$ contramesures</h3>
+                <p>DH no autentica:</p>
                 <ul>
-                    <li>MITM $\rightarrow$ cal combinar DH amb algún protocol per a autenticar els extrems</li>
+                    <li><span title="Man In The Middle">MITM</span> $\rightarrow$ cal combinar DH amb algún protocol per a autenticar els extrems</li>
                 </ul>
+                <p>
+                    problemes sobre la implementació:
+                    <!-- https://www.eff.org/deeplinks/2015/10/how-to-protect-yourself-from-nsa-attacks-1024-bit-DH -->
+                </p>
+                <ul>
+                    <li><a href="https://weakdh.org/">Logjam attack</a> $\rightarrow$ rèmora de l'<em>export grade</em> crypto: $512$ bit encara en algun
+                        software</li>
+                    <!-- http://dl.acm.org/authorize?N94522 -->
+                    <li>moltes implementacions limiten la longitud de les claus (en el cas de EDH, <em>Ephemeral DH</em>)
+                    a $1024$ bit (Apache, <a href="http://bugs.java.com/bugdatabase/view_bug.do?bug_id=7044060">Java</a>)</li>
+                    <li>hi ha <a href="">sospites</a> que l'NSA és capaç de trencar (sistemàticament?) DH-1024</li>
+                </ul>
+                <!-- <a href="https://weakdh.org/sysadmin.html">Guide to Deploying Diffie-Hellman for TLS</a> -->
+            </section>
+
+            <section id="keysize">
+                <h3>Longitud de clau</h3>
+                <p>els atacs sobre DH són els millors algorismes per a calcular $log_{\alpha}(\alpha^{ij}) \pmod p$</p>
+                <p>el NIST
+                    <a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf">recomana</a>
+                    $\|p\| \geq 2048$ bit fins el 2030
+                    <thead>
+                </p>
+                <table>
+                    <tr>
+                        <td style="text-align: right;">RSA</td>
+                        <td></td>
+                        <td>AES</td>
+                        <td>(bits de seguretat)</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr style="">
+                        <td style="text-align: right;">$1024$</td>
+                        <td>$\leftrightarrow$</td>
+                        <td>$80$</td>
+                        <td>$80$</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;">$2048$</td>
+                        <td>$\leftrightarrow$</td>
+                        <td>$112$</td>
+                        <td>$112$</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;">$3072$</td>
+                        <td>$\leftrightarrow$</td>
+                        <td>$128$</td>
+                        <td>$128$</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;">$15360$</td>
+                        <td>$\leftrightarrow$</td>
+                        <td>$256$</td>
+                        <td>$256$</td>
+                    </tr>
+                    </tbody>
+                </table>
             </section>
         </div>
 
@@ -187,6 +234,7 @@
             progress: true,
             history: true,
             center: true,
+            slideNumber: true,
             // history: false,
             // fragments: true,
             // help: true,

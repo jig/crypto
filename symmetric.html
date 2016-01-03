@@ -140,7 +140,7 @@
             </section>
             <section>
                 <h3>Espai de claus</h3>
-                <p>En criptografia simètrica, farem servir algorismes de xifrat sobre els
+                <p>En <u>criptografia simètrica</u>, farem servir algorismes de xifrat sobre els
                     que el mecanisme més eficient per a un atacant serà provar totes les
                     claus fins trobar la bona</p>
             </section>
@@ -148,26 +148,40 @@
                 <h3>NIST</h3>
                 <p>el <a href="http://csrc.nist.gov/publications/nistpubs/800-57/sp800-57_part1_rev3_general.pdf">NIST</a> recomana (2015)
                     claus que un atacant<br/>hagi de fer $\frac{1}{2} 2^{113}$ proves</p>
-                <p>Més exactament, diu que les claus han de tenir una longitut $\|k\| = 112$ b, mínim</p>
+                <p>Més exactament, diu que les claus han de tenir una longitud $\|k\| = 112$ b, mínim</p>
                 <p class="fragment">A partir del 2030 recomanarà $\|k\| = 128$ b, mínim</p>
                 <p>NIST: <em>National Institute of Standards and Technology</em> (EUA)</p>
+            </section>
+
+            <section>
+                <h3>Quantificació de la Seguretat</h3>
+                <p>el NIST recomana les següents longituds de clau (<em>security strength</em>) pels propers anys</p>
+                <ul>
+                    <li>112 bit: fins 2030; <a href="#triple-des">3DES</a> és suficient</li>
+                    <li>128 bit: a partir del 2030; <a href="#aes">AES-128</a> és suficient</li>
+                </ul>
+                <p>l'amença coneguda que pot modificar el calendari és la
+                    <a href="threats.html#quantum-computing">computació quàntica</a>
+                    $\Rightarrow$ AES-256
+                </p>
             </section>
             <section>
                 <h3>Criptografia simètrica</h3>
                 <p>hi ha dos tipus de xifrat simètric</p>
                 <ul>
-                    <li>Xifrats de flux</li>
-                    <li>Xifrats de bloc</li>
+                    <li><a href="#stream-cipher">Xifrats de flux</a></li>
+                    <li><a href="#block-cipher">Xifrats de bloc</a></li>
                 </ul>
                 <span class="fragment">
-                <p>ambdós els podem veure com una evolució del xifrat de Vigenère:</p>
+                <p>ambdós els podem veure com una evolució del
+                    <br/><a href="symmetric.html#vigenere">xifrat de Vigenère</a>:</p>
                 <ul>
-                    <li>els primers extenent la clau (bloc d'un sol ús)</li>
+                    <li>els primers extenent la clau (<a href="symmetric.html#one-time-pad">bloc d'un sol ús</a>)</li>
                     <li>els segons aplicant-ho vàries vegades (aprox)</li>
                 </ul>
                 </span>
             </section>
-            <section>
+            <section id="stream-cipher">
                 <h1>Xifrat de flux</h1>
             </section>
             <section>
@@ -182,7 +196,7 @@
                 <h3>Xifrat de flux</h3>
                 <p>el que farem és generar $k_{\text{generat}}$...</p>
                 <p>$\|k_{\text{generat}}\| = \|m\|$</p>
-                <p>...a partir d'una clau $k$ de longitut curta:</p>
+                <p>...a partir d'una clau $k$ de longitud curta:</p>
                 <p>$k \overset{f}{\longrightarrow} k_{\text{generat}}$</p>
                 <p class="fragment">per a després fer:<br/>
                     $c = k_{\text{generat}} \oplus m$
@@ -195,7 +209,7 @@
                     xifrar-lo amb <code>XOR</code>:</p>
                 <p>$c = k_{\text{generat}} \oplus m$</p>
                 <p><br/></p>
-                <p>*) PRNG: <em>Pseudo Random Number Generator</em> (or PRG)</p>
+                <p>*) PRNG: <em>Pseudo Random Number Generator</em></p>
             </section>
             <section>
                 <h3>PRNG: velocitat</h3>
@@ -203,7 +217,7 @@
                 <p>(ja que la funció <code>XOR</code> té un cost negligible en<br/>comparació a &ldquo;$\xrightarrow{\text{PRNG}}$&rdquo;)</p>
             </section>
             <section  style="text-align: left;">
-                <h3>PRNG: seguretat</h3>
+                <h3><span title="Pseudo Random Number Generation">PRNG</span>: seguretat</h3>
                 <p>una hipotètica funció PRNG és realment PRNG sii cap atacant pot distingir entre les dues seqüències:</p>
                 <ul>
                 <li>una generada per una font aleatòria "uniforme" (RNG*)</li>
@@ -211,8 +225,8 @@
                 </ul>
                 <p>amb una probabilitat rellevantment diferent a $\frac{1}{2}$</p>
                 <p><br/></p>
-                <p><small>*) RNG: <em>Random Number Generator</em> (o RG) és un sistema que genera una seqüencia de bits no predible
-                sense caldre cap llavor. No pot ser realitzat de forma algorísmica</small></p>
+                <p>*) RNG: <em>Random Number Generator</em> (o <span title="True Random Number Generation">TRNG</span>) és un sistema que genera una seqüencia de bits no predible
+                sense caldre cap llavor; <u>no pot ser realitzat de forma algorísmica</u></p>
             </section>
             <section>
                 <h1>(RNG)</h1>
@@ -249,7 +263,8 @@
                     <li>distribució uniforme</li>
                     <li>després de $n$ no s'ha de poder predir el $n+1$ amb una probabilitat diferent de $\frac{1}{2}$</li>
                 </ul>
-                <p>Òbviament la segona suposant que no és conegui la llavor del PRNG (la clau)</p>
+                <p>Òbviament la segona suposant que no és conegui la
+                    <br/>llavor del PRNG (la clau de xifrat)</p>
             </section>
             <section>
                 <h1>Xifrat de flux</h1>
@@ -317,13 +332,13 @@
                 <ul>
                     <li>RC4 (històric): obsolet</li>
                     <li><a href="http://cr.yp.to/chacha.html">ChaCha</a>: derivat del <a href="http://cr.yp.to/salsa20.html">Salsa20</a> i probablement única alternativa a l'AES en TLS 1.3 (draft)<br/>
-                        <ul><li>$\|k\| = 256 \text{b}$</li><li>$\|\text{nonce}\| = 64 \text{b}$</li></ul>
+                        <ul><li>$\|k\| = 256$ bit</li><li>$\|\text{nonce}\| = 64$ bit</li></ul>
                     </li>
                 </ul>
             </section>
 
 
-            <section>
+            <section id="block-cipher">
                 <h1>Xifrats de bloc</h1>
             </section>
             <section>
@@ -378,7 +393,8 @@
 
             <section>
                 <!-- <p>$f(d)$ no està definit ja que $f$ no asigna un element d'$Y$ per a tots els elements d'$X$</p> -->
-                <p>per tant $f$ no és una funció sobre $X$ (o al menys no és una funció "ben definida" sobre $X$</p>
+                <p>per tant $f$ no és una funció sobre $X$
+                    <br/>(o al menys no és una funció "ben definida" sobre $X$)</p>
             </section>
 
             <section>
@@ -582,20 +598,21 @@
                     f &: X \rightarrow X \\
                     f &: \{0,1\}^n \rightarrow \{0,1\}^n
                     \end{aligned}$</p>
-                <p>si implementem $f$ en una taula amb $2^n$ entrades, ocupem $n·2^n\text{b}$</p>
-                <p class="fragment">on $n$ és la mida del <u>bloc</u> (si tenim missatges més llargs d'$n$ haurem de segmentar-los en blocs. <a href="#mode-of-operation">modes d'operació</a>)</p>
+                <p>si implementem $f$ en una taula amb $2^n$ entrades, ocupem $n·2^n$ bit</p>
+                <p class="fragment">on $n$ és la mida del <u>bloc</u> (si tenim missatges més llargs d'$n$ haurem de segmentar-los en blocs: <a href="#mode-of-operation">modes d'operació</a>)</p>
             </section>
             <section>
                 <h3>Xifrat de bloc: funció aleatoria</h3>
-                <p>aquestes $2^{n}$ entrades (de longitut $n$) les haurem d'escollir de forma aleatòria</p>
+                <p>aquestes $2^{n}$ entrades (de longitud $n$) les haurem d'escollir de forma aleatòria</p>
                 <p>de forma que no podrem conèixer $f(x)$ sense accedir a la taula</p>
                 <p><br/></p>
                 <p>RF: <em>Random Function</em></p>
             </section>
             <section>
                 <h3>Xifrat de bloc: model</h3>
-                <p>per exemple, per <a href="#des">DES</a> que té una mida de bloc d'$n=64\text{ b}$ ens calen, per a cadascun de les $k$:</p>
+                <p>per exemple, per <a href="#des">DES</a> que té una mida de bloc d'$n=64\text{ b}$ ens calen:</p>
                 <p>$64·2^{64} \text{ b} = 2^{70} \text{ b} = 2^{67}\text{ B} = 2^{37}\text{ GB} = 128\text{ EB}$</p>
+                <p>... <span class="fragment">per a cadascuna de les claus $k$</span></p>
                 <p class="fragment">òbviament no és factible implementar els xifrats moderns directament amb una taula indexada</p>
             </section>
 
@@ -621,11 +638,11 @@
                     <br/>permutació pseudoaleatòria</h3>
                 <p>igual que per al xifrat de flux ens calia un flux de bits aparentment aleatoris per a qui no tingues
                     la llavor (la clau)...</p>
-                    <p>...per a xifrat de bloc farem servir permutacions pseudoaleatòries (PRP) en les que la
+                    <p>...per a xifrat de bloc farem servir permutacions pseudoaleatòries (PRP*) en les que la
                     permutació serà aparentment aleatòria per algú que no conegui la clau</p>
                 <span class="fragment">
                     <p>això ens permetrà fer xifrats de bloc factibles, intercanviant una quantitat immensa de memòria
-                    per càlcul</p>
+                    per una computació abordable</p>
                 </span>
                 <p>PRP: <em>Pseudo Random Permutation</em></p>
             </section>
@@ -690,12 +707,12 @@
             <section>
                 <h3>transposiciÓ: seguretat</h3>
                 <p>òbviament són insegurs ja que no només la freqüència dels símbols d'entrada és manté, si no que els
-                    propis símbols es mantenen (tot i que en posicions lleugerament modificades)</p>
+                    propis símbols es mantenen (tot i que en posicions modificades)</p>
             </section>
 
             <section>
                 <h3>substitució polialfabètica</h3>
-                <p>per a un bloc de longitud $t$ elements, el que fem és fer servir $t$ permutacions independents</p>
+                <p>per a un bloc de longitud $t$ elements, el que fem és fer servir $t$ permutacions $p()$ independents</p>
                 <table>
                     <tbody>
                     <tr>
@@ -720,7 +737,7 @@
 
             <section>
                 <h3>substitució polialfabètica: seguretat</h3>
-                <p>com en el cas de Vigenère podem recuperar el text original mitjançant <a href="intro.html#vigenere-frequency-analysis">anàlisi freqüèncial</a></p>
+                <p>com en el cas de Vigenère podem recuperar el text original mitjançant <a href="intro.html#vigenere-frequency-analysis">anàlisi freqüencial</a></p>
             </section>
 
             <section>
@@ -737,28 +754,28 @@
                 <h3>composició de xifrats de bloc: </h3>
                 <p>objectius de la composició:</p>
                 <ul>
-                    <li>substitució: dóna <em>confusió</em>, que permet dificultar la obtenció de la clau a partir
+                    <li><strong>substitució</strong>: dóna <em>confusió</em>, que permet dificultar l'obtenció de la clau a partir
                         del text xifrat</li>
-                    <li>transposició: dóna <em>difusió</em>, que permet difondre les redundàncies del text en clar, de
+                    <li><strong>transposició</strong>: dóna <em>difusió</em>, que permet difondre les redundàncies del text en clar, de
                         forma que no apareguin en el text xifrat</li>
                 </ul>
-                <p>etapes o <em>rounds</em>: les dues funcions s'agrupen en parelles i s'apliquen diferents cops
+                <p><strong>etapes</strong> o <em>rounds</em>: les dues funcions s'agrupen en parelles i s'apliquen diferents cops
                     (amb diferents claus) fins a obtenir un xifrat segur</p>
             </section>
             <section>
                 <h1>AES</h1>
                 <p>Advanced Encryption Standard</p>
             </section>
-            <section>
+            <section id="aes">
                 <h3>AES</h3>
                 <p>AES és un xifrat de bloc amb:</p>
                 <ul>
-                    <li>bloc: 128 bit (16 Byte)</li>
+                    <li>bloc: $128$ bit ($16$ Byte)</li>
                     <li>clau:
                         <ul>
-                            <li>128 bit $\implies$ 10 etapes</li>
-                            <li>192 bit $\implies$ 12 etapes</li>
-                            <li>256 bit $\implies$ 14 etapes</li>
+                            <li>$128$ bit $\implies$ 10 etapes</li>
+                            <li>$192$ bit $\implies$ 12 etapes</li>
+                            <li>$256$ bit $\implies$ 14 etapes</li>
                         </ul>
                     </li>
                 </ul>
@@ -766,7 +783,7 @@
             <section>
                 <section>
                     <h3>AES</h3>
-                    <p>cadascuna de les 10|12|14 etapes es compsa de</p>
+                    <p>cadascuna de les 10|12|14 etapes es composa de</p>
                     <ul>
                         <li><code>SubBytes</code>: substitució de bytes en funció d'una taula fixa de 256 entrades</li>
                         <li><code>ShiftRows</code>: transposició de bytes fixa</li>
@@ -809,7 +826,7 @@
                 <h3>AES: vulnerabilitats</h3>
                 <span class="fragment">
                     <p>...l'estadística del missatge en clar apareix a al text xifrat igual que en el xifrat del Cèsar (!)</p>
-                    <p>ara els blocs són de 16 B, no d'1 B per tant l'estadística és menys important ($|\text{bloc}|=2^{128}$), però seqüències constants
+                    <p>ara els blocs són de $16$ B, no d'$1$ B per tant l'estadística és menys important ($|\text{bloc}|=2^{128}$), però seqüències constants
                     (per exemple, com les d'imatges bitmap) es poden donar blocs sencers idèntics
                     </p>
                 </span>
@@ -826,20 +843,43 @@
                 <p>aquesta "vulnerabilitat" és una propietat de tots els xifrats de bloc</p>
                 <p>la contramesura és per tots la mateixa: no xifrar mai bloc a bloc, cal acumular part del xifrat anterior
                 en el bloc actual</p>
-                <p>aquest encadenament se'n diu "modes d'operació" (i no és opcional)</p>
+                <p>aquest encadenament se'n diu <a href="#mode-of-operation">modes d'operació</a>
+                    <br/>(i no és opcional)</p>
                 <p class="fragment">els modes d'operació són aplicables a tots els xifrats de bloc</p>
             </section>
 
             <section id="mode-of-operation">
-                <h3>Modes d'operació</h3>
-                <p>si acumulem estat durant el xifrat, podem fer servir aquest estat sobre el xifrat del següent bloc</p>
-                <ul>
-                    <li>ECB: <em>Electronic Code-Book</em>, <ul><li>no-op</li></ul></li>
-                    <li>CBC: <em>Cipher Block Chaining</em><ul><li>el bloc $i-1$ s'aplica $\oplus$ sobre el bloc en clar $i$</li></ul></li>
-                    <li>OFB: <em>Output Feedback</em><ul><li>xifres el xifrat anterior, i el resultat $\oplus$ del missatge en clar</li></ul></li>
-                    <li>CTR: <em>Counter</em><ul><li>xifres un comptador, i el resultat $\oplus$ del missatge en clar</li></ul></li>
-                    <!--<li>GCM: <em>Galois Counter Mode</em><ul><li></li></ul></li>-->
-                </ul>
+                <section>
+                    <h3>Modes d'operació</h3>
+                    <p>si acumulem estat durant el xifrat, podem fer servir aquest estat sobre el xifrat del següent bloc</p>
+                    <ul>
+                        <li>ECB: <em>Electronic Code-Book</em>, <ul><li>no-op</li></ul></li>
+                        <li>CBC: <em>Cipher Block Chaining</em><ul><li>el bloc $i-1$ s'aplica $\oplus$ sobre el bloc en clar $i$</li></ul></li>
+                        <li>OFB: <em>Output Feedback</em><ul><li>xifres el xifrat anterior, i el resultat $\oplus$ del missatge en clar</li></ul></li>
+                        <li>CTR: <em>Counter</em><ul><li>xifres un comptador, i el resultat $\oplus$ del missatge en clar</li></ul></li>
+                        <!--<li>GCM: <em>Galois Counter Mode</em><ul><li></li></ul></li>-->
+                    </ul>
+                </section>
+                <section>
+                    <p>ECB: <em>Electronic Code-Book</em></p>
+                    <img src="img/ECB_encryption.svg"/>
+                    <p><small>(font <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation">Wikipedia</a>)</small></p>
+                </section>
+                <section>
+                    <p>CBC: <em>Cipher Block Chaining</em></p>
+                    <img src="img/CBC_encryption.svg"/>
+                    <p><small>(font <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation">Wikipedia</a>)</small></p>
+                </section>
+                <section>
+                    <p>OFB: <em>Output Feedback</em></p>
+                    <img src="img/OFB_encryption.svg"/>
+                    <p><small>(font <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation">Wikipedia</a>)</small></p>
+                </section>
+                <section>
+                    <p>CTR: <em>Counter</em></p>
+                    <img src="img/CTR_encryption.svg"/>
+                    <p><small>(font <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation">Wikipedia</a>)</small></p>
+                </section>
             </section>
             <section style="text-align: left;">
                 <h3>Vector d'inicialització (IV)</h3>
@@ -850,15 +890,21 @@
                 <li>IV en OFB: és el bloc que es xifrat, constantment $e(e(e(\cdots e(\text{IV}))))$ i aplicat sobre els blocs en clar</li>
                 <li>IV en CTR: és el valor inicial del comptador, que és xifra ECB, i el resultat és $\oplus$ al bloc $i$</li>
                 </ul>
-                <!-- <p>Nota: </p> -->
+                <p class="fragment">AES_128_CTR és efectivament un <u>xifrat de flux</u> fent servir AES_128_CTR com a PRNG (sent
+                    $k$ la llavor, i l'$IV$ el <em>nonce</em>)</p>
             </section>
 
             <section>
                 <h3>Modes d'operació amb autenticació</h3>
-                <p>Actualment apareixen modes d'operació que a més a més ofereixen <a href="#mac">MAC</a>
+                <p>AEAD: <em>Authenticated Encryption with Associated Data</em></p>
+                <p>actualment apareixen modes d'operació que a més a més ofereixen <a href="#mac">MAC</a>
                 aconseguint un rendiment superior a fer servir xifrat + MAC (només lleugerament inferiors al xifrat sol)</p>
-                <p>un dels més habituals ara és el GCM (<em>Galois Counter Mode</em>) que és similar al CTR però simultanejant
-                    el càlcul d'un MAC (<em>Message Authentication Code</em>)</p>
+                <p>els dos exemples més usats i recomanats en l'actualitat són:</p>
+                <ul>
+                    <li>CCM ò <em>Counter with <a href="mac.html#cbc">CBC-MAC</a></em>, és la combinació d'AES-CTR amb un CBC-MAC</li>
+                    <li>GCM ò <em>Galois Counter Mode</em>, també una combinació d'AES-CTR però ara amb amb una multiplicació
+                    modular; permet velocitats superiors a CCM</li>
+                </ul>
             </section>
 
             <section>
@@ -883,9 +929,9 @@
                     <li>AES-256: 0,7 Gbps (seguretat 256 bit)</li>
                     <li>Salsa20: 3,2 Gbps (seguretat 256 bit)</li>
                     <li>ChaCha20: 3,2 Gbps (seguretat 256 bit)</li>
-                    <li class="fragment">AES "hardware": ~8 vegades més ràpid (Intel, 2011)</li>
                     <li class="fragment">DES: 250 Mbps (seguretat 56 bit)</li>
                     <li class="fragment">3DES: 100 Mbps (seguretat 112 bit)</li>
+                    <li class="fragment">AES "hardware": ~8 vegades més ràpid (Intel, 2011)</li>
                 </ul>
                 <p><small>bps: bits per segon</small></p>
             </section>
@@ -906,7 +952,7 @@
                 <p>AES porta des del 2000 públic: això implica un escrutini públic o secret sever</p>
                 <p class="fragment">segons els "papers d'Edward <a href="http://www.cjfe.org/snowden">Snowden</a>"
                     l'NSA està estudiant-ne les vulnerabilitats (de forma secreta)</p>
-                <p class="fragment">altres "grans" organitzacions és altament improvable que no hi dediquin
+                <p class="fragment">altres "grans" organitzacions és altament improbable que no hi dediquin
                     recursos importants</p>
             </section>
 
@@ -914,9 +960,9 @@
                 <h3>AES: més vulnerabilitats</h3>
                 <p>algorismes quàntics</p>
                 <p>amb l'algorisme de <a href="https://en.wikipedia.org/wiki/Grover%27s_algorithm">Grover</a>
-                    les cerques en bases de dades (no ordenades) tenen complexitat $O(\sqrt{n})$</p>
+                    les cerques en bases de dades (no ordenades) tenen complexitat $O(a^{\sqrt{n}})$</p>
                 <p>(en lloc de la possible amb
-                    <br/> algorismes de computació clàssica, $O(n)$)</p>
+                    <br/> algorismes de computació clàssica, $O(a^n)$)</p>
                 <p>(després es va demostrar que
                     <br/> l'algorisme de Grover és òptim)</p>
             </section>
@@ -926,8 +972,8 @@
                 <p>els computadors quàntics actuals no tenen aplicació pràctica (al menys els que coneixem)</p>
                 <p>es creu no hi haurà computació quàntica pràctica abans del ~2030</p>
                 <span class="fragment">
-                    <p>però per ser robustos a l'algorisme de Grover, només hem de <u>doblar</u> la longitut de claus,
-                        per exemple passar a AES-256 que donaria una fortaleza equivalent a 128 bits</p>
+                    <p>però per ser robustos a l'algorisme de Grover, només hem de <u>doblar</u> la longitud de claus,
+                        per exemple passar a AES-256 que donaria una fortalesa equivalent a 128 bits</p>
                     <p>(per tant, es considera que la criptografia simétrica és robusta en front de la computació quàntica...)</p>
                 </span>
             </section>
@@ -940,19 +986,21 @@
             <section>
                 <h3>DES</h3>
                 <ul>
-                    <li>bloc: 64 bit (8 Byte)</li>
-                    <li>clau: 56 bit (7 Byte)</li>
+                    <li>bloc: $64$ bit ($8$ Byte)</li>
+                    <li>clau: $56$ bit ($7$ Byte)</li>
                 </ul>
                 <p>16 etapes</p>
-                <p class="">insegur, vulnerable a atacs de <a href="https://en.wikipedia.org/wiki/EFF_DES_cracker">força bruta</a></p>
+                <p class="fragment">insegur, vulnerable a atacs de
+                    <a href="https://en.wikipedia.org/wiki/EFF_DES_cracker">força bruta</a>
+                </p>
             </section>
 
-            <section>
-                <h3>3DES / Triple-DES</h3>
+            <section id="triple-des">
+                <h3>3DES / <span style="text-transform:none;">Triple</span>-DES / TDES</h3>
                 <p>El xifrat és $c = e(k_1, d(k_2, e(k_1, m)))$</p>
                 <ul>
-                    <li>bloc: 64 bit (8 Byte)</li>
-                    <li>clau: 112 bit (14 Byte, i.e. $k=k_1|k_2$)</li>
+                    <li>bloc: $64$ bit ($8$ Byte)</li>
+                    <li>clau: $112$ bit ($14$ Byte, i.e. $k=k_1|k_2$)</li>
                 </ul>
                 <p class="fragment">per què no doble-DES? o per què no $k=k_1|k_2|k_3$?</p>
                 <p class="fragment">atacs <em>Meet in the Middle</em></p>
@@ -1019,8 +1067,8 @@
             // fragments: true,
             // help: true,
             // previewLinks: false,
-            width: 1024,
-            height: 768,
+            width: 1280,
+            height: 720,
 
             transition: 'slide', // none/fade/slide/convex/concave/zoom
             math: {

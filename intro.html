@@ -232,7 +232,7 @@
                 <p>sempre hem de suposar que un atacant coneix $d(\circ,\circ)$</p>
                 <p>la única cosa que no pot conèixer és la clau $k$</p>
             </section>
-            <section>
+            <section data-background="#FF8888">
                 <h3>Seguretat del xifrat del César</h3>
                 <p>suposem que podem fer una <em>operació</em> de desxifrat i la validació en un "tic" de rellotge d'una
                 CPU actual<br/>(CLK = 1 GHz)</p>
@@ -287,7 +287,7 @@
                 <p>què podem fer si tenim accés al text xifrat <code data-trim>ELIXJLK</code>?</p>
                 <br/>
                 <p>$0 < k < 26 \implies $ podem fer un atac de <em>força bruta</em></p>
-                <p style="color:#585">si el missatge és prou llarg, podem analitzar la <em>freqüencia</em> d'aparició dels caràcters</p>
+                <p style="color:#585">si el missatge és prou llarg, podem analitzar la <em>freqüència</em> d'aparició dels caràcters</p>
             </section>
             <section>
                 <h3>Anàlisi de freqüència</h3>
@@ -309,7 +309,7 @@
                 <br/>
                 <p>l'estadística es manté per diferents texts</p>
                 <p class="fragment">l'estadística es manté inalterada després del xifrat!</p>
-                <p class="fragment">podem aprofitar que l'estadistica es manté,<br/>per a trovar la clau $k$</p>
+                <p class="fragment">podem aprofitar que l'estadistica es manté,<br/>per a trobar la clau $k$</p>
             </section>
 
             <section>
@@ -354,19 +354,19 @@
 
             <section id="vigenere-frequency-analysis">
                 <h3>Vigenère: Anàlisi freqüencial</h3>
-                <p>Si segmentem el text xifrat d'acord a la longitut de la contrasenya, cada fragment de text
+                <p>Si segmentem el text xifrat d'acord a la longitud de la contrasenya, cada fragment de text
                 mostrarà les mateixes estadístiques de l'idioma...</p>
                 <p>només cal saber la longitud de la "contrasenya" o...</p>
-                <p>...com que l'"espai de longituts" serà probablement
+                <p>...com que l'"espai de longituds" serà probablement
                 limitat, podem provar-los un per un fins que tenim una estadística reconeixible</p>
                 <p class="fragment">
                     <u>amb un espai de claus gran no n'hi ha prou</u>
                 </p>
             </section>
 
-            <section>
+            <section id="perfect-secrecy">
                 <h2>Confidencialitat perfecte</h2>
-                <!-- en general, seguretat incondicional -->
+                <p>en general, <em>seguretat incondicional</em></p>
             </section>
 
             <section>
@@ -378,12 +378,12 @@
                 </p>
                 <br/>
                 <br/>
-                <p class="fragment">*) a part de la longitut</p>
+                <p class="fragment">*) a part de la longitud</p>
                 <p class="fragment">*) a part del moment d'enviar-ho</p>
                 <p class="fragment">*) a part de la latència en respondre</p>
             </section>
 
-            <section id="perfect-secrecy">
+            <section>
                 <h3>és factible la confidencialitat perfecte?</h3>
                 <p class="fragment">sí,
                     <br/>i va ser inventada i patentada per Vernam el 1917
@@ -402,7 +402,7 @@
                 com el missatge<span class="fragment"> i no coneguda per l'atacant (aleatòria)</span></p>
             </section>
 
-            <section>
+            <section id="one-time-pad">
                 <h3>Bloc d'un sol ús: xifrat</h3>
                 <p>Vernam va definir el <em>one-time-pad</em> d'una manera similar (però equivalent)</p>
                 <p>La funció de xifrat $c = e(k, m)$ s'implementa:</p>
@@ -429,7 +429,9 @@
             </section>
             <section  style="text-align: left;">
                 <h3>Bloc d'un sol ús: desxifrat</h3>
-                <code data-trim class="fragment">
+                <code data-trim>
+                    k = <em>...cal obtenir-la o generar-la</em><br/>
+                    assertEqual(len(m1), len(k))<br/>
                     c = xor(k,m1)<br/>
                     m2 = xor(k,c)<br/>
                     assertEqual(m1,m2)
@@ -483,7 +485,8 @@
                     & \quad \vdots
                     \end{aligned}
                     $</p>
-                <p>cada clau aplicada a $c_i$ em donarà tots els missatges possibles d'$\|m\|$ bits ($\|m\| = \|k\|$ combinacions)</p>
+                <p>cada clau aplicada a $c_i$ em donarà tots els missatges possibles d'$\|m\|$ bits
+                    <br/>($\|m\| = \|k\|$ combinacions)</p>
                 <span class="fragment">
                     <p>un atacant no pot aprendre res a partir de $c_i$</p>
                     <p>$\Downarrow$</p>
@@ -572,8 +575,8 @@
             // fragments: true,
             // help: true,
             // previewLinks: false,
-            width: 1024,
-            height: 768,
+            width: 1280,
+            height: 720,
 
             transition: 'slide', // none/fade/slide/convex/concave/zoom
             // transition: 'none', // cal none

@@ -129,7 +129,7 @@
                 <p>segons el <a href="x-teoria-de-nombres.html#euler">teorema d'Euler</a>:</p>
                 <p>$m^{\phi(n)} \equiv 1 \pmod n$</p>
                 <br>
-                <div class="fragment"></p><p>${m^{\phi(n)}}^t \equiv 1 \pmod n$</p></div>
+                <div class="fragment"></p><p>$(m^{\phi(n)})^t \equiv 1 \pmod n$</p></div>
                 <div class="fragment"><p>$m^{t \phi(n)} \equiv 1 \pmod n$</p></div>
                 <div class="fragment"><p>$m^{t \phi(n)}m \equiv m \pmod n$</p></div>
                 <div class="fragment"><p>$m^{t \phi(n)+1} \equiv m \pmod n$</p></div>
@@ -218,7 +218,7 @@
                 <li>escull aleatòriament dos nombres primers $p_\text{u}$ i $q_\text{u}$ prou
                     grans* i prou diferents** </li>
                 <li>calcula $\phi(n_\text{u}) = (p_\text{u}-1)(q_\text{u}-1)$ </li>
-                <li>calcula $d_\text{u} = e^{-1} \pmod{\phi(n_\text{u})}$ </li>
+                <li>calcula $d_\text{u} = e^{-1} \bmod{\phi(n_\text{u})}$ </li>
                 </ol>
 
                 <br>
@@ -242,16 +242,83 @@
                 <p>$m = c^{e} \pmod{n_\text{u}}$</p>
             </section>
             <section>
-            <h3>debilitats $\rightarrow$ contramesures</h3>
+				<h3>debilitats $\rightarrow$ contramesures</h3>
+                <p>sobre l'algorisme:</p>
                 <ul>
-                    <li>Propietats de l'exponenciació $\rightarrow$ PKCS #1</li>
-                    <li>Casos especials sobre$\pmod{n}$ $\rightarrow$ PKCS #1</li>
+                    <li>Propietats de l'exponenciació $\rightarrow$ <a href="#pkcs1">PKCS #1</a></li>
+                    <li>Casos especials sobre $\pmod{n}$ $\rightarrow$ PKCS #1</li>
+					<li>Factorització d'$n$ $\rightarrow$ <a href="#keysize">longitud</a> suficient d'$n$</li>
+                </ul>
+                <p>sobre la implementació:</p>
+                <ul>
                     <li>Atacs de temps $\rightarrow$ randomització en l'execució</li>
+                    <li>Atacs sobre el consum, la radiació, etc.</li>
+                    <li>compromís de clau: accés software o físic al sistema</li>
+                    <li>qualitat dels nombres aleatoris (e.g. $\text{gcd}$ sobre servidors web)</li>
+					<li>a futur: <a href="post-crypto.html">cripto quàntica</a></li>
+                    <li>...</li>
                 </ul>
             </section>
-            <section>
+
+            <section id="pkcs1">
                 <h3>PKCS #1</h3>
-                <p>...TBD...</p>
+                <p>Per <strong>xifrat</strong>: <em>Optimal asymmetric encryption padding</em>
+                    (<a href="">OAEP</a>)
+                    <br/>barreja un nombre aleatori en la signatura,
+                    de manera que dos xifrats de mateix valor són diferents
+                    <br/>(algorisme determinista $\rightarrow$ algorisme probabilístic)</p>
+                <p>Per <strong>signatura</strong>: <em>Probabilistic Signature Scheme</em>
+                    (<a href="http://www.emc.com/emc-plus/rsa-labs/historical/raising-standard-rsa-signatures-rsa-pss.htm">PSS</a>)
+                    <br/>no signem directament el missatge si no que signem el hash, al qual afegim un random
+                    (<em>salt</em>) i un farciment (<em>padding</em>) fins la longitud $n$
+                    <br/>(algorisme determinista $\rightarrow$ algorisme probabilístic)</p>
+            </section>
+
+            <section id="keysize">
+                <h3>Longitud de clau</h3>
+                <p>els atacs sobre RSA són els millors algorismes per a factoritzars $n$</p>
+				<p>el major $n$ factoritzat és de $768$ bit $\Rightarrow$ <a href="https://en.wikipedia.org/wiki/RSA_numbers#RSA-768">Desafiament RSA-768</a> (2000 anys/CPU)
+				<p>
+				<p>el NIST 
+					<a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf">recomana</a> 
+					$\|n\| \geq 2048$ bit fins el 2030
+                    <thead>
+				</p>
+				<table>
+                        <tr>
+                            <td style="text-align: right;">RSA</td>
+							<td></td>
+                            <td>AES</td>
+							<td>(bits de seguretat)</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="">
+                            <td style="text-align: right;">$1024$</td>
+							<td>$\leftrightarrow$</td>
+                            <td>$80$</td>
+                            <td>$80$</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;">$2048$</td>
+							<td>$\leftrightarrow$</td>
+                            <td>$112$</td>
+                            <td>$112$</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;">$3072$</td>
+							<td>$\leftrightarrow$</td>
+                            <td>$128$</td>
+                            <td>$128$</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;">$15360$</td>
+							<td>$\leftrightarrow$</td>
+                            <td>$256$</td>
+                            <td>$256$</td>
+                        </tr>
+                    </tbody>
+                </table>
             </section>
         </div>
 
@@ -275,6 +342,7 @@
             progress: true,
             history: true,
             center: true,
+            slideNumber: true,
             // history: false,
             // fragments: true,
             // help: true,

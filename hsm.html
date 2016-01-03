@@ -56,6 +56,10 @@
                     <br />Project hosted at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/jig/crypto" rel="dct:source">github.com/jig/crypto</a></em></small>
             </section>
 
+
+            <!-- TRNG TRNG TRNG TRNG TRNG TRNG TRNG TRNG TRNG TRNG TRNG -->
+
+
             <section id="rng">
                 <h1>RNG</h1>
                 <p>o TRNG (<em>True Random Number Generation</em>)</p>
@@ -181,7 +185,7 @@
                 <h3>RNG?</h3>
                 <p>les dues famílies de dispositius generen nombres aleatoris... però no uniformes</p>
                 <ul>
-                    <li>RNG tèrmic: limitat pel BW (oscil·la)</li>
+                    <li>RNG tèrmic: limitat per l'amplada de banda (senyal)</li>
                     <li>RNG quàntic: limitat per la precisió del mirall (semireflectància del 50,000...%)</li>
                 </ul>
             </section>
@@ -220,9 +224,7 @@
             </section>
 
 
-
-
-
+            <!-- HSM  HSM  HSM  HSM  HSM  HSM  HSM  HSM  HSM  HSM  HSM -->
 
 
             <section>
@@ -261,22 +263,27 @@
 
             <section>
                 <h3>Exemples: portabilitat</h3>
-                <img src="img/yubikey4nano.png"/>
+                <img src="img/jig-yubikey4nano.png"/>
             </section>
 
             <section>
                 <h3>Exemples: servidors</h3>
-                <img src="img/pci.jpg"/>
+                <img src="img/ncipher-pci.png"/>
             </section>
 
             <section>
                 <h3>Exemples: servei en xarxa</h3>
-                <img src="img/rack-hsm.jpg"/>
+                <img src="img/ncipher-xarxa.png"/>
+            </section>
+
+            <section>
+                <h3>Exemples: servei en xarxa</h3>
+                <img src="img/safenet.png"/>
             </section>
 
             <section>
                 <h3>subsistemes</h3>
-                <p>per a implentar les funcions anteriors cal:</p>
+                <p>per a implementar les funcions anteriors cal:</p>
                 <ul>
                     <li>generador de claus aleatòries (RNG)</li>
                     <li>ús controlat verificable
@@ -337,6 +344,74 @@
                     <a href="https://www.oasis-open.org/committees/documents.php?wg_abbrev=pkcs11">OASIS</a>
                 </p>
             </section>
+
+            <section data-background="#FF8888">
+                <h3>PKCS#11: operacions</h3>
+                <ul>
+                    <li>login, gestió de sessió</li>
+                    <li>generació de claus simètriques/asimètriques</li>
+                    <li>xifrat/desxifrat simètric</li>
+                    <li>signat/verificat simètric</li>
+                    <li>desxifrat/signat asimètric</li>
+                    <li>operacions per a acord de claus (TLS)</li>
+                    <li>RNG</li>
+                    <li>des/ensobrat de claus (<em>key un/wrap</em>)</li>
+                    <li>gestió d'objectes</li>
+                </ul>
+            </section>
+
+            <!-- Shamir Shamir Shamir Shamir -->
+
+            <section>
+                <h3>Partició de Secrets</h3>
+                <p>en claus importants (e.g. d'una CA arrel) un HSM pot no ser suficient (i si el roben?)</p>
+                <p>en aquests casos podem dividir la clau en trossos:</p>
+                <ul>
+                    <li>dividir la cadena de bits en trossos $\Rightarrow$ disminueix la seguretat</li>
+                    <li>$\oplus$ entre les claus $\Rightarrow$
+                        <a href="intro.html#perfect-secrecy" title="confidencialitat perfecte">segur incondicionalment</a>,
+                        però fràgil</li>
+                    <li>algorisme de Shamir $\Rightarrow$
+                        <a href="intro.html#perfect-secrecy" title="confidencialitat perfecte">segur incondicionalment</a>,
+                        i robust</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Partició de secrets</h3>
+                <p>ho podem fer "per software"?</p>
+                <span class="fragment">
+                <p>sí, però el secret ha estat "en clar" en la RAM de l'ordinador per tant un cop recuperat
+                el secret la seva exposició ha augmentat notablement</p>
+                <p>però en HSM és una propietat habitual</p>
+                </span>
+            </section>
+
+            <section>
+                <h3>Algorisme de Shamir</h3>
+                <p><img src="img/shamir-secret-sharing.png"/>
+                <br/>permet dividir el secret en $M$ trossos, dels quals en calen $N$ per a recuperar-lo</p>
+            </section>
+
+            <section>
+                <h3>Algorisme de Shamir</h3>
+                <p>definit sobre $\mathbb{Z_p}$ (no sobre $\mathbb{R}$ com al dibuix anterior)</p>
+                <p>si en lloc de fer servir una recta (polinomi de grau $1$),
+                    fem servir un polinomi de grau $M-1$ podem ajustar quants trossos
+                    cal recuperar ($M$)</p>
+                <p>podem fer-ne tants trossos ($N$) com calgui ($N | N\leq M$)</p>
+            </section>
+            <section>
+                <h3>Algorisme de Shamir</h3>
+                <ul>
+                <li>és robust: si no perdem més d'$M-N-1$ fragments, podrem recuperar el secret</li>
+                <li>és segur: cal robar/extorquir/pressionar/... $N$ participants per a obtenir el secret</li>
+                <li class="fragment">és segur: sobre $\mathbb{Z_p}$
+                    és <a href="intro.html#perfect-secrecy">incondicionalment segura</a></li>
+                <li class="fragment">és segur: a condició que es compleixi la hipòtesi que l'HSM és impenetrable</li>
+                </ul>
+            </section>
+
         </div>
 
     </div>

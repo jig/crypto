@@ -58,7 +58,7 @@
 
             <section>
                 <h3>Funció de hash: objectius</h3>
-                <p>resumeix una cadena de longitut arbitrària $m$,<br/> a un valor de mida fixa $r$ (el resum):</p>
+                <p>resumeix una cadena de longitud arbitrària $m$,<br/> a un valor de mida fixa $r$ (el resum):</p>
                 <p>$r = h(m)$</p>
                 <p>addicionalment, cal que la funció dongui resums diferents per missatges diferents...</p>
             </section>
@@ -75,7 +75,7 @@
                         \|r\| & = 256\text{b} \Rightarrow |r| = 2^{256}\text{b} \\
                         \|m\| & \approx 10^6\text{B} \Rightarrow |m| = 2^{2^{23}}\text{b}
                     \end{aligned}
-                    \right\} \frac{|m|}{|r|} = \frac{2^{2^{23}}}{2^{256}} = 2^{2^{23}}-2^{256} \approx 2^{8·10^6}$
+                    \right\} \frac{|m|}{|r|} = \frac{2^{2^{23}}}{2^{256}} = 2^{2^{23}-256} \approx 2^{8·10^6}$
                 </p>
             </section>
 
@@ -94,9 +94,10 @@
             <section>
                 <h3>Problema de l'aniversari</h3>
                 <p>(<em>Birthday paradox</em>)</p>
-                <p>hi ha un atac millor que l'anterior de força bruta, que deriva de la paradoxa de l'aniversari: si
-                    tenim un grup de 23 persones, la probabilitat de tenir un parell amb la mateixa data d'aniversari
-                    és del 50%</p>
+                <p>hi ha un atac millor que l'anterior de força bruta, que deriva de
+                    <br/>la paradoxa de l'aniversari:</p>
+                    <p><em>&ldquo;si tenim un grup de 23 persones, la probabilitat de tenir un parell amb la mateixa data d'aniversari
+                    és del 50%&rdquo;</em></p>
                 <p>només cal un grup de 70 persones per a que la probabilitat augmenti al 99%</p>
                 <p class="fragment">en general, $p=0,5$ si el nombre d'experiments és $x \approx 1,25 \sqrt{\text{elements}}$</p>
             </section>
@@ -108,16 +109,17 @@
                     a les $\sqrt{|r|}$ operacions</p>
                 <p>e.g per a $\|r\| = 256\text{b}$ això són $2^{128}$ operacions</p>
                 <p class="fragment">això implica que per a un hash cal resums del doble de llargs que les claus</p>
+                <p class="fragment">(la <em>security strength</em> d'una funció de hash de longitud $n$ és $n/2$)</p>
             </section>
 
             <section>
                 <h3>exemples</h3>
                 <p>els hashos recomenats en l'actualitat són els SHA-2 i el SHA-3</p>
                 <ul>
-                    <li>SHA-2: longituts de 256 b i 512 b (amb variants truncades de 224 b i 384 b)</li>
-                    <li>SHA-3: longituts entre 224 b a 512 b</li>
+                    <li>SHA-2: longituds de $256$ b i $512$ b (amb variants truncades de $224$ b i $384$ b)</li>
+                    <li>SHA-3: longituds entre $224$ b a $512$ b</li>
                 </ul>
-                <p>longituds aproximadament el doble que les longituds de claus que les claus de l'AES (128, 192, 256)</p>
+                <p>longituds aproximadament el doble que les longituds de claus que les claus de l'AES ($128$ b, $192$ b, $256$ b)</p>
             </section>
 
             <section>
@@ -197,12 +199,13 @@
             progress: true,
             history: true,
             center: true,
+            slideNumber: true,
             // history: false,
             // fragments: true,
             // help: true,
             // previewLinks: false,
-            width: 1024,
-            height: 768,
+            width: 1280,
+            height: 720,
 
             transition: 'slide', // none/fade/slide/convex/concave/zoom
             math: {

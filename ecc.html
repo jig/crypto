@@ -56,6 +56,219 @@
 
                     <br />Project hosted at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/jig/crypto" rel="dct:source">github.com/jig/crypto</a></em></small>
             </section>
+
+            <section>
+                <h3>Corba el·líptica</h3>
+                <p>en lloc de fer servir un <em>grup (finit) sobre la multiplicació</em> ($\mathbb{Z}_p^*$) com a DH o DSA,
+                    farem servir un
+                    <em>cos (finit)</em>
+                    ($\mathbb{F}_p$ ò $\mathbb{F}_{2^m}$)
+                </p>
+                <p>si un camp, era un conjunt amb una funció definida ($+$ ò $\times$)
+                    <br/>un cos és un conjunt que té</p>
+                <ul>
+                    <li>les dues funcions definides ($+$ i $\times$)</li>
+                    <li>té l'element nul (sobre $+$)</li>
+                    <li>té l'element identitat (sobre $\times$)</li>
+                    <li>així com la inversa definida (í única) per a tots els elements no nuls</li>
+                </ul>
+                <p>a aquesta variació l'anomenarem ECDH i ECDSA</p>
+                <p></p>
+            </section>
+
+            <section id="keysize">
+                <h3>Longitud de clau</h3>
+                <p>la dificultat de fer un logaritme de la clau pública $n$ és $O(\sqrt{n})$, per tant el nivell de seguretat en bits
+                és la meitat</p>
+                <p>el NIST
+                    <a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf">recomana</a>
+                    $\|p\|$ i $\|q\| \geq 224$ bit fins el 2030
+                    <thead>
+                </p>
+                <table>
+                    <tr>
+                        <td style="text-align: right;">ECDSA $p$; $q$</td>
+                        <td style="text-align: right; color: grey;">DSA $p$; $q$</td>
+                        <td style="text-align: right; color: grey;">RSA $n$</td>
+                        <td></td>
+                        <td>(bits de seguretat)</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td style="text-align: right;">$224$</td>
+                        <td style="text-align: right; color: grey;">$2048$; $224$</td>
+                        <td style="text-align: right; color: grey;">$2048$</td>
+                        <td>$\leftrightarrow$</td>
+                        <td>$112$</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;">$256$</td>
+                        <td style="text-align: right; color: grey;">$3072$; $256$</td>
+                        <td style="text-align: right; color: grey;">$3072$</td>
+                        <td>$\leftrightarrow$</td>
+                        <td>$128$</td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: right;">$512$</td>
+                        <td style="text-align: right; color: grey;">n/d</td>
+                        <td style="text-align: right; color: grey;">$15360$</td>
+                        <td>$\leftrightarrow$</td>
+                        <td>$256$</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p class="fragment">ECDSA i ECDH substitueix DSA i DH respectivament ja que són més eficients,
+                i aguantaran millor el pas del temps (hi ha implementacions de amb $\|p\|$ i $\|q\| = 512$ però
+                    ningú està fent servir DSA, DH o RSA amb longituds de clau de $15360$)</p>
+            </section>
+
+            <section id="ECDLP">
+                <h3>ECDLP</h3>
+                <p>l'ECDLP (<em>Elliptic Curve DLP</em>) és equivalent al
+                    <a href="dh.html#dlp">DLP</a>
+                    però en lloc d'estar definit sobre la
+                    <br/>multiplicació repetida (exponenciació $\rightarrow$ logaritme)
+                    <br/>està definida sobre la suma repetida (multiplicació $\rightarrow$ divisió)
+                </p>
+                <p>és a dir, en ECDLP el que és computacionalment intractable és la
+                    <br/>divisió d'un punt de la corba per un valor enter</p>
+                <p class="fragment">que és un logaritme sobre la suma (en lloc de sobre la multiplicació)</p>
+            </section>
+
+            <section>
+                <h1>$\mathbb{F}_p$</h1>
+            </section>
+
+            <section>
+                <h3>Corbes el·líptiques sobre $\mathbb{F}_p$</h3>
+
+                <p>una corba el·líptica $E$ sobre $\mathbb{F}_p$ és:</p>
+                <p>$y^2 \equiv x^3+ax+b \pmod p$</p>
+
+                <p>i per a que no tingui singularitats cal que:</p>
+                <p>$a,b \in \mathbb{F}_p$ i $4a^3+27b^2 \not\equiv 0 \pmod p$</p>
+
+                <hr>
+                <p>això genera el conjunt $E(\mathbb{F}_p)$ que està format per tots els punts
+                <br/>$(x,y) \quad | \quad x \in \mathbb{F}_p, y \in \mathbb{F}_p$ i el punt a l'ínfinit $\mathcal{O}$
+                </p>
+            </section>
+
+            <section>
+                <h3>Exemple amb paràmetres reduïts</h3>
+                <p>(exemple de [<a href="http://cs.ucsb.edu/~koc/ccs130h/notes/ecdsa-cert.pdf">Johnson, Menezes, Vanstone</a>])</p>
+                <p>fem servir $p=23 \Rightarrow \mathbb{F}_{23} = \{0,1,2,\dotsc,21,22\}$</p>
+                <p>i $a=1$ i $b=4 \Rightarrow y^2 \equiv x^3+x+4 \pmod{23}$</p>
+                <p>llavors $E(\mathbb{F}_{23})$:</p>
+                <p>$\begin{matrix}
+                    \mathcal{O} & (0, 2) & (0,21) & (1, 11) & (1,12) & (4, 7) \\
+                    (4,16) & (7, 3) & (7,20) & (8,8) & (8,15) & (9,11) \\
+                    (9,12) & (10, 5) & (10,18) & (11,9) & (11,14) & (13,11) \\
+                    (13,12) & (14,5) & (14,18) & (15,6) & (15,17) & (17,9) \\
+                    (17,14) & (18,9) & (18,14) & (22,5) & (22,18)
+                \end{matrix}$</p>
+                <p>i la mida és $|E(\mathbb{F}_{23})| = 29$ (la mida de $|E(\mathbb{F}_{p})| \approx p$)</p>
+            </section>
+            <section>
+                <p>$\mathbb{F}_{23}; y^2=x^3+x+4$</p>
+                <p>
+                    <svg width="460" height="460" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+                        <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+                        <g>
+                            <title>Layer 1</title>
+                            <line y2="0" x2="0" y1="460" x1="0" stroke="#000000"/>
+                            <line y2="460" x2="0" y1="460" x1="460" stroke="#000000"/>
+
+                            <circle r="3" cx="0" cy="40"/>
+                            <circle r="3" cx="0" cy="420"/>
+                            <circle r="3" cx="20" cy="220"/>
+                            <circle r="3" cx="20" cy="240"/>
+                            <circle r="3" cx="80" cy="140"/>
+                            <circle r="3" cx="80" cy="320"/>
+
+                            <circle r="3" cx="140" cy="60"/>
+                            <circle r="3" cx="140" cy="400"/>
+                            <circle r="3" cx="160" cy="160"/>
+                            <circle r="3" cx="160" cy="300"/>
+                            <circle r="3" cx="180" cy="220"/>
+                            <circle r="3" cx="180" cy="240"/>
+
+                            <circle r="3" cx="200" cy="100"/>
+                            <circle r="3" cx="200" cy="360"/>
+                            <circle r="3" cx="220" cy="180"/>
+                            <circle r="3" cx="220" cy="280"/>
+                            <circle r="3" cx="260" cy="220"/>
+                            <circle r="3" cx="260" cy="240"/>
+                            <circle r="3" cx="280" cy="100"/>
+                            <circle r="3" cx="280" cy="360"/>
+
+                            <circle r="3" cx="300" cy="120"/>
+                            <circle r="3" cx="300" cy="340"/>
+
+                            <circle r="3" cx="340" cy="180"/>
+                            <circle r="3" cx="340" cy="280"/>
+
+                            <circle r="3" cx="360" cy="180"/>
+                            <circle r="3" cx="360" cy="280"/>
+
+                            <circle r="3" cx="440" cy="100"/>
+                            <circle r="3" cx="440" cy="380"/>
+
+                        </g>
+                    </svg>
+                </p>
+            </section>
+
+            <section>
+                <h3>Parèntesi: què costa una suma?</h3>
+                <ul>
+                    <li>suma: $O(n)$</li>
+                    <li>multiplicació: $O(n^2)$</li>
+                    <li>exponenciació: $O(n^\|\text{exp}\|) $</li>
+                    <li>exponenciació eficient: $O(\|\text{exp}\|·n^2) $</li>
+                    <li>inversió: </li>
+                </ul>
+            </section>
+
+            <section data-background="#FF8888">
+                <h3>suma i multiplicació (geometria)</h3>
+            </section>
+
+            <section data-background="#FF8888">
+                <h3>corbes</h3>
+                <p>predefinides</p>
+                <p>arbitràries</p>
+            </section>
+
+            <section>
+                <h3>Rendiment en Thales nShield Connect 6000+</h3>
+                <table>
+                        <tr>
+                            <td>Algorisme</td>
+                            <td>Generació (<span style="color:#444444" title="Transaccions per segon">TPS</span>)</td>
+                            <td>Signatura (<span style="color:#444444" title="Transaccions per segon">TPS</span>)</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>RSA-2048</td>
+                        <td>8*</td>
+                        <td>3000</td>
+                    </tr>
+                    <tr>
+                        <td>NIST P-256</td>
+                        <td>840</td>
+                        <td>2400</td>
+                    </tr>
+                    <tr>
+                        <td>NIST P-521</td>
+                        <td>480</td>
+                        <td>1300</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
         </div>
 
     </div>
@@ -74,12 +287,13 @@
             progress: true,
             history: true,
             center: true,
+            slideNumber: true,
             // history: false,
             // fragments: true,
             // help: true,
             // previewLinks: false,
-            width: 1024,
-            height: 768,
+            width: 1280,
+            height: 720,
 
             transition: 'slide', // none/fade/slide/convex/concave/zoom
             math: {

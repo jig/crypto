@@ -56,28 +56,28 @@
 				<br/>Project hosted at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/jig/crypto" rel="dct:source">github.com/jig/crypto</a></em></small>
 			</section>
             <section>
-                <h3>Introducció a la Criptografia</h3>
+                <h3>Introducció a la Criptografia (i/iii)</h3>
                 <ul>
                     <li><a href="intro.html">Introducció (història)</a></li>
-                    <li>
-                        <a href="intro.html">Base matemàtica</a> <!--:
+                    <!--:<li>
+                        <a href="intro.html">Base matemàtica</a>
                         funcions,
                         probabilitat,
                         grans nombres,
-                        classes de complexitat-->
-                    </li>
+                        classes de complexitat
+                    </li>-->
                     <li><a href="symmetric.html">Criptografia simètrica</a> o de clau secreta</li>
                     <ul>
-                        <li>Xifrat de flux</li>
-                        <li>Xifrat de bloc</li>
-                        <li>Resum (<em>hash</em>)</li>
-                        <li>Signatura (<em>MAC</em>)</li>
+                        <li><a href="symmetric#stream-cipher.html">Xifrat de flux</a></li>
+                        <li><a href="symmetric#block-cipher.html">Xifrat de bloc</a></li>
+                        <li><a href="mac.html">Signatura simètrica</a> (<em>MAC</em>)</li>
+                        <li><a href="hash.html">Resum</a> (<em>hash</em>)</li>
                     </ul>
                     . . .
                 </ul>
             </section>
             <section>
-                <h3>Introducció a la Criptografia</h3>
+                <h3>Introducció a la Criptografia  (ii/iii)</h3>
                 <ul>
                     . . .
                     <li>Criptografia asimètrica o de clau pública</li>
@@ -86,41 +86,20 @@
                         <li><a href="rsa.html">RSA</a> (en disposició de signatura i de xifrat)</li>
                         <li><a href="dh.html">Diffie-Hellman</a> (acord de claus)</li>
                         <li><a href="dsa.html">Elgamal (en disposició de signatura), DSA</a></li>
-                        <li><a href="ecc.html" style="color:#C33">Criptografia de Corba e&#320;líptica</a>: ECDSA i ECDH</li>
+                        <li><a href="ecc.html"><!-- style="color:#C33" -->Criptografia de Corba e&#320;líptica</a>: ECDSA i ECDH</li>
+                        <li><a href="hsm.html">HSM</a></li>
                         <li><a href="parameters-attacks.html" style="color:#C33">Parametrització i vulnerabilitats</a></li>
-                        <li><a href="hsm.html" style="color:#C33">HSM</a></li>
                     </ul>
                     . . .
                 </ul>
             </section>
             <section>
-                <h3>Introducció a la Criptografia</h3>
+                <h3>Introducció a la Criptografia  (iii/iii)</h3>
                 <ul>
                     . . .
                     <li>Connexions (<a href="tls.html">TLS</a>...)</li>
-                    <li>Infraestructura de Clau Pública (<a href="pki.html" style="color:#C33">PKI</a>)</li>
+                    <li>Infraestructura de Clau Pública (<a href="pki.html">PKI</a>)</li>
                     <li>Signatura avançada (<a href="ades.html">AdES</a>)</li>
-                </ul>
-            </section>
-            <section  data-background="#FF8888"> <!-- style="text-align: left;" -->
-                <h3>Exercicis pràctics</h3>
-                <p><em>TBD</em></p>
-                <ul>
-                    <li>cripto simètrica: openssl
-                        <a href="https://www.openssl.org/docs/manmaster/apps/enc.html">enc</a>,
-                        <a href="https://www.openssl.org/docs/manmaster/apps/dgst.html">dgst</a>,
-                        SHA-2,
-                    </li>
-                    <li><a href="https://rietta.com/blog/2012/01/27/openssl-generating-rsa-key-from-command/">
-                        OpenSSL: Generating an RSA Key From the Command Line</a></li>
-                    <li>cripto asimètrica: openssl
-                        <a href="http://stackoverflow.com/questions/10782826/digital-signature-for-a-file-using-openssl">
-                            rsautl</a>,
-                    </li>
-                    <li>openssl CA</li>
-                    <li><strike>cripto asimètrica: exemples cripto en go (codi)</strike></li>
-                    <li><code>sshd</code>: generació, confiança, <code>-A</code>, tunnel</li>
-                    <li>Servidor https: <code>nginx</code></li>
                 </ul>
             </section>
             <section style="text-align: left;">
@@ -177,12 +156,13 @@
             progress: true,
             history: true,
             center: true,
+            slideNumber: true,
             // history: false,
             // fragments: true,
             // help: true,
             // previewLinks: false,
-            width: 1024,
-            height: 768,
+            width: 1280,
+            height: 720,
 
             transition: 'slide', // none/fade/slide/convex/concave/zoom
             math: {
