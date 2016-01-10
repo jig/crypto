@@ -13,9 +13,10 @@ Transparències a [jig.github.io/crypto](https://jig.github.io/crypto)
   - [DSA](https://jig.github.io/crypto/dsa.html) (15)
   - [Criptografia de corba el·líptica](https://jig.github.io/crypto/ecc.html) (12*)  -> (97)
   - [HSM](https://jig.github.io/crypto/hsm.html) (41)
-  - [Connexions (TLS...)](http://jig.github.io/crypto/tls.html) (11)
+  - [Connexions (TLS)](http://jig.github.io/crypto/tls.html) (11)
   - [Infraestructura de Clau Pública (PKI)](http://jig.github.io/crypto/pki.html) (59)
   - [Advanced Electronic Signatures (AdES)](http://jig.github.io/crypto/ades.html) (17)  -> (128)
+  - [Amenaces](http://jig.github.io/crypto/threats.html)
 
 Exercicis:
 
