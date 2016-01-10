@@ -91,7 +91,7 @@
             </section>
 
             <section>
-                <section>
+                <section id="rsap">
                     <h2>però</h2>
                     <p>sii $n$ no és primer el càlcul d'</p>
                     <p>$m \equiv \sqrt[e]{c} \pmod n$</p>
@@ -276,7 +276,8 @@
 
             <section id="keysize">
                 <h3>Longitud de clau</h3>
-                <p>els atacs sobre RSA són els millors algorismes per a factoritzars $n$</p>
+                <p>la dificultat de l'<a href="complexity.html" title="RSA Problem">RSAP</a> $n$ és equivalent a fer l'arrel quadrada modular
+                mòdul un $n$ no primer, i és equivalent a factoritzar $n$</p>
 				<p>el major $n$ factoritzat és de $768$ bit $\Rightarrow$ <a href="https://en.wikipedia.org/wiki/RSA_numbers#RSA-768">Desafiament RSA-768</a> (2000 anys/CPU)
 				<p>
 				<p>el NIST 
@@ -320,6 +321,106 @@
                     </tbody>
                 </table>
             </section>
+
+            <section id="practice">
+                <h3>pràctica: openssl</h3>
+                <p>generem i mostrem (PKCS #1) una clau RSA-2048 amb $e=65537$</p>
+                <p  style="text-align: left;">
+                <code>
+                    <br/><span>$</span>
+                        <a href="https://www.openssl.org/docs/manmaster/apps/genrsa.html">openssl genrsa</a>
+                        <span title="exponent e = 4rt nombre de Fermat = 65537">-F4</span>
+                        <span title="longitud de clau n = 2048 bits">2048</span>
+                        |
+                        <a href="https://www.openssl.org/docs/manmaster/apps/rsa.html">openssl rsa</a>
+                        <span title="mostra els camps de la PVK">-text</span>
+                        <span title="no mostris el base64 codificat de la clau">-noout</span>
+                    <br/>modulus: ... $\rightarrow \color{red}{n}$
+                    <br/>publicExponent: 65537 (0x10001) $\rightarrow \color{red}{e}$
+                    <br/>privateExponent: ... $\rightarrow \color{red}{d}$
+                    <br/>prime1: ... $\rightarrow \color{red}{p}$
+                    <br/>prime2: ... $\rightarrow \color{red}{q}$
+                    <br/>exponent1: ... $\rightarrow$ <span style="color:red;">??</span>
+                    <br/>exponent2: ... $\rightarrow$ <span style="color:red;">??</span>
+                    <br/>coefficient: ... $\rightarrow$ <span style="color:red;">??</span>
+                    <br/><span>$</span> _
+                </code></p>
+                <!-- <p class="fragment">hi ha una manera més eficient de calcular $m^d \pmod n$ quan $n$ no
+                és primer</p> -->
+            </section>
+
+            <section id="chinese-remainder-theorem">
+                <h3>Teorema dels Residus Xinesos</h3>
+                <p>$
+                    \begin{aligned}
+                    x &\equiv a_1 \pmod{n_1} \\
+                    x &\equiv a_2 \pmod{n_2} \\
+                    &\vdots \\
+                    x &\equiv a_i \pmod{n_i}
+                    \end{aligned}$</p>
+                <p>té una solució única per:</p>
+                <p>$
+                    \begin{aligned}
+                    x &\equiv a \pmod{n_1 n_2 \cdots n_i}
+                    \end{aligned}$</p>
+                <span class="fragment">
+                    <hr/>
+                <p>$
+                    \begin{aligned}
+                    x &\equiv a_p \pmod{p} \\
+                    x &\equiv a_q \pmod{q} \\
+                    &\Downarrow \\
+                    x &\equiv a \pmod{pq}
+                    \end{aligned}$</p>
+                </span>
+            </section>
+
+            <section>
+                <h3>exemple senzill del <span title="Chinese Remainder Theorem">CRT</span></h3>
+                <p>$
+                    \begin{aligned}
+                    x &\equiv 1 \pmod{2} \\
+                    x &\equiv 3 \pmod{5} \\
+                    &\Downarrow \\
+                    x &\equiv 8 \pmod{10}
+                    \end{aligned}$</p>
+            </section>
+
+            <section>
+                <h3>exemple senzill del <span title="Chinese Remainder Theorem">CRT</span></h3>
+                <p>$
+                    \begin{aligned}
+                    x &\equiv 0 \pmod{2} \rightarrow \text{x és parell}\\
+                    x &\equiv 3 \pmod{5} \rightarrow \text{x en decimal, acaba en 3 o en 8}\\
+                    &\Downarrow \\
+                    x &\equiv 8 \pmod{10} \rightarrow \text{x en decimal acaba en 8}
+                    \end{aligned}$</p>
+            </section>
+
+            <section>
+                <h3>Teorema dels Residus Xinesos</h3>
+                <p>aplicació a RSA (algorisme de Garner)</p>
+                <ol>
+                <li>precalculem i guardem en secret (com a part de la <code>PVK</code>):
+                    <p>$\begin{aligned}
+                    d_p &= e^{-1} \bmod{(p-1)} \\
+                    d_q &= e^{-1} \bmod{(q-1)} \\
+                    q_\text{inv} &= q^{-1} \bmod{(p-1)} \\
+                \end{aligned}$
+                    </p>
+                </li>
+
+                <li>mantenim $c = m^e \bmod{n}$; però en lloc de fer $m = c^d \bmod{n}$ fem:
+                    <p>$\begin{aligned}
+                    m_1 &= c^{d_p} \bmod{p} \\
+                    m_2 &= c^{d_q} \bmod{q} \\
+                    m &= m_2 + \bigg(q_\text{inv} (m_1 - m_2) \bmod p\bigg)
+                \end{aligned}$</p>
+                </li>
+                </ol>
+                <p>per què ens serveix aquest teorema?
+                    <br/>perquè 2. és més ràpid que $m = c^d \bmod{n}$</p>
+            </section>
         </div>
 
     </div>
@@ -347,8 +448,8 @@
             // fragments: true,
             // help: true,
             // previewLinks: false,
-            width: 1024,
-            height: 768,
+            width: 1280,
+            height: 720,
 
             transition: 'slide', // none/fade/slide/convex/concave/zoom
             math: {

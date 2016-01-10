@@ -826,7 +826,8 @@
                 <h3>AES: vulnerabilitats</h3>
                 <span class="fragment">
                     <p>...l'estadística del missatge en clar apareix a al text xifrat igual que en el xifrat del Cèsar (!)</p>
-                    <p>ara els blocs són de $16$ B, no d'$1$ B per tant l'estadística és menys important ($|\text{bloc}|=2^{128}$), però seqüències constants
+                    <p>ara els blocs són de $16$ B, no d'$1$ B per tant l'estadística és menys important
+                        <br/>($|\text{bloc}|=2^{128}$), però seqüències constants
                     (per exemple, com les d'imatges bitmap) es poden donar blocs sencers idèntics
                     </p>
                 </span>
@@ -951,7 +952,7 @@
                 <h3>AES: més vulnerabilitats</h3>
                 <p>AES porta des del 2000 públic: això implica un escrutini públic o secret sever</p>
                 <p class="fragment">segons els "papers d'Edward <a href="http://www.cjfe.org/snowden">Snowden</a>"
-                    l'NSA està estudiant-ne les vulnerabilitats (de forma secreta)</p>
+                    l'NSA està estudiant-ne les vulnerabilitats (no públicament)</p>
                 <p class="fragment">altres "grans" organitzacions és altament improbable que no hi dediquin
                     recursos importants</p>
             </section>
@@ -960,22 +961,29 @@
                 <h3>AES: més vulnerabilitats</h3>
                 <p>algorismes quàntics</p>
                 <p>amb l'algorisme de <a href="https://en.wikipedia.org/wiki/Grover%27s_algorithm">Grover</a>
-                    les cerques en bases de dades (no ordenades) tenen complexitat $O(a^{\sqrt{n}})$</p>
-                <p>(en lloc de la possible amb
-                    <br/> algorismes de computació clàssica, $O(a^n)$)</p>
-                <p>(després es va demostrar que
-                    <br/> l'algorisme de Grover és òptim)</p>
+                    les cerques en bases de dades no ordenades tenen
+                    <a title="Notació O(·) i complexitat dels diferents algorismes criptogràfics" href="complexity.html#big-o">
+                        complexitat
+                    </a>
+                    $O({\sqrt{2^b}})$</p>
+                <p>(<em>òbviament</em>, en computació clàssica té complexitat $O({2^b})$)</p>
+                <p/>
+                <p>Nota: $b$ són els bits de longitut de la clau AES: $128$, $192$ ò $256$</p>
             </section>
 
             <section>
                 <h3>Computació quàntica</h3>
-                <p>els computadors quàntics actuals no tenen aplicació pràctica (al menys els que coneixem)</p>
-                <p>es creu no hi haurà computació quàntica pràctica abans del ~2030</p>
-                <span class="fragment">
-                    <p>però per ser robustos a l'algorisme de Grover, només hem de <u>doblar</u> la longitud de claus,
-                        per exemple passar a AES-256 que donaria una fortalesa equivalent a 128 bits</p>
-                    <p>(per tant, es considera que la criptografia simétrica és robusta en front de la computació quàntica...)</p>
-                </span>
+                <ul>
+                    <li>els computadors quàntics actuals no tenen aplicació pràctica: a banda de per "trencar claus"
+                        serveixen per a simular... <span title="Richard Feynman, 1982">fenòmens de física quàntica</span></li>
+                    <li>es creu no hi haurà computació quàntica pràctica abans del ~2030</li>
+                </ul>
+                <ul>
+                    <li>però per ser robustos a l'algorisme de Grover, només hem de <u>doblar</u> la longitud de claus,
+                        per exemple passar a AES-256 que donaria una fortalesa equivalent a 128 bits</li>
+                    <li>poc després es va demostrar que l'algorisme de Grover és òptim</li>
+                </ul>
+                <p>per tant, es considera que la criptografia simètrica és robusta en front de la computació quàntica...</p>
             </section>
 
             <section>

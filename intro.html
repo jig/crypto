@@ -69,7 +69,7 @@
             </section>
 
             <section>
-                <h3>Xifrat</h3>
+                <h3>Criptografia $\Rightarrow$ Xifrat</h3>
                 <p>Fins els '70 la criptografia es fa servir per a dificultar que algú aliè pugui entendre el
                 que s'envia</p>
                 <p>$c = e(k,m)$</p>
@@ -232,7 +232,7 @@
                 <p>sempre hem de suposar que un atacant coneix $d(\circ,\circ)$</p>
                 <p>la única cosa que no pot conèixer és la clau $k$</p>
             </section>
-            <section data-background="#FF8888">
+            <!-- <section data-background="#FF8888">
                 <h3>Seguretat del xifrat del César</h3>
                 <p>suposem que podem fer una <em>operació</em> de desxifrat i la validació en un "tic" de rellotge d'una
                 CPU actual<br/>(CLK = 1 GHz)</p>
@@ -240,7 +240,7 @@
             <p class="fragment">El xifrat del César es trenca (en mitja) en 13 ns</p>
             <p class="fragment">En una CPU genèrica (Intel, AMD, ARM) necessitarem<br/> 1 μs (1 Mops)</p>
             <p class="fragment">El xifrat del César es trenca (en mitja) en una CPU estàndard en 13 μs</p>
-            </section>
+            </section> -->
             <section id="brute-force">
                 <h3>Atac de força bruta</h3>
                 <p>Les contramesures contra els atacs de força bruta són:</p>
@@ -267,7 +267,7 @@
                     <p>és a dir $3,6·10^{11}$ claus/€</p>
                 </span>
                 <span class="fragment">
-                    <p>Si tenim capacitat de dissenyar/fabricar $d(\circ,\circ)$ en hardware
+                    <p>si tenim capacitat de dissenyar/fabricar $d(\circ,\circ)$ en hardware
                         (<a href="https://en.wikipedia.org/wiki/Application-specific_integrated_circuit">ASIC</a>)
                         els costos baixen després d'un periode d'amortització
                     </p>
@@ -276,7 +276,7 @@
             <section>
                 <h3>Moltes claus</h3>
                 <p>$10^{11}$ claus/€ en números rodons
-                <p>e.g. si el nostre "secret" té un cost de 1000 €,<br/>ens calen $2·10^{14}$ claus diferents</p>
+                <p>e.g. si el nostre "secret" té un cost de 1000 €,<br/>ens calen $2·10^{14}$ claus diferents ($\approx2^{48}$)</p>
             </section>
             <section>
                 <h3>Seguretat del xifrat del César</h3>
@@ -318,10 +318,10 @@
 
             <section id="vigenere">
                 <h3>Xifrat de Vigenère</h3>
-                <p>Similar al xifrat del Cèsar, però $k$ ara serà una seqüència de nombres en lloc d'un
-                    sòl nombre (e.g. abans $k=3$):</p>
+                <p>Similar al xifrat del Cèsar, però $k$ ara serà una seqüència de números en lloc d'un
+                    sòl número (e.g. abans $k=3$):</p>
                 <p>e.g. &nbsp; $k = \{3,24,10\}$</p>
-                <p>Nota: habitualment s'escriuen les lletres corresponents als nombres: $k = \{\text{D},\text{Y},\text{K}\}$
+                <p>Nota: habitualment s'escriuen les lletres corresponents als números: $k = \{\text{D},\text{Y},\text{K}\}$
                 </p>
                 <p>exemple:</p>
                 <code data-trim>

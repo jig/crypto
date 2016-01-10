@@ -41,7 +41,7 @@
         <!-- Any section element inside of this container is displayed as a slide -->
         <div class="slides">
 			<section>
-				<h2>Introducció a la Criptografia</h2>
+				<h1>Introducció a la Criptografia</h1>
 
 				<small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
 				
@@ -68,8 +68,8 @@
                     </li>-->
                     <li><a href="symmetric.html">Criptografia simètrica</a> o de clau secreta</li>
                     <ul>
-                        <li><a href="symmetric#stream-cipher.html">Xifrat de flux</a></li>
-                        <li><a href="symmetric#block-cipher.html">Xifrat de bloc</a></li>
+                        <li><a href="symmetric.html#stream-cipher">Xifrat de flux</a></li>
+                        <li><a href="symmetric.html#block-cipher">Xifrat de bloc</a></li>
                         <li><a href="mac.html">Signatura simètrica</a> (<em>MAC</em>)</li>
                         <li><a href="hash.html">Resum</a> (<em>hash</em>)</li>
                     </ul>
@@ -87,8 +87,9 @@
                         <li><a href="dh.html">Diffie-Hellman</a> (acord de claus)</li>
                         <li><a href="dsa.html">Elgamal (en disposició de signatura), DSA</a></li>
                         <li><a href="ecc.html"><!-- style="color:#C33" -->Criptografia de Corba e&#320;líptica</a>: ECDSA i ECDH</li>
-                        <li><a href="hsm.html">HSM</a></li>
-                        <li><a href="parameters-attacks.html" style="color:#C33">Parametrització i vulnerabilitats</a></li>
+                        <li><a href="hsm.html">HSM</a>  (<em>Hardware Secure Modules</em>)</li>
+                        <li><a href="threats.html">Amenaces</a>: ordinadors quàntics, Snowden i implementacions</li>
+                        <li><a href="complexity.html">Parametrització</a> recomanada</li>
                     </ul>
                     . . .
                 </ul>
@@ -97,9 +98,12 @@
                 <h3>Introducció a la Criptografia  (iii/iii)</h3>
                 <ul>
                     . . .
-                    <li>Connexions (<a href="tls.html">TLS</a>...)</li>
-                    <li>Infraestructura de Clau Pública (<a href="pki.html">PKI</a>)</li>
-                    <li>Signatura avançada (<a href="ades.html">AdES</a>)</li>
+                    <li>Protocols</li>
+                    <ul>
+                        <li>Connexions (<a href="tls.html">TLS</a>)</li>
+                        <li>Infraestructura de Clau Pública (<a href="pki.html">PKI</a>)</li>
+                        <li>Signatura avançada (<a href="ades.html">AdES</a>)</li>
+                    </ul>
                 </ul>
             </section>
             <section style="text-align: left;">
@@ -110,6 +114,16 @@
                         Signature Algorithm (ECDSA)</a>; Johnson, Menezes, Vanstone</li>
                     <li><a href="http://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf">FIPS PUB 186-4</a>; NIST</li>
                     <li>Suite-A i <a href="https://www.nsa.gov/ia/programs/suiteb_cryptography/">Suite-B</a>; NIST</li>
+                    <li><a href="http://www.emc.com/emc-plus/rsa-labs/standards-initiatives/public-key-cryptography-standards.htm">
+                        Public-Key Cryptography Standards
+                    </a> (PKCS); RSA labs</li>
+                </ul>
+                <p/>
+                <h3>Enllaços: implementació</h3>
+                <ul>
+                    <li>Implementació de referència:
+                        <a href="https://wiki.openssl.org/index.php/Command_Line_Utilities">OpenSSL</a>
+                    </li>
                 </ul>
             </section>
             <section style="text-align: left;">
@@ -118,7 +132,7 @@
                     <li><a href="https://www.schneier.com/">Schneier on Security</a>; Bruce Schneier</li>
                     <li><a href="http://safecurves.cr.yp.to/">cr.yp.to</a> sobre elecció de paràmetres; Daniel Bernstein</li>
                     <li><a href="http://pqcrypto.org/">Post-quantum cryptography</a>; Bernstein, Lange</li>
-                    <li><a href="" style="color:#C33">Post-Snowden cryptography</a></li>
+                    <li><span style="color:#C33">Post-Snowden cryptography</span></li>
                     <!-- http://blog.cryptographyengineering.com/ , Matthew Green-->
                 </ul>
                 <p/>
