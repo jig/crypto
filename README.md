@@ -7,16 +7,20 @@ Transparències a [jig.github.io/crypto](https://jig.github.io/crypto)
   - [Criptografia simètrica](https://jig.github.io/crypto/symmetric.html) (80)
   - [MAC](https://jig.github.io/crypto/mac.html) (11)
   - [Hash, HMAC, xifrat autenticat](https://jig.github.io/crypto/hash.html) (13) -> (150)
+  
   - [Teoria de nombres](https://jig.github.io/crypto/number-theory.html) (33)
   - [Acord de claus Diffie-Hellman](https://jig.github.io/crypto/dh.html) (9)
   - [RSA](https://jig.github.io/crypto/rsa.html) (18)
   - [DSA](https://jig.github.io/crypto/dsa.html) (15)
-  - [Criptografia de corba el·líptica](https://jig.github.io/crypto/ecc.html) (12*)  -> (97)
+  - [Criptografia de corba el·líptica](https://jig.github.io/crypto/ecc.html) (18)  -> (103)
+  
   - [HSM](https://jig.github.io/crypto/hsm.html) (41)
   - [Connexions (TLS)](http://jig.github.io/crypto/tls.html) (11)
   - [Infraestructura de Clau Pública (PKI)](http://jig.github.io/crypto/pki.html) (59)
   - [Advanced Electronic Signatures (AdES)](http://jig.github.io/crypto/ades.html) (17)  -> (128)
-  - [Amenaces](http://jig.github.io/crypto/threats.html)
+  
+  - [Complexitat algorísmica](http://jig.github.io/crypto/complexity.html) (5)
+  - [Amenaces](http://jig.github.io/crypto/threats.html) (15)
 
 Exercicis:
 
@@ -33,11 +37,14 @@ Exercicis:
   - decodificació DER a [lapo.it](https://lapo.it/asn1js/)
   - decodificació X.509 a [Cert Logik](https://certlogik.com/decoder/)
   - decodificació X.509 amb OpenSSL Tools
+  - criptografia amb PKCS #7 amb OpenSSL:
   - connexions ssh (amb `ssh/d`)
   - validar tls/https (amb [`cipherscan`](https://github.com/jig/docker-cipherscan))
   - validar tls/https (amb [SSL labs](https://www.ssllabs.com/ssltest/))
   - connexions tls/https (chrome -> google)
   - connexions tls/https (chrome -> servidor propi certificat amb OpenSSL CA)
+    - servidor (amb `openssl s_server`)
+     - client (amb `openssl s_client`)
   - connexions tls/https (chrome -> servidor propi certificat amb [Let's Encrypt CA](https://letsencrypt.org))
 
 # Programari utilitzat
