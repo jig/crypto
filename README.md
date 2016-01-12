@@ -70,7 +70,7 @@ Transparències a [jig.github.io/crypto](https://jig.github.io/crypto)
            |                  
  ASN.1     | (exercici)               
  PKI       |         
-           |                  
+
  
 
 
