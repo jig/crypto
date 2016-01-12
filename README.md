@@ -76,9 +76,9 @@ Transparències a [jig.github.io/crypto](https://jig.github.io/crypto)
 
 # Programari utilitzat
 
-[reveal.js](https://github.com/hakimel/reveal.js): per a realitzar les transparències
-[MathJax](https://www.mathjax.org) ([LaTeX](http://latex-project.org)): per a presentar les equacions
-[SVG-edit](https://github.com/SVG-Edit/svgedit): per a dibuixar gràfics vectorials
+  - [Reveal.js](https://github.com/hakimel/reveal.js): per a realitzar les transparències
+  - [MathJax](https://www.mathjax.org) ([LaTeX](http://latex-project.org)): per a presentar les equacions
+  - [SVG-edit](https://github.com/SVG-Edit/svgedit): per a dibuixar gràfics vectorials
 
 # Llicència
 
