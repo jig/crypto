@@ -102,19 +102,20 @@
             <section>
                 <h3>Confidencialitat computacional</h3>
                 <p>si l'espai de claus es prou gran ($|k|$) no podrem probarles totes
-                    (<a href="intro.html#key-space">Moltes claus</a>
-                    and <a href="intro.html#vigenere-key-space">Vigenère: espai de claus</a>)
+                    <br/><small>(<a href="intro.html#key-space">Moltes claus</a>
+                    i <a href="intro.html#vigenere-key-space">Vigenère: espai de claus</a>)</small>
                 </p>
                 <p>podem provar $10^6$ k/CPU/s $\approx 2^{20}$ k/CPU/s</p>
                 <p>ò $10^{13}$ k/CPU/any $\approx 2^{43}$ k/CPU/any</p>
                 <p>ò $10^{16}$ k/any amb $1000$ CPU $\approx 2^{53}$ k/any</p>
-                <p>ò $10^{19}$ k/any amb $10^6$ CPU $\approx 2^{63}$ k/any</p>
-                <p>. . .</p>
+                <p>ò $10^{19}$ k/any amb $10^6$ CPU $\approx 2^{63}$ k/any
+                <br/>$\vdots$</p>
             </section>
             <section>
-                <p>ò $10^{25}$ claus amb $10^6$ CPU un milió d'anys $\approx 2^{83}$ k</p>
-                <p>ò $10^{29}$ claus amb $10^6$ CPU des del Big Bang $\approx 2^{96}$ k</p>
-                <p>. . .</p>
+	      <p>$\vdots$
+                <br/>ò $10^{25}$ claus amb $10^6$ CPU un milió d'anys $\approx 2^{83}$ k</p>
+                <p>ò $10^{29}$ claus amb $10^6$ CPU des del Big Bang $\approx 2^{96}$ k
+                  <br/>$\vdots$</p>
                 <p>si tinc una "sort mitja" només em caldrà la meitat de proves (e.g. necessitarem "només"
                     la meitat de l'edat de l'Univers per a trobar la clau en l'últim escenari)</p>
                 <p>i si tinc molta sort...</p>
@@ -128,19 +129,18 @@
                 <p>...aquesta és la probabilitat de que trobis la clau per força bruta en un temps negligible
                     <br/>(1 milió d'anys amb 1 milio de CPU's...)</p>
             </section>
-            <!-- <section>
-                <p>la probabilitat de morir d'accident de trànsit durant el proper any és $10^{-4}$ ($2^{-13}$)</p>
-                <p>la probabilitat de morir d'accident de trànsit avui és $10^{-7}$ ($2^{-23}$)</p>
-            </section> -->
-            <section data-background="#FF8888">
+            
+            <section>
                 <h3>Confidencialitat computacional</h3>
                 <p>amb hardware ad-hoc podem arribar a multiplicar per $10^4$/$10^5$ vegades
-                    ($2^{13}$/$2^{17}$ vegades)</p>
-                <p>...</p>
+                    <br/>($2^{13}$/$2^{17}$ vegades)</p>
+                <p><em>Exemple
+		  <a htref="https://blockchain.info/block/0000000000000000082599be00bde6aca271d20c771542738343f3c940da7939">BitCoin</a>:
+		  SHA-256 en hardware massivament paral·lel</em></p>
             </section>
             <section>
                 <h3>Espai de claus</h3>
-                <p>En <u>criptografia simètrica</u>, farem servir algorismes de xifrat sobre els
+                <p>En <u>criptografia simètrica</u> farem servir algorismes de xifrat sobre els
                     que el mecanisme més eficient per a un atacant serà provar totes les
                     claus fins trobar la bona</p>
             </section>
@@ -148,9 +148,12 @@
                 <h3>NIST</h3>
                 <p>el <a href="http://csrc.nist.gov/publications/nistpubs/800-57/sp800-57_part1_rev3_general.pdf">NIST</a> recomana (2015)
                     claus que un atacant<br/>hagi de fer $\frac{1}{2} 2^{113}$ proves</p>
-                <p>Més exactament, diu que les claus han de tenir una longitud $\|k\| = 112$ b, mínim</p>
-                <p class="fragment">A partir del 2030 recomanarà $\|k\| = 128$ b, mínim</p>
+                <p>Més exactament, diu que les claus han de tenir una longitud
+		  <br/>$\|k\| = 112$ b, mínim</p>
+                <p class="fragment">A partir del 2030 recomanarà
+		  $\|k\| = 128$ b, mínim</p>
                 <p>NIST: <em>National Institute of Standards and Technology</em> (EUA)</p>
+                <p><em>Security Strength</em>: bits de seguretat o seguretat equivalent</p>
             </section>
 
             <section>
@@ -238,7 +241,7 @@
                 <li>Recopilant events d'entrada (I/O) i acumulant els seus paràmatres (habitualment les xifres menys significatives de l'hora en ns ò μs)</li>
                 <li>Mitjançant dispositius especialitzats (<a href="hsm.html">HSM</a>*)</p>
                 <p><br/></p>
-                <p>*) HSM: Hardware Secure Module</p>
+                <p>*) HSM: <em>Hardware Secure Module</em></p>
             </section>
             <section>
                 <h3>RNG</h3>
@@ -265,6 +268,7 @@
                 </ul>
                 <p>Òbviament la segona suposant que no és conegui la
                     <br/>llavor del PRNG (la clau de xifrat)</p>
+                    <p>llavor$|k \xrightarrow{\text{PRNG}}$ seqüència pseudo-aleatòria$|k_{\text{generat}}$</p>
             </section>
             <section>
                 <h1>Xifrat de flux</h1>
@@ -308,8 +312,9 @@
             </section>
             <section>
                 <h3>Xifrat de flux: consideracions</h3>
-                <p>en resum: hem de generar un $r$ diferent per a cada missatge (anomenat <em>nonce</em>)</p>
-                <p>si tenim una comunicació bidireccional com a<br/>HTTPS (TLS) cal:</p>
+                <p>en resum: hem de generar un $r$ diferent per a cada missatge
+		  <br/>(anomenat <em>nonce</em>)</p>
+                <p>si tenim una comunicació bidireccional com<br/>HTTPS (TLS) cal:</p>
                 <ul>
                     <li>o bé generar un $r$ diferent per a cadascun dels dos sentits</li>
                     <li>o bé generar una $k$ diferent per a cadascun dels dos sentits</li>
@@ -495,8 +500,8 @@
                         </marker>
                     </defs>
                 </svg>
-                <p>tots els elements d'$Y$ tenen preimatge o el que és equivalent: $Im(f) = Y$ (per tant, $\|X\|=\|Y\|$)</p>
-                <p>per tant, la inversa d'$f$ (que simbolitzarem $f^{-1}$) está "ben definida"</p>
+                <p>tots els elements d'$Y$ tenen preimatge o el que és equivalent: $Im(f) = Y$ (per tant, $|X|=|Y|$)</p>
+                <p>per tant, la inversa d'$f$ (que simbolitzarem $f^{-1}$) està "ben definida"</p>
             </section>
 
             <section>
@@ -585,8 +590,10 @@
                 <p>podem representar el xifrat amb una permutació $f$</p>
                 <p>$f : X\rightarrow X$</p>
                 <p>on $X$ és el conjunt de possibles blocs (tant de text en clar i xifrat)</p>
-                <p>i la de desxifrat com a la seva inversa $f^{-1}$
-                    <br/>el model és:</p>
+                <p>i podem representar la funció de desxifrat com a la seva inversa $f^{-1}$
+                </p>
+                <p>$f^{-1} : X\rightarrow X$</p>		
+		<p>és a dir:</p>
                 <p>$\begin{aligned}
                     c &= f(m) \\
                     m &= f^{-1}(c)
@@ -599,7 +606,10 @@
                     f &: \{0,1\}^n \rightarrow \{0,1\}^n
                     \end{aligned}$</p>
                 <p>si implementem $f$ en una taula amb $2^n$ entrades, ocupem $n·2^n$ bit</p>
-                <p class="fragment">on $n$ és la mida del <u>bloc</u> (si tenim missatges més llargs d'$n$ haurem de segmentar-los en blocs: <a href="#mode-of-operation">modes d'operació</a>)</p>
+                <span class="fragment">
+		  <p>on $n$ és la mida del <u>bloc</u></p>
+		  <p>(si tenim missatges més llargs d'$n$ haurem de segmentar-los en blocs: <a href="#mode-of-operation">modes d'operació</a>)</p>
+		</span>
             </section>
             <section>
                 <h3>Xifrat de bloc: funció aleatoria</h3>
@@ -630,14 +640,14 @@
                     f &: \{0,1\}^{\|k\|} \times \{0,1\}^n \rightarrow \{0,1\}^n
                     \end{aligned}$</p>
                 </p>
-                <p>on $K$ és l'espai de claus $k$ (o conjunt de claus)</p>
+                <p>on $K$ és l'<em>espai</em> de claus $k$ (o <em>conjunt</em> de claus)</p>
             </section>
 
             <section>
                 <h3>Xifrat de bloc:
                     <br/>permutació pseudoaleatòria</h3>
-                <p>igual que per al xifrat de flux ens calia un flux de bits aparentment aleatoris per a qui no tingues
-                    la llavor (la clau)...</p>
+                <p>igual que per al xifrat de flux ens calia un flux de bits aparentment aleatoris per a qui no tingués
+                    la llavor (la clau $k$)...</p>
                     <p>...per a xifrat de bloc farem servir permutacions pseudoaleatòries (PRP*) en les que la
                     permutació serà aparentment aleatòria per algú que no conegui la clau</p>
                 <span class="fragment">
@@ -787,7 +797,8 @@
                     <ul>
                         <li><code>SubBytes</code>: substitució de bytes en funció d'una taula fixa de 256 entrades</li>
                         <li><code>ShiftRows</code>: transposició de bytes fixa</li>
-                        <li><code>MixColumns</code>: 4 multiplicacions de 4 B, valors fixes</li>
+                        <li><code>MixColumns</code>: 4
+			  <a href="https://en.wikipedia.org/wiki/Finite_field_arithmetic#Rijndael.27s_finite_field">multiplicacions modulars</a> de 4 Byte, valors fixes</li>
                         <li><code>AddRoundKey</code>: $\text{bloc} \oplus k_{i}$ (subclau $k_{i}$)</li>
                     </ul>
                     <p>això xifra el bloc, i es passa al següent on es fa el mateix canviant la la subclau </p>
@@ -827,7 +838,7 @@
                 <span class="fragment">
                     <p>...l'estadística del missatge en clar apareix a al text xifrat igual que en el xifrat del Cèsar (!)</p>
                     <p>ara els blocs són de $16$ B, no d'$1$ B per tant l'estadística és menys important
-                        <br/>($|\text{bloc}|=2^{128}$), però seqüències constants
+                        <br/>($|\text{bloc}|=2^{128}$), però en seqüències constants
                     (per exemple, com les d'imatges bitmap) es poden donar blocs sencers idèntics
                     </p>
                 </span>
@@ -841,12 +852,12 @@
 
             <section>
                 <h3>modes d'operació</h3>
-                <p>aquesta "vulnerabilitat" és una propietat de tots els xifrats de bloc</p>
+                <p>aquesta "vulnerabilitat" és una <u>propietat</u> de tots els xifrats de bloc</p>
                 <p>la contramesura és per tots la mateixa: no xifrar mai bloc a bloc, cal acumular part del xifrat anterior
                 en el bloc actual</p>
                 <p>aquest encadenament se'n diu <a href="#mode-of-operation">modes d'operació</a>
                     <br/>(i no és opcional)</p>
-                <p class="fragment">els modes d'operació són aplicables a tots els xifrats de bloc</p>
+                <p class="fragment">els modes d'operació s'han d'aplicar a tots els xifrats de bloc</p>
             </section>
 
             <section id="mode-of-operation">
@@ -854,7 +865,9 @@
                     <h3>Modes d'operació</h3>
                     <p>si acumulem estat durant el xifrat, podem fer servir aquest estat sobre el xifrat del següent bloc</p>
                     <ul>
-                        <li>ECB: <em>Electronic Code-Book</em>, <ul><li>no-op</li></ul></li>
+                      <li>ECB: <em>Electronic Code-Book</em>, <ul><li>no-op
+			    <span class="fragment">$\Rightarrow$ no s'ha de fer servir a la pràctica (...)</span>
+		      </li></ul></li>
                         <li>CBC: <em>Cipher Block Chaining</em><ul><li>el bloc $i-1$ s'aplica $\oplus$ sobre el bloc en clar $i$</li></ul></li>
                         <li>OFB: <em>Output Feedback</em><ul><li>xifres el xifrat anterior, i el resultat $\oplus$ del missatge en clar</li></ul></li>
                         <li>CTR: <em>Counter</em><ul><li>xifres un comptador, i el resultat $\oplus$ del missatge en clar</li></ul></li>
@@ -887,9 +900,9 @@
                 <p>els diferents encadenats requereixen d'una llavor incial, prèvia, per començar l'encadenat</p>
                 <p>això fa que en lloc de transmetre $n$ blocs com en ECB, calgui transmetre'n $n+1$</p>
                 <ul>
-                <li>IV en CBC: és el bloc $-1$</li>
-                <li>IV en OFB: és el bloc que es xifrat, constantment $e(e(e(\cdots e(\text{IV}))))$ i aplicat sobre els blocs en clar</li>
-                <li>IV en CTR: és el valor inicial del comptador, que és xifra ECB, i el resultat és $\oplus$ al bloc $i$</li>
+                <li>IV en CBC: és l'hipotètic bloc xifrat $-1$</li>
+                <li>IV en OFB: és el bloc que es xifra constantment $e(e(e(\cdots e(\text{IV}))))$ i s'aplica sobre els blocs en clar (amb $\oplus$)</li>
+                <li>IV en CTR: és el valor inicial del comptador que és xifra ECB, i s'aplica sobre els blocs en clar (amb $\oplus$)</li>
                 </ul>
                 <p class="fragment">AES_128_CTR és efectivament un <u>xifrat de flux</u> fent servir AES_128_CTR com a PRNG (sent
                     $k$ la llavor, i l'$IV$ el <em>nonce</em>)</p>
@@ -959,7 +972,7 @@
 
             <section>
                 <h3>AES: més vulnerabilitats</h3>
-                <p>algorismes quàntics</p>
+                <p><a href="file:///home/sysadmin/git/src/github.com/jig/crypto-privat/reveal/reveal.js-3.2.0/threats.html#/symmetric-crypto">algorismes quàntics</a></p>
                 <p>amb l'algorisme de <a href="https://en.wikipedia.org/wiki/Grover%27s_algorithm">Grover</a>
                     les cerques en bases de dades no ordenades tenen
                     <a title="Notació O(·) i complexitat dels diferents algorismes criptogràfics" href="complexity.html#big-o">
@@ -1031,28 +1044,20 @@
             <section>
                 <h3>Meet in the Middle: truc</h3>
                 <p>Calculem $x = e(k_i, m) \, \forall i \,$ (cost $2^{56}$)</p>
-                <p>situem els valors una array i els ordenem segons $x$ (cost $2^{56}·\log_2{2^{56}}\approx2^{62}$, cost en memòria $2^{56}$)</p>
+                <p>situem els valors una llista i els ordenem segons $x$ (cost $2^{56}·\log_2{2^{56}}\approx2^{62}$, cost en memòria $2^{56}$)</p>
                 <p>calculem $x' = d(k_i, c) \, \forall i \,$</p>
                 <p>mirem si hi ha un $x \overset{?}{=} x'$ (cost 1)</p>
                 <p class="fragment">...cost total $\approx2^{62}$ (cost en memòria $2^{56}$)</p>
             </section>
 
-            <!--
-                triple DES
-                Meet in the middle
-            -->
             <section data-background="#FF8888">
                 <h3>derivació de $k$ a partir d'una contrasenya</h3>
             </section>
 
-            <!-- <section>Permutacions</section>
-                <h1></h1>-->
-            <!-- <section>
-                <h3>Oracle aleatori</h3>
-                <p>Es tracta d'una "caixa negre" que dóna un resultat diferent per a cada entrada diferent, però que repeteix resultat si repetim l'entrada</p>
-                <p>$c = f_k(m)$</p>
-            </section>-->
-
+            <section>
+	      <h3><a href="mac.html">(MAC) $\rightarrow$</a></h3>
+	    </section>
+	    
         </div>
     </div>
 

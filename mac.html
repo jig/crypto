@@ -75,7 +75,7 @@
                 <li>en una transmissió, volem validar que el que ens envien no ha estat modificat per un atacant
                     <br/>(cal acordar una clau $k$ prèviament)</li>
                 <li>en una sistema de fitxers, volem saber que els fitxers que varem guardar-hi no han estat
-                    alterats per un atacant, virus, etc. quan hi accedim
+                    alterats per un atacant, virus, etc. quan hi tornem a accedir
                     <br/>(cal recordar la clau $k$)</li>
                 </ul>
             </section>
@@ -152,7 +152,7 @@
             <section>
                 <h3>ECBC-MAC: seguretat</h3>
                 <p>ECBC-MAC és segur mentre sigui improbable trobar una <a href="hash.html#collision">col·lisió</a></p>
-                <p>la probabilita de col·lisió és propera a $0,5$ per a $\sqrt{|\text{bloc}|}$</p>
+                <p>la probabilita de col·lisió és propera a $0.5$ per a $\sqrt{|\text{bloc}|}$</p>
                 <p>e.g. en el cas de l'AES el bloc és de $128$ b, per tant, no podrem fer servir la mateixa clau:
                 <br/>$\text{ops} \ll \sqrt{2^{128}} = 2^{64}$</p>
                 <p>(valors acceptats per una clau AES-128/192/256:

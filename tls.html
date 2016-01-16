@@ -43,7 +43,9 @@
 
         <section>
             <h1>TLS</h1>
-            <p><em>(Transport Layer Security/HTTPS)</em></p>
+            <p><em>(Transport Layer Security/<a href="https://tools.ietf.org/html/rfc5246">rfc5246</a>)</em></p>
+            <p><em>(abans de TLS 1.0 $\rightarrow$ SSL, Secure Sockets Layer)  </em></p>
+
             <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
                 <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" />
             </a><br />
@@ -60,27 +62,79 @@
         </section>
 
         <section>
+            <h3>xarxa</h3>
+            <p>Ubicació de TLS dins la pila TCP/IP en aplicacions HTTPS</p>
+            <svg width="640" height="480" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+                <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+                <g>
+                    <title>Layer 1</title>
+                    <rect stroke="#000000" fill="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" fill-opacity="0" x="51.5" y="51" width="293.5" height="73.84644" id="svg_7"/>
+                    <text transform="matrix(2.3959183692932124,0,0,2.5032691955566406,-505.55102086067194,-79.16999816894531) " stroke="#000000" fill="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="294" y="74.5" id="svg_8" font-size="24" font-family="sans-serif" text-anchor="middle" xml:space="preserve">HTTP</text>
+                    <rect stroke="#000000" fill="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" fill-opacity="0" x="51.5" y="125.09677" width="293.5" height="73.84644" id="svg_9"/>
+                    <text transform="matrix(2.3959183692932124,0,0,2.5032691955566406,-505.55102086067194,-79.16999816894531) " stroke="#000000" fill="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="294.05" y="104.1" font-size="24" font-family="sans-serif" text-anchor="middle" xml:space="preserve" id="svg_10">TLS</text>
+                    <rect stroke="#000000" fill="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" fill-opacity="0" x="51.5" y="199.3187" width="293.5" height="73.84644" id="svg_11"/>
+                    <text transform="matrix(2.3959183692932124,0,0,2.5032691955566406,-505.55102086067194,-79.16999816894531) " stroke="#000000" fill="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="293.975" y="133.75" font-size="24" font-family="sans-serif" text-anchor="middle" xml:space="preserve" id="svg_12">TCP</text>
+                    <rect stroke="#000000" fill="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" fill-opacity="0" x="51.5" y="272.91481" width="293.5" height="73.84644" id="svg_13"/>
+                    <text transform="matrix(2.3959183692932124,0,0,2.5032691955566406,-505.55102086067194,-79.16999816894531) " stroke="#000000" fill="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="294.025" y="163.15" font-size="24" font-family="sans-serif" text-anchor="middle" xml:space="preserve" id="svg_14">IP</text>
+                    <rect stroke="#000000" fill="#000000" stroke-width="null" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" fill-opacity="0" x="51.5" y="346.83167" width="293.5" height="73.84644" id="svg_15"/>
+                    <text transform="matrix(2.3959183692932124,0,0,2.5032691955566406,-505.55102086067194,-79.16999816894531) " stroke="#000000" fill="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="294.03126" y="192.67813" font-size="24" font-family="sans-serif" text-anchor="middle" xml:space="preserve" id="svg_16">Ethernet</text>
+                    <path stroke="#000000" fill-opacity="0" id="svg_18" d="m389.3035,125.36674l-33.16089,-52.73679l21.83911,0l33.16086,52.73679l-33.16086,52.7368l-21.83911,0l33.16089,-52.7368z" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" fill="#000000"/>
+                    <text id="svg_20" transform="matrix(2.3959183692932124,0,0,2.5032691955566406,-505.55102086067194,-79.16999816894531) " stroke="#000000" fill="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="426.3792" y="90.52775" font-size="24" font-family="sans-serif" text-anchor="middle" xml:space="preserve">HTTPS</text>
+                </g>
+            </svg>
+        </section>
+
+        <section>
             <h3>TLS: funcions</h3>
             <p>Funcionalment equivalent a un socket
                 <a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol">TCP</a>
                 aportant-hi:
             </p>
             <ul>
-            <li>autenticitat: Clau pública</li>
-            <li>integritat: <a href="hmac.html">HMAC</a>/<a href="mac.html">MAC</a></li>
-            <li>confidencialitat: <a href="dh.html">acord de claus</a> + <a href="symmetric.html">xifrat simètric</a></li>
-            <li>confidencialitat persistent*</li>
+                <li>autenticitat: Clau pública
+                    <ul>
+                        <li><u>autenticació mútua</u>: client i servidor tenen certificat/<code>PVK</code></li>
+                        <li><u>autenticació de servidor</u>: al client no li cal certificat/<code>PVK</code></li>
+                    </ul>
+                </li>
+                <li>integritat: <a href="hmac.html">HMAC</a>/<a href="mac.html">MAC</a></li>
+                <li>confidencialitat: <a href="dh.html">acord de claus</a> + <a href="symmetric.html">xifrat simètric</a></li>
+                <li>confidencialitat persistent*</li>
             </ul>
             <p><br/></p>
             <p>*) PFS: <em>Perfect Forward Secrecy</em>; acord de claus independent de l'autenticació</p>
         </section>
 
         <section>
+            <h3>TLS: autenticació</h3>
+            <p>
+            <ul style="color:grey;">
+                <li><u>autenticació mútua</u>: client i servidor tenen certificat/<code>PVK</code></li>
+                <li><u>autenticació de servidor</u>: al client no li cal certificat/<code>PVK</code></li>
+            </ul></p>
+            <ul>
+                <li>servidor: clau privada habitualment en fitxer en clar protegit únicament pel
+                    <span title="Sistema Operatiu">SO</span>
+                    (<span title="Access Conrol List">ACL</span>)
+                    o en <a title="Hardware Secure Module" href="hsm.html">HSM</a>
+                    amb activació automàtica</li>
+                <li>client:
+                    <ul>
+                        <li>sense autenticació de client: anònim, usuari i contrasenya, etc.</li>
+                        <li>amb autenticació de client: fitxer <a href="pki.html#pkcs">PKCS #12</a>,
+                            o accedint a un HSM en forma d'<a href="hsm.html#smartcard">SmartCard</a>
+                            o de <a href="hsm.html#usb">token</a> USB via llibrería <a href="hsm.html#pkcs11">PKCS #11</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <section>
             <h3>TLS: història</h3>
             <p>TLS és el successor de l'SSL i ha anat evolucionant per diferents versions en resposta als diferents atacs
             teòrics i pràctics que han anat sortint</p>
-            <p>els clients quan es connecten acorden fer servir la versió més moderna que suportin ambdós</p>
-            <p>versions:</p>
+            <p>els clients quan es connecten acorden fer servir la versió més moderna que suportin ambdós versions:</p>
             <ul>
                 <li>SSL 3.0 $\rightarrow$ obsolet</li>
                 <li>TLS 1.0 $\rightarrow$ mínim versió del protocol utilitzable</li>
@@ -89,37 +143,39 @@
                 <li>TLS 1.3 draft $\rightarrow$ es força a utilitzar DHE/ECDHE per acord de claus</li>
             </ul>
         </section>
-        <section>
+        <!-- <section>
             <h3>Protocol: inicialització <em>(handshake)</em></h3>
             <p>Protocol en una connexió amb autenticació mútua, estructures de dades enviades després de la inicialització TCP:</p>
             <pre>
               Client                                               Server
 
-              ClientHello                  -------->
+              ClientHello                  -------- >
                                                               ServerHello
                                                              Certificate*
                                                        ServerKeyExchange*
                                                       CertificateRequest*
-                                           <--------      ServerHelloDone
+                                           < --------      ServerHelloDone
               Certificate*
               ClientKeyExchange
               CertificateVerify*
              -- a partir d'aquí s'inicia l'intercanvi de dades protegit --
             </pre>
-        </section>
+        </section> -->
         <section>
             <small>
             <h3>inicialització (resum; suposant caché TLS buida)</h3>
-            <p style="text-align: left;">ClientHello $\longrightarrow$<br/>conté un random, cipher-suites suportats, versió</p>
-                <p><br/></p>
-            <p style="text-align: right;">$\longleftarrow$ ServerHello<br/>conté un random, versió màx comú, </p>
-            <p style="text-align: right;">$\longleftarrow$ Certificate<br/>cadena de certificats incloent el del servidor</p>
-            <p style="text-align: right;">$\longleftarrow$ ServerKeyExchange<br/>(si DHE) paràmetres DH i la seva clau pública (efímera: preMasterSecret)</p>
-            <p style="text-align: right;">$\longleftarrow$ CertificateRequest<br/>(si el servidor requereix autenticació de client) DN's de les CA acceptades</p>
-                <p><br/></p>
-            <p style="text-align: left;">Certificate $\longrightarrow$<br/>(si el servidor requereix autenticació de client) cadena de certificats incloent la del client</p>
-            <p style="text-align: left;">ClientKeyExchange $\longrightarrow$<br/>(si DHE) clau pública DH (efímera: preMasterSecret)</p>
-                </small>
+            <p style="text-align: left;"><code>ClientHello</code> $\longrightarrow$<br/>conté un random, cipher-suites suportats, versió</p>
+                <p/>
+            <p style="text-align: right;">$\longleftarrow$ <code>ServerHello</code><br/>conté un random, session-ID, i la versió de TLS i el cipher-suite usats<!-- extensions --></p>
+            <p style="text-align: right;">$\longleftarrow$ <code>Certificate</code><br/>cadena de certificats incloent el del servidor</p>
+            <p style="text-align: right;">$\longleftarrow$ <code>ServerKeyExchange</code><br/>(si DHE) paràmetres DH i la seva clau pública (efímera: <u>preMasterSecret</u>)</p>
+            <p style="text-align: right;">$\longleftarrow$ <span title="Cas que el servidor vulgui autenticació de client"><code>CertificateRequest</code>$\dagger$</span><br/>(si el servidor requereix autenticació de client) DN's de les CA acceptades</p>
+                <p/>
+            <p style="text-align: left;"><code>Certificate</code> $\longrightarrow$<br/>(si el servidor requereix autenticació de client) cadena de certificats incloent la del client</p>
+            <p style="text-align: left;"><code>ClientKeyExchange</code> $\longrightarrow$<br/>(si DHE) clau pública DH (efímera: <u>preMasterSecret</u>)</p>
+            <p style="text-align: left;"><span title="Cas que el servidor demani autenticació de client"><code>CertificateVerify</code>$\dagger$</span>
+                $\longrightarrow$<br/>(si el servidor requereix autenticació de client) signatura dels missatges anteriors</p>
+            </small>
         </section>
 
         <section>

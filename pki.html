@@ -252,7 +252,7 @@
         </section>
 
         <section>
-            <h3>Jerarquia de CAs: Patró habitual</h3>
+            <h3>Jerarquia de CA<span style="text-transform:none;">s</span>: Patró habitual</h3>
             <ul>
                 <li><strong>CA arrel</strong>: només emet certificats per a CA subordinades i "<a href="#revocation">revocacions</a>"
                     <ul>
@@ -270,7 +270,7 @@
         </section>
 
         <section>
-            <h3>Jerarquia de CAs: Patró habitual (ii)</h3>
+            <h3>Jerarquia de CA<span style="text-transform:none;">s</span>: Patró habitual (ii)</h3>
             <ul>
                 <li><strong>CA arrel</strong>: els usuaris (e.g. clients i servidors TLS) tenen instal·lades les CA
                 arrel en que confien</li>
@@ -791,6 +791,23 @@ EnvelopedData ::= SEQUENCE {
                 i/o les CRL, però sense dades ni signatures</p>
         </section>
 
+        <section id="pkcs" style="color:FF8888;">
+            <h3>Altres "formats PKCS"</h3>
+            <ul>
+                <li><a href="#pkcs7">PKCS #7</a>: format ASN.1 signatura, xifrat, arxiu de certificats i CRL</li>
+                <li><a href="hsm.html#pkcs11">PKCS #11</a>: plantilla C per a llibreries (<code>pkcs11.h</code>)
+                    d'<span title="Hardware Secure Module">HSM</span></li>
+                <li><a href="rsa.html#pkcs1">PKCS #1</a>: (només RSA)
+                    formats de firma i xifrat; algunes vegades es fa servir com a manera d'identificar el format
+                    de clau privada RSA en clar; usat per servidors (TLS)</li>
+                <li>PKCS #5: procediment per a xifrar bytes a partir d'una contrasenya</li>
+                <li>PKCS #8: format de clau privada, habitualment xifrat amb el procediment PKCS #5</li>
+                <li><a href="pki.html#pkcs10">PKCS #10</a>: format de petició de certificació, que conté les dades d'identificació
+                    (<span title="Distinguished Name">DN</span>), la clau pública, i la signatura per a poder validar-ne
+                    la posessió (alternatiu a un <a href="#x509">X.509</a> autosignat)</li>
+                <li>PKCS #12: fitxer xifrat de clau i certificats (usat pels navegadors)</li>
+            </ul>
+        </section>
     </div>
 
 </div>

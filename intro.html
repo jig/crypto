@@ -291,13 +291,13 @@
             </section>
             <section>
                 <h3>Anàlisi de freqüència</h3>
-                <img data-src="img/freq-catala-gran.png"/>
+                <img data-src="img/freq-catala.png"/>
                 <br/>
                 <small>(article de Catalunya a la Viquipèdia /
                     <a href="http://www.counton.org/explorer/codebreaking/frequency-analysis.php">counton.org
                     </a>)</small>
                 <br/>
-                <img data-src="img/freq-fcb-gran.png"/>
+                <img data-src="img/freq-fcb.png"/>
                 <br/>
                 <small>(article del FCB a la Viquipèdia /
                     <a href="http://www.counton.org/explorer/codebreaking/frequency-analysis.php">counton.org
@@ -396,7 +396,7 @@
                 <p>el xifrat de Vigenère patia un problema similar al del César:<br/>
                     manifestava l'estadística del missatge en clar<br/> en el missatge xifrat
                 </p>
-                <p>podem evitar que es manifesti l'estadídistica en el text xifrat, si utilitzem
+                <p>podem evitar que es manifesti l'estadística en el text xifrat, si utilitzem
                 cada lletra de la contrasenya <u>només un cop</u></p>
                 <p class="fragment">tenim confidencialitat perfecte <em>sii</em> fem servir Vigenére amb una contrasenya tan llarga
                 com el missatge<span class="fragment"> i no coneguda per l'atacant (aleatòria)</span></p>
@@ -407,8 +407,11 @@
                 <p>Vernam va definir el <em>one-time-pad</em> d'una manera similar (però equivalent)</p>
                 <p>La funció de xifrat $c = e(k, m)$ s'implementa:</p>
                 <p>$e(k, m) = k \oplus m$</p>
-                <p>Nota: $\oplus$ és la <em>or-exclusiva</em> o <code>XOR</code>
-                    <br/>i $\|k\| = \|m\|$
+		<p>on $\|k\| = \|m\|$</p>
+		<p/>
+                <p>Nota:
+		    <br/>$\oplus$ és la <em>or-exclusiva</em> o <code>XOR</code>
+                    <br/>$\|\circ\|$ és la longitud en bits de $\circ$
                 </p>
             </section>
             <section>
@@ -481,16 +484,15 @@
                     m_{ai} &= d(k_a, c_i) \\
                     m_{bi} &= d(k_b, c_i) \\
                     m_{ci} &= d(k_c, c_i) \\
-                    m_{di} &= d(k_d, c_i) \\
                     & \quad \vdots
                     \end{aligned}
-                    $</p>
-                <p>cada clau aplicada a $c_i$ em donarà tots els missatges possibles d'$\|m\|$ bits
+                    $
+                <br/>cada clau aplicada a $c_i$ em donarà tots els missatges possibles d'$\|m\|$ bits
                     <br/>($\|m\| = \|k\|$ combinacions)</p>
                 <span class="fragment">
-                    <p>un atacant no pot aprendre res a partir de $c_i$</p>
-                    <p>$\Downarrow$</p>
-                    <p>la confidencialitat és &ldquo;perfecte&rdquo;</p>
+                    <p>un atacant no pot aprendre res a partir de $c_i$
+                      <br/>$\Downarrow$
+                      <br/>la confidencialitat és &ldquo;perfecte&rdquo;</p>
                 </span>
             </section>
 
@@ -529,29 +531,9 @@
                     intercanviar cap algorisme secret que permetés donar una avantatge tècnic a l'enemic</em></p>
             </section>
 
-            <!-- <section>
-                <h3>(parèntesi)</h3>
-                <p>Experiment amb els ulls</p>
-                <p><a href="github.com/jig/bio-decrypt">github.com/jig/bio-decrypt</a></p>
-            </section>-->
-
-            <!--<section id="bio-k">
-                <img data-src="gimp/bio-k.png"/>
-            </section>
-            <section id="bio-k4">
-                <img data-src="gimp/bio-k4.png"/>
-            </section>-->
-
-            <!--<section id="bio-c">
-                <img data-src="gimp/bio-c.png"/>
-            </section>
-            <section id="bio-k">
-                <img data-src="gimp/bio-k.png"/>
-            </section>
-            <section id="bio-c3" data-background="gimp/bio-c3.png">
-            </section>
-            <section id="bio-k3" data-background="gimp/bio-k3.png">
-            </section>-->
+            <section>
+	       <h3><a href="symmetric.html">(Criptografia Simètrica) $\rightarrow$</a></h3>
+	    </section>
         </div>
 
     </div>
