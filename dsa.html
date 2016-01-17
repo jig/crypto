@@ -57,13 +57,13 @@
             </section>
             <section>
                 <h2>Elgamal en combinació de signatura</h2>
-                <p>{Elgamal, 1985}</p>
+                <p>{&#1591;&#1575;&#1607;&#1585; &#1575;&#1604;&#1580;&#1605;&#1604; (Taher Elgamal), 1985}</p>
                 <p>Fonamentat sobre l'algorisme
                     <a href="dh.html">DH</a>, i base pel
                     <a href="#dsa">DSA</a> i
                     l'<a href="ecdsa.html">ECDSA</a>
                     <br>
-                    (Elgamal es pot combinar per a fer signatura o xifrat. Veurem aquí la combinació de signatura que és
+                    (Elgamal es pot combinar per a fer signatura o xifrat; veurem només la combinació de signatura que és
                     de la que partirem per a veure el DSA i l'ECDSA)
                 </p>
                 <p>Tots aquests algorismes es basen en<br/>els problemes
@@ -98,7 +98,7 @@
                 <h2>Generació de claus</h2>
                 <p>Cada usuari $\text{u}$ ha de generar:</p>
                 <ul>
-                    <li>$a_\text{u}$: seleccionem un valor aleatori* $0 < a_\text{u} < p-1$</li>
+                    <li>$a_\text{u}$: seleccionem un valor (pseudo)aleatori $0 < a_\text{u} < p-1$</li>
                     <li>$y_\text{u}$: calculem $y_\text{u} = \alpha^{a_\text{u}}$</li>
                 </ul>
                 <p>Gestió:</p>
@@ -112,7 +112,6 @@
                     Nota: comparem el cost de generació de claus
                         <br/>d'Elgamal (1 random + 1 exp) amb el d'RSA (2 primers)
                 </em></p>
-                <p>*) o pseudoaleatori</p>
             </section>
 
             <section style="text-align: left;">
@@ -192,7 +191,7 @@
                 <h2>DSA</h2>
                 <p>{NIST, 1991}</p>
                 <p>Directament basat en l'algorisme<br/>Elgamal en combinació de signatura</p>
-                <p>DSA (Digital Signature Algorithm) actualment està sent desplaçat per la variant
+                <p>DSA (<em>Digital Signature Algorithm</em>) actualment està sent desplaçat per la variant
                     sobre corbes el·líptiques (<a href="ecdsa.html">ECDSA</a>)
                 </p>
             </section>
@@ -205,7 +204,7 @@
                     <li>Amb una mida de les signatures inferior (de fet, inferior a RSA de seguretat equivalent)</li>
                 </ul>
                 <p>Aquests dos fets fan que Elgamal no es faci servir per signatura, en favor de l'equivalent DSA</p>
-                <p>Després veurem que al DSA li passa el mateix respecte l'ECDSA</p>
+                <!-- <p>Després veurem que al DSA li passa el mateix respecte l'ECDSA</p> -->
 
             </section>
 
@@ -326,6 +325,10 @@
                         </tr>
                     </tbody>
                 </table>
+            </section>
+
+            <section>
+                <h3><a href="ecc.html">(Criptografia de Corba El·líptica) $\rightarrow$</a></h3>
             </section>
         </div>
 

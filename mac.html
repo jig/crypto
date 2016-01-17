@@ -102,17 +102,17 @@
                 <p>podem fer servir directament una funció de xifrat de <u>bloc</u>, d'aquesta manera:
                 <br/>$t = e(k, m)$</p>
 
-                <svg width="480" height="120" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
-                    <g>
-                        <title>Layer 1</title>
-                        <rect fill="#f7cfcf" stroke="#000000" stroke-width="5" stroke-linejoin="null" stroke-linecap="null" x="324" y="31.5" width="137.75" height="37.25" id="svg_3"/>
-                        <rect fill="#f7cfcf" stroke="#000000" stroke-width="5" x="29" y="32" width="282.99999" height="37" id="svg_1"/>
-                        <text font-style="italic" fill="#000000" stroke="#000000" stroke-width="0" x="391.75" y="38.4708" id="svg_2" font-size="24" font-family="Sans-serif" text-anchor="middle" xml:space="preserve" transform="matrix(1,0,0,0.953496220250237,-0.25,22.196207110658804) ">t</text>
-  <text font-style="italic" fill="#000000" stroke="#000000" stroke-width="0" x="188.5" y="37.94641" font-size="24" font-family="Sans-serif" text-anchor="middle" xml:space="preserve" transform="matrix(1,0,0,0.953496220250237,-0.25,22.196207110658804) " id="svg_4">m</text>
-                    </g>
-                </svg>
-                <p>Nota: no podem fer servir xifrat de flux (directament), ja que el càlcul de $k$ seria trivial</p>
+		<svg width="360" height="120" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+		  <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+		  <g>
+		    <title>Layer 1</title>
+		    <rect id="svg_3" height="37.25" width="137.75" y="30.75" x="177.75" stroke-linecap="null" stroke-linejoin="null" stroke-width="5" stroke="#000000" fill="#f7cfcf"/>
+		    <rect stroke="#000000" id="svg_1" height="37" width="139.99999" y="31" x="29" stroke-width="5" fill="#f7cfcf"/>
+		    <text transform="matrix(1,0,0,0.953496220250237,-0.25,22.196207110658804) " xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" id="svg_2" y="36.37326" x="247.75" stroke-width="0" stroke="#000000" fill="#000000" font-style="italic">t</text>
+		    <text id="svg_4" transform="matrix(1,0,0,0.953496220250237,-0.25,22.196207110658804) " xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="34.80009" x="101.5" stroke-width="0" stroke="#000000" fill="#000000" font-style="italic">m</text>
+		  </g>
+		  </svg>
+                <p>Nota: no podem fer servir xifrat de flux (directament), ja que el càlcul de $k$ seria trivial; però sí que podem fer servir <code>AES-128-ECB</code></p>
             </section>
 
             <section id="fixed-mac">
@@ -129,14 +129,14 @@
                 <h3 style="text-transform:none;">rawCBC-MAC</h3>
                 <p>derivat del <a href="symmetric.html#mode-of-operation">mode d'operació</a> CBC (<em>Cipher Block Chaining</em>)</p>
                 <p><img border="9" src="img/CBC-MAC_structure_(en).svg"/>
-                    <br/><small>(font <a href="https://en.wikipedia.org/wiki/CBC-MAC">Wikipedia</a>)</small></p>
+                    <br/><small>(basat en <a href="https://en.wikipedia.org/wiki/CBC-MAC">Wikipedia</a>)</small></p>
                 <p>però en lloc de fer servir un $\text{IV}$, iniciarem la cadena amb $0$ (equivalent a $\text{IV}=0$)</p>
                 <p class="fragment">rawCBC-MAC és insegur però...</p>
             </section>
 
             <section>
                 <h3>ECBC-MAC</h3>
-                <p>CBC-MAC és insegur ja que un atacant pot combinar missatges bons per generar-ne de bons</p>
+                <p>rawCBC-MAC és insegur ja que un atacant pot combinar missatges bons per generar-ne de bons</p>
                 <p>per evitar el problema podem canviar l'$\text{IV}=0$ per la longitud inicial $\text{IV}=\ell$</p>
             </section>
 
@@ -146,7 +146,7 @@
                     concatenat
                     <br/>(ECBC: <em>Encrypted CBC</em>)</p>
                 <p><img border="9" src="img/CBC-MAC_(encrypt_last_block)_structure.svg"/>
-                    <br/><small>(font <a href="https://en.wikipedia.org/wiki/CBC-MAC">Wikipedia</a>)</small></p>
+                    <br/><small>(basat en <a href="https://en.wikipedia.org/wiki/CBC-MAC">Wikipedia</a>)</small></p>
             </section>
 
             <section>

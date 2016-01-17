@@ -151,6 +151,20 @@
                 <p>$(a+b)+c=a+(b+c)$ i $(ab)c = a(bc)$</p>-->
             </section>
 
+            <section id="congruent">
+                <h3>congruent</h3>
+                <p>$a \equiv b \pmod n$</p>
+                <p>$a$ és congruent mòdul $n$ amb $b$ sii:</p>
+                <p>$a \bmod n = b \bmod n$</p>
+                <p class="fragment">ò $n|(a-b)$ </p>
+                <span class="fragment">
+                    <p>Exemple:</p>
+                    <p>$173 \equiv 3 \pmod{10}$ ò $10|(173-3)$</p>
+                    <p>$73 \equiv 173 \pmod{10}$ ò $10|(73-173)$</p>
+                    <p>$73 \not\equiv 2 \pmod{10}$</p>
+                </span>
+            </section>
+
             <section>
                 <h1>$\mathbb{Z}_p^*$</h1>
                 <span id="zpstar" class="fragment">
@@ -162,7 +176,8 @@
             </section>
 
             <section style="text-align: left;">
-                <h3>Operacions sobre $\mathbb{Z}_p$<br/>(amb $p$ primer)</h3>
+                <h3>Operacions sobre $\mathbb{Z}_p^*$
+                    <br/>(amb $p$ primer)</h3>
                 <p>$+$, $-$, $\times$, $\text{div}$</p>
                 <br/>
                 <p>$+$, $-$, $\times$ equivalents a les definides/conegudes a $\mathbb{Z}_n$</p>
@@ -171,21 +186,21 @@
                     a \text{ div } b &\equiv a{b}^{-1} \pmod p
                     \end{aligned}$
                 </p>
-                <p>$b$ sempre té inversa, ja que hem eliminat el $0$</p>
+                <p>$b$ sempre té inversa <a href="#zpstar">per definició</a>
+                    (ja que hem eliminat el $0$)</p>
                 <!-- <p>o sigui:</p>
                 <p>$a+b=b+a$ i $ab = ba$</p>
                 <p>$(a+b)+c=a+(b+c)$ i $(ab)c = a(bc)$</p>-->
             </section>
 
             <section id="fermat-little">
-                <section>
                 <h2>Teorema "petit" de Fermat</h2>
                 <p>el segle XVII Fermat va veure que<br>si multiplicava "$p$ vegades" qualsevol número enter $a$ amb si mateix, el resultat
                     era divisible per $p$ a condició que $p$ fos un nombre primer.</p>
                 <p>És a dir que:
                     <br>$a^p \equiv a \pmod p$
                 </p>
-                <div class="fragment">
+                <span class="fragment">
                     <p>e.g. per $a = 2$</p>
                     <p>$\begin{aligned}
                         \mathbb{Z}_{3}^{*} \implies &2^{3} = 8 = 3·2+2 \equiv 2 \pmod{3} \\
@@ -195,9 +210,7 @@
                         \end{aligned}$
                         <!-- \mathbb{Z}_{13}^{*} & \implies 2^{13} = 8192 \equiv 2 \pmod{13} -->
                     </p>
-                </div>
-                    <p class="fragment">Nota: Qualsevol $a$ no és del tot precís: $p$ i $a$ han de ser <a href="#coprime">comprimers</a></p>
-                </section>
+                </span>
             </section>
 
             <section>
@@ -229,7 +242,7 @@
             </section>
 
             <section>
-                <h2>Generalització</h2>
+                <h2>Generalització del <span title="Teorema Petit">TP</span> de Fermat</h2>
                 <p>\[
                     \begin{aligned}
                     a^{p} & \equiv a \pmod p \\
@@ -242,25 +255,28 @@
                     \end{aligned}
                     \]</p>
                 <p class="fragment" id="fermat-generalized">$a^{x} \equiv a^{y} \pmod p $ si $ x \equiv y \pmod{p-1}$</p>
-                <p class="fragment">(sii $a$ i $p$ són comprimers)</p>
+                <p class="fragment">(Nota: cal que $a$ i $p$ siguin comprimers ja que $a$ ha de ser
+                    invertible,
+                    o sigui que $a$ no pot ser múltiple de $p$)</p>
+                <p class="fragment" title="d'aplicació en DSA"><small><a href="dsa.html">DSA $\rightarrow$</a></small></p>
             </section>
 
             <section>
                 <h1>$\mathbb{Z}_n^*$</h1>
                 <span class="fragment">
                     <p>Definició: $\mathbb{Z}_n^*$ és $\mathbb{Z}_n$ excloent els $n$ invertibles</p>
-                    <p>$\mathbb{Z}_n^* = \{a \in \mathbb{Z}_n \; | \; a \text{ invertible}\}$</p>
+                    <p>$\mathbb{Z}_n^* = \{a \in \mathbb{Z}_n \; | \; a$ invertible $\}$</p>
                 </span>
                 <!-- <span class="fragment">($\mathbb{Z}_p^*$ n'és un cas particular)</span> -->
                 <p class="fragment">$\mathbb{Z}_n^* = \{a \in \mathbb{Z}_n \; | \; \text{mcd}(a,n) = 1\}$</p>
-                <p class="fragment">(o sigui, tot $\mathbb{Z}_n$ menys els comprimers amb $n$;
-                    <br/>això se'n grup multiplicatiu de $\mathbb{Z}_n$)</p>
+                <p class="fragment">$\mathbb{Z}_n^* = \{a \in \mathbb{Z}_n \; | \; a$ i $n$ coprimers $\}$</p>
+                <p id="znstar" class="fragment">(això se'n diu <em>grup multiplicatiu</em> de $\mathbb{Z}_n$)</p>
                 <div class="fragment">
                     <hr/>
                     <p>Exemple:
                         <br/>$\mathbb{Z}_{15}^* = \{1,2,4,7,8,11,13,14\}$
                         <br/>en canvi:
-                        <br/>$\mathbb{Z}_{15} = \{1,2,3,4,5,6,7,8,9,10,11,12,13,14\}$
+                        <br/>$\mathbb{Z}_{15} = \{0,1,2,3,4,5,6,7,8,9,10,11,12,13,14\}$
                     </p>
                 </div>
             </section>
@@ -275,9 +291,7 @@
                     a \text{ div } b &\equiv a{b}^{-1} \pmod p
                     \end{aligned}$
                 </p>
-                <p>$b$ sempre té inversa per definició:
-                    <br/>$\mathbb{Z}_n^* = \{b \in \mathbb{Z}_n \; | \; b \text{ invertible}\}$
-                </p>
+                <p>$b$ sempre té inversa <a href="#znstar">per definició</a></p>
                 <p>(versió generalitzada del cas anterior $\mathbb{Z}_p^*$)</p>
             </section>
 
@@ -285,7 +299,9 @@
                 <h3>Definició: $\; \phi(n)$</h3>
                 <p>Funció "phi" d'Euler o funció <em>Totient</em> d'Euler</p>
                 <p>$\phi(n)$ es el nombre de valors<br/><a href="#coprimer">coprimers</a> amb $n$</p>
-                <p class="fragment">Per tant: $\phi(n) = |\mathbb{Z}_n^*|$</p>
+                <p class="fragment">Per tant: $\phi(n) = |\mathbb{Z}_n^*|$
+                    <br/>(traduït: <em>$\phi(n)$ és el nombre d'elements $\mathbb{Z}_n^*$</em>; la seva mida o
+                    <a href="#order">ordre</a>)</p>
             </section>
 
             <section>
@@ -330,7 +346,7 @@
             </section>
 
             <section id="euler-generalized">
-                <h2>Generalització</h2>
+                <h2>Generalització del <span title="Teorema">T</span> d'Euler</h2>
                 <p>\[
                     \begin{aligned}
                     a^{\phi(n)} & \equiv 1 \pmod n \\
@@ -342,11 +358,15 @@
                     \end{aligned}
                 \]</p>
                 <p class="fragment">$a^{x} \equiv a^{y} \pmod n$ si $x \equiv y \pmod{\phi(n)}$</p>
+                <p class="fragment" title="d'aplicació en RSA"><small><a href="rsa.html">RSA $\rightarrow$</a></small></p>
             </section>
 
             <!-- -------------------------------------------------------------------------------------------- -->
             <section id="cyclic">
                 <h1>$\mathbb{Z}_n^*$ cíclic</h1>
+                <p title="d'aplicació en DSA"><small><a href="dsa.html">DSA $\rightarrow$</a></small>
+                    <br/><span title="d'aplicació en DH"><small><a href="dh.html">DH $\rightarrow$</a></small></span>
+                </p>
             </section>
 
             <section id="order">
@@ -448,7 +468,8 @@
                 <p>&nbsp;</p>
                 <p class="fragment">Fixem-nos que $\phi(9)=9(1-1/3)=6$
                     <br/>i que $\text{ord}(a)|6  \quad \forall a \in \mathbb{Z}_{9}^*$</p>
-                <p class="fragment">$2$ i $5$ són generadors, per tant $\mathbb{Z}_{9}^*$ és cíclic</p>
+                <p class="fragment">com que hi ha al menys un element amb ordre $6$ (n'hi ha 2, el $2$ i $5$),
+                    tenim generadors i per tant, $\mathbb{Z}_{9}^*$ és cíclic</p>
             </section>
 
             <section>
@@ -456,11 +477,12 @@
                 <p>es compleix que:
                    <br/>
                     $\mathbb{Z}_{n}^* = \{\alpha^i \pmod n \; | \; 0 \leq i < \phi(n)\}$</p>
-                <p class="fragment">Tenim el conjunt original (simplement ordenat diferent)</p>
+                <p class="fragment">tenim el conjunt original (simplement ordenat diferent)</p>
+                <!-- fer un dibuix: <p class="fragment">és una <a href="symmetric.html#permutation">permutació</a></p> -->
             </section>
 
             <section>
-                <h3>Càlcul: $\;\mathbb{Z}_{n}^*$ és cíclic...</h3>
+                <h3>Fet: $\;\mathbb{Z}_{n}^*$ és cíclic...</h3>
                 <p>...sii $n = 2,4,p^k, 2p^k$ per a tot primer $p \geq 3$</p>
             </section>
 
@@ -543,13 +565,17 @@
 
             <section id="generator-selection">
                 <h3>Selecció del generador $\alpha$...</h3>
-                <p>...pel cas $\mathbb{Z}_{p}^*$, que és el que aplica a DH, DSA i ECDSA es
+                <p>...pel cas $\mathbb{Z}_{p}^*$ que és el que aplica a DH i   DSA es
                     <br/>fa servir $p = 2q+1$ amb $q$ també primer</p>
                 <p>llavors, agafa un $ 2 \leq \alpha < p-1$ aleatori:</p>
                 <p>$\alpha^{{p-1}/q} \not\equiv 1 \pmod p$</p>
                 <p>si és congruent $1$ cal buscar una altre $\alpha$</p>
                 <p>(amb un o dos intents trobarem el generador)</p>
                 <!-- Menezes 4.80 + http://crypto.stackexchange.com/questions/9006/how-to-find-generator-g-in-a-cyclic-group -->
+            </section>
+
+            <section>
+                <h3><a href="dh.html">(DH) $\rightarrow$</a></h3>
             </section>
         </div>
 

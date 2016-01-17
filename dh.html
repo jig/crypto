@@ -42,7 +42,8 @@
         <div class="slides">
 
             <section>
-                <h1>Acord de claus DH</h1>
+                <h1>Acord de claus
+                    <br/>Diffie-Hellman</h1>
                 <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
 
 				<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">
@@ -59,14 +60,17 @@
             <section>
                 <h2>Acord de claus DH</h2>
                 <p>{Diffie, Hellman; 1976}</p>
-                <p>Permet acordar un nombre aleatori entre dos usuaris a partir de la hipòtesi CDH (Computational Diffie-Hellman).
+                <p>Permet acordar un nombre aleatori entre dos usuaris a partir de la hipòtesi <span title="Computational Diffie-Hellman">CDH</span>
+                    (hipòtesi computacional Diffie-Hellman).
                     Aquest nombre aleatori es pot fer servir de clau per a xifrar les posteriors comunicacions
                     fent servir xifrat simètric.
                     <br>
                     (DH no permet signar ni xifrar, però és la base d'altres algorismes que sí ho permeten)
                 </p>
-                <p>CDH és un <em>problema amb trampa</em> relacionat amb el problema DLP (Problema del logaritme discret).
-                    El DLP conjectura que es difícil el càlcul del logaritme (inversa de l'exponenciació) en certs grups
+                <p>CDH és un <em>problema amb trampa</em> relacionat amb el problema
+                    <span title="Discrete Logarithm Problem">DLP</span>
+                    (Problema del logaritme discret).
+                    El DLP conjectura que es difícil el càlcul del logaritme (funció inversa de l'exponenciació) en certs grups
                 </p>
             </section>
 
@@ -112,9 +116,10 @@
 
             <section>
                 <h2>La trampa</h2>
-                <p>Si coneixem $i$ (o coneixem $j$) llavors<br>el càlcul de $\alpha^{ij}$ és fàcil coneixent $\alpha^j$ (ò $\alpha^i$):</p>
+                <p>Si coneixem $i$ i $\alpha^j$ (ò $j$ i $\alpha^i$) llavors el càlcul d'$\alpha^{ij}$ és fàcil:</p>
                 <p>Si coneixes $i$: $\alpha^{ij} = {(\alpha^j)}^{i} \pmod p$</p>
                 <p>Si coneixes $j$: $\alpha^{ij} = {(\alpha^i)}^{j} \pmod p$</p>
+                <p>(en canvi si no coneixes ni $i$ ni $j$, és computacionalment difícil encara que coneguis $\alpha^i$ i $\alpha^j$)</p>
             </section>
 
             <section style="text-align: left;">
@@ -144,9 +149,9 @@
                 <li>$\alpha$ pot ser qualsevol enter $1 < \alpha < (p-1)$ i habitualment es pren un valor baix (e.g $2$)</li>
                 </ul>-->
                 <ul>
-                    <li>$p$: ha de ser un primer gran en la forma $p=2q+1$ per a
+                    <li>$p$: ha de ser un primer gran (en la forma $p=2q+1$ per a
                         <a href="number-theory.html#generator-quantity">facilitar la cerca</a>
-                        de generadors $\alpha$</li>
+                        de generadors $\alpha$)</li>
                     <li>$\alpha$: <a href="number-theory.html#generator-selection">seleccionar</a> un valor aleatori $\alpha \in \mathbb{Z}_{p}^{*}$ que
                         sigui generador de $\mathbb{Z}_{p}^{*}$</li>
                 </ul>
@@ -156,7 +161,7 @@
                 <h3>debilitats $\rightarrow$ contramesures</h3>
                 <p>DH no autentica:</p>
                 <ul>
-                    <li><span title="Man In The Middle">MITM</span> $\rightarrow$ cal combinar DH amb algún protocol per a autenticar els extrems</li>
+                    <li><span title="Man In The Middle">MITM</span> $\rightarrow$ cal combinar DH amb algun protocol per a autenticar els extrems</li>
                 </ul>
                 <p>
                     problemes sobre la implementació:
@@ -217,6 +222,11 @@
                     </tbody>
                 </table>
             </section>
+
+            <section>
+                <h3><a href="rsa.html">(RSA) $\rightarrow$</a></h3>
+            </section>
+
         </div>
 
     </div>

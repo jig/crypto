@@ -614,9 +614,9 @@
             <section>
                 <h3>Xifrat de bloc: funció aleatoria</h3>
                 <p>aquestes $2^{n}$ entrades (de longitud $n$) les haurem d'escollir de forma aleatòria</p>
-                <p>de forma que no podrem conèixer $f(x)$ sense accedir a la taula</p>
-                <p><br/></p>
-                <p>RF: <em>Random Function</em></p>
+                <p>de forma que no podrem conèixer $f(x)$ sense conèixer la taula</p>
+                <p>$\downarrow$</p>
+                <p>RP: <em>Random Permutation</em></p>
             </section>
             <section>
                 <h3>Xifrat de bloc: model</h3>
@@ -671,7 +671,9 @@
 
             <section>
                 <h3>xifrats de bloc: classes bàsiques</h3>
-                <p>hi ha dues classes de xifrat de bloc</p>
+                <p>hi ha dues classes de xifrat de bloc
+		  <br/>(és a dir, dues maneres d'implementar
+		  <span title="Permutació Pseudoaleatòria">PRP</span>)</p>
                 <ul>
                     <li>xifrat de <u>transposició</u> (o permutació)</li>
                     <li>xifrat de <u>substitució</u>
@@ -734,15 +736,15 @@
                     </tr>
                     <tr>
                         <td>$c=e(m)$</td>
-                        <td>$p($pos<small>1</small>$)$</td>
-                        <td>$p($pos<small>2</small>$)$</td>
-                        <td>$p($pos<small>3</small>$)$</td>
-                        <td>$p($pos<small>4</small>$)$</td>
+                        <td>$f($pos<small>1</small>$)$</td>
+                        <td>$f($pos<small>2</small>$)$</td>
+                        <td>$f($pos<small>3</small>$)$</td>
+                        <td>$f($pos<small>4</small>$)$</td>
                     </tr>
                     </tbody>
                 </table>
-                <p>i simplement: $d$ és la seqüència de permutacions inverses $p^{-1}$</p>
-                <p>(el xifrat de <a href="intro.html#vigenere">Vigenère</a> és un subtipus de xifrat de substitució polialfabètica)</p>
+                <p>i simplement: $d$ és la seqüència de permutacions inverses $f^{-1}$</p>
+                <p>(el xifrat de <a href="intro.html#vigenere">Vigenère</a> és un tipus de xifrat de substitució polialfabètica)</p>
             </section>
 
             <section>
@@ -827,7 +829,7 @@
             <section>
                 <h3>Expansió de clau</h3>
                 <p>Cadascuna de les etapes (<em>rounds</em>) fa servir una subclau $k_{i}$ diferent</p>
-                <p>cadascuna de les subclaus $k_{i}$ es deriva de la clau $k$</p>
+                <p>cadascuna de les subclaus $k_{i}$ es <a title="AES key expansion" href="https://en.wikipedia.org/wiki/Rijndael_key_schedule">deriva</a> de la clau $k$</p>
                 <p><br/></p>
                 <p>Nota 1: les subclaus s'apliquen ($\oplus$) "entre" les etapes per tant cal una subclau més que etapes (11|13|15)</p>
                 <p>Nota 2: calen més etapes en els AES de clau llarga per "aplicar" el major espai de claus sobre el missatge en clar</p>
@@ -964,7 +966,7 @@
             <section>
                 <h3>AES: més vulnerabilitats</h3>
                 <p>AES porta des del 2000 públic: això implica un escrutini públic o secret sever</p>
-                <p class="fragment">segons els "papers d'Edward <a href="http://www.cjfe.org/snowden">Snowden</a>"
+                <p class="fragment">segons els "papers d'Edward <a href="file:///home/sysadmin/git/src/github.com/jig/crypto-privat/reveal/reveal.js-3.2.0/threats.html#/snowden">Snowden</a>"
                     l'NSA està estudiant-ne les vulnerabilitats (no públicament)</p>
                 <p class="fragment">altres "grans" organitzacions és altament improbable que no hi dediquin
                     recursos importants</p>
@@ -972,8 +974,7 @@
 
             <section>
                 <h3>AES: més vulnerabilitats</h3>
-                <p><a href="file:///home/sysadmin/git/src/github.com/jig/crypto-privat/reveal/reveal.js-3.2.0/threats.html#/symmetric-crypto">algorismes quàntics</a></p>
-                <p>amb l'algorisme de <a href="https://en.wikipedia.org/wiki/Grover%27s_algorithm">Grover</a>
+                <p><a href="file:///home/sysadmin/git/src/github.com/jig/crypto-privat/reveal/reveal.js-3.2.0/threats.html#/symmetric-crypto">algorismes quàntics</a>: amb l'algorisme de <a href="https://en.wikipedia.org/wiki/Grover%27s_algorithm">Grover</a>
                     les cerques en bases de dades no ordenades tenen
                     <a title="Notació O(·) i complexitat dels diferents algorismes criptogràfics" href="complexity.html#big-o">
                         complexitat
@@ -1055,8 +1056,8 @@
             </section>
 
             <section>
-	      <h3><a href="mac.html">(MAC) $\rightarrow$</a></h3>
-	    </section>
+              <h3><a href="mac.html">(MAC) $\rightarrow$</a></h3>
+            </section>
 	    
         </div>
     </div>

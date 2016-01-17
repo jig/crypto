@@ -99,7 +99,7 @@
                     <p><em>&ldquo;si tenim un grup de 23 persones, la probabilitat de tenir un parell amb la mateixa data d'aniversari
                     és del 50%&rdquo;</em></p>
                 <p>només cal un grup de 70 persones per a que la probabilitat augmenti al 99%</p>
-                <p class="fragment">en general, $p=0,5$ si el nombre d'experiments és $x \approx 1,25 \sqrt{\text{elements}}$</p>
+                <p class="fragment">en general, $p=0.5$ si el nombre d'experiments és $x \approx 1,25 \sqrt{\text{elements}}$</p>
             </section>
 
             <section>
@@ -107,9 +107,9 @@
                 <p>(<em>Birthday attack</em>)</p>
                 <p>si tenim un hash de mida $\|r\|$ la probabilitat de col·lisió serà molt alta quan ens apropem
                     a les $\sqrt{|r|}$ operacions</p>
-                <p>e.g per a $\|r\| = 256\text{b}$ això són $2^{128}$ operacions</p>
+                <p>e.g per a $\|r\| = 256\text{b}$ això són unes $2^{128}$ operacions</p>
                 <p class="fragment">això implica que per a un hash cal resums del doble de llargs que les claus</p>
-                <p class="fragment">(la <em>security strength</em> d'una funció de hash de longitud $n$ és $n/2$)</p>
+                <p class="fragment">(la <em>security strength</em> d'una funció de hash de longitud $b$ bits és $b/2$)</p>
             </section>
 
             <section>
@@ -119,7 +119,8 @@
                     <li>SHA-2: longituds de $256$ b i $512$ b (amb variants truncades de $224$ b i $384$ b)</li>
                     <li>SHA-3: longituds entre $224$ b a $512$ b</li>
                 </ul>
-                <p>longituds aproximadament el doble que les longituds de claus que les claus de l'AES ($128$ b, $192$ b, $256$ b)</p>
+                <p>longituds aproximadament el doble que les longituds de claus que les claus de l'AES ($128$ b, $192$ b, $256$ b)
+		  per a una seguretat equivalent</p>
             </section>
 
             <section>
