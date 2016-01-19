@@ -56,8 +56,8 @@
             </section>
             <section>
                 <h1>RSA</h1>
-                <p>{Rivest, Shamir, Adleman; 1978}</p>
-                <p>Permet implementar el xifrat i la signatura, mitjançant l'RSAP (Problema RSA)</p>
+                <p>{Ron Rivest,  &#1506;&#1491;&#1497; &#1513;&#1502;&#1497;&#1512; (Adi Shamir), Leonard Adleman; 1978}</p>
+                <p>Permet implementar el xifrat i la signatura, mitjançant l'<span title="RSA Problem">RSAP</span> (Problema RSA)</p>
                 <p>L'RSAP es un <em>problema amb trampa</em> que es basa en la dificultat del càlcul de
                     l'arrel $e$-èssima$\pmod{n}$ per a valors d'$n$ amb certes propietats
                 </p>
@@ -65,55 +65,21 @@
 
 
             <section>
-                <section id="fragment">
-                    <h2>RSAP</h2>
-                    <h3>(el problema RSA)</h3>
-                    <p>Suposem que tenim un missatge $m$ i que el <em>permutem</em>* amb la funció:</p>
-                    <p>$c = m^e \pmod n$</p>
-                    <div class="fragment">
-                        <p>per recuperar (desxifrar) el missatge original a partir de $c$ cal invertir:</p>
-                        <p>$m = \sqrt[e]{c} \pmod n$</p>
-                    </div>
-                </section>
-                <section>
-                    <p>*) <em>permutació</em>: funció <em>bijetiva</em>* entre el domini $A$ sobre sí mateix<br>
-                        $f : A \rightarrow A$
-                    </p>
-                </section>
-                <section>
-                    <p>*) <em>funció bijectiva</em>: funció entre el domini $A$ i el codomini $B$, en el que tots
-                        els elements d'$A$ tenen una imatge en $B$ i tots els elements de $B$ són imatge d'un
-                        element d'$A$.
-                        <br>
-                        $f : A \rightarrow B$
-                    </p>
-                </section>
+                <h2>RSAP</h2>
+                <h3>(el problema RSA)</h3>
+                <p>Suposem que tenim un missatge $m$ i que el <a href="complexity.html#/function-permutation">permutem</a> amb la funció:</p>
+                <p>$c = m^e \pmod n$</p>
+                <div class="fragment">
+                    <p>per recuperar (desxifrar) el missatge original a partir de $c$ cal invertir:</p>
+                    <p>$m = \sqrt[e]{c} \pmod n$</p>
+                </div>
             </section>
 
             <section>
-                <section id="rsap">
-                    <h2>però</h2>
-                    <p>sii $n$ no és primer el càlcul d'</p>
-                    <p>$m \equiv \sqrt[e]{c} \pmod n$</p>
-                    <p>és <em>computacionalment difícil</em>* per valors d'$n$ amb factors suficientment grans (i desconeguts)</p>
-                </section>
-                <section style="text-align: left;">
-                    <p>*) <em>"computacionalment difícil"</em>: es creu que no hi ha cap algorisme que permeti calcular
-                        l'arrel $e$-èssima $\bmod n$ en temps polinòmic sii:
-                        <ul>
-                            <li>no es coneixen els factors d'$n$**</li>
-                            <li>i $\text{gcd}(e, \phi(n)) = 1$</li>
-                        </ul>
-                    </p>
-                    <p>**) amb els ordinadors actuals s'ha factoritzat fins $|pq| = 768 \text{bit}$ per $|p|, |q| = 768/2 = 384 \text{bit}$</p>
-                    <a href="https://en.wikipedia.org/wiki/Integer_factorization_records">
-                    <blockquote cite="https://en.wikipedia.org/wiki/Integer_factorization_records">
-                        &ldquo;On December 12, 2009, a team (...) factored RSA-768,
-                        a 232-digit semiprime.They used the equivalent of almost 2000 years of
-                        computing on a single core 2.2 GHz AMD Opteron.&rdquo;
-                    </blockquote>
-                    </a>
-                </section>
+                <h2>però</h2>
+                <p>sii $n$ no és primer el càlcul d'</p>
+                <p>$m \equiv \sqrt[e]{c} \pmod n$</p>
+                <p>és <a href="complexity.html">computacionalment difícil</a>* per valors d'$n$ amb factors suficientment grans (i desconeguts)</p>
             </section>
 
             <section>
@@ -203,7 +169,7 @@
                 <p>$\color{red}d \equiv e^{-1} \bmod{\phi(n)}$</p>
                 <p>per a minimitzar la possibilitat de que $\text{mcd}(e,d) \neq 1$, escollim un exponent $e$ primer, i vigilem simplement que $e$ no divideixi $d$</p>
                 <p>habitualment $e = 65537$ qué, a banda de ser primer, només té dos $1$ en base $2$
-                    i, per tant, permet una execució ràpida d'$m^e \pmod n$</p>
+                    i, per tant, permet una <a href="complexity.html#basic-op">execució ràpida</a> d'$m^e \pmod n$</p>
                 <p>i la probabilitat de que generem una clau privada $d \equiv 0 \pmod e$ és $1:65537$</p>
             </section>
 
@@ -216,7 +182,9 @@
                 <ol>
                 <li>l'usuari $\text{u}$ escull un exponent $e$<br/>(habitualment comú a tothom: $e = 65537$)</li>
                 <li>escull aleatòriament dos nombres primers $p_\text{u}$ i $q_\text{u}$ prou
-                    grans* i prou diferents** </li>
+                    grans<a title="dificultat per a factoritzar" href="#threats">*</a>
+                    i prou diferents<a title="Si p i q són iguals o inclús similars la factorització és factible" href="#threats">**</a>
+                </li>
                 <li>calcula $\phi(n_\text{u}) = (p_\text{u}-1)(q_\text{u}-1)$ </li>
                 <li>calcula $d_\text{u} = e^{-1} \bmod{\phi(n_\text{u})}$ </li>
                 </ol>
@@ -241,7 +209,7 @@
                 <p>qualsevol pot verificar la signatura coneixent $n_\text{u}$:</p>
                 <p>$m = c^{e} \pmod{n_\text{u}}$</p>
             </section>
-            <section>
+            <section id="threats">
 				<h3>debilitats $\rightarrow$ contramesures</h3>
                 <p>sobre l'algorisme:</p>
                 <ul>
@@ -420,6 +388,10 @@
                 </ol>
                 <p>per què ens serveix aquest teorema?
                     <br/>perquè 2. és més ràpid que $m = c^d \bmod{n}$</p>
+            </section>
+
+            <section>
+                <h3><a href="dsa.html">(Elgamal, DSA) $\rightarrow$</a></h3>
             </section>
         </div>
 

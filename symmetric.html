@@ -467,7 +467,7 @@
                 </div> -->
             </section>
 
-            <section>
+            <section id="function-bijection">
                 <h3>Funció bijectiva</h3>
                 <!-- <p>o correspondència biunívoca</p> -->
                 <svg width="400" height="310" xmlns="http://www.w3.org/2000/svg">
@@ -504,7 +504,7 @@
                 <p>per tant, la inversa d'$f$ (que simbolitzarem $f^{-1}$) està "ben definida"</p>
             </section>
 
-            <section>
+            <section id="function-inverse">
                 <h3>Funció inversa</h3>
                 <!-- <p>o correspondència biunívoca</p> -->
                 <svg width="400" height="310" xmlns="http://www.w3.org/2000/svg">
@@ -544,7 +544,7 @@
                 <p>per tant $f^{-1}$ també és bijectiva</p>
             </section>
 
-            <section>
+            <section id="function-permutation">
                 <h3>permutació</h3>
                 <svg width="400" height="310" xmlns="http://www.w3.org/2000/svg">
                     <g>
@@ -593,7 +593,7 @@
                 <p>i podem representar la funció de desxifrat com a la seva inversa $f^{-1}$
                 </p>
                 <p>$f^{-1} : X\rightarrow X$</p>		
-		<p>és a dir:</p>
+                <p>és a dir:</p>
                 <p>$\begin{aligned}
                     c &= f(m) \\
                     m &= f^{-1}(c)
@@ -607,16 +607,16 @@
                     \end{aligned}$</p>
                 <p>si implementem $f$ en una taula amb $2^n$ entrades, ocupem $n·2^n$ bit</p>
                 <span class="fragment">
-		  <p>on $n$ és la mida del <u>bloc</u></p>
-		  <p>(si tenim missatges més llargs d'$n$ haurem de segmentar-los en blocs: <a href="#mode-of-operation">modes d'operació</a>)</p>
-		</span>
+                  <p>on $n$ és la mida del <u>bloc</u></p>
+                  <p>(si tenim missatges més llargs d'$n$ haurem de segmentar-los en blocs: <a href="#mode-of-operation">modes d'operació</a>)</p>
+                </span>
             </section>
-            <section>
-                <h3>Xifrat de bloc: funció aleatoria</h3>
+            <section id="random-permutation">
+                <h3>Xifrat de bloc: permutació aleatoria</h3>
                 <p>aquestes $2^{n}$ entrades (de longitud $n$) les haurem d'escollir de forma aleatòria</p>
-                <p>de forma que no podrem conèixer $f(x)$ sense accedir a la taula</p>
-                <p><br/></p>
-                <p>RF: <em>Random Function</em></p>
+                <p>de forma que no podrem conèixer $f(x)$ sense conèixer la taula</p>
+                <p>$\downarrow$</p>
+                <p>RP: <em>Random Permutation</em></p>
             </section>
             <section>
                 <h3>Xifrat de bloc: model</h3>
@@ -643,7 +643,7 @@
                 <p>on $K$ és l'<em>espai</em> de claus $k$ (o <em>conjunt</em> de claus)</p>
             </section>
 
-            <section>
+            <section id="pseudo-random-permutation">
                 <h3>Xifrat de bloc:
                     <br/>permutació pseudoaleatòria</h3>
                 <p>igual que per al xifrat de flux ens calia un flux de bits aparentment aleatoris per a qui no tingués
@@ -671,15 +671,17 @@
 
             <section>
                 <h3>xifrats de bloc: classes bàsiques</h3>
-                <p>hi ha dues classes de xifrat de bloc</p>
+                <p>hi ha dues classes de xifrat de bloc
+		  <br/>(és a dir, dues maneres d'implementar
+		  <span title="Permutació Pseudoaleatòria">PRP</span>)</p>
                 <ul>
-                    <li>xifrat de <u>transposició</u> (o permutació)</li>
                     <li>xifrat de <u>substitució</u>
                         <ul class="fragment">
                             <li>monoalfabètics ($\approx$ César)</li>
                             <li><u>polialfabètics</u> (Vigenère)</li>
                         </ul>
                     </li>
+                    <li>xifrat de <u>transposició</u></li>
                 </ul>
                 <p class="fragment">a partir d'ara farem servir $e()$ i $d()$ en lloc<br/>de les $f()$ i $f^{-1}()$ usades fins ara</p>
             </section>
@@ -687,6 +689,36 @@
                 <h3>xifrats de bloc: composició</h3>
                 <p>per si sols, les 3 classes bàsiques de xifrat de bloc són insegures</p>
                 <p>però combinant-les podem obtenir seguretat creixent</p>
+            </section>
+
+            <section>
+                <h3>substitució polialfabètica</h3>
+                <p>per a un bloc de longitud $t$ elements, el que fem és fer servir $t$ permutacions $p()$ independents</p>
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>$m$</td>
+                        <td>pos<small>1</small></td>
+                        <td>pos<small>2</small></td>
+                        <td>pos<small>3</small></td>
+                        <td>pos<small>4</small></td>
+                    </tr>
+                    <tr>
+                        <td>$c=e(m)$</td>
+                        <td>$f($pos<small>1</small>$)$</td>
+                        <td>$f($pos<small>2</small>$)$</td>
+                        <td>$f($pos<small>3</small>$)$</td>
+                        <td>$f($pos<small>4</small>$)$</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>i simplement: $d$ és la seqüència de permutacions inverses $f^{-1}$</p>
+                <p>(el xifrat de <a href="intro.html#vigenere">Vigenère</a> és un tipus de xifrat de substitució polialfabètica)</p>
+            </section>
+
+            <section>
+                <h3>substitució polialfabètica: seguretat</h3>
+                <p>com en el cas de Vigenère podem recuperar el text original mitjançant <a href="intro.html#vigenere-frequency-analysis">anàlisi freqüencial</a></p>
             </section>
 
             <section>
@@ -721,44 +753,19 @@
             </section>
 
             <section>
-                <h3>substitució polialfabètica</h3>
-                <p>per a un bloc de longitud $t$ elements, el que fem és fer servir $t$ permutacions $p()$ independents</p>
-                <table>
-                    <tbody>
-                    <tr>
-                        <td>$m$</td>
-                        <td>pos<small>1</small></td>
-                        <td>pos<small>2</small></td>
-                        <td>pos<small>3</small></td>
-                        <td>pos<small>4</small></td>
-                    </tr>
-                    <tr>
-                        <td>$c=e(m)$</td>
-                        <td>$p($pos<small>1</small>$)$</td>
-                        <td>$p($pos<small>2</small>$)$</td>
-                        <td>$p($pos<small>3</small>$)$</td>
-                        <td>$p($pos<small>4</small>$)$</td>
-                    </tr>
-                    </tbody>
-                </table>
-                <p>i simplement: $d$ és la seqüència de permutacions inverses $p^{-1}$</p>
-                <p>(el xifrat de <a href="intro.html#vigenere">Vigenère</a> és un subtipus de xifrat de substitució polialfabètica)</p>
-            </section>
-
-            <section>
-                <h3>substitució polialfabètica: seguretat</h3>
-                <p>com en el cas de Vigenère podem recuperar el text original mitjançant <a href="intro.html#vigenere-frequency-analysis">anàlisi freqüencial</a></p>
-            </section>
-
-            <section>
                 <h3>composició de xifrats de bloc</h3>
                 <p>una composició de dos xifrats de bloc, la podem escriure:</p>
                 <p>$\begin{aligned}
-                    c &= e_2(e_1(m))\\
-                    c &= (e_2 \circ e_1)(m)
+                    c_1 &= e_1(k_1, m)\\
+                    c_2 &= e_2(k_2, c_1)\\
+                    &\vdots\\
+                    c &= e_1(k_n, c_{n-1})\\
                     \end{aligned}$</p>
-                <p>en general, podem obtenir xifrats de bloc compostos encadenant $r$ xifrats blocs bàsics:</p>
-                <p>$e_\text{compost} = e_1 \circ e_2 \circ \cdots \circ e_r$</p>
+                <span class="fragment">
+                    <p>cadascuna de les claus $k_i$ pot ser independent, però habitualment és genera en un procés anomenat
+                    expansió de clau:
+                        <br/><p>$k \xrightarrow{\text{PRNG}} \{k_1, k_2, \dotsc, k_n\}$</p></p>
+                </span>
             </section>
             <section>
                 <h3>composició de xifrats de bloc: </h3>
@@ -771,6 +778,7 @@
                 </ul>
                 <p><strong>etapes</strong> o <em>rounds</em>: les dues funcions s'agrupen en parelles i s'apliquen diferents cops
                     (amb diferents claus) fins a obtenir un xifrat segur</p>
+                <p>$c_i = e_1(k_i, c_{i-1})$</p>
             </section>
             <section>
                 <h1>AES</h1>
@@ -827,7 +835,7 @@
             <section>
                 <h3>Expansió de clau</h3>
                 <p>Cadascuna de les etapes (<em>rounds</em>) fa servir una subclau $k_{i}$ diferent</p>
-                <p>cadascuna de les subclaus $k_{i}$ es deriva de la clau $k$</p>
+                <p>cadascuna de les subclaus $k_{i}$ es <a title="AES key expansion" href="https://en.wikipedia.org/wiki/Rijndael_key_schedule">deriva</a> de la clau $k$</p>
                 <p><br/></p>
                 <p>Nota 1: les subclaus s'apliquen ($\oplus$) "entre" les etapes per tant cal una subclau més que etapes (11|13|15)</p>
                 <p>Nota 2: calen més etapes en els AES de clau llarga per "aplicar" el major espai de claus sobre el missatge en clar</p>
@@ -964,7 +972,7 @@
             <section>
                 <h3>AES: més vulnerabilitats</h3>
                 <p>AES porta des del 2000 públic: això implica un escrutini públic o secret sever</p>
-                <p class="fragment">segons els "papers d'Edward <a href="http://www.cjfe.org/snowden">Snowden</a>"
+                <p class="fragment">segons els "papers d'Edward <a href="file:///home/sysadmin/git/src/github.com/jig/crypto-privat/reveal/reveal.js-3.2.0/threats.html#/snowden">Snowden</a>"
                     l'NSA està estudiant-ne les vulnerabilitats (no públicament)</p>
                 <p class="fragment">altres "grans" organitzacions és altament improbable que no hi dediquin
                     recursos importants</p>
@@ -972,8 +980,7 @@
 
             <section>
                 <h3>AES: més vulnerabilitats</h3>
-                <p><a href="file:///home/sysadmin/git/src/github.com/jig/crypto-privat/reveal/reveal.js-3.2.0/threats.html#/symmetric-crypto">algorismes quàntics</a></p>
-                <p>amb l'algorisme de <a href="https://en.wikipedia.org/wiki/Grover%27s_algorithm">Grover</a>
+                <p><a href="file:///home/sysadmin/git/src/github.com/jig/crypto-privat/reveal/reveal.js-3.2.0/threats.html#/symmetric-crypto">algorismes quàntics</a>: amb l'algorisme de <a href="https://en.wikipedia.org/wiki/Grover%27s_algorithm">Grover</a>
                     les cerques en bases de dades no ordenades tenen
                     <a title="Notació O(·) i complexitat dels diferents algorismes criptogràfics" href="complexity.html#big-o">
                         complexitat
@@ -1055,8 +1062,8 @@
             </section>
 
             <section>
-	      <h3><a href="mac.html">(MAC) $\rightarrow$</a></h3>
-	    </section>
+              <h3><a href="mac.html">(MAC) $\rightarrow$</a></h3>
+            </section>
 	    
         </div>
     </div>
