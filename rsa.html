@@ -83,11 +83,9 @@
             </section>
 
             <section>
-                <section id="fragments">
-                    <p>hem xifrat un missatge $m$<br>
-                        però no hi ha manera de desxifrar-ne el resultat $c$...</p>
-                    <p class="fragment">...si és que no coneixem "la trampa"</p>
-                </section>
+                <p>hem xifrat un missatge $m$<br>
+                    però no hi ha manera de desxifrar-ne el resultat $c$...</p>
+                <p class="fragment">...si és que no coneixem "la trampa"</p>
             </section>
 
             <section>
@@ -163,11 +161,16 @@
                 <p>&nbsp;</p>
                 <p>s'ha de tenir en compte que $\phi(n)$ no és primer
                     </br>($\phi(pq) = (p-1)(q-1)$ producte de nombres parells)</p>
-                <p>per tant:<br/>per a poder invertir $e$ cal que $\text{mcd}(e,d) = 1$</p>
+                <p>per tant:</p>
+                <p>cal vigilar que $e$ sigui invertible $\pmod{\phi{(n)}}$
+                    <br/>(és a dir, que $e$ i $\phi{(n)}$ siguin coprimers)
+                    <br/>(és a dir, que $\text{mcd}(e, \phi{(n)}) = 1$)
+                    <!-- <br/>per a poder invertir $e$ cal que $\text{mcd}(e,d) = 1$ -->
+                </p>
             </section>
             <section>
                 <p>$\color{red}d \equiv e^{-1} \bmod{\phi(n)}$</p>
-                <p>per a minimitzar la possibilitat de que $\text{mcd}(e,d) \neq 1$, escollim un exponent $e$ primer, i vigilem simplement que $e$ no divideixi $d$</p>
+                <p>per a minimitzar la possibilitat de que $\text{mcd}(e,\phi{(n)}) \neq 1$, escollim un exponent $e$ primer, i vigilem simplement que $e$ no divideixi $d$</p>
                 <p>habitualment $e = 65537$ qué, a banda de ser primer, només té dos $1$ en base $2$
                     i, per tant, permet una <a href="complexity.html#basic-op">execució ràpida</a> d'$m^e \pmod n$</p>
                 <p>i la probabilitat de que generem una clau privada $d \equiv 0 \pmod e$ és $1:65537$</p>
@@ -235,7 +238,7 @@
                     <br/>barreja un nombre aleatori en la signatura,
                     de manera que dos xifrats de mateix valor són diferents
                     <br/>(algorisme determinista $\rightarrow$ algorisme probabilístic)</p>
-                <p>Per <strong>signatura</strong>: <em>Probabilistic Signature Scheme</em>
+                <p>Per  <strong>signatura</strong>: <em>Probabilistic Signature Scheme</em>
                     (<a href="http://www.emc.com/emc-plus/rsa-labs/historical/raising-standard-rsa-signatures-rsa-pss.htm">PSS</a>)
                     <br/>no signem directament el missatge si no que signem el hash, al qual afegim un random
                     (<em>salt</em>) i un farciment (<em>padding</em>) fins la longitud $n$
@@ -341,17 +344,6 @@
                     x &\equiv a \pmod{pq}
                     \end{aligned}$</p>
                 </span>
-            </section>
-
-            <section>
-                <h3>exemple senzill del <span title="Chinese Remainder Theorem">CRT</span></h3>
-                <p>$
-                    \begin{aligned}
-                    x &\equiv 1 \pmod{2} \\
-                    x &\equiv 3 \pmod{5} \\
-                    &\Downarrow \\
-                    x &\equiv 8 \pmod{10}
-                    \end{aligned}$</p>
             </section>
 
             <section>
