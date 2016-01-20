@@ -430,6 +430,23 @@
                 </table>
             </section>
 
+            <section id="elgamal-vs-dsa">
+                <p><a title="Elgamal vs. DSA" href="dsa.html#/elgamal-vs-dsa">DSA $\rightarrow $</a> ECDSA:</p>
+                <p>\[\begin{eqnarray}
+                    &&\color{red}{q | (p-1)} \\
+                    \text{random }k &\rightarrow& 0 < k < \color{red}{q} \\
+                    r &=& (\alpha^k \bmod p) \color{red}{\bmod q} \qquad\\
+                    s &=& \dfrac{h(m)+a_\text{u}r}{k} \color{red}{\bmod{q}}\quad
+                    \end{eqnarray}\]</p>
+                <p>$\downarrow$</p>
+                <p>\[\begin{eqnarray}
+                    \text{random }k &\rightarrow& 0 < k < \text{ord}(A) \\
+                    r &=& kA \bmod \text{ord}(A) \\
+                    s &=& \dfrac{h(m)-a_\text{u}r}{k} \bmod \text{ord}(A) \\
+                    \end{eqnarray}\]</p>
+            </section>
+
+
             <section>
                 <h3><a href="hsm.html">(RNG i HSM) $\rightarrow$</a></h3>
                 <hr/>

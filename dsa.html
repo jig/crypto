@@ -208,8 +208,8 @@
 
             </section>
 
-            <section>
-                <p>Elgamal$\rightarrow$DSA: reduïm $r$ i $s$ mòdul $\color{red}{q}$, on $\color{red}{q | (p-1)}$:</p>
+            <section id="elgamal-vs-dsa">
+                <p>Elgamal $\rightarrow$ DSA: reduïm $r$ i $s$ mòdul $\color{red}{q}$, on $\color{red}{q | (p-1)}$:</p>
                 <p>\[\begin{eqnarray}
                     \text{random }k &\rightarrow& 0 < k < p-1 \\
                     r &=& \alpha^k \bmod p \\
@@ -219,8 +219,8 @@
                 <p>\[\begin{eqnarray}
                     &&\color{red}{q | (p-1)} \\
                     \text{random }k &\rightarrow& 0 < k < \color{red}{q} \\
-                    r &=& (\alpha^k \bmod p) \bmod \color{red}{q} \qquad\\
-                    s &=& \dfrac{h(m)+a_\text{u}r}{k} \color{grey}{\bmod{(p-1)}} \bmod{\color{red}{q}}\quad
+                    r &=& (\alpha^k \bmod p) \color{red}{\bmod q} \qquad\\
+                    s &=& \dfrac{h(m)+a_\text{u}r}{k} \color{grey}{\bmod{(p-1)}} \color{red}{\bmod{q}}\quad
                     \end{eqnarray}\]</p>
                 <p class="fragment">Quan vegem com dimensionar els paràmetres pels diferents
                     algorismes, veurem que la mida recomanada en bits és:
