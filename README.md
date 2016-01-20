@@ -2,7 +2,7 @@
 
 Transparències a [jig.github.io/crypto](https://jig.github.io/crypto)
 
-### Contingut
+## Contingut
 
   - [Índex](https://jig.github.io/crypto) `7`
   - [Introducció, història](https://jig.github.io/crypto/intro.html) `38`
@@ -21,7 +21,7 @@ Transparències a [jig.github.io/crypto](https://jig.github.io/crypto)
   - [Infraestructura de Clau Pública (PKI)](http://jig.github.io/crypto/pki.html) `59`
   - [Advanced Electronic Signatures (AdES)](http://jig.github.io/crypto/ades.html) `17` → `87`
   
-### Exercicis
+## Exercicis
 
   - Criptografia simètrica:
     - bloc d'un sol ús amb [Gimp](https://www.gimp.org) (_one-time-pad_)
@@ -52,33 +52,35 @@ Transparències a [jig.github.io/crypto](https://jig.github.io/crypto)
         - client (amb `openssl s_client`)
       - connexions tls/https (chrome → servidor propi certificat amb [Let's Encrypt CA](https://letsencrypt.org))
 
-### Calendari, gener 2016
+## Calendari, gener 2016
 
  18        | 19               | 21
 ---------- | ---------------- | -------
- intro     | MAC, HMAC        | DSA
-           | Teoria de Nombres| ECC
-           |                  |
- symmetric | DH               | Complexitat
- (exercici)| RSA              | HSM
+ intro     | MAC, HMAC        | RSA
+           |                  | Elgamal (DSA, ECC)
+           |                  | 
+ symmetric | Teoria de Nombres| Complexitat
+           | DH               | (HSM)
            |                  | Amenaces
 
  25        | 26               
 ---------- | ---------------- 
  TLS       | PKI
- (exercici)| AdES
-           |                  
- ASN.1     | (exercici)               
- PKI       |         
-
- 
-
+ ASN.1     | AdES
+           |
+ PKI       | (exercici → servidor HTTPS)
 
 # Programari utilitzat
 
   - [Reveal.js](https://github.com/hakimel/reveal.js): per a realitzar les transparències
   - [MathJax](https://www.mathjax.org) ([LaTeX](http://latex-project.org)): per a presentar les equacions
   - [SVG-edit](https://github.com/SVG-Edit/svgedit): per a dibuixar gràfics vectorials
+  
+## Impressió de les transparències
+  
+Si vols imprimir les transparències no facis `Ctrl+P` directament. Cal fer servir un template específic
+per a impressió afegint `?print-pdf` a la URL abans d'imprimir. Per a més info les 
+[instruccions d'exportació a PDF de Revealjs](https://github.com/hakimel/reveal.js/#pdf-export)
 
 # Llicència
 
