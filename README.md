@@ -14,14 +14,14 @@ Transparències a [jig.github.io/crypto](https://jig.github.io/crypto)
   - [RSA](https://jig.github.io/crypto/rsa.html) `23`
   - [DSA](https://jig.github.io/crypto/dsa.html) `15`
   - [Criptografia de corba el·líptica](https://jig.github.io/crypto/ecc.html) `18`  
-  - [HSM](https://jig.github.io/crypto/hsm.html) `41` 
   - [Complexitat algorísmica](http://jig.github.io/crypto/complexity.html) `5`
-  - [Amenaces](http://jig.github.io/crypto/threats.html) `15` → `159`
+  - [Amenaces](http://jig.github.io/crypto/threats.html) `15`
+  - [HSM](https://jig.github.io/crypto/hsm.html) `41` → `159`
   - [Connexions (TLS)](http://jig.github.io/crypto/tls.html) `11`
   - [Infraestructura de Clau Pública (PKI)](http://jig.github.io/crypto/pki.html) `59`
   - [Advanced Electronic Signatures (AdES)](http://jig.github.io/crypto/ades.html) `17` → `87`
   
-## Exercicis
+## Exercicis opcionals
 
   - Criptografia simètrica:
     - bloc d'un sol ús amb [Gimp](https://www.gimp.org) (_one-time-pad_)
@@ -57,16 +57,18 @@ Transparències a [jig.github.io/crypto](https://jig.github.io/crypto)
  18        | 19               | 21
 ---------- | ---------------- | -------
  intro     | MAC, HMAC        | RSA
-           |                  | Elgamal (DSA, ECC)
+           |                  | Elgamal
+           |                  | DSA
            |                  | 
+           |                  | ECC
  symmetric | Teoria de Nombres| Complexitat
-           | DH               | (HSM)
-           |                  | Amenaces
+           | DH               | Amenaces
+
 
  25        | 26               
 ---------- | ---------------- 
- TLS       | PKI
- ASN.1     | AdES
+ HSM       | PKI
+ TLS       | AdES
            |
  PKI       | (exercici → servidor HTTPS)
 
@@ -79,8 +81,29 @@ Transparències a [jig.github.io/crypto](https://jig.github.io/crypto)
 ## Impressió de les transparències
   
 Si vols imprimir les transparències no facis `Ctrl+P` directament. Cal fer servir un template específic
-per a impressió afegint `?print-pdf` a la URL abans d'imprimir. Per a més info les 
+per a impressió afegint `?print-pdf` a la URL abans d'imprimir. Per a més informació consulta les 
 [instruccions d'exportació a PDF de Revealjs](https://github.com/hakimel/reveal.js/#pdf-export)
+
+## Descàrrega local
+
+Encara que el més recomenable és accedir a la versió en línia per a veure'n sempre una versió actualitzada, 
+si vols pots descarregar les transparències per a visualitzar-les fora de línia. 
+Simplement apreta el botó `Download ZIP` de dalt o pica 
+[aquí](https://codeload.github.com/jig/crypto/archive/master.zip). 
+
+O si tens compte a GitHub pots fer simplement un `fork` (botó a dalt de tot a la dreta).
+
+O també, pots fer un `clon` local al teu disc dur (et cal un client `git`):
+
+```
+$ git clone git@github.com:jig/crypto.git
+```
+
+d'aquesta maneres tens còpia local que pots actualitzar amb:
+
+```
+$ git pull
+```
 
 # Llicència
 
