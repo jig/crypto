@@ -42,7 +42,8 @@
         <div class="slides">
 
             <section>
-                <h1>HSM</h1>
+                <h2>Generació de Nombres Aleatoris
+                    <br/><span style="text-transform:none;">i</span> HSM</h2>
                 <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
 
 				<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">
@@ -63,14 +64,14 @@
             <section id="rng">
                 <h1>RNG</h1>
                 <p>o TRNG (<em>True Random Number Generation</em>)</p>
-                <p>parèntesi: RNG en ordinadors tradicionalrs (no HSM)</p>
+                <p>parèntesi: RNG en ordinadors tradicionals (no HSM)</p>
             </section>
 
             <section>
                 <h3>RNG: generació</h3>
                 <p>Com implementem un RNG si no és algorísmic?</p>
                 <ul>
-                    <li>Recopilant events d'entrada (I/O) i acumulant els seus paràmatres (habitualment les xifres menys significatives de l'hora en ns ò μs)</li>
+                    <li>Recopilant events d'entrada (I/O) i acumulant els seus paràmetres (habitualment les xifres menys significatives de l'hora en ns ò μs)</li>
                     <li>Mitjançant dispositius especialitzats (<a href="hsm.html">HSM</a>*)</p>
                         <p><br/></p>
                         <p>*) HSM: Hardware Secure Module</p>
@@ -111,7 +112,7 @@
             </section>
             <section>
                 <h3>RNG: fonts</h3>
-                <p>HUI ($\ll 1$ kbps després de reducció)</p>
+                <p><span title="User Interface">UI</span> ($\ll 1$ kbps després de reducció)</p>
                 <p>latencia disc dur ($\ll 1$ kbps després de reducció)</p>
                 <p>Xarxa ($\approx 1$ kbps després de reducció)</p>
                 <p>funcions de processador (Intel: $\gg$ Mbps)</p>
@@ -136,13 +137,25 @@
                     atacant capaç de modificar convenient el sistema RNG</p>
             </section>
             <section>
-                <h3>RNG: validació</h3>
-                <p>per a què un RNG només es pot considerar segur si sabem com el generem, i el generem de forma segura</p>
+                <h3>RNG: validació?</h3>
+                <p>un RNG només es pot considerar segur si sabem com el generem, i el generem de forma segura</p>
             </section>
+
+            <section>
+                <h3>RNG: vulnerabilitats</h3>
+                <p><a href="https://en.wikipedia.org/wiki/Random_number_generator_attack">Wikipedia: Random number generator attack</a></p>
+                <p class="fragment">Cloud: random... amb poca entropia per poca I/O</p>
+                <p class="fragment">Debian: random... amb poca entropia per errors de codi</p>
+                <p class="fragment">Intel: random... <a href="https://en.wikipedia.org/wiki/RdRand#Reception">implementació tancada</a>
+                    (<a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.473.8078&rep=rep1&type=pdf">...</a>)</p>
+                <p class="fragment">PlayStation 3: random...
+                    <a href="http://www.engadget.com/2010/12/29/hackers-obtain-ps3-private-cryptography-key-due-to-epic-programm/">constant</a></p>
+            </section>
+
             <section>
                 <h3>RNG: vulnerabilitats</h3>
                 <p>la criptografia és segura sempre que les hipòtesis de funcionament es compleixin</p>
-                <p>l'aleatorietat real de la font RNG és una d'elles</p>
+                <p>l'aleatorietat suficient de la font RNG (o PRNG) és una d'elles</p>
                 <p class="fragment"><img data-src="img/random_number.png"/>
                     <br/><small>(de <a href="https://xkcd.com/221/">xkcd.com/221</a>)</small></p>
             </section>
@@ -210,17 +223,6 @@
                     <li><code>/dev/urandom</code>: <em>unblocking random</em>, sortida PRNG enriquida amb <code>/dev/random</code>; ($\approx$ Mbps)</li>
                 </ul>
                 <p>a altres Linux tenim diferents combinacions de <code>/dev/random</code> i amb aleatorietat obtinguda de fonts diferents</p>
-            </section>
-
-            <section>
-                <h3>RNG: vulnerabilitats</h3>
-                <p><a href="https://en.wikipedia.org/wiki/Random_number_generator_attack">Wikipedia: Random number generator attack</a></p>
-                <p class="fragment">Cloud: random... amb poca entropia per poca I/O</p>
-                <p class="fragment">Debian: random... amb poca entropia per errors de codi</p>
-                <p class="fragment">Intel: random... <a href="https://en.wikipedia.org/wiki/RdRand#Reception">implementació tancada</a>
-                    (<a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.473.8078&rep=rep1&type=pdf">...</a>)</p>
-                <p class="fragment">PlayStation 3: random...
-                    <a href="http://www.engadget.com/2010/12/29/hackers-obtain-ps3-private-cryptography-key-due-to-epic-programm/">constant</a></p>
             </section>
 
 
@@ -413,14 +415,21 @@
             </section>
 
             <section>
-                <h3><a href="complexity.html">(Complexitat) $\rightarrow$</a></h3>
-                <hr/>
-                <h3><a href="threats.html">(Amenaces) $\rightarrow$</a></h3>
+                <h3><a href="tls.html">(TLS) $\rightarrow$</a></h3>
             </section>
         </div>
 
     </div>
 
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-72628059-1', 'auto');
+      ga('send', 'pageview');
+    </script>
 
     <!-- <script type="text/javascript" src="js/svg_mathjax.js"></script> -->
     <!-- <script type="text/javascript">new Svg_MathJax().install();</script> -->

@@ -55,7 +55,8 @@
 
                     <br />Project hosted at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/jig/crypto" rel="dct:source">github.com/jig/crypto</a></em></small>
             </section>
-            <section>
+
+            <section id="elgamal">
                 <h2>Elgamal en combinació de signatura</h2>
                 <p>{&#1591;&#1575;&#1607;&#1585; &#1575;&#1604;&#1580;&#1605;&#1604; (Taher Elgamal), 1985}</p>
                 <p>Fonamentat sobre l'algorisme
@@ -85,7 +86,7 @@
                 </p>
             </section>
 
-            <section>
+            <section id="elgamal-domain-parameters">
                 <h2>Creació dels paràmetres comuns</h2>
                 <p>Tots els usuaris poden compartir els paràmetres bàsics:
                 <br/>el grup cíclic $\mathbb{Z}_{p}^{*}$ i un generador $\alpha$</br>
@@ -94,7 +95,7 @@
                     <a href="number-theory.html#generator-selection">$\alpha$</a> apliquen aquí</p>
             </section>
 
-            <section style="text-align: left;">
+            <section  id="elgamal-key-generation" style="text-align: left;">
                 <h2>Generació de claus</h2>
                 <p>Cada usuari $\text{u}$ ha de generar:</p>
                 <ul>
@@ -114,7 +115,7 @@
                 </em></p>
             </section>
 
-            <section style="text-align: left;">
+            <section id="elgamal-signature" style="text-align: left;">
                 <h2>Signatura</h2>
                 <ol>
                     <li>calcula el hash del missatge $h(m)$</li>
@@ -129,31 +130,47 @@
             </section>
 
             <section style="text-align: left;">
-                <h2>Verificació</h2>
-                <p>A partir de la recepció del missatge $m$ i la signatura $(r,s)$</p>
-                <ol>
-                    <li>(previ: calculem el hash $h(m)$)</li>
-                    <li>(previ: verifiquem que $0 < r < p-1$)</li>
-                    <li>$v_1 = (y_\text{u})^{r} r^s \bmod p$</li>
-                    <li>$v_2 = \alpha^{h(m)} \bmod p$</li>
-                    <li>$v_1 \overset{?}{=} v_2 \implies$ signatura vàlida</li>
-                </ol>
-                <br/>
-                <p class="fragment">
-                    $\text{Nota: }\left\{
-                    \begin{eqnarray}
-                        v_1 &=& (y_\text{u})^{r} r^s \bmod p \\
-                            &=& \alpha^{a_\text{u}r} \alpha^{ks} \bmod{p} \\
-                            &=& \color{blue}{\alpha^{a_\text{u}r+ks} \bmod{p}} \\
+                <section id="elgamal-verification">
+                    <h2>Verificació</h2>
+                    <p>A partir de la recepció del missatge $m$ i la signatura $(r,s)$</p>
+                    <ol>
+                        <li>(previ: calculem el hash $h(m)$)</li>
+                        <li>(previ: verifiquem que $0 < r < p-1$)</li>
+                        <li>$v_2 = \alpha^{h(m)} \bmod p$</li>
+                        <li>$v_1 = (y_\text{u})^{r} r^s \bmod p$</li>
+                        <li>$v_1 \overset{?}{=} v_2 \implies$ signatura vàlida</li>
+                    </ol>
+                    <br/>
+                    <p class="fragment">
+                        $\text{Nota: }\left\{
+                        \begin{eqnarray}
+                            v_2 &=& \alpha^{h(m)} \bmod p \\
+                                &=& \alpha^{a_\text{u}r+ks \bmod{(p-1)}} \bmod p \\
+                                &=& \color{blue}{\alpha^{a_\text{u}r+ks} \bmod{p}} \\
+                            v_1 &=& (y_\text{u})^{r} r^s \bmod p \\
+                                &=& \alpha^{a_\text{u}r} \alpha^{ks} \bmod{p} \\
+                                &=& \color{blue}{\alpha^{a_\text{u}r+ks} \bmod{p}}
+                        \end{eqnarray}
+                        \right.$
+                    </p>
+                </section>
+                <section>
+                    <p>
+                        $\text{Nota: }\left\{
+                        \begin{eqnarray}
                         v_2 &=& \alpha^{h(m)} \bmod p \\
-                            &=& \alpha^{a_\text{u}r+ks \bmod{(p-1)}} \bmod p = \\
-                            &=& \color{blue}{\alpha^{a_\text{u}r+ks} \bmod{p}}
-                    \end{eqnarray}
-                    \right.$
-                </p>
+                        &=& \alpha^{a_\text{u}r+ks \bmod{(p-1)}} \bmod p \\
+                        &=& \color{blue}{\alpha^{a_\text{u}r+ks} \bmod{p}} \\
+                        v_1 &=& (y_\text{u})^{r} r^s \bmod p \\
+                        &=& \alpha^{a_\text{u}r} \alpha^{ks} \bmod{p} \\
+                        &=& \color{blue}{\alpha^{a_\text{u}r+ks} \bmod{p}}
+                        \end{eqnarray}
+                        \right.$
+                    </p>
+                </section>
             </section>
             <!--&=& \alpha^{a_\text{u}r} r^{(\frac{h(m)-a_\text{u}r}{k} \bmod{p-1})} \bmod{p} = \\-->
-            <section>
+            <section id="elgamal-vs-rsa-benchmark">
                 <h3>Rendiment: Elgamal <span style="text-transform:none;">vs</span> RSA</h3>
                 <table>
                     <thead>
@@ -168,8 +185,8 @@
                         <tr>
                             <td>RSA</td>
                             <td>molt lent</td>
-                            <td>ràpid</td>
                             <td>mig</td>
+                            <td>ràpid</td>
                         </tr>
                         <tr>
                             <td>Elgamal</td>
@@ -187,10 +204,10 @@
             </section>
             -->
 
-            <section>
+            <section id="dsa">
                 <h2>DSA</h2>
                 <p>{NIST, 1991}</p>
-                <p>Directament basat en l'algorisme<br/>Elgamal en combinació de signatura</p>
+                <p>Directament basat en<br/>l'algorisme Elgamal en combinació de signatura</p>
                 <p>DSA (<em>Digital Signature Algorithm</em>) actualment està sent desplaçat per la variant
                     sobre corbes el·líptiques (<a href="ecdsa.html">ECDSA</a>)
                 </p>
@@ -222,12 +239,15 @@
                     r &=& (\alpha^k \bmod p) \color{red}{\bmod q} \qquad\\
                     s &=& \dfrac{h(m)+a_\text{u}r}{k} \color{grey}{\bmod{(p-1)}} \color{red}{\bmod{q}}\quad
                     \end{eqnarray}\]</p>
-                <p class="fragment">Quan vegem com dimensionar els paràmetres pels diferents
+            </section>
+
+            <section>
+                <p>Quan vegem com dimensionar els paràmetres pels diferents
                     algorismes, veurem que la mida recomanada en bits és:
                     <br/>$\|q\| \approx \dfrac{1}{6}\|p\|$</p>
             </section>
 
-            <section style="text-align: left;">
+            <section id="dsa-domain-parameters" style="text-align: left;">
                 <h2>DSA</h2>
                 <p>&nbsp;&nbsp;&nbsp;Paràmetres: $p$, $q$, $\alpha$</p>
                 <p>&nbsp;&nbsp;&nbsp;Clau privada: $a$ (un nombre aleatori $0 < a < q-2$)
@@ -245,7 +265,7 @@
                 </span>
             </section>
 
-            <section>
+            <section id="dsa-vs-rsa-benchmark">
                 <h3>Rendiment: DSA <span style="text-transform:none;">vs</span> RSA</h3>
                 <table>
                     <thead>
@@ -265,15 +285,15 @@
                     </tr>
                     <tr>
                         <td>DSA</td>
-                        <td>ràpid</td>
-                        <td>ràpid</td>
+                        <td>molt ràpid</td>
+                        <td>mig</td>
                         <td>mig</td>
                     </tr>
                     </tbody>
                 </table>
             </section>
 
-            <section>
+            <section id="threats">
                 <h3>debilitats $\rightarrow$ contramesures</h3>
                 <ul>
                     <li>sobre la predicibilitat de l'aleatori $k$ &nbsp; <span style="color:darkgrey;">($r = \alpha^k \bmod p$)</span></li>
@@ -334,6 +354,15 @@
 
     </div>
 
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-72628059-1', 'auto');
+      ga('send', 'pageview');
+    </script>
 
     <!-- <script type="text/javascript" src="js/svg_mathjax.js"></script> -->
     <!-- <script type="text/javascript">new Svg_MathJax().install();</script> -->

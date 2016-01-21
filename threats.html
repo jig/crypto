@@ -83,6 +83,7 @@
                     o l'
                     <a href="ecc.html#ecdlp" title="Elliptic Curve Discrete Logarithm Problem">ECDLP</a>
                 </p>
+                <p class="fragment">Computació quàntica <a href="http://dilbert.com/strip/2012-04-17">segons Dilbert</a>; bits i <em>qubits</em></p>
             </section>
 
             <section>
@@ -138,12 +139,30 @@
                         <br/>...fer-les servir:
                         <ul>
                             <li>en VPNs intercanviar claus simètriques</li>
-                            <li>en TLS fer servir claus molt grans (calen $n$ qubits per trencar claus d'$n$ bits; això retarda
+                            <li>en TLS fer servir claus molt grans (calen $n$ <em>qubits</em> per trencar claus d'$n$ bits; això retarda
                                 uns anys la factibilitat de l'atac)</li>
-                            <li>a llarg termini cal trobar problemes matemàtics que tinguin complexitat sub/exponencial en un ordinador quàntic</li>
+                            <li>a llarg termini cal trobar problemes matemàtics que tinguin complexitat sub/exponencial en un ordinador quàntic
+                                <ul><li>esperança factible: <a href="#sidh">SIDH</a></li></ul>
+                            </li>
                         </ul>
                     </li>
                 </ul>
+            </section>
+
+            <section id="sidh">
+                <h3><a href="https://en.wikipedia.org/wiki/Supersingular_isogeny_key_exchange">SIDH</a>:
+                    Supersingular Isogeny
+                    <br/>Diffie-Hellman Key Exchange</h3>
+                <p>SIDH està basat en corbes el·líptiques</p>
+                <p>té complexitat clàssica de $O(\sqrt[4]{2^b})$ i complexitat quàntica de $O(\sqrt[6]{2^b})$ per
+                    tant té complexitat exponencial en els dos tipus de computadors
+                </p>
+                <p>la longitud recomanada contra un ordenador clàssic (deduït de les $O()$ anteriors), és:
+                    <ul>
+                        <li>$512$ b per a $128$ b de seguretat equivalent ara</li>
+                        <li>$768$ b per a $128$ b de seguretat equivalent en era post-quàntica</li>
+                    </ul>
+                </p>
             </section>
 
             <section>
@@ -201,12 +220,10 @@
             </section>
 
             <section>
-                <h3><a href="complexity.html">(Complexitat) $\rightarrow$</a></h3>
-                <hr/>
                 <h3><a href="hsm.html">(RNG i HSM) $\rightarrow$</a></h3>
             </section>
 
-<section>
+<!-- <section>
 <aside class="notes">
 <pre>
 - els atacs més probables són, per ordre probablement:
@@ -219,11 +236,10 @@
     - algorisme amb paràmetres insuficients
 </pre>
 </aside>
-</section>
+</section> -->
         </div>
 
     </div>
-
 
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -234,6 +250,7 @@
       ga('create', 'UA-72628059-1', 'auto');
       ga('send', 'pageview');
     </script>
+
     <!-- <script type="text/javascript" src="js/svg_mathjax.js"></script> -->
     <!-- <script type="text/javascript">new Svg_MathJax().install();</script> -->
     <script type="text/javascript" src="lib/js/head.min.js"></script>
