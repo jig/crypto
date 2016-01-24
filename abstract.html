@@ -151,9 +151,9 @@
                 </tr>
                 <tr>
                     <td>
-                        $c=\text{encrypt}(k_{\text{pub}}, m)$
+                        $c=\text{xifra}(k_{\text{pub}}, m)$
                         <br/>$\qquad \downarrow$
-                        <br/>$m=\text{decrypt}(k_{\text{priv}}, c)$
+                        <br/>$m=\text{desxifra}(k_{\text{priv}}, c)$
                     </td>
                     <td>generar una relació entre el propietari de $k$ i $m$ (relació d'autoria, notaria...)
                         <br/>ho podem implementar amb
