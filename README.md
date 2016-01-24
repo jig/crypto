@@ -21,7 +21,9 @@ Transparències a [jig.github.io/crypto](https://jig.github.io/crypto)
   - [Infraestructura de Clau Pública (PKI)](http://jig.github.io/crypto/pki.html) `59`
   - [Advanced Electronic Signatures (AdES)](http://jig.github.io/crypto/ades.html) `17` → `87`
   
-  - [Resum de funcionalitat](http://jig.github.io/crypto/abstract.html) `8`
+## Resum
+  
+  - [Resum](http://jig.github.io/crypto/abstract.html) dels objectius de les funcions criptogràfiques i de les responsabilitats de les autoritats PKI `8`
   
 ## Exercicis opcionals
 
