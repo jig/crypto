@@ -964,6 +964,9 @@
                 <ul>
                     <li>AES-128/192/256: recuperació de clau en una quarta part del temps que força bruta $\Rightarrow$ és perden 2 bits</li>
                     <li>AES-192/256: sii claus relacionades, complexitat $2^{119}$ (contramesura: claus aleatòries)</li>
+                    <li>el bloc de $128$ <span title="bit">b</span> limita l'ús del xifrat fins a $2^{64}$ blocs ($2^{68}$ <span title="byte">B</span>) a causa de
+                        la <a href="hash.html#/birthday-attack">paradoxa de l'aniversari</a> (contramesura: canviar la clau quan
+                        s'hagi usat per a $2^{68}$ <span title="byte">B</span>)</li>
                 </ul>
                 <p class="fragment">no són rellevants en quan a la seguretat pràctica</p>
                 <p class="fragment">aquestes són les vulnerabilitats conegudes...</p>
