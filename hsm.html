@@ -161,10 +161,31 @@
             </section>
 
             <section>
-                <h3>RNG: dispositius ad-hoc de generació</h3>
-                <p>basats en la mesura de paràmetres físics:</p>
-                <p>soroll tèrmic</p>
-                <p>indeterminació quàntica</p>
+                <h3>RNG <span style="text-transform:none;">ò</span> PRNG</h3>
+                <p>per a generar claus hem de fer servir PRNG o RNG?</p>
+                <span class="fragment">
+                    <p>podem fer servir PRNG a condició que:</p>
+                    <ol>
+                        <li>el PRNG s'alimenti d'una llavor RNG</li>
+                        <li>que el PRNG sigui de qualitat cryptogràfica (fer servir un
+                            <code>AES-CTR</code>
+                            xifrant una seqüència constant és una bona opció)
+                        </li>
+                        <li>que la llavor tingui prou entropia per a cobrir el nivell de seguretat
+                        requerit (i.e. $128$ b d'entropia per a claus de seguretat $128$ b equivalent
+                            com <code>AES-128</code> o <code>RSA-3072</code>)</li>
+                        <li>i que es mantinguin les hipòtesi de seguretat: no reutilitzar en cap cas cap seqüència de bits
+                        (ja sigui RNG ò PRNG) i que les fonts físiques de RNG tinguin una entropia ben estimada i condicionada,
+                        i que els generadors PRNG siguin de bona qualitat y cobreixin un espai de possibilitats suficient (i.e.
+                            cal fer servir <code>AES-256-CTR</code> si volem generar claus amb $256$ b de seguretat amb una mateixa
+                            seqüència)</li>
+                    </ol>
+                </span>
+            </section>
+
+            <section>
+                <h1>dispositius<br/> ad-hoc per a<br/> RNG</h1>
+                <p>(<em>usats en HSM, SmartCards, algunes CPUs, etc.</em>)</p>
             </section>
 
             <section>

@@ -91,7 +91,7 @@
                 </span>
             </section>
 
-            <section>
+            <section id="birthday-paradox">
                 <h3>Problema de l'aniversari</h3>
                 <p>(<em>Birthday paradox</em>)</p>
                 <p>hi ha un atac millor que l'anterior de força bruta, que deriva de
@@ -102,12 +102,12 @@
                 <p class="fragment">en general, $p=0.5$ si el nombre d'experiments és $x \approx 1,25 \sqrt{\text{elements}}$</p>
             </section>
 
-            <section>
+            <section  id="birthday-attack">
                 <h3>Atac de l'aniversari</h3>
                 <p>(<em>Birthday attack</em>)</p>
                 <p>si tenim un hash de mida $\|r\|$ la probabilitat de col·lisió serà molt alta quan ens apropem
                     a les $\sqrt{|r|}$ operacions</p>
-                <p>e.g per a $\|r\| = 256\text{b}$ això són unes $2^{128}$ operacions</p>
+                <p>e.g per a $\|r\| = 256\text{ b}$ això són unes $2^{128}$ operacions</p>
                 <p class="fragment">això implica que per a un hash cal resums el doble de llargs del que calia per les
                     claus per a obtenir el mateix nivell de seguretat</p>
                 <p class="fragment">(la <em>security strength</em> d'una funció de hash de longitud $b$ bits és $b/2$)</p>

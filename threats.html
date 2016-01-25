@@ -178,20 +178,32 @@
             <section id="snowden">
                 <h3>Revelacions Snowden</h3>
                 <p>el 2013 Edward Snowden filtra quantitat de documents que mostren les activitats de certes
-                agències dels EUA (en particular de l'NSA)</p>
+                    agències dels EUA (en particular de l'NSA)</p>
                 <ul>
-                    <li>captura de comunicacions (xifrades o no)</li>
                     <li>inversió en computació quàntica</li>
+                    <li>captura de comunicacions (xifrades o no): Echelon (pre-Snowden), emmagatzematge de dades per a
+                        possibilitar-ne el posterior desxifrat</li>
                     <li>milers d'enginyers i doctors dedicats a criptoanàlisi (coneixen la info publicada, i no
-                        publiquen les seves descobertes): DH-1024, corbes el·líptiques</li>
+                        publiquen les seves descobertes): <code>DH-1024</code>, corbes el·líptiques, <code>RC4</code>, <code>MD5</code>; per a cada dissenyador
+                        d'algorismes, l'NSA té 100 criptoanalistes (segons la pròpia NSA)</li>
+                    <li>a banda de una (suposada) capacitat de computació enorme, l'NSA dedica esforços a modificar
+                    el codi font tant de programari lliure, com de codi propietari (ja sigui "amistosament",
+                        com trobant-hi vulnerabilitats sense comunicar-les o injectant-les de forma encoberta). Programa Bullrun</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Revelacions Snowden</h3>
+                <ul>
                     <li>si poden evitar la criptografia ho fan:
                         <ul>
                             <li>és més fàcil infectar que desencriptar</li>
-                            <li>extracció de dades de les metadades</li>
-                            <li>manipulació de codi (propietari i obert): coneixement d'esploits, troians</li>
-                            <li>manipulació del hardware (RNG, APIs): Dual EC DRBG</li>
+                            <li>manipulació de codi (propietari i obert): coneixement d'exploits, troians</li>
+                            <li>manipulació del hardware (RNG, APIs)</li>
                             <li>accés al núvol per la porta del darrera</li>
-                            <li>publicació d'algorismes (a través del NIST), intoxicació (Dual_EC_DRGB)</li>
+                            <li>publicació d'algorismes (a través del NIST), intoxicació (<code>Dual_EC_DRGB</code>)</li>
+                            <li>extracció de dades de les metadades: eines d'inferència sobre Big-Data (tenen
+                                punxada Internet: proveïdors de núvol, d'Internet)</li>
                         </ul>
                     </li>
                 </ul>
@@ -217,6 +229,22 @@
             <section>
                 <h3>papers d'Snowden: el què no surt</h3>
                 <p>els papers filtrats no parlen de què hi ha a la Suite-A</p>
+                <p>els papers filtrats parlen d'aliats dels EUA (<code>Five Eyes</code>), però no d'altres com Xina, Rússia, etc:
+                    se sap per altres revelacions que tenen programes equivalents</p>
+            </section>
+
+            <section data-background="#FF8888" style="text-align: left;">
+                <h3>Altres Consells</h3>
+                <p>$\rightarrow$ som a un curs de gestió de la seguretat!</p>
+                <p>$\rightarrow$ <em>formació</em>, minimització de complexitat
+                    <br/>(no sobrevalorar la nostra capacitat intel·lectual)</p>
+                <p>$\rightarrow$ <em>disciplina</em>, test/eines automàtiques, gestió d'actualitzacions procedimentada...
+                    procedimenta la teva activitat
+                    <br/>(no sobrevalorar la nostra memòria)</p>
+                <p>$\rightarrow$ <em>comunicació</em>, tots els actors rellevants de l'Organització han de entendre i compartir uns mateixos objectius
+                    de seguretat, i per tant, unes mateixes restriccions
+                    <br/>(no sobrevalorar la nostra capacitat de fer entendre a tothom que
+                    1234 en un post-it no és una $k$ <code>AES-128</code> segura...)</p>
             </section>
 
             <section>
