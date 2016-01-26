@@ -325,6 +325,35 @@
             <p>la <code>PBK<sub>CAroot</sub></code> l'hem de tenir prèviament instal·lada</p>
         </section>
 
+        <section id="ra">
+            <h3><span title="Registration Authority">RA</span>: Autoritat de Registre</h3>
+            <p>el procediment de registre gestiona la validació de credencials
+                (<em>registre</em>) que demostra que un titular posseeix
+                la clau privada corresponent a la clau pública que presenta
+                <ul>
+                    <li>la <u>validació de possessió de la <code>PVK</code></u> ha de ser automàtica:
+                        <ul>
+                            <li>petició de certificació <code>PKCS #10</code></li>
+                            <li>certificat autosignat <code>X.509</code></li>
+                        </ul>
+                    </li>
+                    <li>la <u>validació de la identitat del titular</u> pot ser:
+                        <ul>
+                            <li>presencial: per a certificats
+                                personals, o amb <em>polítiques de certificació</em> restrictives com els certificats
+                                <span title="Extended Validation Certificate">EVC</span></li>
+                            <li>en línea, basats en desafiaments sobre el control d'un:
+                                    <ul>
+                                        <li>compte de correu</li>
+                                        <li>nom de domini DNS</li>
+                                        <li>servei web</li>
+                                    </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+        </section>
+<!--        també gestiona els procediments de revocació que es publicaran via <code>CRLA</code> o <code>VA</code> -->
 
         <section>
             <h1>Certificats X.509</h1>
@@ -613,23 +642,35 @@ TBSCertificate  ::=  SEQUENCE  {
             </ul>
         </section>
 
-        <section id="registration">
+        <!-- <section id="registration">
             <h3>Registre, procediment de</h3>
             <ul>
                 <li>valida que el titular poseeix la clau (<code>PKCS #10</code>, Cert autosignat)</li>
                 <li>valida que el titular és qui diu ser (<code>DN</code>, <code>SubjectAltName</code>)</li>
             </ul>
             <p>...</p>
-        </section>
+        </section> -->
 
         <section>
             <h1>Revocacions</h1>
         </section>
 
-        <section id="revocation-reason">
+        <section id="revocation">
             <h3>Revocació</h3>
-            <p>els certificats tenen una validesa limitada en el temps, però...</p>
-            <p>...és possible que quedin invalidats abans per:</p>
+            <p>els certificats tenen una validesa limitada en el temps, però és possible
+            que el seu contingut deixi de ser vàlid abans</p>
+            <p>si això passa, cal comunicar-ho a l'RA (Autoritat de Registre) seguint els procediment
+            que dictamini la <em>Política de Certificació</em> (o la <em>Declaració de Pràctiques de Certificació</em>
+                que en depengui)</p>
+            <p class="fragment">exemple <span title="DNI electrónico">DNIe</span>:
+                <a href="http://www.dnielectronico.es/PDFs/politicas_de_certificacion.pdf">
+                    Declaración de prácticas y políticas de certificación
+                </a>
+            </p>
+        </section>
+
+        <section id="revocation-reason">
+            <h3>Raons de revocació</h3>
             <ul>
                 <li><code>keyCompromise</code>: potser he perdut el control de la PVK</li>
                 <li><code>affiliationChanged</code>: el <code>DN</code>/<code>SubjectAltName</code> ja no és correcte</li>
@@ -712,7 +753,7 @@ TBSCertList  ::=  SEQUENCE  {
             <h1>Miscel·lània</h1>
         </section>
 
-        <section data-background="#FF8888">
+        <section>
             <h3>Cost</h3>
             <ul>
                 <li>gestió de la seguretat de les claus de les entitats finals (usuaris):
@@ -722,12 +763,13 @@ TBSCertList  ::=  SEQUENCE  {
                     pel pas de SHA-1 a SHA-2</li>
                 <li>compromís de clau: hi ha certa probabilitat (assegurança) de que no s'hagin aplicat els procedimnts
                     i mesures tècniques per a protegir les claus</li>
-                <li>certificats &ldquo;verds&rdquo; (contraexemple: CA de la fundació
+                <li>certificats &ldquo;verds&rdquo; (contraexemple: CA
                     <a
                             title="Let's Encrypt de l'Internet Security Research Group"
                             href="https://letsencrypt.org"
-                    >ISRG</a>)</li>
+                    >Let's Encrypt</a> de la fundació ISRG)</li>
                 <li>Administració de sistemes: distribució de CA pròpies de forma segura</li>
+                <li>Procediment de registre per a certificació, revocació</li>
                 <li>complexitat: no/formació...</li>
             </ul>
         </section>
