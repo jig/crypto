@@ -124,17 +124,22 @@
             <ul>
                 <li>el client guarda xifrada la clau privada
                     <ul>
-                        <li><code>~/.ssh/id_rsa</code> (...)</li>
+                        <code>client<span style="color:green">$</span>  <strong>~/.ssh/id_rsa</strong></code> (...)
                     </ul>
                 </li>
                 <li>el client es guarda en un directori les claus públiques dels servidors en els que confia
                     <ul>
-                        <li><code>~/.ssh/known_hosts</code></li>
+                        <code>client<span style="color:green">$</span>  <strong>~/.ssh/known_hosts</strong></code>
                     </ul>
                 </li>
-                <li>el servidor guarda en clar la clau privada
+                <li>el servidor guarda en clar la clau privada (del servei <code>sshd</code>)
                     <ul>
-                        <li><code>/etc/ssh/ssh_host_rsa_key</code> (...)</li>
+                        <code>servidor<span style="color:red">#</span>  <strong>/etc/ssh/ssh_host_rsa_key</strong></code> (...)
+                    </ul>
+                </li>
+                <li>el servidor guarda la clau pública vàlida per a cada usuari
+                    <ul>
+                        <code>servidor|<span style="color:orange">pep$</span>  <strong>~/.ssh/authorized_keys</strong></code> (...)
                     </ul>
                 </li>
             </ul>
