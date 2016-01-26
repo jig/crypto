@@ -36,6 +36,8 @@ Transparències a [jig.github.io/crypto](https://jig.github.io/crypto)
         $ docker run --name ROOT -ti jordi/openssl-ca
         $ docker run --name SERVER -p 443:443 -ti jordi/openssl-tlsserver
         ```
+        
+    - Codi font de les imatges d'aquests contenidors al projecte [github.com/jig/docker-openssl](https://github.com/jig/docker-openssl)
 
 ## Exercicis opcionals
   - Criptografia simètrica:
