@@ -28,9 +28,10 @@ Transparències a [jig.github.io/crypto](https://jig.github.io/crypto)
 ## Exercicis realitzats l'últim dia (26 de gener de 2016)
 
   - `ssh` i `sshd`: gestió de claus, protecció i confiança
-  - certificació amb [Let's Encrypt CA](https://letsencrypt.org))
-  - certificació amb la CA "Simple PKI tutorial" (variant) de la documentada a [read-the-docs](https://pki-tutorial.readthedocs.org/en/latest/simple/index.html)
+  - certificació amb [Let's Encrypt CA](https://letsencrypt.org)) per a servidors HTTPS públics
+  - certificació amb la CA [Simple PKI tutorial](https://pki-tutorial.readthedocs.org/en/latest/simple/index.html) (variant) per servidors corporatius/privats
     - CA, TLS Server preconfigurats a:
+    
         ```
         $ docker run --name ROOT -ti jordi/openssl-ca
         $ docker run --name SERVER -p 443:443 -ti jordi/openssl-tlsserver
