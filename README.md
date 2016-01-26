@@ -25,8 +25,18 @@ Transparències a [jig.github.io/crypto](https://jig.github.io/crypto)
   
   - [Resum](http://jig.github.io/crypto/abstract.html) dels objectius de les funcions criptogràfiques i de les responsabilitats de les autoritats PKI `8`
   
-## Exercicis opcionals
+## Exercicis realitzats l'últim dia (26 de gener de 2016)
 
+  - `ssh` i `sshd`: gestió de claus, protecció i confiança
+  - certificació amb [Let's Encrypt CA](https://letsencrypt.org))
+  - certificació amb la CA "Simple PKI tutorial" (variant) de la documentada a [read-the-docs](https://pki-tutorial.readthedocs.org/en/latest/simple/index.html)
+    - CA, TLS Server preconfigurats a:
+        ```
+        $ docker run --name ROOT -ti jordi/openssl-ca
+        $ docker run --name SERVER -p 443:443 -ti jordi/openssl-tlsserver
+        ```
+
+## Exercicis opcionals
   - Criptografia simètrica:
     - bloc d'un sol ús amb [Gimp](https://www.gimp.org) (_one-time-pad_)
     - criptografia simètrica amb OpenSSL:
