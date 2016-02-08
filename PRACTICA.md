@@ -90,6 +90,16 @@ $ docker ps -a
 Crearem una CA, configurarem un `nginx` amb HTTPS i farem que només s'hi pugui entrar amb certificat 
 de client (TLS amb autenticació mútua)
 
+Aquesta pràctica està basada en el tutorial de PKI d'OpenSSL [pki-tutorial.readthedocs.org](https://pki-tutorial.readthedocs.org)
+d l'Stefan H. Holek. En particular la [Simple PKI](https://pki-tutorial.readthedocs.org/en/latest/simple/).
+
+La configuració TLS de l'nginx l'he fet a partir de [Strong SSL Security on nginx](https://raymii.org/s/tutorials/Strong_SSL_Security_On_nginx.html)
+del Remy van Elst.
+
+Com a eina de validació de TLS en servidors públics és molt útil l'[SSL Test](https://www.ssllabs.com/ssltest/) de Qualys SSL LABS; per a servidors TLS en LANs privades es pot fer servir per exemple el [CipherScan](https://github.com/jvehent/cipherscan) de Julien Vehent. N'he preparat una image Docker que podeu descarregar en Docker (`jordi/cipherscan`).
+
+Passem al material de la pràctica.
+
 Les imatges que farem servir són:
  
 ```
