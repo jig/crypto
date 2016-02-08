@@ -132,7 +132,7 @@ $ docker run -ti jordi/openssl-pki-sample bash
 
 Alerta! no facis servir les claus generades en aquest contenidor ja que són públiques (...)
 
-Per pots regenerar-ho tot localment baixan-te el `Dockerfile` regenerant-lo localment. Només cal que facis:
+Però pots regenerar-ho tot localment baixant-te el `Dockerfile` i regenerant el contenidor localment. Només cal que facis:
 
 ```
 $ git clone https://github.com/jig/docker-openssl.git
