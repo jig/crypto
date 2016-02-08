@@ -23,8 +23,10 @@ $ docker-machine ls
 Per a fer servir Docker cal configurar vàries variables d'entorn (IP del Boot2Docker, etc.):
 
 ```
-$ eval $(docker-machine env)
+$ eval $(docker-machine env default)
 ```
+
+(nota: si no et funciona aquesta instrucció, és (possiblement) que el shell que tens és `tcshell`. Fes servir `bash`)
 
 ## Descàrrega de contenidors
 
