@@ -1,6 +1,10 @@
 # Pràctica 8 de febrer de 2016
 
-Cal fer servir la imatge MacOS X
+Cal fer servir la imatge MacOS X amb [Docker Toolbox](https://www.docker.com/products/docker-toolbox).
+Docker Toolbox instal·la els clients de Docker, el gestor de màquines virtuals d'Oracle VirtualBox, i 
+la imatge de màquina virtual Boot2Docker.
+
+Les imatges del laboratori de MacOS X ja tenen la instal·lació feta.
 
 ## Màquina virtual Boot2Docker
 
