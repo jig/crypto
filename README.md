@@ -25,7 +25,7 @@ Transparències a [jig.github.io/crypto](https://jig.github.io/crypto)
   
   - [Resum](http://jig.github.io/crypto/abstract.html) dels objectius de les funcions criptogràfiques i de les responsabilitats de les autoritats PKI `8`
   
-## Exercicis realitzats l'últim dia (26 de gener de 2016)
+## Exercicis realitzats l'penúltim dia (26 de gener de 2016)
 
   - `ssh` i `sshd`: gestió de claus, protecció i confiança
   - certificació amb [Let's Encrypt CA](https://letsencrypt.org)) per a servidors HTTPS públics
@@ -38,6 +38,10 @@ Transparències a [jig.github.io/crypto](https://jig.github.io/crypto)
         ```
         
     - Codi font de les imatges d'aquests contenidors al projecte [github.com/jig/docker-openssl](https://github.com/jig/docker-openssl)
+
+## Exercici realitzat l'últim dia (8 de febrer de 2016)
+
+Aquí: [PRACTICA.md](./PRACTICA.md)
 
 ## Exercicis opcionals
   - Criptografia simètrica:
@@ -89,6 +93,12 @@ Transparències a [jig.github.io/crypto](https://jig.github.io/crypto)
  TLS       | AdES
            |
  PKI       | (exercici → servidor HTTPS)
+ 
+## Calendari, febrer 2016
+ 8                  |                
+------------------- | ----- 
+  [pràctica HTTPS](./PRACTICA.md)  |
+  
 
 # Programari utilitzat
 
