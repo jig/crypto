@@ -121,3 +121,24 @@ Això engegarà l'`nginx` i deixarà accedir al port `443` (que estarà redirigi
 Per a accedir al contenidor amb un navegador podem fer servir el Safari o el Chrome 
 (i probablement d'altres) accedint a la URL: `https://192.168.99.100`
 
+# Solució de la pràctica
+
+A [github.com/jig/docker-openssl/.../Dockerfile](https://github.com/jig/docker-openssl/blob/master/Dockerfile) podeu seguir la pràctica sencera
+(està en notació `Dockerfile` però és fàcil de seguir). L'execució amb totes les claus i certificats generats (el resultat de la pràctica) el podeu trobar a:
+
+```
+$ docker run -ti jordi/openssl-pki-sample bash
+```
+
+Alerta! no facis servir les claus generades en aquest contenidor ja que són públiques (...)
+
+Per pots regenerar-ho tot localment baixan-te el `Dockerfile` regenerant-lo localment. Només cal que facis:
+
+```
+$ git clone https://github.com/jig/docker-openssl.git
+$ cd docker-openssl
+$ docker build -t openssl-pki-sample .
+$ docker run --name TOT -p 443:443 -ti openssl-pki-sample bash
+...
+root@3f9f56657414:/# nginx -g "daemon off;"
+```
