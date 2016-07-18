@@ -25,10 +25,10 @@ Transparències a [jig.github.io/crypto](https://jig.github.io/crypto)
   
   - [Resum](http://jig.github.io/crypto/abstract.html) dels objectius de les funcions criptogràfiques i de les responsabilitats de les autoritats PKI `8`
   
-## Exercicis realitzats l'penúltim dia (26 de gener de 2016)
+## Exercicis realitzats el penúltim dia (26 de gener de 2016)
 
   - `ssh` i `sshd`: gestió de claus, protecció i confiança
-  - certificació amb [Let's Encrypt CA](https://letsencrypt.org)) per a servidors HTTPS públics
+  - certificació amb [Let's Encrypt CA](https://letsencrypt.org) per a servidors HTTPS públics
   - certificació amb la CA [Simple PKI tutorial](https://pki-tutorial.readthedocs.org/en/latest/simple/index.html) (variant) per servidors corporatius/privats
     - CA, TLS Server preconfigurats a:
     
