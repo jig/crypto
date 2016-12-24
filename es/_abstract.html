@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Resum Criptografia</title>
+    <title>Resumen Criptografia</title>
 
-    <meta name="description" content="Taula Criptografia">
+    <meta name="description" content="Tabla Criptografia">
     <meta name="author" content="Jordi Íñigo Griera">
     <!-- Implementat amb revealjs: https://github.com/hakimel/reveal.js -->
 
@@ -41,11 +41,11 @@
     <!-- Any section element inside of this container is displayed as a slide -->
     <div class="slides">
         <section>
-            <h2>criptografia: funcions $\leftrightarrow$ objectius</h2>
+            <h2>criptografía: funciones $\leftrightarrow$ objetivos</h2>
             <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
 
 				<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">
-					&ldquo;Curs d'Introducció a la criptografia&rdquo;
+					&ldquo;Curos de Introducción a la criptografía&rdquo;
 				</span>
 
                 by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/jig" property="cc:attributionName" rel="cc:attributionURL">Jordi Íñigo Griera</a> is licensed under a<br/>
@@ -55,32 +55,32 @@
                 <br />Project hosted at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/jig/crypto" rel="dct:source">github.com/jig/crypto</a></em></small>
         </section>
         <section>
-            <h3>Criptografia sense clau</h3>
+            <h3>Criptografia sin clave</h3>
             <table>
                 <thead>
                 <tr>
-                    <td><em>Funció</em></td>
-                    <td><em>Objectius</em></td>
+                    <td><em>Función</em></td>
+                    <td><em>Objetivos</em></td>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <td>$r=\text{hash}(m)$</td>
-                    <td>tenir un resum $r$ diferent per a diferents missatges $m$;
-                        <br/>cal rebre/custodiar $r$ de forma fiable;
-                        <br/>implementable amb <a href="hash.html">funcions</a> com <code>SHA-2</code> ò <code>SHA-3</code>
+                    <td>tener un resumen $r$ diferente para diferentes mensajes $m$;
+                        <br/>hace falta recibir/custodiar $r$ de forma fiable;
+                        <br/>implementable con <a href="hash.html">funciones</a> como <code>SHA-2</code> o <code>SHA-3</code>
                     </td>
                 </tr>
                 </tbody>
             </table>
         </section>
         <section>
-            <h3>Criptografia amb clau simétrica: $k \leftrightarrow k$</h3>
+            <h3>Criptografía con clave simétrica: $k \leftrightarrow k$</h3>
             <table>
                 <thead>
                 <tr>
-                    <td><em>Funció</em></td>
-                    <td><em>Objectius</em></td>
+                    <td><em>Función</em></td>
+                    <td><em>Objetivos</em></td>
                 </tr>
                 </thead>
                 <tbody>
@@ -91,12 +91,12 @@
                         <br/>$\qquad \downarrow$
                         <br/>$t\overset{?}{=}\text{mac}(k, m')$
                     </td>
-                    <td>tenir una valor (resum o etiqueta $t$) d'un $m$ diferent per diferents $m$; cal tractar $k$ confidencialment;
-                        implementable amb funcions de
+                    <td>tener un valor (resumen o etiqueta $t$) de un $m$ diferente para diferentes $m$; hace falta tratar $k$ confidencialmente;
+                        implementable con funciones de
                         <a href="hash.html"><em>hash</em></a>
                         o de
-                        <a href="symmetric.html"><em>xifrat simètric</em></a> de bloc
-                            (com <code>AES</code>)
+                        <a href="symmetric.html"><em>cifrado simétrico</em></a> de bloque
+                            (como <code>AES</code>)
                     </td>
                 </tr>
                 <tr>
@@ -105,13 +105,13 @@
                         <br/>$\qquad \downarrow$
                         <br/>$m=\text{d}(\text{IV}, k, c)$
                     </td>
-                    <td>protegir la confidencialitat del $m$ (l'$\text{IV}$ es pot enviar en clar sense pèrdua de seguretat)
-                        o podem implementar amb <a href="symmetric.html"><em>xifrat simètric</em></a>
+                    <td>proteger la confidencialidad del $m$ (el $\text{IV}$ se puede enviar en claro sin pérdida de confidencialidad)
+                        lo podemos implementar con <a href="symmetric.html"><em>cifrado simétrico</em></a>
                             (de
-                                <a href="symmetric.html#/stream-cipher">flux</a>
-                                com ChaCha, o de
-                                <a href="symmetric.html#/block-cipher">bloc</a>
-                            com <code>AES</code>)
+                                <a href="symmetric.html#/stream-cipher">flujo</a>
+                                como ChaCha, o de
+                                <a href="symmetric.html#/block-cipher">bloque</a>
+                            como <code>AES</code>)
                     </td>
                 </tr>
                 </tbody>
@@ -119,31 +119,31 @@
 
         </section>
         <section>
-            <h3>Cripto amb clau asimétrica: $k_{\text{priv}} \leftrightarrow k_{\text{pub}}$</h3>
+            <h3>Cripto con clave asimétrica: $k_{\text{priv}} \leftrightarrow k_{\text{pub}}$</h3>
             <table>
                 <thead>
                 <tr>
-                    <td><em>Funció</em></td>
-                    <td><em>Objectius</em></td>
+                    <td><em>Función</em></td>
+                    <td><em>Objetivos</em></td>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <td>$k \leftarrow i \times j$</td>
-                    <td>acordar un nombre aleatori $k$ derivat d'un parell d'aleatoris secrets $i$ i $j$;
-                        <br/>ho podem implementar amb
+                    <td>acordar un número aleatorio $k$ derivado de un par de números aleatorios secretos $i$ y $j$;
+                        <br/>lo podemod implementar con
                         <a href="dh.html"><code>DH</code></a>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        $s=\text{signa}(k_{\text{priv}}, m)$
+                        $s=\text{firma}(k_{\text{priv}}, m)$
                         <br/>$\qquad \downarrow$
                         <br/>$\text{ok}=\text{valida}(k_{\text{pub}}, s)$
                     </td>
-                    <td>generar una relació $s$ provable entre el propietari de $k$ i $m$ (relació d'autoria, notaria...);
-                        tothom que conegui $k_{\text{pub}}$ pot provar-ne l'autoria i la integritat;
-                        <br/>ho podem implementar amb
+                    <td>generar una relación $s$ comprobable entre el propietario de $k$ y $m$ (relación de autoría, notaría...);
+                        cualquiera que conozca $k_{\text{pub}}$ puede comprobar su autor y la integridad del mensaje
+                        <br/>lo podemos implementar con
                         <a href="rsa.html"><code>RSA</code></a>,
                         <a href="dsa.html"><code>DSA</code></a> o
                         <a href="ecc.html"><code>ECDSA</code></a>
@@ -151,12 +151,12 @@
                 </tr>
                 <tr>
                     <td>
-                        $c=\text{xifra}(k_{\text{pub}}, m)$
+                        $c=\text{cifra}(k_{\text{pub}}, m)$
                         <br/>$\qquad \downarrow$
-                        <br/>$m=\text{desxifra}(k_{\text{priv}}, c)$
+                        <br/>$m=\text{descifra}(k_{\text{priv}}, c)$
                     </td>
-                    <td>generar una relació entre el propietari de $k$ i $m$ (relació d'autoria, notaria...)
-                        <br/>ho podem implementar amb
+                    <td>enviar un mensaje $m$ que por el poseedor de $k_{\text{priv}}$
+                        <br/>lo podemos implementar con
                         <a href="rsa.html"><code>RSA</code></a>
                     </td>
                 </tr>
@@ -164,36 +164,36 @@
             </table>
         </section>
         <section>
-            <h2>PKI: Autoritats
+            <h2>PKI: Autoridades
             </h2>
         </section>
         <section>
             <table>
                 <thead>
                 <tr>
-                    <td><em>Autoritat</em></td>
-                    <td><em>Objectius</em></td>
+                    <td><em>Autoridad</em></td>
+                    <td><em>Objetivos</em></td>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <td><span title="Registration Authority">RA</span></td>
                     <td>
-                        gestiona la validació de credencials (<em>registre</em>) que demostra que un titular posseeix
-                        la clau privada corresponent a la clau pública que presenta;
-                        <br/>la validació de possessió de la <code>PVK</code> és automàtica
-                        (validació d'un <code>PKCS #10</code> o d'un certificat autosignat <code>X.509</code>)
-                        <br/>la validació de la identitat del titular pot ser "presencial" (per a certificats
-                        personals, o amb <em>polítiques de certificació</em> restrictives com els certificats
-                        <span title="Extended Validation Certificate">EVC</span
-                        >), en línea (com certificats de client basats en posessió d'una adreça de correu, com els certificats de servidor validats per DNS);
-                        també gestiona els procediments de revocació que es publicaran via <code>CRLA</code> o <code>VA</code>
+                        gestionar la validación de credenciales (<em>registro</em>) que demuestra que un titular posee
+                        la clave privada correspondiente a la clave pública que presenta;
+                        <br/>la validación de possesión de la <code>PVK</code> es automática
+                        (validación de un <code>PKCS #10</code> o de un certificado autofirmado <code>X.509</code>)
+                        <br/>la validación de la identidad del titular puede ser "presencial" (por a certificados
+                        personales, o con <em>políticas de certificación</em> más restrictivas como los certificados
+                        <span title="Extended Validation Certificate">EVC</span>), 
+                        en línea (como certificados de cliente basados en posesión de una dirección de correo electrónico, 
+                        o como los certificados basados en la posesión de una dirección DNS);
+                        también gestiona los procedimientos de revocación que se publicarán vías <code>CRLA</code> o <code>VA</code>
                     </td>
                 </tr>
                 <tr>
                     <td><span title="Certification Authority">CA</span></td>
-                    <td>emetre documents signats (certificats <code>X.509</code>) que enllacin identitat del titular amb la seva clau
-                        pública</td>
+                    <td>emite documentos firmados (certificados <code>X.509</code>) que enlazan la identidad del titular con su clave</td>
                 </tr>
                 </tbody>
             </table>
@@ -202,23 +202,24 @@
             <table>
                 <thead>
                 <tr>
-                    <td><em>Autoritat</em></td>
-                    <td><em>Objectius</em></td>
+                    <td><em>Autoridad</em></td>
+                    <td><em>Objetivos</em></td>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
                     <td><span title="CRL Authority">CRLA</span></td>
-                    <td>emetre llistes de revocació signades periòdicament (periodes curts de validesa) o sota demanda
-                    (amb periodes llargs de validesa cal reemetre una nova CRL quan hi ha noves revocacions)</td>
+                    <td>emitir listas de revocación firmadas periódicamente (con periodos cortos de validez) o bajo 
+                        demanda (con periodos largos de validez, debe reemitirse cuando hay alguna nueva revocación)
+                    </td>
                 </tr>
                 <tr>
                     <td><span title="Validation Authority">VA</span></td>
-                    <td>servir en línia l'estat de revocació (de certificats individuals)</td>
+                    <td>servir en línea el estado de revocación (de certificados individuales)</td>
                 </tr>
                 <tr>
                     <td><span title="Time Stamping Authority">TSA</span></td>
-                    <td>emetre proves signades de que un document (el seu hash) existia en un moment donat</td>
+                    <td>emitir pruebas firmadas de que un documento (su hash) existía en un momento dado</td>
                 </tr>
                 </tbody>
             </table>
