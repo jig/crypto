@@ -141,7 +141,7 @@
                         <br/>$\qquad \downarrow$
                         <br/>$\text{ok}=\text{valida}(k_{\text{pub}}, s)$
                     </td>
-                    <td>generar una relació $s$ provable entre el propietari de $k$ i $m$ (relació d'autoria, notaria...);
+                    <td>generar una relació $s$ que es pugui provar entre el propietari de $k$ i el missatge $m$ (relació d'autoria, notaria...);
                         tothom que conegui $k_{\text{pub}}$ pot provar-ne l'autoria i la integritat;
                         <br/>ho podem implementar amb
                         <a href="rsa.html"><code>RSA</code></a>,
@@ -155,7 +155,7 @@
                         <br/>$\qquad \downarrow$
                         <br/>$m=\text{desxifra}(k_{\text{priv}}, c)$
                     </td>
-                    <td>generar una relació entre el propietari de $k$ i $m$ (relació d'autoria, notaria...)
+                    <td>enviar un missatge $m$ que només sigui llegible pel posseïdor de $k_{\text{priv}}$
                         <br/>ho podem implementar amb
                         <a href="rsa.html"><code>RSA</code></a>
                     </td>
@@ -186,7 +186,7 @@
                         <br/>la validació de la identitat del titular pot ser "presencial" (per a certificats
                         personals, o amb <em>polítiques de certificació</em> restrictives com els certificats
                         <span title="Extended Validation Certificate">EVC</span
-                        >), en línea (com certificats de client basats en posessió d'una adreça de correu, com els certificats de servidor validats per DNS);
+                        >), en línia (com certificats de client basats en posessió d'una adreça de correu, com els certificats de servidor validats per DNS);
                         també gestiona els procediments de revocació que es publicaran via <code>CRLA</code> o <code>VA</code>
                     </td>
                 </tr>
