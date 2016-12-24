@@ -1,0 +1,962 @@
+<!doctype html>
+<html lang="ca">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>PKI</title>
+
+    <meta name="description" content="Public Key Infrastructure">
+    <meta name="author" content="Jordi Íñigo Griera">
+    <!-- Implementat amb revealjs: https://github.com/hakimel/reveal.js -->
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+                    var link = document.createElement( 'link' );
+                    link.rel = 'stylesheet';
+                    link.type = 'text/css';
+                    link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+                    document.getElementsByTagName( 'head' )[0].appendChild( link );
+                </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+
+        <section>
+            <h1>PKI</h1>
+            <p><em>(Public Key Infrastructure)</em></p>
+            <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
+
+                <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">
+                &ldquo;Curs d'Introducció a la criptografia&rdquo;
+                </span>
+
+                by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/jig" property="cc:attributionName" rel="cc:attributionURL">Jordi Íñigo Griera</a> is licensed under a<br/>
+
+                <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+                <br />Project hosted at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/jig/crypto" rel="dct:source">github.com/jig/crypto</a></em></small>
+        </section>
+
+        <section>
+            <h3>Confiança</h3>
+            <p>les dades es protegeixen amb <code><span style="color:red;">CIPHER</span>_<span style="color:orange;">HASH</span></code></p>
+            <p>$\downarrow$</p>
+            <p>derivades amb <code><span style="color:blue;">KEA</span></code></p>
+            <p>$\downarrow$</p>
+            <p>autenticats (els secrets) amb <code><span style="color:green;">SIGN</span></code></p>
+            <p>$\downarrow$</p>
+            <p>Claus públiques de servidor i client (opcionalment)
+                <br/>?</p>
+        </section>
+
+        <section>
+            <h3>Confiança: Claus públiques</h3>
+            <p>hem canviat el problema de</p>
+            <p><em>&ldquo;compartir claus simètriques&rdquo;</em></p>
+            <p>pel de</p>
+            <p><em>&ldquo;compartir claus públiques (asimètriques)&rdquo;</em></p>
+            <p class="fragment">hem simplificat el problema, però segueix sent massa complex com per a que el solventin els usuaris</p>
+            <!-- claus diferents per a cada -->
+            <p class="fragment">com intercanviem les claus públiques (<code>PBK</code>) de forma segura?</p>
+        </section>
+
+        <section>
+            <h3>Confiança: Claus públiques</h3>
+            <p>ens cal un mapeig <u>segur</u>:</p>
+            <p><br/></p>
+            <p>PBK<sub>usuari</sub> &nbsp; <span style="color:violet;">$\rightarrow$</span> &nbsp; identitat usuari</p>
+        </section>
+        <section>
+            <p>les dades es protegeixen amb <code><span style="color:red;">CIPHER</span>_<span style="color:orange;">HASH</span></code></p>
+            <p>$\downarrow$</p>
+            <p>derivades amb <code><span style="color:blue;">KEA</span></code></p>
+            <p>$\downarrow$</p>
+            <p>autenticats (els secrets) amb <code><span style="color:green;">SIGN</span></code></p>
+            <p>$\downarrow$</p>
+            <p>Claus públiques de servidor i client</p>
+            <p style="color:violet;">$\downarrow$</p>
+            <p>identitat usuari</p>
+        </section>
+        <section>
+            <h3>Confiança: Claus públiques</h3>
+            <p>PBK<sub>usuari</sub> &nbsp; <span style="color:violet;">$\leftrightarrow$</span> &nbsp; identitat usuari</p>
+            <ul>
+            <li>sistema central de distribució: llista de PBKs compartida
+                <ul>
+                    <li>idea original de Diffie i Hellman el 1976</li>
+                </ul>
+            </li>
+            <li>manualment: ens guardem una llista de PBKs pròpia
+                <ul>
+                    <li><code>SSH</code></li>
+                </ul>
+            </li>
+            <li>certificats
+                <ul>
+                    <li><code>PGP</code>: gestió descentralitzada (<em>Web of trust</em>)</li>
+                    <li><code>PKI/X.509</code>: gestió centralitzada</li>
+                </ul>
+            </li>
+            </ul>
+        </section>
+        <section id="ssh">
+            <h3>gestió "manual": SSH</h3>
+            <ul>
+                <li>el client guarda xifrada la clau privada
+                    <ul>
+                        <code>client<span style="color:green">$</span>  <strong>~/.ssh/id_rsa</strong></code> (...)
+                    </ul>
+                </li>
+                <li>el client es guarda en un directori les claus públiques dels servidors en els que confia
+                    <ul>
+                        <code>client<span style="color:green">$</span>  <strong>~/.ssh/known_hosts</strong></code>
+                    </ul>
+                </li>
+                <li>el servidor guarda en clar la clau privada (del servei <code>sshd</code>)
+                    <ul>
+                        <code>servidor<span style="color:red">#</span>  <strong>/etc/ssh/ssh_host_rsa_key</strong></code> (...)
+                    </ul>
+                </li>
+                <li>el servidor guarda la clau pública vàlida per a cada usuari
+                    <ul>
+                        <code>servidor|<span style="color:orange">pep$</span>  <strong>~/.ssh/authorized_keys</strong></code> (...)
+                    </ul>
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h3>Gestió amb Certificats</h3>
+            <p>un certificat conté la tupla:</p>
+            <p><code>(identitat usuari, PBK<sub>usuari</sub>)</code></p>
+            <p><br/></p>
+            <p>i per a poder-ne verificar la integritat (i l'autenticitat) una
+                <em>tercera part de confiança</em> (TTP)
+                signa aquesta tupla:</p>
+            <p><code>PVK<sub>TTP</sub>(identitat usuari, PBK<sub>usuari</sub>)</code></p>
+            <p><br/></p>
+            <p>Nota: <code>PVK<sub>TTP</sub>(</code>...<code>)</code> significa signatura RSA o ECDSA sobre la cadena "..."</p>
+        </section>
+        <section>
+            <h3>Tercera part de confiança</h3>
+            <p>hem de confiar en <code>PBK<sub>TTP</sub></code></p>
+            <p>el propietari de la <code>PVK<sub>TTP</sub></code> corresponent pot ser:</p>
+            <ul>
+                <li>una autoritat central: en una Infraestructura de Clau Pública (PKI)</li>
+                <li>un "igual": en el model "web of trust" (com en PGP)</li>
+            </ul>
+            <p><br/></p>
+            <p style="text-align: left;">
+                Nota:
+                <br/> &nbsp; PGP: <em>Pretty Good Privacy</em>
+                <br/> &nbsp; PKI: <em>Public Key Infrastructure</em>
+            </p>
+        </section>
+
+        <section>
+            <h3>Encadenat</h3>
+            <p>sovint ni en PGP ni en PKI disposarem localment de la <code>PBK<sub>TTP</sub></code>
+                que ha signat el certificat del nostre interlocutor
+            </p>
+            <p>però podem "arribar-hi" de forma segura si descarreguem els certificats de les baules intermèdies</p>
+            <p><code>
+                PVK<sub>i-1</sub>(i, PBK<sub>i</sub>)
+                <br/>
+                PVK<sub>i-2</sub>(i-1, PBK<sub>i-1</sub>)
+                <br/></code>
+                $\vdots$
+                <code><br/>
+                PVK<sub>TTP</sub>(1, PBK<sub>1</sub>)
+            </code></p>
+        </section>
+        <section>
+            <h3>PGP</h3>
+            <p>en PGP podem signar les claus de coneguts nosaltres mateixos que ens les han donat de forma segura</p>
+            <p class="fragment">...i ells també poden fer el mateix, permetent abastar un pas més</p>
+            <p><br/></p>
+            <p>Nota: PGP té una versió de lliure distribució anomenada <a href="https://www.gnupg.org/">GPG</a> derivada
+            de la <a href="https://tools.ietf.org/html/rfc4880">rfc4880</a> (OpenPGP)</p>
+        </section>
+        <section>
+            <h3>PGP</h3>
+            <p>amb PGP podem arribar a tenir confiança en grups petits o mitjans, però no escala bé a grups grans</p>
+            <p>cada baula (certificat) té una garantia d'autenticitat $<1$</p>
+            <p>a partir d'uns quants certificats el nivell de seguretat deixar de ser acceptable</p>
+        </section>
+        <section>
+            <h3>PKI: Infraestructura de clau pública</h3>
+            <p>l'encadenat de certificats el fem a un punt comú</p>
+            <p>en el cas extrem, tothom pot rebre un certificat d'una única TTP: una autoritat de certificació (CA)
+            <!-- <br/><img title="CA única" src="img/ca-unica.png"> -->
+                <br/>
+                <svg width="640" height="480" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+                    <g>
+                        <title>Layer 1</title>
+                        <rect id="svg_1" height="82" width="123" y="29" x="264" stroke-width="2" stroke="#000000" fill="none"/>
+                        <text xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" id="svg_2" y="77" x="324" stroke-width="0" stroke="#000000" fill="#000000">CA</text>
+  <text xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" id="svg_3" y="95" x="414.5" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">PVK</text>
+                        <rect id="svg_4" height="82" width="123" y="253" x="46.5" stroke-width="2" stroke="#000000" fill="none"/>
+                        <text xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" id="svg_5" y="364" x="71.5" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">PVK</text>
+  <text xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" id="svg_6" y="403.25" x="166" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">PVK     (us1, PBK      )</text>
+  <text xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" id="svg_7" y="301" x="107.5" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">usuari 1</text>
+                        <rect id="svg_8" height="82" width="123" y="253.5" x="300.73438" stroke-width="2" stroke="#000000" fill="none"/>
+                        <text id="svg_11" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="303.5" x="363.73438" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">usuari 2</text>
+                        <line stroke-width="2" id="svg_12" y2="252" x2="111" y1="110.75" x1="285" stroke-linecap="null" stroke-linejoin="null" stroke="#000000" fill="none"/>
+                        <line id="svg_13" y2="253" x2="368.5" y1="111.5" x1="331.5" stroke-linecap="null" stroke-linejoin="null" stroke-width="2" stroke="#000000" fill="none"/>
+                        <line id="svg_14" y2="269" x2="535.5" y1="111" x1="385" stroke-linecap="null" stroke-linejoin="null" stroke-width="2" stroke="#000000" fill="none"/>
+                        <text xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" id="svg_15" y="292.5" x="537" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">...</text>
+  <text id="svg_16" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="146.75" x="403.50781" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000"/>
+  <text id="svg_17" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="106.75" x="456.50781" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">CA</text>
+  <text id="svg_18" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="373.875" x="115.25" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">us1</text>
+  <text id="svg_19" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="413.875" x="257.01563" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">us1</text>
+  <text id="svg_20" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="414.125" x="113.26563" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">CA</text>
+  <text id="svg_22" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="361.4375" x="336.51563" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">PVK</text>
+  <text id="svg_23" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="394.6875" x="432.01563" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">PVK     (us2, PBK      )</text>
+  <text id="svg_24" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="368.3125" x="378.26563" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">us2</text>
+  <text id="svg_25" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="406.3125" x="523.03125" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">us2</text>
+  <text id="svg_26" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="405.5625" x="379.28125" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">CA</text>
+                    </g>
+                </svg>
+            </p>
+        </section>
+        <section>
+            <h3>CA única</h3>
+            <p>si rebem una connexió TLS, o rebem un missatge de correu signat, o volem enviar-ne un de xifrat, només ens
+            cal rebre el certificat de l'interlocutor:</p>
+            <p><code>PVK<sub>CA</sub>(identitat_interlocutor, PBK<sub>interlocutor</sub>)</code></p>
+            <p>aquest certificat, que el podrem trobar en un repositori qualsevol, i el podrem validar a condició que disposem
+            prèviament la clau <code>PBK<sub>CA</sub></code>
+                <br/>(obtinguda per a medis alternatius fiables)</p>
+            <p class="fragment">la <code>PBK<sub>CA</sub></code> és l'únic element que cal distribuir de forma segura,
+            la resta els podrem obtenir de forma no segura i validar-los</p>
+        </section>
+        <section>
+            <h3>CA única: limitacions del model</h3>
+            <p>simple pels clients, però fràgil:</p>
+            <ul>
+                <li>si la CA és compromesa, tot el sistema falla</li>
+                <li>tots els usuaris han d'estar d'acord en unes mateixes prestacions de seguretat
+                    <span class="fragment">(i mateix cost)</span>
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h3>CA<span style="text-transform:none;">s</span> múltiples</h3>
+            <ul>
+                <li>els usuaris han d'incorporar una llista de <code>PBK<sub>CA<sub>i</sub></sub></code>
+                    <ul><li>són les <u>CAs arrel</u> (<em>root CA</em>)</li></ul>
+                </li>
+                <br/>
+                <li>els usuaris poden rebre certificats no de les CAs que coneixen els usuaris final, si no
+                    d'entitats intermèdies
+                    <ul><li>són les <u>CAs subordinades</u></li></ul>
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h3>CA<span style="text-transform:none;">s</span> arrel</h3>
+            <p>les diferents CAs poden especialitzar-se: nivells de seguretat, mètodes de registre, legalitats, costos,
+                o simplement diferents organitzacions</p>
+            <p>els usaris poden escollir en quines CAs arrel confiar i en quines no</p>
+            <p class="fragment">l'usuari (...) ha de <u>gestionar</u>
+                <br/>la llista de CAs (arrel) de confiança</p>
+        </section>
+        <section>
+            <h3>CA<span style="text-transform:none;">s</span> subordinades</h3>
+            <p>les CAs subordinades emeten certificats als usuaris</p>
+            <p>$\Downarrow$</p>
+            <p>estan en línia o com a mínim, estan actives tot sovint</p>
+            <p>$\Downarrow$</p>
+            <p>probabilitat "alta" de compromís de la <code>PVK</code></p>
+            <p>$\Downarrow$</p>
+            <p>hem de poder-les <a href="#revocation">revocar</a> en cas de compromísde la <code>PVK</code></p>
+        </section>
+
+        <section>
+            <h3>Jerarquia de CA<span style="text-transform:none;">s</span>: Patró habitual</h3>
+            <ul>
+                <li><strong>CA arrel</strong>: només emet certificats per a CA subordinades i "<a href="#revocation">revocacions</a>"
+                    <ul>
+                        <li>està en activa en moments puntuals (fora de línia)</li>
+                        <li>en cas de compromís no hi ha protocol definit</li>
+                    </ul>
+                </li>
+                <li><strong>CA subordinada</strong>: emet certificats finalistes (usuaris, servidors)
+                    <ul>
+                        <li>està en línia constantment, ja sigui per xarxa pública o privada</li>
+                        <li>en cas de compromís és segueix el procediment de revocació de CA</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Jerarquia de CA<span style="text-transform:none;">s</span>: Patró habitual (ii)</h3>
+            <ul>
+                <li><strong>CA arrel</strong>: els usuaris (e.g. clients i servidors TLS) tenen instal·lades les CA
+                arrel en que confien</li>
+                <li><strong>CA subordinada</strong>: la reben del seu interlocutor</li>
+            </ul>
+            <p>e.g. quan en una connexió TLS el servidor ens presenta la seva <code>PBK</code>, ens l'aporta certificada
+            per una CA subordinada, juntament amb el certificat de la CA subordinada que l'ha signat:
+                <br/><code>PVK<sub>CAsub</sub>(id-servidor, PBK<sub>servidor</sub>)</code>
+                <br/>+ <code>PVK<sub>CAroot</sub>(id-CAsub, PBK<sub>CAsub</sub>)</code>
+            </p>
+            <p>la <code>PBK<sub>CAroot</sub></code> l'hem de tenir prèviament instal·lada</p>
+        </section>
+
+        <section id="ra">
+            <h3><span title="Registration Authority">RA</span>: Autoritat de Registre</h3>
+            <p>el procediment de registre gestiona la validació de credencials
+                (<em>registre</em>) que demostra que un titular posseeix
+                la clau privada corresponent a la clau pública que presenta
+                <ul>
+                    <li>la <u>validació de possessió de la <code>PVK</code></u> ha de ser automàtica:
+                        <ul>
+                            <li>petició de certificació <code>PKCS #10</code></li>
+                            <li>certificat autosignat <code>X.509</code></li>
+                        </ul>
+                    </li>
+                    <li>la <u>validació de la identitat del titular</u> pot ser:
+                        <ul>
+                            <li>presencial: per a certificats
+                                personals, o amb <em>polítiques de certificació</em> restrictives com els certificats
+                                <span title="Extended Validation Certificate">EVC</span></li>
+                            <li>en línea, basats en desafiaments sobre el control d'un:
+                                    <ul>
+                                        <li>compte de correu</li>
+                                        <li>nom de domini DNS</li>
+                                        <li>servei web</li>
+                                    </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+        </section>
+<!--        també gestiona els procediments de revocació que es publicaran via <code>CRLA</code> o <code>VA</code> -->
+
+        <section>
+            <h1>Certificats X.509</h1>
+            <p>(prèvia)</p>
+            <p>Base64, DER, ASN.1</p>
+        </section>
+
+        <section id="x509">
+            <h3>Certificats X.509</h3>
+            <p>Estructura serialitzada <code>PVK<sub>CA</sub>(usuari, PBK<sub>usuari</sub>)</code></p>
+            <ul>
+                <li>estructura <span title="Abstract Syntax Notation #1">ASN.1</span> anomenada <code>Certificate</code> (també X.509)</li>
+                <li>serialització <span title="Distinguished Encoding Rules">DER</span></li>
+                <li>conversió a caràcters Base64 (opcional)</li>
+                <li>encapsulat <span title="Privacy Enhanced Mail">PEM</span> (opcional)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Exemple Certificat Root</h3>
+            <pre>
+-----BEGIN CERTIFICATE-----
+MIIG6zCCBdOgAwIBAgIIBDLZr/F50H4wDQYJKoZIhvcNAQELBQAwSTELMAkGA1UE
+BhMCVVMxEzARBgNVBAoTCkdvb2dsZSBJbmMxJTAjBgNVBAMTHEdvb2dsZSBJbnRl
+cm5ldCBBdXRob3JpdHkgRzIwHhcNMTUxMjEwMTc1MjUxWhcNMTYwMzA5MDAwMDAw
+WjBmMQswCQYDVQQGEwJVUzETMBEGA1UECAwKQ2FsaWZvcm5pYTEWMBQGA1UEBwwN
+TW91bnRhaW4gVmlldzETMBEGA1UECgwKR29vZ2xlIEluYzEVMBMGA1UEAwwMKi5n
+b29nbGUuY29tMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEtWRb+kjtt/VXuiTU
+zLDYdF2jb5BqN+bf2G9GcWoJ6ONktigxILSdJH9rgQlLsX07mGi1SgIo/rdARmVb
+9p2gOKOCBIMwggR/MB0GA1UdJQQWMBQGCCsGAQUFBwMBBggrBgEFBQcDAjCCA0IG
+A1UdEQSCAzkwggM1ggwqLmdvb2dsZS5jb22CDSouYW5kcm9pZC5jb22CFiouYXBw
+      ...<!-- ZW5naW5lLmdvb2dsZS5jb22CEiouY2xvdWQuZ29vZ2xlLmNvbYIWKi5nb29nbGUt
+YW5hbHl0aWNzLmNvbYILKi5nb29nbGUuY2GCCyouZ29vZ2xlLmNsgg4qLmdvb2ds
+ZS5jby5pboIOKi5nb29nbGUuY28uanCCDiouZ29vZ2xlLmNvLnVrgg8qLmdvb2ds
+ZS5jb20uYXKCDyouZ29vZ2xlLmNvbS5hdYIPKi5nb29nbGUuY29tLmJygg8qLmdv
+b2dsZS5jb20uY2+CDyouZ29vZ2xlLmNvbS5teIIPKi5nb29nbGUuY29tLnRygg8q
+Lmdvb2dsZS5jb20udm6CCyouZ29vZ2xlLmRlggsqLmdvb2dsZS5lc4ILKi5nb29n
+bGUuZnKCCyouZ29vZ2xlLmh1ggsqLmdvb2dsZS5pdIILKi5nb29nbGUubmyCCyou
+Z29vZ2xlLnBsggsqLmdvb2dsZS5wdIISKi5nb29nbGVhZGFwaXMuY29tgg8qLmdv
+b2dsZWFwaXMuY26CFCouZ29vZ2xlY29tbWVyY2UuY29tghEqLmdvb2dsZXZpZGVv
+LmNvbYIMKi5nc3RhdGljLmNugg0qLmdzdGF0aWMuY29tggoqLmd2dDEuY29tggoq
+Lmd2dDIuY29tghQqLm1ldHJpYy5nc3RhdGljLmNvbYIMKi51cmNoaW4uY29tghAq
+LnVybC5nb29nbGUuY29tghYqLnlvdXR1YmUtbm9jb29raWUuY29tgg0qLnlvdXR1
+YmUuY29tghYqLnlvdXR1YmVlZHVjYXRpb24uY29tggsqLnl0aW1nLmNvbYIaYW5k
+cm9pZC5jbGllbnRzLmdvb2dsZS5jb22CC2FuZHJvaWQuY29tggRnLmNvggZnb28u
+Z2yCFGdvb2dsZS1hbmFseXRpY3MuY29tggpnb29nbGUuY29tghJnb29nbGVjb21t
+ZXJjZS5jb22CCnVyY2hpbi5jb22CCHlvdXR1LmJlggt5b3V0dWJlLmNvbYIUeW91
+dHViZWVkdWNhdGlvbi5jb20wCwYDVR0PBAQDAgeAMGgGCCsGAQUFBwEBBFwwWjAr
+BggrBgEFBQcwAoYfaHR0cDovL3BraS5nb29nbGUuY29tL0dJQUcyLmNydDArBggr
+BgEFBQcwAYYfaHR0cDovL2NsaWVudHMxLmdvb2dsZS5jb20vb2NzcDAdBgNVHQ4E
+FgQUnxWNIcxGZwuZf4GjBxw9/J8m6oQwDAYDVR0TAQH/BAIwADAfBgNVHSMEGDAW
+gBRK3QYWG7z2aLV29YG2u2IaulqBLzAhBgNVHSAEGjAYMAwGCisGAQQB1nkCBQEw
+CAYGZ4EMAQICMDAGA1UdHwQpMCcwJaAjoCGGH2h0dHA6Ly9wa2kuZ29vZ2xlLmNv
+bS9HSUFHMi5jcmwwDQYJKoZIhvcNAQELBQADggEBAIe2pffk8qwMV8Xzoas89UQy
+fY4ntfSqxfjzo/bZ+dkZHqiq1IvGn/f/zoRBeMzDXabP4rIcVMnL8PW5YQUq3c28
+a+SdC72x/YehA1AY0rgxLoKfEHe7qPyEvXEDskKfuWVgIDoWH4N+F/X9QDr0uJeX
+i7qkkIh2p/cocWgq10L2r9QTe4lM8NFf3iW6Hc9hvfFtqrQgqeIp8LBblxqo2i29 -->
+Lrb5fFz7UWlT6/2lwe7o1BB5A8sxfrhPpsl8xj5qolZX+0yp9z4no0/ro/3BDYXA
+0paEqOs/1ZavvT2sShY3naCSLGZ0L8Zbsg8TYVGNIIIv80omtq1ZOME04n8xdAk=
+-----END CERTIFICATE-----
+            </pre>
+            <small>(exemple de certificat de <a href="https://www.google.com">google.com</a>)</small>
+        </section>
+
+        <section>
+            <h3>Format PEM</h3>
+            <p>PEM: <em>Privace Enhanced Mail</em></p>
+            <ul>
+                <li>principi/final començant per guions i indicant-ne el contingut</li>
+                <li>(opcional) capçalera amb detallant-ne el contingut</li>
+                <li>contingut en base64 (segmentat en línies curtes)</li>
+            </ul>
+        </section>
+
+        <section style="text-align: left;">
+            <h3>Codificació Base64</h3>
+            <p>Convertim cada 3 bytes en 4 caràcters:</p>
+                <ul>
+                <li>26 lletres majúscules</li>
+                <li>26 lletres minúscules</li>
+                <li>10 xifres</li>
+                <li><code>+</code> i <code>/</code></li>
+                </ul>
+            <p>total: 64 caràcters</p>
+            <p>i si la cadena no és múltiple de 3 bytes, afegim <code>=</code> al final:
+                <ul>
+                    <li>sense <code>=</code> indica que l'últim bloc té tots tres bytes significatius</li>
+                    <li><code>=</code> indica que l'últim bloc té dos bytes significatius</li>
+                    <li><code>==</code> indica que l'últim bloc té un byte significatiu</li>
+                </ul>
+            </p>
+        </section>
+
+        <section>
+            <h3>ASN.1: Serialització DER</h3>
+            <p>DER: <em>Distinguished Encoding Rules</em></p>
+            <p>funcionalment equivalent a XML, JSON o la serialització nativa de Java
+                $\rightarrow$
+                tipus lògic convertit a seqüència de bits
+            </p>
+            <p>DER és independent de l'arquitectura del processador
+                <br/>(<em>endianness</em>, mida dels registres de la CPU)</p>
+            <p>Codificació TLV: <code>Tipus + Longitud + Valor</code></p>
+        </section>
+
+        <section>
+            <h3>ASN.1: Serialització DER</h3>
+            <p><code>Tipus + Longitud + Valor</code></p>
+            <ul>
+                <li>TL + V: Valor no estructurat o final (cadena, enter...)</li>
+                <li>TL + (TL+..., TL+..., ...): valor estructurat (<code>SEQUENCE</code>...)</li>
+            </ul>
+            <p>Experiment: Parser DER en línia: <a href="https://lapo.it/asn1js/">lapo.it</a></p>
+        </section>
+<!-- https://certlogik.com/decoder/ -->
+        <section>
+            <h3>ASN.1: Notació per a definir tipus</h3>
+            <p>ASN.1: <em>Abstract Syntax Notation (One)</em></p>
+            <p>equivalent als "esquemes" XML, a les "classes" de Java (que després podem serialitzar), etc.</p>
+        </section>
+
+        <section>
+            <h3>ASN.1</h3>
+            <p>Tipus bàsics</p>
+            <ul>
+                <li>Numèrics: <code>INTEGER</code>, <code>BOOLEAN</code>, <code>ENUMERATED</code>...</li>
+                <li>Cadenes: <code>OCTET STRING</code>, <code>BIT STRING</code>, <code>Utf8String</code>,  <code>GeneralizedTime</code>...</li>
+                <li>NULL</li>
+                <li>OBJECT IDENTIFIER...</li>
+            </ul>
+            <ul></ul>
+        </section>
+
+        <section>
+            <h3>ASN.1: OBJECT IDENTIFIER</h3>
+            <p>seqüència única que identifica un concepte, que s'obté
+                <br/> de la
+                <a href="http://itu.int">ITU-T/CCITT</a> o la
+                <a href="http://iso.org">ISO</a>
+            </p>
+            <p>e.g. <code>AESAlgorithmIdentifier ::= 2.16.840.1.101.3.4.0.1</code></p>
+            <p><code>{ joint-iso-ccitt(2) country(16) us(840) organization(1) gov(101) csor(3)
+            nistalgorithm(4) modules (0) aes (1) }</code></p>
+        </section>
+
+        <section>
+            <h3>ASN.1: Tipus Constructors i Metatipus</h3>
+            <ul>
+                <li><code>SEQUENCE</code>: equivalent a un <code>struct</code> de C/C++</li>
+                <li><code>SEQUENCE OF</code>: equivalent a un vector <code>[]</code> de C/C++</li>
+                <li><code>SET</code>: com <code>SEQUENCE</code> però sense ordre (semàntica)</li>
+                <li><code>SET OF</code>: com <code>SEQUENCE OF</code> però sense ordre (semàntica)</li>
+                <li><code>SEQUENCE</code>: equivalent a un <code>struct</code> de C/C++</li>
+                <li><code>CHOICE</code>: alternativa de tipus; equivalent a <code>union</code> de C/C++</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>ASN.1: Certificats X.509 (<a href="https://tools.ietf.org/html/rfc5280">rfc5280</a>)</h3>
+            <p>exemple d'estructura ASN.1:</p>
+<pre>
+Certificate  ::=  SEQUENCE  {
+        tbsCertificate       TBSCertificate,
+        signatureAlgorithm   AlgorithmIdentifier,
+        signatureValue       BIT STRING  }
+
+<span class="fragment">TBSCertificate  ::=  SEQUENCE  {
+        version         [0]  EXPLICIT Version DEFAULT v1,
+        serialNumber         CertificateSerialNumber,
+        signature            AlgorithmIdentifier,
+        issuer               Name,
+        validity             Validity,
+        subject              Name,
+        subjectPublicKeyInfo SubjectPublicKeyInfo,
+        issuerUniqueID  [1]  IMPLICIT UniqueIdentifier OPTIONAL,
+                             -- If present, version MUST be v2 or v3
+        subjectUniqueID [2]  IMPLICIT UniqueIdentifier OPTIONAL,
+                             -- If present, version MUST be v2 or v3
+        extensions      [3]  EXPLICIT Extensions OPTIONAL
+                             -- If present, version MUST be v3
+        }</span>
+</pre>
+        </section>
+
+        <section>
+            <h1>Certificats X.509</h1>
+            <p><code>Certificate</code></p>
+        </section>
+
+        <section>
+            <h3 style="text-transform:none;"><code>
+                <span style="color:red">PVK<sub>CA</sub></span>(<span style="color:green">usuari<sub>x</sub></span>,
+                <span style="color:blue">PBK<sub>usuari<sub>x</sub></sub></span>)
+            </code></h3>
+            <pre>
+Certificate  ::=  SEQUENCE  {
+        tbsCertificate       TBSCertificate,
+        signatureAlgorithm   AlgorithmIdentifier,
+        <span style="color:red">signatureValue       BIT STRING</span>  }
+
+TBSCertificate  ::=  SEQUENCE  {
+        version         [0]  EXPLICIT Version DEFAULT v1,
+        serialNumber         CertificateSerialNumber,
+        signature            AlgorithmIdentifier,
+        <span style="color:grey">issuer               Name,</span>
+        validity             Validity,
+        <span style="color:green">subject              Name,</span>
+        <span style="color:blue">subjectPublicKeyInfo SubjectPublicKeyInfo,</span>
+        issuerUniqueID  [1]  IMPLICIT UniqueIdentifier OPTIONAL,
+                             -- If present, version MUST be v2 or v3
+        subjectUniqueID [2]  IMPLICIT UniqueIdentifier OPTIONAL,
+                             -- If present, version MUST be v2 or v3
+        extensions      [3]  EXPLICIT Extensions OPTIONAL
+                             -- If present, version MUST be v3
+        }
+</pre>
+        </section>
+        <section>
+            <h3><code style="text-transform:none;">Name</code></h3>
+            <p>el <code>Name</code> defineix els <em>Distinguished Name</em> o DN</p>
+            <p>un DN és una seqüència d'RDN (<em>Relative</em> DN)</p>
+            <p style="text-align: left;">RDNs habituals:</p>
+            <ul>
+                <li>CN: <em>Common Name</em> (Nom de l'usuari o DNS del servidor)</li>
+                <li>OU: <em>Organisational Unit</em> (Departament)</li>
+                <li>O: <em>Organisation</em> (Empresa)</li>
+                <li>C: <em>Country</em> (Estat)</li>
+                <li>d'altres: (L) localitat, (ST) estat/província, (DC) domain component...</li>
+            </ul>
+            <p>corresponen a un estructura en arbre (LDAP, X.500)</p>
+        </section>
+
+        <section>
+            <h3>Altres camps</h3>
+            <ul>
+                <li><code>validity {notBefore, notAfter}</code></li>
+                <li><code>issuer Name</code></li>
+                <li><code>serialNumber INTEGER</code></li>
+                <li><code>extensions SEQUENCE OF {OID, Bool, OCTET STRING}</code></li>
+            </ul>
+        </section>
+
+        <section id="extensions">
+            <h3><code style="text-transform:none;">extensions<br/>SEQUENCE OF {OID, Bool, OCTET STRING}</code></h3>
+            <p>és una manera d'afegir informació addicional que no està especificada en el moment de definició de l'estructura
+            X.509
+                <br/>(X.509 versió 3)
+            </p>
+            <p>hi ha extensions que cal que siguin processades: es marquen amb el <code>Critical Bool</code>: si un
+            sistema processa el certificat i no entén l'extensió (no en coneix l'<code>OID</code>) l'ha de rebutjar</p>
+            <ul>
+                <li><code>BasicConstraints</code>: <code>cA, pathLenConstraint</code></li>
+                <li><code>KeyUsage</code></li>
+                <li><code>NameConstraints</code></li>
+                <li><code>AuthorityInformationAccess</code></li>
+                <li>...</li>
+            </ul>
+        </section>
+
+        <section id="recognised-ca" data-background="#FF8888">
+            <h3>Llista de CA<span style="text-transform:lowercase;">s</span> reconegudes</h3>
+            <p>les CAs reconegudes (arrel) han d'obtenir-se de forma fiable</p>
+            <ul>
+                <li>dins el S.O. i les actualitzacions de l'S.O.</li>
+                <li>dins el programari que fa servir les claus (navegador, validador de signatures) i les seves
+                    actualitzacions</li>
+            </ul>
+            <p>aquest S.O. o el programari actuen de "TTP arrel"</p>
+            <p>en alguns sistemes es poden modificar aquestes llistes (per part de l'usuari, o l'administrador de
+                sistemes)</p>
+        </section>
+
+        <section>
+            <h3>Certificats &ldquo;verds&rdquo;</h3>
+            <p>Hi ha CAs arrel bones? com gestiono la llista de CAs arrel haig de fer servir? </p>
+            <p>el fet que la llista de certificats pugui ser manipulada (usuari, sysadmin) ha fet que apareguin
+            mecanismes "més segurs"</p>
+            <ul>
+	          <li><em>Certificate Transparency</em>: els certificats dels servidors (web) es publiquen en una llista
+	            descentralitzada</li>
+              <li>EV, <em>Extended Validation</em>: les CAs que emeten aquests certificats segueixen una procedimentació
+                específica per la validació de les dades del titular (<a href="registration">registre</a>); la llista de certificats arrel normalment està
+                gravada al codi font dels navegadors, etc.</li>
+              <li><em>PBK pinning</em>: en aplicacions (no navegadors) podem gravar-hi la PBK<sub>interlocutor</sub> que
+              ens interessi; en navegadors puc dir: em crec aquest servidor web</li>
+            </ul>
+        </section>
+
+        <!-- <section id="registration">
+            <h3>Registre, procediment de</h3>
+            <ul>
+                <li>valida que el titular poseeix la clau (<code>PKCS #10</code>, Cert autosignat)</li>
+                <li>valida que el titular és qui diu ser (<code>DN</code>, <code>SubjectAltName</code>)</li>
+            </ul>
+            <p>...</p>
+        </section> -->
+
+        <section>
+            <h1>Revocacions</h1>
+        </section>
+
+        <section id="revocation">
+            <h3>Revocació</h3>
+            <p>els certificats tenen una validesa limitada en el temps, però és possible
+            que el seu contingut deixi de ser vàlid abans</p>
+            <p>si això passa, cal comunicar-ho a l'RA (Autoritat de Registre) seguint els procediment
+            que dictamini la <em>Política de Certificació</em> (o la <em>Declaració de Pràctiques de Certificació</em>
+                que en depengui)</p>
+            <p class="fragment">exemple <span title="DNI electrónico">DNIe</span>:
+                <a href="http://www.dnielectronico.es/PDFs/politicas_de_certificacion.pdf">
+                    Declaración de prácticas y políticas de certificación
+                </a>
+            </p>
+        </section>
+
+        <section id="revocation-reason">
+            <h3>Raons de revocació</h3>
+            <ul>
+                <li><code>keyCompromise</code>: potser he perdut el control de la PVK</li>
+                <li><code>affiliationChanged</code>: el <code>DN</code>/<code>SubjectAltName</code> ja no és correcte</li>
+                <li><code>superseded</code>: s'ha emès un certificat que el substitueix</li>
+                <li><code>cessationOfOperation</code>: ja no cal (e.g. el servidor web ja no existeix)</li>
+                <li><code>certificateHold</code>: suspès (posteriorment es cancel·la la suspensió, o es revoca)</li>
+                <li><code>privilegeWithdrawn</code>: algun atribut ja no li correspon al titular</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Com sabem si un certificat ha estat revocat?</h3>
+            <ul>
+                <li>és publica una CRL</li>
+                <li>és publica en un servidor OCSP</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>CRL</h3>
+            <p><em>Certificate Revocation List</em></p>
+            <p>és una llista signada (<a href="https://tools.ietf.org/html/rfc5280">rfc5280</a>) que conté els certicats
+                no caducats que han estat revocats per una CA (o vàries: CRL indirectes), el moment en el que han deixat de ser vàlids,
+                i la raó per la que han deixat de ser vàlids</p>
+        </section>
+
+        <section>
+            <h3>CRL: observacions</h3>
+            <ul>
+                <li>les CRL poden créixer molt: cal ajustar el període de validesa dels certificats emesos</li>
+                <li>es poden emetre CRL incrementals (delta CRL)</li>
+                <li>es poden acumular les revocacions de diverses CA en una CRL (CRL indirectes)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>ASN.1: <span style="text-transform:none;">CertificateList</span> (<a href="https://tools.ietf.org/html/rfc5280">rfc5280</a>)</h3>
+            <pre>
+CertificateList  ::=  SEQUENCE  {
+    tbsCertList          TBSCertList,
+    signatureAlgorithm   AlgorithmIdentifier,
+    signatureValue       BIT STRING  }
+
+TBSCertList  ::=  SEQUENCE  {
+    version                 Version OPTIONAL,
+                                 -- if present, MUST be v2
+    signature               AlgorithmIdentifier,
+    issuer                  Name,
+    thisUpdate              Time,
+    nextUpdate              Time OPTIONAL,
+    revokedCertificates     SEQUENCE OF SEQUENCE  {
+         userCertificate         CertificateSerialNumber,
+         revocationDate          Time,
+         crlEntryExtensions      Extensions OPTIONAL -- if present, version MUST be v2
+    }  OPTIONAL,
+    crlExtensions           [0]  EXPLICIT Extensions OPTIONAL -- if present, version MUST be v2
+}</pre>
+        </section>
+        <section>
+            <h3>Extensions</h3>
+            <p>el mateix format que els certificats, però altres OID</p>
+            <ul>
+                <li><code><a href="#revocation-reason">reasonCode</a></code></li>
+                <li><code>invalidityDate</code></li>
+                <li><code>certificateIssuer</code> (només per a CRL indirectes)</li>
+            </ul>
+
+        </section>
+
+        <section>
+            <h3>OCSP: On-line Certificate Status Protocol</h3>
+            <p>en CA de gran volum les CRL són inacceptablement grans: OCSP</p>
+            <p>els servidors OCSP o VA (<em>Validation Authorities</em>) responen l'estat de validesa d'un certificat
+                individual</p>
+            <p class="fragment">en servidors web d'alt rendiment,
+                <br/>la VA pot patir una càrrega similar $\rightarrow$ <em>OCSP stapling</em></p>
+        </section>
+
+        <section>
+            <h1>Miscel·lània</h1>
+        </section>
+
+        <section>
+            <h3>Cost</h3>
+            <ul>
+                <li>gestió de la seguretat de les claus de les entitats finals (usuaris):
+                    <br/>procediments de registre, revocació i renovació, personalització <em>Smart Cards</em>,
+                    administració de les CA, CRLA, VA, RA...</li>
+                <li>renovació de claus de la CA (subordinades, roots): les migracions de PKI fins ara han estat massives
+                    pel pas de SHA-1 a SHA-2</li>
+                <li>compromís de clau: hi ha certa probabilitat (assegurança) de que no s'hagin aplicat els procedimnts
+                    i mesures tècniques per a protegir les claus</li>
+                <li>certificats &ldquo;verds&rdquo; (contraexemple: CA
+                    <a
+                            title="Let's Encrypt de l'Internet Security Research Group"
+                            href="https://letsencrypt.org"
+                    >Let's Encrypt</a> de la fundació ISRG)</li>
+                <li>Administració de sistemes: distribució de CA pròpies de forma segura</li>
+                <li>Procediment de registre per a certificació, revocació</li>
+                <li>complexitat: no/formació...</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Time-Stamp Protocol (<a href="http://tools.ietf.org/html/rfc3161">rfc3161</a>)</h3>
+            <p>les TSA (<a href="#tsa"><em>Time-Stamp Authorities</em></a>) emeten proves signades de que un conjunt de bytes (hash) ha
+                estat presentat a una hora determinada</p>
+            <p>es un format de petició y un de resposta que conté un token <code>TimeStampToken</code> (TST):
+                <br/>el token TST es pot presentar com a prova de que un document
+                existia en un cert moment</p>
+        </section>
+        <section id="tsa">
+            <h3>TSA: Time-Stamp Authority</h3>
+            <p>les TSA s'assemblen a les CA però a banda de disposar d'HSM, tenen una font fiable de temps:
+                <br/>rellotge atòmic, o un rellotge estabilitzat tèrmicament, o connexió GPS, o connexió a un
+            servidor NTP (Stratum-2 o proper), o alguna combinació dels anteriors (habitualment les CA fan servir NTP i prou)</p>
+        </section>
+
+        <section>
+            <h1>Ús</h1>
+        </section>
+
+        <section>
+            <h3>Ús</h3>
+            <ul>
+                <li><a title="rfc5246 (TLS v1.2)" href="https://tools.ietf.org/html/rfc5246">TLS</a>:
+                    autenticació dels extrems de la connexió (e.g. HTTPS)</li>
+                <li><a title="rfc5652 (CMS)" href="https://tools.ietf.org/html/rfc5652">PKCS #7/CMS</a>:
+                    xifrat i sobretot signatura</li>
+            </ul>
+        </section>
+
+        <section id="pkcs7">
+            <h3>PKCS #7 / CMS</h3>
+            <p>CMS o <em>Cryptographic Message Standard</em> ens permet xifrar o signar un conjunt de bytes:
+                correu, fitxers individuals, etc.</p>
+            <p>és una estructura ASN.1:</p>
+            <pre>
+ContentInfo ::= SEQUENCE {
+    contentType ContentType,
+    <a href="#pkcs7-content">content</a> [0] EXPLICIT ANY DEFINED BY contentType }
+
+ContentType ::= OBJECT IDENTIFIER
+</pre>
+        </section>
+
+
+        <section id="pkcs7-content">
+            <h3 style="text-transform:none;">PKCS #7 <code>content</code></h3>
+            <p>tipus disponibles:</p>
+            <ul>
+                <li><code>Data</code>: dades sense tractar</li>
+                <li><code>SignedData</code>: dades signades per un o més signants</li>
+                <li><code>EnvelopedData</code>: dades xifrades simètricament, i claus xifrades amb la PBK d'un o més receptors</li>
+                <li><code>DigestedData</code>: hash (emmagatzament local, o per posterior ensobrat)</li>
+                <li><code>EncryptedData</code>: xifrat en cru (emmagatzament local, xifrat simètric)</li>
+                <li><clode>AuthenticatedData</clode>: MAC (emmagatzament local, o en combinació amb ensobrat)</li>
+            </ul>
+            <p>que es poden combinar recursivament: e.g.
+                <br/><code>SignedData(Data("dades"), [signatures])</code></p>
+        </section>
+
+        <section>
+            <h3 style="text-transform:none;">PKCS #7: <code>content</code>$\rightarrow$<code>SignedData</code></h3>
+            <p>signatura asimètrica</p>
+            <pre>
+SignedData ::= SEQUENCE {
+    version CMSVersion,
+    digestAlgorithms DigestAlgorithmIdentifiers,
+    encapContentInfo EncapsulatedContentInfo,          -- dades signades
+    certificates [0] IMPLICIT CertificateSet OPTIONAL, -- certificats necessaris (CAs sub.)
+    crls [1] IMPLICIT RevocationInfoChoices OPTIONAL,  -- CRL necessàries
+    signerInfos SignerInfos }                          -- signatura(/es en paral·lel)
+
+DigestAlgorithmIdentifiers ::= SET OF DigestAlgorithmIdentifier
+
+SignerInfos ::= SET OF SignerInfo
+            </pre>
+        </section>
+
+        <section>
+            <h3 style="text-transform:none;">PKCS #7: <code>content</code>$\rightarrow$<code>EnvelopedData</code></h3>
+            <p>xifrat, simètric o asimètric (ensobrat)</p>
+            <pre>
+EnvelopedData ::= SEQUENCE {
+    version CMSVersion,
+    originatorInfo [0] IMPLICIT OriginatorInfo OPTIONAL,
+    recipientInfos RecipientInfos,
+    encryptedContentInfo EncryptedContentInfo,
+    unprotectedAttrs [1] IMPLICIT UnprotectedAttributes OPTIONAL
+}
+            </pre>
+        </section>
+
+        <section>
+            <h3 style="text-transform:none;">PKCS #7: <code>content</code>$\rightarrow$<code>EnvelopedData + SignedData</code></h3>
+            <p>una combinació habitual (e.g. S/MIME) és signar i xifrar</p>
+            <aside class="notes">
+                al contrari que en la part simètrica de TLS, on es xifrava, i després signava (MAC) per a impedir que desxifressim
+                dades no íntegres/autèntiques
+            </aside>
+        </section>
+
+        <section>
+            <h3>PKCS #7: com a arxiu de certificats</h3>
+            <p>el PKCS #7 es fa servir sovint com a format per a entregar certificats (i CRL)
+                <br/>(e.g. el meu certificat i la cadena de CA):</p>
+            <p>el PKCS #7 se li dóna amb <code>content</code> <code>SignedData</code>... contenint els certificats
+                i/o les CRL, però sense dades ni signatures</p>
+        </section>
+
+        <section id="pkcs" style="color:FF8888;">
+            <h3>Altres "formats PKCS"</h3>
+            <ul>
+                <li><a href="#pkcs7">PKCS #7</a>: format ASN.1 signatura, xifrat, arxiu de certificats i CRL</li>
+                <li><a href="hsm.html#pkcs11">PKCS #11</a>: plantilla C per a llibreries (<code>pkcs11.h</code>)
+                    d'<span title="Hardware Secure Module">HSM</span></li>
+                <li><a href="rsa.html#pkcs1">PKCS #1</a>: (només RSA)
+                    formats de firma i xifrat; algunes vegades es fa servir com a manera d'identificar el format
+                    de clau privada RSA en clar; usat per servidors (TLS)</li>
+                <li>PKCS #5: procediment per a xifrar bytes a partir d'una contrasenya</li>
+                <li>PKCS #8: format de clau privada, habitualment xifrat amb
+                    <br/>el procediment PKCS #5</li>
+                <li><a href="pki.html#pkcs10">PKCS #10</a>: format de petició de certificació, que conté les dades d'identificació
+                    (<span title="Distinguished Name">DN</span>), la clau pública, i la signatura per a poder validar-ne
+                    la posessió (alternatiu a un <a href="#x509">X.509</a> autosignat)</li>
+                <li>PKCS #12: fitxer xifrat de clau i certificats (usat pels navegadors)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3><a style="text-transform:none" title="Advanced Electronic Signature" href="ades.html">(AdES) $\rightarrow$</a></h3>
+        </section>
+    </div>
+
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-72628059-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<!-- <script type="text/javascript" src="js/svg_mathjax.js"></script> -->
+<!-- <script type="text/javascript">new Svg_MathJax().install();</script> -->
+<script type="text/javascript" src="lib/js/head.min.js"></script>
+<script type="text/javascript" src="js/reveal.js"></script>
+
+<script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            slideNumber: 'c/t',
+            // history: false,
+            // fragments: true,
+            // help: true,
+            // previewLinks: false,
+            width: 1280,
+            height: 720,
+
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            math: {
+                mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+                config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+            },
+
+            // Optional reveal.js plugins
+            dependencies: [
+                { src: 'plugin/math/math.js', async: true },
+                { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true },
+                { src: 'plugin/notes/notes.js', async: true }
+            ]
+        });
+    </script>
+
+</body>
+</html>

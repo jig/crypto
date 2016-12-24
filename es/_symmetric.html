@@ -1,0 +1,1125 @@
+<!doctype html>
+<html lang="ca">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Criptografia simètrica</title>
+
+        <meta name="description" content="Criptografia simètrica">
+        <meta name="author" content="Jordi Íñigo Griera">
+        <!-- Implementat amb revealjs: https://github.com/hakimel/reveal.js -->
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+        <!-- Code syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+                    var link = document.createElement( 'link' );
+                    link.rel = 'stylesheet';
+                    link.type = 'text/css';
+                    link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+                    document.getElementsByTagName( 'head' )[0].appendChild( link );
+                </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+    <div class="reveal">
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section>
+                <h1>Criptografia simètrica</h1>
+                <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
+
+				<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">
+					&ldquo;Curs d'Introducció a la criptografia&rdquo;
+				</span>
+
+                    by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/jig" property="cc:attributionName" rel="cc:attributionURL">Jordi Íñigo Griera</a> is licensed under a<br/>
+
+                    <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+                    <br />Project hosted at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/jig/crypto" rel="dct:source">github.com/jig/crypto</a></em></small>
+            </section>
+            <section>
+                <h3>Criptografia simètrica</h3>
+                <p>cal que sigui segura i pràctica</p>
+                <p>el problema és que el requeriment definit fins ara de <a href="intro.html#perfect-secrecy">confidencialitat incondicional</a> no pot generar
+                xifrats pràctics<br/>(ja que $\|k\| = \|m\|$)</p>
+            </section>
+
+            <section>
+                <h3>Confidencialitat incondicional</h3>
+                <p>aquell que, a partir del text xifrat, no permet deduir
+                    <br/><u>cap propietat</u>
+                    <br/>del text original en clar,
+                    <br/>encara que l'atacant tingui capacitat computacional infinita
+                </p>
+            </section>
+            <section>
+                <h3>Confidencialitat computacional</h3>
+                <p>habitualment no ens caldrà confidencialitat (o seguretat) incondicional, sino que
+                    podem admetre un cert risc de que el sistema/algorisme no sigui confidencial (segur)
+                    en front d'un atacant que tingui recursos computacionals finits
+                </p>
+                <p>aquesta "cessió" la farem a canvi de tenir uns algorismes més pràctics:</p>
+                <p>$\|k\| \ll \|m\|$</p>
+                <!-- <p class="fragment">*) en general, seguretat computacional</p> -->
+            </section>
+            <section>
+                <h3>Confidencialitat computacional</h3>
+                <p>per exemple suposem que tenim $k$ i $m$ de les següents longituds:</p>
+                <p>$\begin{aligned}
+                    \|k\| &= 32 \\
+                    \|m\| &= 8·10^{6}
+                    \end{aligned}$</p>
+                <p>és a dir tenim un nombre de possibles $k$ i $m$:</p>
+                <p>$\begin{aligned}
+                    |k| &= 2^{32} = 4294967296\\
+                    |m| &= 2^{8·10^{6}} = 923234126834\cdots \\
+                    |c| &= 2^{8·10^{6}} = 923234126834\cdots
+                    \end{aligned}$</p>
+            </section>
+            <section>
+                <h3>Confidencialitat computacional</h3>
+                <p>la desproporció entre $|k|$ i $|c|$ fa que només una de les claus ens torni un missatge
+                    inintel·ligible, per tant, podem saber quina era la clau i el missatge</p>
+                <p class="fragment">si la trobem </p>
+            </section>
+            <section>
+                <h3>Confidencialitat computacional</h3>
+                <p>si l'espai de claus es prou gran ($|k|$) no podrem probarles totes
+                    <br/><small>(<a href="intro.html#key-space">Moltes claus</a>
+                    i <a href="intro.html#vigenere-key-space">Vigenère: espai de claus</a>)</small>
+                </p>
+                <p>podem provar $10^6$ k/CPU/s $\approx 2^{20}$ k/CPU/s</p>
+                <p>ò $10^{13}$ k/CPU/any $\approx 2^{43}$ k/CPU/any</p>
+                <p>ò $10^{16}$ k/any amb $1000$ CPU $\approx 2^{53}$ k/any</p>
+                <p>ò $10^{19}$ k/any amb $10^6$ CPU $\approx 2^{63}$ k/any
+                <br/>$\vdots$</p>
+            </section>
+            <section>
+	      <p>$\vdots$
+                <br/>ò $10^{25}$ claus amb $10^6$ CPU un milió d'anys $\approx 2^{83}$ k</p>
+                <p>ò $10^{29}$ claus amb $10^6$ CPU des del Big Bang $\approx 2^{96}$ k
+                  <br/>$\vdots$</p>
+                <p>si tinc una "sort mitja" només em caldrà la meitat de proves (e.g. necessitarem "només"
+                    la meitat de l'edat de l'Univers per a trobar la clau en l'últim escenari)</p>
+                <p>i si tinc molta sort...</p>
+            </section>
+            <section>
+                <h3>i si tinc molta sort. . .</h3>
+                <p>...la probabilitat de que et toqui la grossa comprant només un número
+                    és $10^{-5}$ ($2^{-17}$)</p>
+                <p>la probabilitat de que et toqui la grossa comprant només un número, $5$ sortejos seguits,
+                    és $10^{-25}$ ($2^{-83}$)...</p>
+                <p>...aquesta és la probabilitat de que trobis la clau per força bruta en un temps negligible
+                    <br/>(1 milió d'anys amb 1 milio de CPU's...)</p>
+            </section>
+            
+            <section>
+                <h3>Confidencialitat computacional</h3>
+                <p>amb hardware ad-hoc podem arribar a multiplicar per $10^4$/$10^5$ vegades
+                    <br/>($2^{13}$/$2^{17}$ vegades)</p>
+                <p><em>Exemple
+		  <a htref="https://blockchain.info/block/0000000000000000082599be00bde6aca271d20c771542738343f3c940da7939">BitCoin</a>:
+		  SHA-256 en hardware massivament paral·lel</em></p>
+            </section>
+            <section>
+                <h3>Espai de claus</h3>
+                <p>En <u>criptografia simètrica</u> farem servir algorismes de xifrat sobre els
+                    que el mecanisme més eficient per a un atacant serà provar totes les
+                    claus fins trobar la bona</p>
+            </section>
+            <section>
+                <h3>NIST</h3>
+                <p>el <a href="http://csrc.nist.gov/publications/nistpubs/800-57/sp800-57_part1_rev3_general.pdf">NIST</a> recomana (2015)
+                    claus que un atacant<br/>hagi de fer $\frac{1}{2} 2^{113}$ proves</p>
+                <p>Més exactament, diu que les claus han de tenir una longitud
+		  <br/>$\|k\| = 112$ b, mínim</p>
+                <p class="fragment">A partir del 2030 recomanarà
+		  $\|k\| = 128$ b, mínim</p>
+                <p>NIST: <em>National Institute of Standards and Technology</em> (EUA)</p>
+                <p><em>Security Strength</em>: bits de seguretat o seguretat equivalent</p>
+            </section>
+
+            <section>
+                <h3>Quantificació de la Seguretat</h3>
+                <p>el NIST recomana les següents longituds de clau (<em>security strength</em>) pels propers anys</p>
+                <ul>
+                    <li>112 bit: fins 2030; <a href="#triple-des">3DES</a> és suficient</li>
+                    <li>128 bit: a partir del 2030; <a href="#aes">AES-128</a> és suficient</li>
+                </ul>
+                <p>l'amença coneguda que pot modificar el calendari és la
+                    <a href="threats.html#quantum-computing">computació quàntica</a>
+                    $\Rightarrow$ AES-256
+                </p>
+            </section>
+            <section>
+                <h3>Criptografia simètrica</h3>
+                <p>hi ha dos tipus de xifrat simètric</p>
+                <ul>
+                    <li><a href="#stream-cipher">Xifrats de flux</a></li>
+                    <li><a href="#block-cipher">Xifrats de bloc</a></li>
+                </ul>
+                <span class="fragment">
+                <p>ambdós els podem veure com una evolució del
+                    <br/><a href="symmetric.html#vigenere">xifrat de Vigenère</a>:</p>
+                <ul>
+                    <li>els primers extenent la clau (<a href="symmetric.html#one-time-pad">bloc d'un sol ús</a>)</li>
+                    <li>els segons aplicant-ho vàries vegades (aprox)</li>
+                </ul>
+                </span>
+            </section>
+            <section id="stream-cipher">
+                <h1>Xifrat de flux</h1>
+            </section>
+            <section>
+                <h3>Xifrat de flux</h3>
+                <p>És una implementació pràctica dels blocs<br/>d'un sol ús (<em>one-time-pad</em>)</p>
+                <p>en el cas dels blocs d'un sol ús necessitàvem<br/>$\|k\| = \|m\|$</p>
+                <p>per a després fer:<br/>
+                    $c = k \oplus m$
+                    </p>
+            </section>
+            <section>
+                <h3>Xifrat de flux</h3>
+                <p>el que farem és generar $k_{\text{generat}}$...</p>
+                <p>$\|k_{\text{generat}}\| = \|m\|$</p>
+                <p>...a partir d'una clau $k$ de longitud curta:</p>
+                <p>$k \overset{f}{\longrightarrow} k_{\text{generat}}$</p>
+                <p class="fragment">per a després fer:<br/>
+                    $c = k_{\text{generat}} \oplus m$
+                </p>
+            </section>
+            <section>
+                <p>$k \xrightarrow{\text{PRNG}} k_{\text{generat}}$</p>
+                <p>la funció PRNG* és un generador de bits que té com entrada una <u>llavor</u> (que serà la
+                clau de xifrat $k$) i té com a sortida el flux de bits que aplicarem sobre el missatge per a
+                    xifrar-lo amb <code>XOR</code>:</p>
+                <p>$c = k_{\text{generat}} \oplus m$</p>
+                <p><br/></p>
+                <p>*) PRNG: <em>Pseudo Random Number Generator</em></p>
+            </section>
+            <section>
+                <h3>PRNG: velocitat</h3>
+                <p>el xifrat anirà tant ràpid com siguem capaços de generar bits de $k_{\text{generat}}$</p>
+                <p>(ja que la funció <code>XOR</code> té un cost negligible en<br/>comparació a &ldquo;$\xrightarrow{\text{PRNG}}$&rdquo;)</p>
+            </section>
+            <section  style="text-align: left;">
+                <h3><span title="Pseudo Random Number Generation">PRNG</span>: seguretat</h3>
+                <p>una hipotètica funció PRNG és realment PRNG sii cap atacant pot distingir entre les dues seqüències:</p>
+                <ul>
+                <li>una generada per una font aleatòria "uniforme" (RNG*)</li>
+                <li>una generada per la hipotètica funció PRNG</li>
+                </ul>
+                <p>amb una probabilitat rellevantment diferent a $\frac{1}{2}$</p>
+                <p><br/></p>
+                <p>*) RNG: <em>Random Number Generator</em> (o <span title="True Random Number Generation">TRNG</span>) és un sistema que genera una seqüencia de bits no predible
+                sense caldre cap llavor; <u>no pot ser realitzat de forma algorísmica</u></p>
+            </section>
+            <section>
+                <h1>(RNG)</h1>
+            </section>
+            <section>
+                <h3>RNG: generació</h3>
+                <p>Com implementem un RNG si no és algorísmic?</p>
+                <ul>
+                <li>Recopilant events d'entrada (I/O) i acumulant els seus paràmatres (habitualment les xifres menys significatives de l'hora en ns ò μs)</li>
+                <li>Mitjançant dispositius especialitzats (<a href="hsm.html">HSM</a>*)</p>
+                <p><br/></p>
+                <p>*) HSM: <em>Hardware Secure Module</em></p>
+            </section>
+            <section>
+                <h3>RNG</h3>
+                <p>dedicarem una estona a <a href="hsm.html#rng">RNG</a> quant veiem HSM</p>
+            </section>
+            <section>
+                <h3>RNG: propietats</h3>
+                <ul>
+                    <li class="fragment">ha de tenir una <em>distribució uniforme</em> (és a dir, a de tendir a tenir el mateix nombre de 1's que de 0's,
+                    tendir al mateix nombre de 00's, que de 01's, 10's...</li>
+                    <li class="fragment">després d'$n$ bits no s'ha de poder predir el $n+1$ amb una probabilitat diferent de $\frac{1}{2}$</li>
+                </ul>
+            </section>
+
+            <section>
+                <h1>(Tornem al PRNG)</h1>
+            </section>
+            <section>
+                <h3>PRNG: propietats</h3>
+                <p>equivalents als RNG:</p>
+                <ul>
+                    <li>distribució uniforme</li>
+                    <li>després de $n$ no s'ha de poder predir el $n+1$ amb una probabilitat diferent de $\frac{1}{2}$</li>
+                </ul>
+                <p>Òbviament la segona suposant que no és conegui la
+                    <br/>llavor del PRNG (la clau de xifrat)</p>
+                    <p>llavor$|k \xrightarrow{\text{PRNG}}$ seqüència pseudo-aleatòria$|k_{\text{generat}}$</p>
+            </section>
+            <section>
+                <h1>Xifrat de flux</h1>
+            </section>
+            <section>
+                <h3>Xifrat de flux: algorisme</h3>
+                <ul>
+                    <li>tenim una funció $k \xrightarrow{\text{PRNG}} k_{\text{generat}}$</li>
+                    <li>la funció de xifrat és $c = k_{\text{generat}} \oplus m$</li>
+                    <li>la funció de desxifrat és $m = k_{\text{generat}} \oplus c$</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Xifrat de flux: primer intent</h3>
+                <p>Suposem que tenim una funció PRNG, i fem servir una clau $k$ per xifrar un flux de dades
+                    en una connexió (e.g. TLS)</p>
+                <p>hem de vigilar de no reutilitzar $k \xrightarrow{\text{PRNG}} k_{\text{g}}$, si no:</p>
+                <p>$\begin{aligned}
+                    c_1 &= k_{\text{g}} \oplus m_1 \\
+                    c_2 &= k_{\text{g}} \oplus m_2 \\
+                    c_1 \oplus c_2 &= m_1 \oplus m_2
+                    \end{aligned}$
+                </p>
+                <p>hem eliminat les claus de l'equació!</p>
+            </section>
+            <section>
+                <h3>Xifrat de flux: segon intent</h3>
+                <p>canviar de claus a cada transmissió</p>
+                <p class="fragment">correcte, però costós (poc pràctic)</p>
+            </section>
+            <section>
+                <h3>Xifrat de flux: tercer intent</h3>
+                <p>generar variacions de les claus a cada transmissió</p>
+                <p>suposem que tenim una funció</p>
+                <p>$\begin{aligned}
+                    k' &= f(k, r) \\
+                    c &= k' \oplus m
+                    \end{aligned}$</p>
+                <p>i enviem cada $r$ juntament amb cada $m$</p>
+                <p class="fragment">correcte i pràctic</p>
+            </section>
+            <section>
+                <h3>Xifrat de flux: consideracions</h3>
+                <p>en resum: hem de generar un $r$ diferent per a cada missatge
+		  <br/>(anomenat <em>nonce</em>)</p>
+                <p>si tenim una comunicació bidireccional com<br/>HTTPS (TLS) cal:</p>
+                <ul>
+                    <li>o bé generar un $r$ diferent per a cadascun dels dos sentits</li>
+                    <li>o bé generar una $k$ diferent per a cadascun dels dos sentits</li>
+                    <li>o totes dues coses <span class="fragment">$\leftarrow$</span></li>
+                </ul>
+            </section>
+            <section>
+                <h3>Xifrat de flux: seguretat</h3>
+                <p>el xifrat de flux serà tan segur com:
+                <ul>
+                <li>serà tan segur com la correcció de la hipòtesi de que la funció PRNG és realment PRNG</li>
+                <li>l'espai de claus (de llavors) sigui tant gran que sigui improbable que un atac de força bruta
+                    sigui factible</li>
+                <li>que es compleixin les hipòtesis d'ús</li>
+                </ul>
+                </p>
+            </section>
+            <section>
+                <h3>Exemples</h3>
+                <ul>
+                    <li>RC4 (històric): obsolet</li>
+                    <li><a href="http://cr.yp.to/chacha.html">ChaCha</a>: derivat del <a href="http://cr.yp.to/salsa20.html">Salsa20</a> i probablement única alternativa a l'AES en TLS 1.3 (draft)<br/>
+                        <ul><li>$\|k\| = 256$ bit</li><li>$\|\text{nonce}\| = 64$ bit</li></ul>
+                    </li>
+                </ul>
+            </section>
+
+
+            <section id="block-cipher">
+                <h1>Xifrats de bloc</h1>
+            </section>
+            <section>
+                <h2>Funcions</h2>
+            </section>
+
+            <section>
+                <svg width="400" height="400" xmlns="http://www.w3.org/2000/svg">
+                    <g>
+                        <title>Layer 1</title>
+                        <ellipse ry="193" rx="50" cy="198" cx="100" stroke-width="3" stroke="#000000" fill="#FFFFFF" id="svg_10" fill-opacity="0.3"/>
+                        <ellipse ry="193" rx="50" cy="198" cx="299" stroke-width="3" stroke="#000000" fill="#FFFFFF" id="svg_11" fill-opacity="0.3"/>
+                        <text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="75" x="100" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000" id="svg_12">a</text>
+<text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="155" x="101" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000" id="svg_13">b</text>
+<text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="235" x="101" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000" id="svg_14">c</text>
+<text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="75" x="300" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000" id="svg_15">1</text>
+<text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="155" x="300" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000" id="svg_16">2</text>
+<text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="235" x="300" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000" id="svg_17">3</text>
+                        <!-- <line id="svg_122" y2="221.500002" x2="282.999995" y1="153.499999" x1="120.000002" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" stroke="#000000" fill="none" marker-end="url(#se_marker_end_svg_122)"/> -->
+                        <line id="svg_22" y2="298.499997" x2="282.999995" y1="153.499998" x1="120.000002" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" stroke="#000000" fill="none" marker-end="url(#se_marker_end_svg_22)"/>
+                        <line id="svg_23" y2="156.499999" x2="282.000002" y1="225.499999" x1="119.000004" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" stroke="#000000" fill="none" marker-end="url(#se_marker_end_svg_23)"/>
+                        <line stroke="#000000" stroke-width="3" stroke-linejoin="null" stroke-linecap="null" x1="118" y1="71.5" x2="279" y2="69.5" id="svg_24" fill="none" marker-end="url(#se_marker_end_svg_24)"/>
+                        <text id="svg_29" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="315" x="101" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">d</text>
+<text id="svg_31" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="315" x="301" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">4</text>
+<text xml:space="preserve" text-anchor="middle" font-family="Cursive" font-size="24" id="svg_32" y="205" x="20" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">X</text>
+<text xml:space="preserve" text-anchor="middle" font-family="Cursive" font-size="24" id="svg_33" y="205" x="376" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">Y</text>
+<text xml:space="preserve" text-anchor="middle" font-family="Cursive" font-size="24" id="svg_34" y="133" x="196" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">f</text>
+                    </g>
+                    <defs>
+                        <marker id="se_marker_end_svg_22" markerUnits="strokeWidth" orient="auto" viewBox="0 0 100 100" markerWidth="5" markerHeight="5" refX="50" refY="50">
+                            <path id="svg_25" d="m100,50l-100,40l30,-40l-30,-40l100,40z" fill="#000000" stroke="#000000" stroke-width="3"/>
+                        </marker>
+                        <marker id="se_marker_end_svg_23" markerUnits="strokeWidth" orient="auto" viewBox="0 0 100 100" markerWidth="5" markerHeight="5" refX="50" refY="50">
+                            <path id="svg_26" d="m100,50l-100,40l30,-40l-30,-40l100,40z" fill="#000000" stroke="#000000" stroke-width="3"/>
+                        </marker>
+                        <marker id="se_marker_end_svg_24" markerUnits="strokeWidth" orient="auto" viewBox="0 0 100 100" markerWidth="5" markerHeight="5" refX="50" refY="50">
+                            <path id="svg_27" d="m100,50l-100,40l30,-40l-30,-40l100,40z" fill="#000000" stroke="#000000" stroke-width="3"/>
+                        </marker>
+                    </defs>
+                </svg>
+
+                <p class="fragment">\[
+                    \begin{aligned}
+                    X & = \{ a,b,c,d \} \\
+                    Y & = \{ 1,2,3,4 \} \\
+                    \end{aligned} \\
+                    \]</p>
+                <p class="fragment">
+                    $f(a) = 1 \quad f(b) = 4 \quad f(c) = 2 \quad f(d) = \text{n.d.}$
+                </p>
+            </section>
+
+            <section>
+                <!-- <p>$f(d)$ no està definit ja que $f$ no asigna un element d'$Y$ per a tots els elements d'$X$</p> -->
+                <p>per tant $f$ no és una funció sobre $X$
+                    <br/>(o al menys no és una funció "ben definida" sobre $X$)</p>
+            </section>
+
+            <section>
+                <svg width="400" height="400" xmlns="http://www.w3.org/2000/svg">
+                    <g>
+                        <title>Layer 1</title>
+                        <ellipse ry="150" rx="50" cy="155" cx="100" stroke-width="3" stroke="#000000" fill="#FFFFFF" id="svg_10" fill-opacity="0.3"/>
+                        <ellipse ry="193" rx="50" cy="198" cx="299" stroke-width="3" stroke="#000000" fill="#FFFFFF" id="svg_11" fill-opacity="0.3"/>
+                        <text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="75" x="100" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000" id="svg_12">a</text>
+<text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="155" x="101" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000" id="svg_13">b</text>
+<text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="235" x="101" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000" id="svg_14">c</text>
+<text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="75" x="300" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000" id="svg_15">1</text>
+<text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="155" x="300" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000" id="svg_16">2</text>
+<text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="235" x="300" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000" id="svg_17">3</text>
+                        <!-- <line id="svg_122" y2="221.500002" x2="282.999995" y1="153.499999" x1="120.000002" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" stroke="#000000" fill="none" marker-end="url(#se_marker_end_svg_122)"/> -->
+                        <line id="svg_22" y2="298.499997" x2="282.999995" y1="153.499998" x1="120.000002" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" stroke="#000000" fill="none" marker-end="url(#se_marker_end_svg_22)"/>
+                        <line id="svg_23" y2="156.499999" x2="282.000002" y1="225.499999" x1="119.000004" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" stroke="#000000" fill="none" marker-end="url(#se_marker_end_svg_23)"/>
+                        <line stroke="#000000" stroke-width="3" stroke-linejoin="null" stroke-linecap="null" x1="118" y1="71.5" x2="279" y2="69.5" id="svg_24" fill="none" marker-end="url(#se_marker_end_svg_24)"/>
+
+                        <text id="svg_31" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="315" x="301" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">4</text>
+<text xml:space="preserve" text-anchor="middle" font-family="Cursive" font-size="24" id="svg_32" y="155" x="20" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">X</text>
+<text xml:space="preserve" text-anchor="middle" font-family="Cursive" font-size="24" id="svg_33" y="205" x="376" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">Y</text>
+<text xml:space="preserve" text-anchor="middle" font-family="Cursive" font-size="24" id="svg_34" y="133" x="196" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">f</text>
+                    </g>
+                    <defs>
+                        <marker id="se_marker_end_svg_22" markerUnits="strokeWidth" orient="auto" viewBox="0 0 100 100" markerWidth="5" markerHeight="5" refX="50" refY="50">
+                            <path id="svg_25" d="m100,50l-100,40l30,-40l-30,-40l100,40z" fill="#000000" stroke="#000000" stroke-width="3"/>
+                        </marker>
+                        <marker id="se_marker_end_svg_23" markerUnits="strokeWidth" orient="auto" viewBox="0 0 100 100" markerWidth="5" markerHeight="5" refX="50" refY="50">
+                            <path id="svg_26" d="m100,50l-100,40l30,-40l-30,-40l100,40z" fill="#000000" stroke="#000000" stroke-width="3"/>
+                        </marker>
+                        <marker id="se_marker_end_svg_24" markerUnits="strokeWidth" orient="auto" viewBox="0 0 100 100" markerWidth="5" markerHeight="5" refX="50" refY="50">
+                            <path id="svg_27" d="m100,50l-100,40l30,-40l-30,-40l100,40z" fill="#000000" stroke="#000000" stroke-width="3"/>
+                        </marker>
+                    </defs>
+                </svg>
+
+                <p class="fragment">\[
+                    \begin{aligned}
+                    X & = \{ a,b,c \} \\
+                    Y & = \{ 1,2,3,4 \} \\
+                    \end{aligned} \\
+                    f : X \rightarrow Y
+                    \]</p>
+                <p class="fragment">
+                    $f(a) = 1 \quad f(b) = 4 \quad f(c) = 2$
+                </p>
+            </section>
+
+            <section>
+                <p>\[
+                    \begin{aligned}
+                    X & = \{ a,b,c \} \\
+                    Y & = \{ 1,2,3,4 \} \\
+                    \end{aligned} \\
+                    f : X \rightarrow Y \\
+                    \]
+                </p>
+                <p>La funció completa és:<br> $f(a) = 1 \quad f(b) = 4 \quad f(c) = 2$</p>
+                <p>e.g. la imatge de $b$ és $4$, la preimatge de $4$ és $b$</p>
+                <p>Tots els elements d'$Y$ que tenen preimatge segons $f$ és<br>$Im(f) = \{1,2,4 \}$</p>
+                <!-- <div class="fragment">
+                    <p>$X$ és el domini d'$f$</p>
+                    <p>$Y$ és el codomini d'$f$</p>
+                </div> -->
+            </section>
+
+            <section id="function-bijection">
+                <h3>Funció bijectiva</h3>
+                <!-- <p>o correspondència biunívoca</p> -->
+                <svg width="400" height="310" xmlns="http://www.w3.org/2000/svg">
+                    <g>
+                        <title>Layer 1</title>
+                        <ellipse id="svg_10" fill="#FFFFFF" stroke="#000000" stroke-width="3" cx="100" cy="155" rx="50" ry="150" fill-opacity="0.3"/>
+                        <ellipse id="svg_11" fill="#FFFFFF" stroke="#000000" stroke-width="3" cx="300" cy="155" rx="50" ry="150" fill-opacity="0.3"/>
+                        <text id="svg_12" fill="#000000" stroke="#000000" stroke-width="0" stroke-linejoin="null" stroke-linecap="null" x="100" y="75" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve">a</text>
+   <text id="svg_13" fill="#000000" stroke="#000000" stroke-width="0" stroke-linejoin="null" stroke-linecap="null" x="100" y="155" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve">b</text>
+   <text id="svg_14" fill="#000000" stroke="#000000" stroke-width="0" stroke-linejoin="null" stroke-linecap="null" x="100" y="235" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve">c</text>
+   <text id="svg_15" fill="#000000" stroke="#000000" stroke-width="0" stroke-linejoin="null" stroke-linecap="null" x="300" y="75" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve">1</text>
+   <text id="svg_16" fill="#000000" stroke="#000000" stroke-width="0" stroke-linejoin="null" stroke-linecap="null" x="300" y="155" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve">2</text>
+   <text id="svg_17" fill="#000000" stroke="#000000" stroke-width="0" stroke-linejoin="null" stroke-linecap="null" x="300" y="235" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve">3</text>
+<text xml:space="preserve" text-anchor="middle" font-family="Cursive" font-size="24" id="svg_32" y="155" x="20" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">X</text>
+<text xml:space="preserve" text-anchor="middle" font-family="Cursive" font-size="24" id="svg_33" y="155" x="376" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">Y</text>
+<text xml:space="preserve" text-anchor="middle" font-family="Cursive" font-size="24" id="svg_34" y="133" x="196" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">f</text>
+                        <line marker-end="url(#se_marker_end_svg_22)" fill="none" stroke="#000000" stroke-width="3" stroke-linejoin="null" stroke-linecap="null" x1="120.000002" y1="153.499999" x2="282.999995" y2="221.500002" id="svg_22"/>
+                        <line marker-end="url(#se_marker_end_svg_23)" fill="none" stroke="#000000" stroke-width="3" stroke-linejoin="null" stroke-linecap="null" x1="119.000004" y1="225.499999" x2="282.000002" y2="156.499999" id="svg_23"/>
+                        <line marker-end="url(#se_marker_end_svg_24)" fill="none" id="svg_24" y2="69.5" x2="279" y1="71.5" x1="118" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" stroke="#000000"/>
+                    </g>
+                    <defs>
+                        <marker refY="50" refX="50" markerHeight="5" markerWidth="5" viewBox="0 0 100 100" se_type="rightarrow" orient="auto" markerUnits="strokeWidth" id="se_marker_end_svg_22">
+                            <path stroke-width="3" stroke="#000000" fill="#000000" d="m100,50l-100,40l30,-40l-30,-40z"/>
+                        </marker>
+                        <marker refY="50" refX="50" markerHeight="5" markerWidth="5" viewBox="0 0 100 100" se_type="rightarrow" orient="auto" markerUnits="strokeWidth" id="se_marker_end_svg_23">
+                            <path stroke-width="3" stroke="#000000" fill="#000000" d="m100,50l-100,40l30,-40l-30,-40z"/>
+                        </marker>
+                        <marker refY="50" refX="50" markerHeight="5" markerWidth="5" viewBox="0 0 100 100" se_type="rightarrow" orient="auto" markerUnits="strokeWidth" id="se_marker_end_svg_24">
+                            <path stroke-width="3" stroke="#000000" fill="#000000" d="m100,50l-100,40l30,-40l-30,-40z"/>
+                        </marker>
+                    </defs>
+                </svg>
+                <p>tots els elements d'$Y$ tenen preimatge o el que és equivalent: $Im(f) = Y$ (per tant, $|X|=|Y|$)</p>
+                <p>per tant, la inversa d'$f$ (que simbolitzarem $f^{-1}$) està "ben definida"</p>
+            </section>
+
+            <section id="function-inverse">
+                <h3>Funció inversa</h3>
+                <!-- <p>o correspondència biunívoca</p> -->
+                <svg width="400" height="310" xmlns="http://www.w3.org/2000/svg">
+                    <g>
+                        <title>Layer 1</title>
+                        <ellipse id="svg_10" fill="#FFFFFF" stroke="#000000" stroke-width="3" cx="100" cy="155" rx="50" ry="150" fill-opacity="0.3"/>
+                        <ellipse id="svg_11" fill="#FFFFFF" stroke="#000000" stroke-width="3" cx="300" cy="155" rx="50" ry="150" fill-opacity="0.3"/>
+                        <text id="svg_12" fill="#000000" stroke="#000000" stroke-width="0" stroke-linejoin="null" stroke-linecap="null" x="100" y="75" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve">1</text>
+   <text id="svg_13" fill="#000000" stroke="#000000" stroke-width="0" stroke-linejoin="null" stroke-linecap="null" x="100" y="155" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve">2</text>
+   <text id="svg_14" fill="#000000" stroke="#000000" stroke-width="0" stroke-linejoin="null" stroke-linecap="null" x="100" y="235" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve">3</text>
+   <text id="svg_15" fill="#000000" stroke="#000000" stroke-width="0" stroke-linejoin="null" stroke-linecap="null" x="300" y="75" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve">a</text>
+   <text id="svg_16" fill="#000000" stroke="#000000" stroke-width="0" stroke-linejoin="null" stroke-linecap="null" x="300" y="155" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve">b</text>
+   <text id="svg_17" fill="#000000" stroke="#000000" stroke-width="0" stroke-linejoin="null" stroke-linecap="null" x="300" y="235" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve">c</text>
+<text xml:space="preserve" text-anchor="middle" font-family="Cursive" font-size="24" id="svg_32" y="155" x="20" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">Y</text>
+<text xml:space="preserve" text-anchor="middle" font-family="Cursive" font-size="24" id="svg_33" y="155" x="376" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">X</text>
+<text xml:space="preserve" text-anchor="middle" font-family="Cursive" font-size="24" id="svg_34" y="133" x="196" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">f</text>
+<text xml:space="preserve" text-anchor="middle" font-family="Cursive" font-size="24" id="svg_34" y="123" x="212" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">-1</text>
+                        <line marker-end="url(#se_marker_end_svg_22)" fill="none" stroke="#000000" stroke-width="3" stroke-linejoin="null" stroke-linecap="null" x1="120.000002" y1="153.499999" x2="282.999995" y2="221.500002" id="svg_22"/>
+                        <line marker-end="url(#se_marker_end_svg_23)" fill="none" stroke="#000000" stroke-width="3" stroke-linejoin="null" stroke-linecap="null" x1="119.000004" y1="225.499999" x2="282.000002" y2="156.499999" id="svg_23"/>
+                        <line marker-end="url(#se_marker_end_svg_24)" fill="none" id="svg_24" y2="69.5" x2="279" y1="71.5" x1="118" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" stroke="#000000"/>
+                    </g>
+                    <defs>
+                        <marker refY="50" refX="50" markerHeight="5" markerWidth="5" viewBox="0 0 100 100" se_type="rightarrow" orient="auto" markerUnits="strokeWidth" id="se_marker_end_svg_22">
+                            <path stroke-width="3" stroke="#000000" fill="#000000" d="m100,50l-100,40l30,-40l-30,-40z"/>
+                        </marker>
+                        <marker refY="50" refX="50" markerHeight="5" markerWidth="5" viewBox="0 0 100 100" se_type="rightarrow" orient="auto" markerUnits="strokeWidth" id="se_marker_end_svg_23">
+                            <path stroke-width="3" stroke="#000000" fill="#000000" d="m100,50l-100,40l30,-40l-30,-40z"/>
+                        </marker>
+                        <marker refY="50" refX="50" markerHeight="5" markerWidth="5" viewBox="0 0 100 100" se_type="rightarrow" orient="auto" markerUnits="strokeWidth" id="se_marker_end_svg_24">
+                            <path stroke-width="3" stroke="#000000" fill="#000000" d="m100,50l-100,40l30,-40l-30,-40z"/>
+                        </marker>
+                    </defs>
+                </svg>
+                <p>la funció inversa de l'anterior $f^{-1}$</p>
+                <p>tots els elements d'$X$ tenen preimatge</p>
+                <p>i la inversa d'$f^{-1}$ está (òbviament) "ben definida"</p>
+                <p>per tant $f^{-1}$ també és bijectiva</p>
+            </section>
+
+            <section id="function-permutation">
+                <h3>permutació</h3>
+                <svg width="400" height="310" xmlns="http://www.w3.org/2000/svg">
+                    <g>
+                        <title>Layer 1</title>
+                        <ellipse id="svg_10" fill="#FFFFFF" stroke="#000000" stroke-width="3" cx="100" cy="155" rx="50" ry="150" fill-opacity="0.3"/>
+                        <ellipse id="svg_11" fill="#FFFFFF" stroke="#000000" stroke-width="3" cx="300" cy="155" rx="50" ry="150" fill-opacity="0.3"/>
+                        <text id="svg_12" fill="#000000" stroke="#000000" stroke-width="0" stroke-linejoin="null" stroke-linecap="null" x="100" y="75" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve">a</text>
+   <text id="svg_13" fill="#000000" stroke="#000000" stroke-width="0" stroke-linejoin="null" stroke-linecap="null" x="100" y="155" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve">b</text>
+   <text id="svg_14" fill="#000000" stroke="#000000" stroke-width="0" stroke-linejoin="null" stroke-linecap="null" x="100" y="235" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve">c</text>
+   <text id="svg_15" fill="#000000" stroke="#000000" stroke-width="0" stroke-linejoin="null" stroke-linecap="null" x="300" y="75" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve">a</text>
+   <text id="svg_16" fill="#000000" stroke="#000000" stroke-width="0" stroke-linejoin="null" stroke-linecap="null" x="300" y="155" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve">b</text>
+   <text id="svg_17" fill="#000000" stroke="#000000" stroke-width="0" stroke-linejoin="null" stroke-linecap="null" x="300" y="235" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve">c</text>
+<text xml:space="preserve" text-anchor="middle" font-family="Cursive" font-size="24" id="svg_32" y="155" x="20" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">X</text>
+<text xml:space="preserve" text-anchor="middle" font-family="Cursive" font-size="24" id="svg_33" y="155" x="376" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">X</text>
+<text xml:space="preserve" text-anchor="middle" font-family="Cursive" font-size="24" id="svg_34" y="133" x="196" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">f</text>
+                        <line marker-end="url(#se_marker_end_svg_22)" fill="none" stroke="#000000" stroke-width="3" stroke-linejoin="null" stroke-linecap="null" x1="120.000002" y1="153.499999" x2="282.999995" y2="221.500002" id="svg_22"/>
+                        <line marker-end="url(#se_marker_end_svg_23)" fill="none" stroke="#000000" stroke-width="3" stroke-linejoin="null" stroke-linecap="null" x1="119.000004" y1="225.499999" x2="282.000002" y2="156.499999" id="svg_23"/>
+                        <line marker-end="url(#se_marker_end_svg_24)" fill="none" id="svg_24" y2="69.5" x2="279" y1="71.5" x1="118" stroke-linecap="null" stroke-linejoin="null" stroke-width="3" stroke="#000000"/>
+                    </g>
+                    <defs>
+                        <marker refY="50" refX="50" markerHeight="5" markerWidth="5" viewBox="0 0 100 100" se_type="rightarrow" orient="auto" markerUnits="strokeWidth" id="se_marker_end_svg_22">
+                            <path stroke-width="3" stroke="#000000" fill="#000000" d="m100,50l-100,40l30,-40l-30,-40z"/>
+                        </marker>
+                        <marker refY="50" refX="50" markerHeight="5" markerWidth="5" viewBox="0 0 100 100" se_type="rightarrow" orient="auto" markerUnits="strokeWidth" id="se_marker_end_svg_23">
+                            <path stroke-width="3" stroke="#000000" fill="#000000" d="m100,50l-100,40l30,-40l-30,-40z"/>
+                        </marker>
+                        <marker refY="50" refX="50" markerHeight="5" markerWidth="5" viewBox="0 0 100 100" se_type="rightarrow" orient="auto" markerUnits="strokeWidth" id="se_marker_end_svg_24">
+                            <path stroke-width="3" stroke="#000000" fill="#000000" d="m100,50l-100,40l30,-40l-30,-40z"/>
+                        </marker>
+                    </defs>
+                </svg>
+                <p>\[
+                    \begin{aligned}
+                    X & = \{ a,b,c \} \\
+                    \end{aligned} \\
+                    f : X \rightarrow X
+                    \]</p>
+                <p>una permutació és una funció bijectiva d'$X$ sobre sí mateix</p>
+            </section>
+
+            <section>
+                <h3>Xifrat de bloc: model</h3>
+                <p>podem representar el xifrat amb una permutació $f$</p>
+                <p>$f : X\rightarrow X$</p>
+                <p>on $X$ és el conjunt de possibles blocs (tant de text en clar i xifrat)</p>
+                <p>i podem representar la funció de desxifrat com a la seva inversa $f^{-1}$
+                </p>
+                <p>$f^{-1} : X\rightarrow X$</p>		
+                <p>és a dir:</p>
+                <p>$\begin{aligned}
+                    c &= f(m) \\
+                    m &= f^{-1}(c)
+                    \end{aligned}$</p>
+            </section>
+            <section>
+                <h3>Xifrat de bloc: mida</h3>
+                <p>$\begin{aligned}
+                    f &: X \rightarrow X \\
+                    f &: \{0,1\}^n \rightarrow \{0,1\}^n
+                    \end{aligned}$</p>
+                <p>si implementem $f$ en una taula amb $2^n$ entrades, ocupem $n·2^n$ bit</p>
+                <span class="fragment">
+                  <p>on $n$ és la mida del <u>bloc</u></p>
+                  <p>(si tenim missatges més llargs d'$n$ haurem de segmentar-los en blocs: <a href="#mode-of-operation">modes d'operació</a>)</p>
+                </span>
+            </section>
+            <section id="random-permutation">
+                <h3>Xifrat de bloc: permutació aleatoria</h3>
+                <p>aquestes $2^{n}$ entrades (de longitud $n$) les haurem d'escollir de forma aleatòria</p>
+                <p>de forma que no podrem conèixer $f(x)$ sense conèixer la taula</p>
+                <p>$\downarrow$</p>
+                <p>RP: <em>Random Permutation</em></p>
+            </section>
+            <section>
+                <h3>Xifrat de bloc: model</h3>
+                <p>per exemple, per <a href="#des">DES</a> que té una mida de bloc d'$n=64\text{ b}$ ens calen:</p>
+                <p>$64·2^{64} \text{ b} = 2^{70} \text{ b} = 2^{67}\text{ B} = 2^{37}\text{ GB} = 128\text{ EB}$</p>
+                <p>... <span class="fragment">per a cadascuna de les claus $k$</span></p>
+                <p class="fragment">òbviament no és factible implementar els xifrats moderns directament amb una taula indexada</p>
+            </section>
+
+            <section>
+                <h3>Xifrat de bloc: $f_k$</h3>
+                <p>en realitat per a que el xifrat sigui segur necessitarem una "familia" de funcions equivalents però
+                    diferents. Les indexarem en funció de la clau, $k$:</p>
+                <p>$\begin{aligned}
+                    f_k &: X \rightarrow X \\
+                    f_k &: \{0,1\}^n \rightarrow \{0,1\}^n
+                    \end{aligned}$</p>
+                <p>o també, podem redefinir $f$ i afegir-li $k$ com a paràmetre:</p>
+                <p>$\begin{aligned}
+                    f &: K \times X \rightarrow X \\
+                    f &: \{0,1\}^{\|k\|} \times \{0,1\}^n \rightarrow \{0,1\}^n
+                    \end{aligned}$</p>
+                </p>
+                <p>on $K$ és l'<em>espai</em> de claus $k$ (o <em>conjunt</em> de claus)</p>
+            </section>
+
+            <section id="pseudo-random-permutation">
+                <h3>Xifrat de bloc:
+                    <br/>permutació pseudoaleatòria</h3>
+                <p>igual que per al xifrat de flux ens calia un flux de bits aparentment aleatoris per a qui no tingués
+                    la llavor (la clau $k$)...</p>
+                    <p>...per a xifrat de bloc farem servir permutacions pseudoaleatòries (PRP*) en les que la
+                    permutació serà aparentment aleatòria per algú que no conegui la clau</p>
+                <span class="fragment">
+                    <p>això ens permetrà fer xifrats de bloc factibles, intercanviant una quantitat immensa de memòria
+                    per una computació abordable</p>
+                </span>
+                <p>PRP: <em>Pseudo Random Permutation</em></p>
+            </section>
+            <section>
+                <h3>Xifrat de bloc:
+                    <br/>permutació pseudoaleatòria</h3>
+                <p>com en el cas de PRNG, per seguretat cal que les PRP siguin indistingibles de les RP</p>
+                <span class="fragment">
+                    <p>a més cal que tant $f_k$ com $f_k^{-1}$ es puguin calcular de forma eficient</p>
+                </span>
+            </section>
+
+            <section>
+                <h1>construcció de xifrats de bloc</h1>
+            </section>
+
+            <section>
+                <h3>xifrats de bloc: classes bàsiques</h3>
+                <p>hi ha dues classes de xifrat de bloc
+		  <br/>(és a dir, dues maneres d'implementar
+		  <span title="Permutació Pseudoaleatòria">PRP</span>)</p>
+                <ul>
+                    <li>xifrat de <u>substitució</u>
+                        <ul class="fragment">
+                            <li>monoalfabètics ($\approx$ César)</li>
+                            <li><u>polialfabètics</u> (Vigenère)</li>
+                        </ul>
+                    </li>
+                    <li>xifrat de <u>transposició</u></li>
+                </ul>
+                <p class="fragment">a partir d'ara farem servir $e()$ i $d()$ en lloc<br/>de les $f()$ i $f^{-1}()$ usades fins ara</p>
+            </section>
+            <section>
+                <h3>xifrats de bloc: composició</h3>
+                <p>per si sols, les 3 classes bàsiques de xifrat de bloc són insegures</p>
+                <p>però combinant-les podem obtenir seguretat creixent</p>
+            </section>
+
+            <section>
+                <h3>substitució polialfabètica</h3>
+                <p>per a un bloc de longitud $t$ elements, el que fem és fer servir $t$ permutacions $p()$ independents</p>
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>$m$</td>
+                        <td>pos<small>1</small></td>
+                        <td>pos<small>2</small></td>
+                        <td>pos<small>3</small></td>
+                        <td>pos<small>4</small></td>
+                    </tr>
+                    <tr>
+                        <td>$c=e(m)$</td>
+                        <td>$f($pos<small>1</small>$)$</td>
+                        <td>$f($pos<small>2</small>$)$</td>
+                        <td>$f($pos<small>3</small>$)$</td>
+                        <td>$f($pos<small>4</small>$)$</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>i simplement: $d$ és la seqüència de permutacions inverses $f^{-1}$</p>
+                <p>(el xifrat de <a href="intro.html#vigenere">Vigenère</a> és un tipus de xifrat de substitució polialfabètica)</p>
+            </section>
+
+            <section>
+                <h3>substitució polialfabètica: seguretat</h3>
+                <p>com en el cas de Vigenère podem recuperar el text original mitjançant <a href="intro.html#vigenere-frequency-analysis">anàlisi freqüencial</a></p>
+            </section>
+
+            <section>
+                <h3>transposició</h3>
+                <p>per a un bloc de longitud $t$ elements, el que fem és moure els mateixos elements entre sí</p>
+                <p>per exemple, en un sistema amb blocs de 4 lletres una funció $e$ de xifrat podria ser:</p>
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>$m$</td>
+                        <td>pos<small>1</small></td>
+                        <td>pos<small>2</small></td>
+                        <td>pos<small>3</small></td>
+                        <td>pos<small>4</small></td>
+                    </tr>
+                    <tr>
+                        <td>$c=e(m)$</td>
+                        <td>pos<small>3</small></td>
+                        <td>pos<small>1</small></td>
+                        <td>pos<small>4</small></td>
+                        <td>pos<small>2</small></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>i simplement: $d = e^{-1}$</p>
+            </section>
+
+            <section>
+                <h3>transposiciÓ: seguretat</h3>
+                <p>òbviament són insegurs ja que no només la freqüència dels símbols d'entrada és manté, si no que els
+                    propis símbols es mantenen (tot i que en posicions modificades)</p>
+            </section>
+
+            <section>
+                <h3>composició de xifrats de bloc</h3>
+                <p>una composició de dos xifrats de bloc, la podem escriure:</p>
+                <p>$\begin{aligned}
+                    c_1 &= e_1(k_1, m)\\
+                    c_2 &= e_2(k_2, c_1)\\
+                    &\vdots\\
+                    c &= e_1(k_n, c_{n-1})\\
+                    \end{aligned}$</p>
+                <span class="fragment">
+                    <p>cadascuna de les claus $k_i$ pot ser independent, però habitualment és genera en un procés anomenat
+                    expansió de clau:
+                        <br/><p>$k \xrightarrow{\text{PRNG}} \{k_1, k_2, \dotsc, k_n\}$</p></p>
+                </span>
+            </section>
+            <section>
+                <h3>composició de xifrats de bloc: </h3>
+                <p>objectius de la composició:</p>
+                <ul>
+                    <li><strong>substitució</strong>: dóna <em>confusió</em>, que permet dificultar l'obtenció de la clau a partir
+                        del text xifrat</li>
+                    <li><strong>transposició</strong>: dóna <em>difusió</em>, que permet difondre les redundàncies del text en clar, de
+                        forma que no apareguin en el text xifrat</li>
+                </ul>
+                <p><strong>etapes</strong> o <em>rounds</em>: les dues funcions s'agrupen en parelles i s'apliquen diferents cops
+                    (amb diferents claus) fins a obtenir un xifrat segur</p>
+                <p>$c_i = e_1(k_i, c_{i-1})$</p>
+            </section>
+            <section>
+                <h1>AES</h1>
+                <p>Advanced Encryption Standard</p>
+            </section>
+            <section id="aes">
+                <h3>AES</h3>
+                <p>AES és un xifrat de bloc amb:</p>
+                <ul>
+                    <li>bloc: $128$ bit ($16$ Byte)</li>
+                    <li>clau:
+                        <ul>
+                            <li>$128$ bit $\implies$ 10 etapes</li>
+                            <li>$192$ bit $\implies$ 12 etapes</li>
+                            <li>$256$ bit $\implies$ 14 etapes</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <section>
+                    <h3>AES</h3>
+                    <p>cadascuna de les 10|12|14 etapes es composa de</p>
+                    <ul>
+                        <li><code>SubBytes</code>: substitució de bytes en funció d'una taula fixa de 256 entrades</li>
+                        <li><code>ShiftRows</code>: transposició de bytes fixa</li>
+                        <li><code>MixColumns</code>: 4
+			  <a href="https://en.wikipedia.org/wiki/Finite_field_arithmetic#Rijndael.27s_finite_field">multiplicacions modulars</a> de 4 Byte, valors fixes</li>
+                        <li><code>AddRoundKey</code>: $\text{bloc} \oplus k_{i}$ (subclau $k_{i}$)</li>
+                    </ul>
+                    <p>això xifra el bloc, i es passa al següent on es fa el mateix canviant la la subclau </p>
+                </section>
+                <section>
+                    <p><code>SubBytes</code></p>
+                    <img src="img/AES-SubBytes.svg"/>
+                    <p><small>(font <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">Wikipedia</a>)</small></p>
+                </section>
+                <section>
+                    <p><code>ShiftRows</code></p>
+                    <img src="img/AES-ShiftRows.svg"/>
+                    <p><small>(font <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">Wikipedia</a>)</small></p>
+                </section>
+                <section>
+                    <p><code>MixColumns</code></p>
+                    <img src="img/AES-MixColumns.svg"/>
+                    <p><small>(font <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">Wikipedia</a>)</small></p>
+                </section>
+                <section>
+                    <p><code>AddRoundKey</code></p>
+                    <img src="img/AES-AddRoundKey.svg"/>
+                    <p><small>(font <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">Wikipedia</a>)</small></p>
+                </section>
+            </section>
+            <section>
+                <h3>Expansió de clau</h3>
+                <p>Cadascuna de les etapes (<em>rounds</em>) fa servir una subclau $k_{i}$ diferent</p>
+                <p>cadascuna de les subclaus $k_{i}$ es <a title="AES key expansion" href="https://en.wikipedia.org/wiki/Rijndael_key_schedule">deriva</a> de la clau $k$</p>
+                <p><br/></p>
+                <p>Nota 1: les subclaus s'apliquen ($\oplus$) "entre" les etapes per tant cal una subclau més que etapes (11|13|15)</p>
+                <p>Nota 2: calen més etapes en els AES de clau llarga per "aplicar" el major espai de claus sobre el missatge en clar</p>
+            </section>
+
+            <section>
+                <h3>AES: vulnerabilitats</h3>
+                <span class="fragment">
+                    <p>...l'estadística del missatge en clar apareix a al text xifrat igual que en el xifrat del Cèsar (!)</p>
+                    <p>ara els blocs són de $16$ B, no d'$1$ B per tant l'estadística és menys important
+                        <br/>($|\text{bloc}|=2^{128}$), però en seqüències constants
+                    (per exemple, com les d'imatges bitmap) es poden donar blocs sencers idèntics
+                    </p>
+                </span>
+                <span class="fragment">
+                    <p>
+                         <img src="img/Tux.jpg"/><img src="img/Tux_ecb.jpg"/><br/>
+                        <small>(font <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation">Wikipedia</a>)</small>
+                    </p>
+                </span>
+            </section>
+
+            <section>
+                <h3>modes d'operació</h3>
+                <p>aquesta "vulnerabilitat" és una <u>propietat</u> de tots els xifrats de bloc</p>
+                <p>la contramesura és per tots la mateixa: no xifrar mai bloc a bloc, cal acumular part del xifrat anterior
+                en el bloc actual</p>
+                <p>aquest encadenament se'n diu <a href="#mode-of-operation">modes d'operació</a>
+                    <br/>(i no és opcional)</p>
+                <p class="fragment">els modes d'operació s'han d'aplicar a tots els xifrats de bloc</p>
+            </section>
+
+            <section id="mode-of-operation">
+                <section>
+                    <h3>Modes d'operació</h3>
+                    <p>si acumulem estat durant el xifrat, podem fer servir aquest estat sobre el xifrat del següent bloc</p>
+                    <ul>
+                      <li>ECB: <em>Electronic Code-Book</em>, <ul><li>no-op
+			    <span class="fragment">$\Rightarrow$ no s'ha de fer servir a la pràctica (...)</span>
+		      </li></ul></li>
+                        <li>CBC: <em>Cipher Block Chaining</em><ul><li>el bloc $i-1$ s'aplica $\oplus$ sobre el bloc en clar $i$</li></ul></li>
+                        <li>OFB: <em>Output Feedback</em><ul><li>xifres el xifrat anterior, i el resultat $\oplus$ del missatge en clar</li></ul></li>
+                        <li>CTR: <em>Counter</em><ul><li>xifres un comptador, i el resultat $\oplus$ del missatge en clar</li></ul></li>
+                        <!--<li>GCM: <em>Galois Counter Mode</em><ul><li></li></ul></li>-->
+                    </ul>
+                </section>
+                <section>
+                    <p>ECB: <em>Electronic Code-Book</em></p>
+                    <img src="img/ECB_encryption.svg"/>
+                    <p><small>(font <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation">Wikipedia</a>)</small></p>
+                </section>
+                <section>
+                    <p>CBC: <em>Cipher Block Chaining</em></p>
+                    <img src="img/CBC_encryption.svg"/>
+                    <p><small>(font <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation">Wikipedia</a>)</small></p>
+                </section>
+                <section>
+                    <p>OFB: <em>Output Feedback</em></p>
+                    <img src="img/OFB_encryption.svg"/>
+                    <p><small>(font <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation">Wikipedia</a>)</small></p>
+                </section>
+                <section>
+                    <p>CTR: <em>Counter</em></p>
+                    <img src="img/CTR_encryption.svg"/>
+                    <p><small>(font <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation">Wikipedia</a>)</small></p>
+                </section>
+            </section>
+            <section style="text-align: left;">
+                <h3>Vector d'inicialització (IV)</h3>
+                <p>els diferents encadenats requereixen d'una llavor incial, prèvia, per començar l'encadenat</p>
+                <p>això fa que en lloc de transmetre $n$ blocs com en ECB, calgui transmetre'n $n+1$</p>
+                <ul>
+                <li>IV en CBC: és l'hipotètic bloc xifrat $-1$</li>
+                <li>IV en OFB: és el bloc que es xifra constantment $e(e(e(\cdots e(\text{IV}))))$ i s'aplica sobre els blocs en clar (amb $\oplus$)</li>
+                <li>IV en CTR: és el valor inicial del comptador que és xifra ECB, i s'aplica sobre els blocs en clar (amb $\oplus$)</li>
+                </ul>
+                <p class="fragment">AES_128_CTR és efectivament un <u>xifrat de flux</u> fent servir AES_128_CTR com a PRNG (sent
+                    $k$ la llavor, i l'$IV$ el <em>nonce</em>)</p>
+            </section>
+
+            <section>
+                <h3>Modes d'operació amb autenticació</h3>
+                <p>AEAD: <em>Authenticated Encryption with Associated Data</em></p>
+                <p>actualment apareixen modes d'operació que a més a més ofereixen <a href="#mac">MAC</a>
+                aconseguint un rendiment superior a fer servir xifrat + MAC (només lleugerament inferiors al xifrat sol)</p>
+                <p>els dos exemples més usats i recomanats en l'actualitat són:</p>
+                <ul>
+                    <li>CCM ò <em>Counter with <a href="mac.html#cbc">CBC-MAC</a></em>, és la combinació d'AES-CTR amb un CBC-MAC</li>
+                    <li>GCM ò <em>Galois Counter Mode</em>, també una combinació d'AES-CTR però ara amb amb una multiplicació
+                    modular; permet velocitats superiors a CCM</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>AES: rendiment</h3>
+                <p>Intel, AMD o ARM disposen d'instruccions específiques per a tal d'accelerar el des/xifrat AES (i alguns
+                    d'ells també tenen instruccions per a GCM)</p>
+                <p>Segons l'anàlisi de <a href="">戴维 (Wei Dai)</a> els rendiments en implementacions purament software mesurades en
+                    Intel Core 2 (2009, MMX/SSE2, 32 b):</p>
+                <ul>
+                    <li>AES-128: 1,1 Gbps</li>
+                    <li>AES-192: 0,9 Gbps</li>
+                    <li>AES-256: 0,7 Gbps</li>
+                </ul>
+                <p><small>bps: bits per segon (ò b/s)</small></p>
+            </section>
+
+            <section>
+                <h3>AES rendiment comparatiu</h3>
+                <ul>
+                    <li>AES-128: 1,1 Gbps (seguretat 128 bit)</li>
+                    <li>AES-192: 0,9 Gbps (seguretat 192 bit)</li>
+                    <li>AES-256: 0,7 Gbps (seguretat 256 bit)</li>
+                    <li>Salsa20: 3,2 Gbps (seguretat 256 bit)</li>
+                    <li>ChaCha20: 3,2 Gbps (seguretat 256 bit)</li>
+                    <li class="fragment">DES: 250 Mbps (seguretat 56 bit)</li>
+                    <li class="fragment">3DES: 100 Mbps (seguretat 112 bit)</li>
+                    <li class="fragment">AES "hardware": ~8 vegades més ràpid (Intel, 2011)</li>
+                </ul>
+                <p><small>bps: bits per segon</small></p>
+            </section>
+
+            <section>
+                <h3>AES: vulnerabilitats</h3>
+                <p>hi ha diversos atacs que permeten realitzar cerques de forma més ràpida que un atac de força bruta</p>
+                <ul>
+                    <li>AES-128/192/256: recuperació de clau en una quarta part del temps que força bruta $\Rightarrow$ és perden 2 bits</li>
+                    <li>AES-192/256: sii claus relacionades, complexitat $2^{119}$ (contramesura: claus aleatòries)</li>
+                    <li>el bloc de $128$ <span title="bit">b</span> limita l'ús del xifrat fins a $2^{64}$ blocs ($2^{68}$ <span title="byte">B</span>) a causa de
+                        la <a href="hash.html#/birthday-attack">paradoxa de l'aniversari</a> (contramesura: canviar la clau quan
+                        s'hagi usat per a $2^{68}$ <span title="byte">B</span>)</li>
+                </ul>
+                <p class="fragment">no són rellevants en quan a la seguretat pràctica</p>
+                <p class="fragment">aquestes són les vulnerabilitats conegudes...</p>
+            </section>
+
+            <section>
+                <h3>AES: més vulnerabilitats</h3>
+                <p>AES porta des del 2000 públic: això implica un escrutini públic o secret sever</p>
+                <p class="fragment">segons els "papers d'Edward <a href="file:///home/sysadmin/git/src/github.com/jig/crypto-privat/reveal/reveal.js-3.2.0/threats.html#/snowden">Snowden</a>"
+                    l'NSA està estudiant-ne les vulnerabilitats (no públicament)</p>
+                <p class="fragment">altres "grans" organitzacions és altament improbable que no hi dediquin
+                    recursos importants</p>
+            </section>
+
+            <section>
+                <h3>AES: més vulnerabilitats</h3>
+                <p><a href="file:///home/sysadmin/git/src/github.com/jig/crypto-privat/reveal/reveal.js-3.2.0/threats.html#/symmetric-crypto">algorismes quàntics</a>: amb l'algorisme de <a href="https://en.wikipedia.org/wiki/Grover%27s_algorithm">Grover</a>
+                    les cerques en bases de dades no ordenades tenen
+                    <a title="Notació O(·) i complexitat dels diferents algorismes criptogràfics" href="complexity.html#big-o">
+                        complexitat
+                    </a>
+                    $O({\sqrt{2^b}})$</p>
+                <p>(<em>òbviament</em>, en computació clàssica té complexitat $O({2^b})$)</p>
+                <p/>
+                <p>Nota: $b$ són els bits de longitut de la clau AES: $128$, $192$ ò $256$</p>
+            </section>
+
+            <section>
+                <h3>Computació quàntica</h3>
+                <ul>
+                    <li>els computadors quàntics actuals no tenen aplicació pràctica: a banda de per "trencar claus"
+                        serveixen per a simular... <span title="Richard Feynman, 1982">fenòmens de física quàntica</span></li>
+                    <li>es creu no hi haurà computació quàntica pràctica abans del ~2030</li>
+                </ul>
+                <ul>
+                    <li>però per ser robustos a l'algorisme de Grover, només hem de <u>doblar</u> la longitud de claus,
+                        per exemple passar a AES-256 que donaria una fortalesa equivalent a 128 bits</li>
+                    <li>poc després es va demostrar que l'algorisme de Grover és òptim</li>
+                </ul>
+                <p>per tant, es considera que la criptografia simètrica és robusta en front de la computació quàntica...</p>
+            </section>
+
+            <section>
+                <h1>DES</h1>
+                <p>Data  Encryption Standard</p>
+            </section>
+
+            <section>
+                <h3>DES</h3>
+                <ul>
+                    <li>bloc: $64$ bit ($8$ Byte)</li>
+                    <li>clau: $56$ bit ($7$ Byte)</li>
+                </ul>
+                <p>16 etapes</p>
+                <p class="fragment">insegur, vulnerable a atacs de
+                    <a href="https://en.wikipedia.org/wiki/EFF_DES_cracker">força bruta</a>
+                </p>
+            </section>
+
+            <section id="triple-des">
+                <h3>3DES / <span style="text-transform:none;">Triple</span>-DES / TDES</h3>
+                <p>El xifrat és $c = e(k_1, d(k_2, e(k_1, m)))$</p>
+                <ul>
+                    <li>bloc: $64$ bit ($8$ Byte)</li>
+                    <li>clau: $112$ bit ($14$ Byte, i.e. $k=k_1|k_2$)</li>
+                </ul>
+                <p class="fragment">per què no doble-DES? o per què no $k=k_1|k_2|k_3$?</p>
+                <p class="fragment">atacs <em>Meet in the Middle</em></p>
+            </section>
+
+            <section>
+                <h3>Meet in the Middle: plantejament</h3>
+                <p>suposem que volem ampliar la seguretat de DES xifrant dues vegades amb DES estàndard:</p>
+                <p>$c = e(k_1, e(k_2, m))$</p>
+            </section>
+            <section>
+                <h3>Meet in the Middle: forma</h3>
+                <p>(condició) suposem que tenim el xifrat d'un bloc $c$, i en sabem el valor en <u>clar</u> $m$ (això
+                    no sempre és possible, però és perfectament factible)</p>
+                <p>$c = e(k_1, e(k_2, m))$</p>
+                <p>i girem</p>
+                <p>$e(k_2, m) = d(k_1, c)$</p>
+                <p></p>
+            </section>
+            <section>
+                <h3>Meet in the Middle: truc</h3>
+                <p>Calculem $x = e(k_i, m) \, \forall i \,$ (cost $2^{56}$)</p>
+                <p>situem els valors una llista i els ordenem segons $x$ (cost $2^{56}·\log_2{2^{56}}\approx2^{62}$, cost en memòria $2^{56}$)</p>
+                <p>calculem $x' = d(k_i, c) \, \forall i \,$</p>
+                <p>mirem si hi ha un $x \overset{?}{=} x'$ (cost 1)</p>
+                <p class="fragment">...cost total $\approx2^{62}$ (cost en memòria $2^{56}$)</p>
+            </section>
+
+            <section data-background="#FF8888">
+                <h3>derivació de $k$ a partir d'una contrasenya</h3>
+            </section>
+
+            <section>
+              <h3><a href="mac.html">(MAC) $\rightarrow$</a></h3>
+            </section>
+	    
+        </div>
+    </div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-72628059-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+    <!-- <script type="text/javascript" src="js/svg_mathjax.js"></script> -->
+    <!-- <script type="text/javascript">new Svg_MathJax().install();</script> -->
+    <script type="text/javascript" src="lib/js/head.min.js"></script>
+    <script type="text/javascript" src="js/reveal.js"></script>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            slideNumber: 'c/t',
+            // history: false,
+            // fragments: true,
+            // help: true,
+            // previewLinks: false,
+            width: 1280,
+            height: 720,
+
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            math: {
+                mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+                config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+            },
+
+            // Optional reveal.js plugins
+            dependencies: [
+                { src: 'plugin/math/math.js', async: true },
+                { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true },
+                { src: 'plugin/notes/notes.js', async: true }
+            ]
+        });
+    </script>
+
+    </body>
+</html>

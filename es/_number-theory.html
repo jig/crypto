@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="cas">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Teoria de nombres</title>
+
+        <meta name="description" content="Introducció a la teoria de nombres per a criptografia">
+        <meta name="author" content="Jordi Íñigo Griera">
+        <!-- Implementat amb revealjs: https://github.com/hakimel/reveal.js -->
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+        <!-- Code syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+                    var link = document.createElement( 'link' );
+                    link.rel = 'stylesheet';
+                    link.type = 'text/css';
+                    link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+                    document.getElementsByTagName( 'head' )[0].appendChild( link );
+                </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+    <div class="reveal">
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section>
+                <h1>Teoria de <a class="external text" href="http://www.ub.edu/cub/criteri.php?id=1223" style="color:#333">Nombres</a></h1>
+                <a href="https://ca.wikipedia.org/wiki/Teoria_de_nombres"">
+                    "<em>La teoria de nombres és la branca de les matemàtiques pures que estudia les
+                    propietats dels nombres enters i conté una quantitat considerable de problemes que
+                    són &ldquo;fàcilment compresos pels no matemàtics&rdquo;...<!--, però més en general, estudia les
+                    propietats dels elements de dominis enters (anells commutatius amb element unitari
+                    i element neutre), així com diversos problemes derivats del seu estudi--></em>"
+                </a>
+                <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
+
+				<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">
+					&ldquo;Curs d'Introducció a la criptografia&rdquo;
+				</span>
+
+                    by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/jig" property="cc:attributionName" rel="cc:attributionURL">Jordi Íñigo Griera</a> is licensed under a<br/>
+
+                    <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+                    <br />Project hosted at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/jig/crypto" rel="dct:source">github.com/jig/crypto</a></em></small>
+            </section>
+<!--
+            <section id="fermat-little" style="text-align: left;">
+                <h3>índex</h3>
+                <p>Enters</p>
+                <p>Grup infinits</p>
+                <p>Grups finits sobre $\mathbb{Z}$, $\mathbb{Z}_n$, $\pmod n$</p>
+                <p>operacions factibles i no factibles (computacionals difícils)</p>
+                <p>$\mathbb{Z}_p$</p>
+                <p>t. petit Fermat</p>
+                <p>$\phi{(n)}$</p>
+                <p>$\mathbb{Z}_n^{*}$</p>
+                <p>t. Euler</p>
+                <p>$\mathbb{Z}_n^{*} cíclic$</p>
+            </section>
+-->
+            <section>
+                <h1>$\mathbb{Z}$</h1>
+                <span class="fragment">
+                    <p>Definició: $\mathbb{Z}$ és el conjunt (infinit) dels enters</p>
+                    <p>$\mathbb{Z} = \{\dotsc, -3,-2,-1,0,1,2,3,\dotsc\}$</p>
+                </span>
+            </section>
+
+            <section style="text-align: left;">
+                <h3>Operacions sobre $\mathbb{Z}$</h3>
+                <p>$+$, $-$, $\times$, $\text{div}$</p>
+                <br/>
+                <p>$a, b \in \mathbb{Z}$ i $b \neq 0$ llavors:</p>
+                <p>$\begin{aligned}
+                    a \text{ div } b &= \lfloor a/b\rfloor \leftarrow \text{quocient }q\text{, dividend }a\text{, divisor }b\\
+                    a \bmod b &= a - b\lfloor a/b\rfloor \leftarrow \text{residu } r\;(0 \leq r < b)
+                    \end{aligned}$
+                </p>
+                <p>o sigui:</p>
+                <p>$\begin{aligned}
+                    a &= qb + r \\
+                    a &= (a \text{ div } b)b + (a \bmod b)
+                    \end{aligned}$
+                </p>
+                <!--<p>$a+b=b+a$ i $ab = ba$</p>
+                <p>$(a+b)+c=a+(b+c)$ i $(ab)c = a(bc)$</p>-->
+            </section>
+
+            <section>
+                <h3>Fets</h3>
+                <p>Diem que $c$ és un divisor comú a $a$ i a $b$ si $c|a$ i $c|b$</p>
+                <p>El <em>màxim comú divisor</em> d'$a$ i $b$ és
+                    <br/>$d = \text{mcd(a,b)}$
+                    <br>si $d$ és el valor màxim que $d|a$ i $d|b$
+                </p>
+            </section>
+
+            <section id="fundamental">
+                <h3>Fet: Teorema fonamental de l'aritmètica</h3>
+                <p>Tot enter $n$ pot <em>factoritzar</em>-se (descomposar-se) en el producte de potències de nombres <em>primers</em>:</p>
+                <p>$n = p_1^{e_1}p_2^{e_2}p_3^{e_3}\cdots p_k^{e_k}$ amb $(e_i \geq 0)$</p>
+                <p>I aquesta factorització és única</p>
+            </section>
+
+            <section id="coprime">
+                <h3>Definicions</h3>
+                <p id="primer">Diem que $a$ i $b$ són <em>coprimers</em> si $\text{mcd(a,b)} = 1$</p>
+                <p id="coprimer">Diem que $p$ és un <em>nombre primer</em> si només és divisible per $1$ i per $p$</p>
+            </section>
+
+
+            <section id="zn">
+                <h1>$\mathbb{Z}_n$</h1>
+                <span class="fragment">
+                    <p>Definició: $\mathbb{Z}_n$ és el conjunt (finit) d'enters mòdul $n$</p>
+                    <p>$\mathbb{Z}_n = \{0,1,2,3,\dotsc,n-1\}$</p>
+                </span>
+            </section>
+
+            <section style="text-align: left;">
+                <h3>Operacions sobre $\mathbb{Z}_n$</h3>
+                <p>$+$, $-$, $\times$, $\text{div}$</p>
+                <br/>
+                <p>$+$, $-$, $\times$ equivalents a les definides/conegudes a $\mathbb{Z}$</p>
+                <p>Per la divisió, el que farem és primer invertir el divisor, i després multiplicar </p>
+                <p>$\begin{aligned}
+                    a \text{ div } b &\equiv a{b}^{-1} \pmod n
+                    \end{aligned}$
+                </p>
+                <p class="fragment">$b$ no sempre tindrà inversa: en cas de no tenir-ne, la divisió no estará definida per $b$</p>
+                <!-- <p>o sigui:</p>
+                <p>$a+b=b+a$ i $ab = ba$</p>
+                <p>$(a+b)+c=a+(b+c)$ i $(ab)c = a(bc)$</p>-->
+            </section>
+
+            <section id="congruent">
+                <h3>congruent</h3>
+                <p>$a \equiv b \pmod n$</p>
+                <p>$a$ és congruent mòdul $n$ amb $b$ sii:</p>
+                <p>$a \bmod n = b \bmod n$</p>
+                <p class="fragment">ò $n|(a-b)$ </p>
+                <span class="fragment">
+                    <p>Exemple:</p>
+                    <p>$173 \equiv 3 \pmod{10}$ ò $10|(173-3)$</p>
+                    <p>$73 \equiv 173 \pmod{10}$ ò $10|(73-173)$</p>
+                    <p>$73 \not\equiv 2 \pmod{10}$</p>
+                </span>
+            </section>
+
+            <section>
+                <h1>$\mathbb{Z}_p^*$</h1>
+                <span id="zpstar" class="fragment">
+                    <p>Definició: sent $p$ un nombre primer, $\mathbb{Z}_p^*$ és el subconjunt d'elements de $\mathbb{Z}_p$
+                        que són invertibles mòdul $p$</p>
+                    <p>$\mathbb{Z}_p^* = \{1,2,3,\dotsc,p-1\}$</p>
+                    <p class="fragment">(o sigui, tot $\mathbb{Z}_p$ menys el $0$;<br/>això és el grup multiplicatiu de $\mathbb{Z}_p$)</p>
+                </span>
+            </section>
+
+            <section style="text-align: left;">
+                <h3>Operacions sobre $\mathbb{Z}_p^*$
+                    <br/>(amb $p$ primer)</h3>
+                <p>$+$, $-$, $\times$, $\text{div}$</p>
+                <br/>
+                <p>$+$, $-$, $\times$ equivalents a les definides/conegudes a $\mathbb{Z}_n$</p>
+                <p>Per la divisió, el que farem és primer invertir el divisor, i després multiplicar </p>
+                <p>$\begin{aligned}
+                    a \text{ div } b &\equiv a{b}^{-1} \pmod p
+                    \end{aligned}$
+                </p>
+                <p>$b$ sempre té inversa <a href="#zpstar">per definició</a>
+                    (ja que hem eliminat el $0$)</p>
+                <!-- <p>o sigui:</p>
+                <p>$a+b=b+a$ i $ab = ba$</p>
+                <p>$(a+b)+c=a+(b+c)$ i $(ab)c = a(bc)$</p>-->
+            </section>
+
+            <section id="fermat-little">
+                <h2>Teorema "petit" de Fermat</h2>
+                <p>el segle XVII Fermat va veure que<br>si multiplicava "$p$ vegades" qualsevol número enter $a$ amb si mateix, el resultat
+                    era divisible per $p$ a condició que $p$ fos un nombre primer.</p>
+                <p>És a dir que:
+                    <br>$a^p \equiv a \pmod p$
+                </p>
+                <span class="fragment">
+                    <p>e.g. per $a = 2$</p>
+                    <p>$\begin{aligned}
+                        \mathbb{Z}_{3}^{*} \implies &2^{3} = 8 = 3·2+2 \equiv 2 \pmod{3} \\
+                        \mathbb{Z}_{5}^{*} \implies &2^{5} = 32 = 5·6+2 \equiv 2 \pmod{5} \\
+                        \mathbb{Z}_{7}^{*} \implies &2^{7} = 128 = 7·18+2 \equiv 2 \pmod{7} \\
+                        & \vdots
+                        \end{aligned}$
+                        <!-- \mathbb{Z}_{13}^{*} & \implies 2^{13} = 8192 \equiv 2 \pmod{13} -->
+                    </p>
+                </span>
+            </section>
+
+            <section>
+                <h2>Test de primalitat de Fermat</h2>
+                <p>A partir del teorema petit de Fermat, podem deduir un algorisme per a provar si
+                    un nombre és primer o no.</p>
+                <p>Sigui $n$, per saber si és primer prenem un conjunt prou alt de nombres i
+                    provem si el teorema "petit" es compleix:
+                </p>
+                <p>$\begin{aligned}
+                    2^{n} & \overset{?}{\equiv} 2 \pmod n & \qquad \vdots \\
+                    3^{n} & \overset{?}{\equiv} 3 \pmod n & a^{n} & \overset{?}{\equiv} a \pmod n \\
+                    4^{n} & \overset{?}{\equiv} 4 \pmod n
+                    \end{aligned}$
+                    <!-- \mathbb{Z}_{13}^{*} & \implies 2^{13} = 8192 \equiv 2 \pmod{13} -->
+                </p>
+            </section>
+            <section>
+                <h2>Test de primalitat de ...</h2>
+                <p>El problema és que hi ha nombres no primers que són "vàlids" segons el test
+                    per qualsevol valor d'$a$:<br/>
+                    són els "mentiders" o nombres de Carmichel
+                </p>
+                <p>Tot i que la probabilitat de topar amb un nombre "mentider" de Fermat és baixa
+                    (molt baixa), per a obtenir nombres primers de forma fiable hi ha algorismes
+                    que refinen aquest i són més robustos com el<br/>
+                    <em>test de primalitat de Rabin-Miller</em>
+                </p>
+            </section>
+
+            <section>
+                <h2>Generalització del <span title="Teorema Petit">TP</span> de Fermat</h2>
+                <p>\[
+                    \begin{aligned}
+                    a^{p} & \equiv a \pmod p \\
+                    a^{p-1} & \equiv 1 \pmod p \\
+                    (a^{p-1})^{t} & \equiv 1^t \pmod p \\
+                    (a^{p-1})^{t} & \equiv 1 \pmod p \\
+                    a^{t(p-1)} & \equiv 1 \pmod p \\
+                    a^{t(p-1)}a^r & \equiv a^r \pmod p \\
+                    a^{t(p-1)+r} & \equiv a^r \pmod p \\
+                    \end{aligned}
+                    \]</p>
+                <p class="fragment" id="fermat-generalized">$a^{x} \equiv a^{y} \pmod p $ si $ x \equiv y \pmod{p-1}$</p>
+                <p class="fragment">(Nota: cal que $a$ i $p$ siguin comprimers ja que $a$ ha de ser
+                    invertible,
+                    o sigui que $a$ no pot ser múltiple de $p$)</p>
+                <p class="fragment" title="d'aplicació en DSA"><small><a href="dsa.html">DSA $\rightarrow$</a></small></p>
+            </section>
+
+            <section>
+                <h1>$\mathbb{Z}_n^*$</h1>
+                <span class="fragment">
+                    <p>Definició: $\mathbb{Z}_n^*$ és $\mathbb{Z}_n$ excloent els $n$ invertibles</p>
+                    <p>$\mathbb{Z}_n^* = \{a \in \mathbb{Z}_n \; | \; a$ invertible $\}$</p>
+                </span>
+                <!-- <span class="fragment">($\mathbb{Z}_p^*$ n'és un cas particular)</span> -->
+                <p class="fragment">$\mathbb{Z}_n^* = \{a \in \mathbb{Z}_n \; | \; \text{mcd}(a,n) = 1\}$</p>
+                <p class="fragment">$\mathbb{Z}_n^* = \{a \in \mathbb{Z}_n \; | \; a$ i $n$ coprimers $\}$</p>
+                <p id="znstar" class="fragment">(això se'n diu <em>grup multiplicatiu</em> de $\mathbb{Z}_n$)</p>
+                <div class="fragment">
+                    <hr/>
+                    <p>Exemple:
+                        <br/>$\mathbb{Z}_{15}^* = \{1,2,4,7,8,11,13,14\}$
+                        <br/>en canvi:
+                        <br/>$\mathbb{Z}_{15} = \{0,1,2,3,4,5,6,7,8,9,10,11,12,13,14\}$
+                    </p>
+                </div>
+            </section>
+
+            <section style="text-align: left;">
+                <h3>Operacions sobre $\mathbb{Z}_n^*$</h3>
+                <p>$+$, $-$, $\times$, $\text{div}$</p>
+                <br/>
+                <p>$+$, $-$, $\times$ equivalents a les definides/conegudes a $\mathbb{Z}_n$</p>
+                <p>Per la divisió, el que farem és primer invertir el divisor, i després multiplicar </p>
+                <p>$\begin{aligned}
+                    a \text{ div } b &\equiv a{b}^{-1} \pmod p
+                    \end{aligned}$
+                </p>
+                <p>$b$ sempre té inversa <a href="#znstar">per definició</a></p>
+                <p>(versió generalitzada del cas anterior $\mathbb{Z}_p^*$)</p>
+            </section>
+
+            <section id="totient">
+                <h3>Definició: $\; \phi(n)$</h3>
+                <p>Funció "phi" d'Euler o funció <em>Totient</em> d'Euler</p>
+                <p>$\phi(n)$ es el nombre de valors<br/><a href="#coprimer">coprimers</a> amb $n$</p>
+                <p class="fragment">Per tant: $\phi(n) = |\mathbb{Z}_n^*|$
+                    <br/>(traduït: <em>$\phi(n)$ és el nombre d'elements $\mathbb{Z}_n^*$</em>; la seva mida o
+                    <a href="#order">ordre</a>)</p>
+            </section>
+
+            <section>
+                <h3>Càlcul: $\; \phi(n)$</h3>
+                <p>Per a <a href a="#fundamental">$n = p_1^{e_1}p_2^{e_2}p_3^{e_3}\cdots p_k^{e_k}$</a></p>
+                <p>$\phi(n) = n (1 - \frac{1}{p_1}) (1 - \frac{1}{p_2}) \cdots (1 - \frac{1}{p_k})$</p>
+                <p>Per a calcular $\phi(n)$ cal conèixer la factorització d'$n$</p>
+                <span class="fragment">
+                    <p>Casos particulars:</p>
+                    <p>Sii $p$ primer: $\phi(p)=p-1$</p>
+                </span>
+                <p class="fragment">Sii $p$ i $q$ primers: $\phi(pq)=(p-1)(q-1)$</p>
+            </section>
+
+            <section>
+                <h3>Exemples</h3>
+                <p>$\begin{aligned}
+                    |\mathbb{Z}_{17}^*| &= |\{1,2,3,4,5, \dotsc,15,16\}| = \phi(17) = (17-1) = 16 \\
+                    |\mathbb{Z}_{16}^*| &= |\{1,3,5,7,9,11,13,15\}| = \phi(16) = 16(1-1/2) = 16/2 = 8 \\
+                    |\mathbb{Z}_{15}^*| &= |\{1,2,4,7,8,11,13,14\}| = \phi(15) = (5-1)(3-1) = 8
+                \end{aligned}$</p>
+            </section>
+            <section id="euler">
+                <h2>Teorema d'Euler</h2>
+                <p>Euler un segle després va generalitzar el<br/>teorema "petit" de Fermat</p>
+                <p>\[
+                    a^{\phi(n)} \equiv 1 \pmod{n}
+                \]</p>
+             </section>
+             <section>
+                <h3>Teorema d'Euler:<br/>extén el petit de Fermat</h3>
+                <p>Tenint en compte que $\phi(p) = p-1$ (per a $p$ primer),
+                    podem particularitzar el teorema d'Euler:</p>
+                <p>$\begin{aligned}
+                    a^{\phi(p)} &\equiv 1 \pmod p \\
+                    a^{p-1} &\equiv 1 \pmod p \\
+                    a^p &\equiv a \pmod p \\
+                    \end{aligned}
+                $</p>
+                <p>Per tant, el teorema petit de Fermat és un cas particular del teorema
+                    d'Euler per a valors d'$n$ primers</p>
+            </section>
+
+            <section id="euler-generalized">
+                <h2>Generalització del <span title="Teorema">T</span> d'Euler</h2>
+                <p>\[
+                    \begin{aligned}
+                    a^{\phi(n)} & \equiv 1 \pmod n \\
+                    (a^{\phi(n)})^{t} & \equiv 1^t \pmod n \\
+                    (a^{\phi(n)})^{t} & \equiv 1 \pmod n \\
+                    a^{t\phi(n)} & \equiv 1 \pmod n \\
+                    a^{t\phi(n)}a^r & \equiv a^r \pmod n \\
+                    a^{t\phi(n)+r} & \equiv a^r \pmod n \\
+                    \end{aligned}
+                \]</p>
+                <p class="fragment">$a^{x} \equiv a^{y} \pmod n$ si $x \equiv y \pmod{\phi(n)}$</p>
+                <p class="fragment" title="d'aplicació en RSA"><small><a href="rsa.html">RSA $\rightarrow$</a></small></p>
+            </section>
+
+            <!-- -------------------------------------------------------------------------------------------- -->
+            <section id="cyclic">
+                <h1>$\mathbb{Z}_n^*$ cíclic</h1>
+                <p title="d'aplicació en DSA"><small><a href="dsa.html">DSA $\rightarrow$</a></small>
+                    <br/><span title="d'aplicació en DH"><small><a href="dh.html">DH $\rightarrow$</a></small></span>
+                </p>
+            </section>
+
+            <section id="order">
+                <h3>Definició: Ordre $\text{ord}(a)$</h3>
+                <p>l'ordre d'un $a \in \mathbb{Z}_n^*$ és el menor valor de $t$ que:
+                <br/>$a^t \equiv 1 \pmod n$</p>
+                <span class="fragment">
+                    <p>Com que $a^{\phi(n)} \equiv 1 \pmod n$, llavors:</p>
+                    <p>$t \leq \phi(n)$</p>
+                </span>
+                <span class="fragment">
+                    <p>i per tant:</p>
+                    <p>$t|\phi(n)$</p>
+                </span>
+                <div class="fragment">
+                    <hr/>
+                    <p>Nota: no confondre l'<u>ordre d'un element de $\mathbb{Z}_n^*$</u> amb
+                        l'<u>ordre de $\mathbb{Z}_n^*$</u>:</p>
+                    <p>$|\mathbb{Z}_n^*| = \phi(n)$</p>
+                </div>
+            </section>
+
+            <section>
+                <h3>Exemple: $\;a \in \mathbb{Z}_{21}^*$</h3>
+                <!-- echo -e "op x mmm n = (n**x)mod 21\nz21 = 1  2  4  5 8 10  11 13 16 17 19 20\n (iota 12) o.mmm z21" | ./ivy -->
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>$a$</td>
+                        <td>$1$</td>
+                        <td>$2$</td>
+                        <td>$4$</td>
+                        <td>$5$</td>
+                        <td>$8$</td>
+                        <td>$10$</td>
+                        <td>$11$</td>
+                        <td>$13$</td>
+                        <td>$16$</td>
+                        <td>$17$</td>
+                        <td>$19$</td>
+                        <td>$20$</td>
+                    </tr>
+                    <tr class="fragment">
+                        <td>$\text{ord}(a)$</td>
+                        <td>$1$</td>
+                        <td>$6$</td>
+                        <td>$3$</td>
+                        <td>$6$</td>
+                        <td>$2$</td>
+                        <td>$6$</td>
+                        <td>$6$</td>
+                        <td>$2$</td>
+                        <td>$3$</td>
+                        <td>$6$</td>
+                        <td>$6$</td>
+                        <td>$2$</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>&nbsp;</p>
+                <p class="fragment">Fixem-nos que $\phi(21)=(3-1)(7-1)=12$
+                    <br/>i que $\text{ord}(a)|12  \quad \forall a \in \mathbb{Z}_{21}^*$</p>
+            </section>
+
+            <section id="generator">
+                <h3>Generador $\alpha$</h3>
+                <p>Diem que $\alpha$ és un generador de $\mathbb{Z}_n^*$ si:</p>
+                <p>$\text{ord}(\alpha) = |\mathbb{Z}_n^*| = \phi(n)$</p>
+                <p class="fragment">sii $\mathbb{Z}_n^*$ té al menys un generador, diem que $\mathbb{Z}_n^*$ és cíclic</p>
+                <p class="fragment">e.g. l'anterior grup $\mathbb{Z}_{21}^*$ no era cíclic ja que cap $a$ tenia
+                    ordre $12$ ($\phi(21) = 12$)</p>
+            </section>
+
+            <section>
+                <h3>Exemple: $\;a \in \mathbb{Z}_{9}^*$</h3>
+                <!-- echo -e "op n mmm x = (x**n) mod 9\nz9 = 1  2  4  5  7  8\n (iota 6) o.mmm z9" | ./ivy -->
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>$a$</td>
+                        <td>$1$</td>
+                        <td>$2$</td>
+                        <td>$4$</td>
+                        <td>$5$</td>
+                        <td>$7$</td>
+                        <td>$8$</td>
+                    </tr>
+                    <tr class="fragment">
+                        <td>$\text{ord}(a)$</td>
+                        <td>$1$</td>
+                        <td>$6$</td>
+                        <td>$3$</td>
+                        <td>$6$</td>
+                        <td>$3$</td>
+                        <td>$2$</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>&nbsp;</p>
+                <p class="fragment">Fixem-nos que $\phi(9)=9(1-1/3)=6$
+                    <br/>i que $\text{ord}(a)|6  \quad \forall a \in \mathbb{Z}_{9}^*$</p>
+                <p class="fragment">com que hi ha al menys un element amb ordre $6$ (n'hi ha 2, el $2$ i $5$),
+                    tenim generadors i per tant, $\mathbb{Z}_{9}^*$ és cíclic</p>
+            </section>
+
+            <section>
+                <h3>Per a $\mathbb{Z}_{n}^*$ cíclic amb generador $\alpha$</h3>
+                <p>es compleix que:
+                   <br/>
+                    $\mathbb{Z}_{n}^* = \{\alpha^i \pmod n \; | \; 0 \leq i < \phi(n)\}$</p>
+                <p class="fragment">tenim el conjunt original (simplement ordenat diferent)</p>
+                <!-- fer un dibuix: <p class="fragment">és una <a href="symmetric.html#permutation">permutació</a></p> -->
+            </section>
+
+            <section>
+                <h3>Fet: $\;\mathbb{Z}_{n}^*$ és cíclic...</h3>
+                <p>...sii $n = 2,4,p^k, 2p^k$ per a tot primer $p \geq 3$</p>
+            </section>
+
+            <section>
+                <h3>Exemple: $\;\mathbb{Z}_{9}^*$</h3>
+                <!-- echo -e "op n mmm x = (x**n) mod 9\nz9 = 1  2  4  5  7  8\n (iota 6) o.mmm z9" | ./ivy -->
+                <p>Recordem que són generadors $2$ i $5$</p>
+                <p>$\mathbb{Z}_{9}^* = \{1,2,4,5,7,8\}$</p>
+                <p>$2^i \pmod 9 = \{2,4,8,7,5,1\} \; | \; 1 \leq i \leq \phi(9)=6$</p>
+                <p>$5^i \pmod 9 = \{5,7,8,4,2,1\} \; | \; 1 \leq i \leq \phi(9)=6$</p>
+
+            </section>
+
+            <!-- <section>
+                <h3>$\mathbb{Z}_p^*$ ($p$ primer)</h3>
+                <p>Tenim una permutació...</p>
+            </section> -->
+
+            <section>
+                <!--
+                    $ echo -e "z11 = iota 10\n op exp i = (2**i) mod 11\n exp z11" | ./ivy
+                    2 4 8 5 10 9 7 3 6 1
+
+                    $ echo -e "z11 = iota 10\n op exp i = (3**i) mod 11\n exp z11" | ./ivy
+                    3 9 5 4 1 3 9 5 4 1
+                    $ echo -e "z11 = iota 10\n op exp i = (4**i) mod 11\n exp z11" | ./ivy
+                    4 5 9 3 1 4 5 9 3 1
+                    $ echo -e "z11 = iota 10\n op exp i = (5**i) mod 11\n exp z11" | ./ivy
+                    5 3 4 9 1 5 3 4 9 1
+                    $ echo -e "z11 = iota 10\n op exp i = (6**i) mod 11\n exp z11" | ./ivy
+                    6 3 7 9 10 5 8 4 2 1
+                    $ echo -e "z11 = iota 10\n op exp i = (7**i) mod 11\n exp z11" | ./ivy
+                    7 5 2 3 10 4 6 9 8 1
+                    $ echo -e "z11 = iota 10\n op exp i = (8**i) mod 11\n exp z11" | ./ivy
+                    8 9 6 4 10 3 2 5 7 1
+                    $ echo -e "z11 = iota 10\n op exp i = (9**i) mod 11\n exp z11" | ./ivy
+                    9 4 3 5 1 9 4 3 5 1
+                    $ echo -e "z11 = iota 10\n op exp i = (10**i) mod 11\n exp z11" | ./ivy
+                    10 1 10 1 10 1 10 1 10 1
+                -->
+                <section>
+                    <h3>Exemple: $\mathbb{Z}_{11}^*$</h3>
+                    <p>Són generadors $2$, $6$, $7$ i $8$</p>
+                    <p>$\mathbb{Z}_{11}^* = \{1,2,3,4,5,6,7,8,9,10\}$</p>
+                    <p>$\phi(11)=10$</p>
+                    <p>$2^i \pmod{11} = \{2,4,8,5,10,9,7,3,6,1\} \; | \; 1 \leq i \leq 10$</p>
+                    <p>$6^i \pmod{11} = \{6,3,7,9,10,5,8,4,2,1\} \; | \; 1 \leq i \leq 10$</p>
+                    <p>$7^i \pmod{11} = \{7,5,2,3,10,4,6,9,8,1\} \; | \; 1 \leq i \leq 10$</p>
+                    <p>$8^i \pmod{11} = \{8,9,6,4,10,3,2,5,7,1\} \; | \; 1 \leq i \leq 10$</p>
+                </section>
+                <section>
+                    <h3>(Contra)Exemple: $\mathbb{Z}_{11}^*$</h3>
+                    <p>No són generadors $1$, $3$, $4$, $5$ i $9$ i $10$</p>
+                    <p>$\mathbb{Z}_{11}^* = \{1,2,3,4,5,6,7,8,9,10\}$</p>
+                    <!-- <p>$\phi(11)=10$</p> -->
+                    <p>$1^i \pmod{11} = \{1,1,1,1,1,1,1,1,1,1\} \; | \; 1 \leq i \leq 10$</p>
+                    <p>$3^i \pmod{11} = \{3,9,5,4,1,3,9,5,4,1\} \; | \; 1 \leq i \leq 10$</p>
+                    <p>$4^i \pmod{11} = \{4, 5, 9, 3, 1, 4, 5, 9, 3, 1\} \; | \; 1 \leq i \leq 10$</p>
+                    <p>$5^i \pmod{11} = \{5, 3, 4, 9, 1, 5, 3, 4, 9, 1\} \; | \; 1 \leq i \leq 10$</p>
+                    <p>$9^i \pmod{11} = \{9, 4, 3, 5, 1, 9, 4, 3, 5, 1\} \; | \; 1 \leq i \leq 10$</p>
+                    <p>$10^i \pmod{11} = \{10, 1, 10, 1, 10, 1, 10, 1,10, 1\} \; | \; 1 \leq i \leq 10$</p>
+                </section>
+            </section>
+            <section  id="generator-quantity">
+                <h3>Fet: nombre de generadors</h3>
+                <!--algorisme 4.84-->
+                <p>El nombre de generadors de $\mathbb{Z}_{n}^*$ és $\phi(\phi(n))$</p>
+                <span class="fragment">
+                    <p>Per això el que es fa és escollir primers amb un nombre gran de generadors com els
+                        de la forma $p = 2q+1$<br/>(per a $q$ també primer), donat que
+                    </p>
+                    <p>$\begin{aligned}
+                        \phi(\phi(p)) & = \phi(p-1) = \phi(2q) = \\
+                        & = \phi(2)\phi(q) = 1·(q-1) = q-1
+                    \end{aligned}$
+                </span>
+                <p class="fragment">La meitat dels elements són generadors, ja que $q/p \approx 1/2$</p>
+                <p class="fragment">A la pràctica és busca un primer $q$, i després es mira si $2q+1$ és també primer</p>
+            </section>
+
+            <section id="generator-selection">
+                <h3>Selecció del generador $\alpha$...</h3>
+                <p>...pel cas $\mathbb{Z}_{p}^*$ que és el que aplica a DH i   DSA es
+                    <br/>fa servir $p = 2q+1$ amb $q$ també primer</p>
+                <p>llavors, agafa un $ 2 \leq \alpha < p-1$ aleatori:</p>
+                <p>$\alpha^{{p-1}/q} \not\equiv 1 \pmod p$</p>
+                <p>si és congruent $1$ cal buscar una altre $\alpha$</p>
+                <p>(amb un o dos intents trobarem el generador)</p>
+                <!-- Menezes 4.80 + http://crypto.stackexchange.com/questions/9006/how-to-find-generator-g-in-a-cyclic-group -->
+            </section>
+
+            <section>
+                <h3><a href="dh.html">(DH) $\rightarrow$</a></h3>
+            </section>
+        </div>
+
+    </div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-72628059-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+    <!-- <script type="text/javascript" src="js/svg_mathjax.js"></script> -->
+    <!-- <script type="text/javascript">new Svg_MathJax().install();</script> -->
+    <script type="text/javascript" src="lib/js/head.min.js"></script>
+    <script type="text/javascript" src="js/reveal.js"></script>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            slideNumber: 'c/t',
+            // history: false,
+            // fragments: true,
+            // help: true,
+            // previewLinks: false,
+            width: 1280,
+            height: 720,
+
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            math: {
+                mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+                config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+            },
+
+            // Optional reveal.js plugins
+            dependencies: [
+                { src: 'plugin/math/math.js', async: true },
+                { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true },
+                { src: 'plugin/notes/notes.js', async: true }
+            ]
+        });
+    </script>
+
+    </body>
+</html>

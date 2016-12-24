@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="ca">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>RSA</title>
+
+        <meta name="description" content="Introducció a l'algorisme RSA">
+        <meta name="author" content="Jordi Íñigo Griera">
+        <!-- Implementat amb revealjs: https://github.com/hakimel/reveal.js -->
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+        <!-- Code syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+    <div class="reveal">
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section>
+                <h1>RSA</h1>
+                <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
+
+				<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">
+					&ldquo;Curs d'Introducció a la criptografia&rdquo;
+				</span>
+
+                    by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/jig" property="cc:attributionName" rel="cc:attributionURL">Jordi Íñigo Griera</a> is licensed under a<br/>
+
+                    <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+                    <br />Project hosted at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/jig/crypto" rel="dct:source">github.com/jig/crypto</a></em></small>
+            </section>
+            <section>
+                <h1>RSA</h1>
+                <p>{Ron Rivest,  &#1506;&#1491;&#1497; &#1513;&#1502;&#1497;&#1512; (Adi Shamir), Leonard Adleman; 1978}</p>
+                <p>Permet implementar el xifrat i la signatura, mitjançant l'<span title="RSA Problem">RSAP</span> (Problema RSA)</p>
+                <p>L'RSAP es un <em>problema amb trampa</em> que es basa en la dificultat del càlcul de
+                    l'arrel $e$-èssima$\pmod{n}$ per a valors d'$n$ amb certes propietats
+                </p>
+            </section>
+
+
+            <section>
+                <h2>RSAP</h2>
+                <h3>(el problema RSA)</h3>
+                <p>Suposem que tenim un missatge $m$ i que el <a href="complexity.html#/function-permutation">permutem</a> amb la funció:</p>
+                <p>$c = m^e \pmod n$</p>
+                <div class="fragment">
+                    <p>per recuperar (desxifrar) el missatge original a partir de $c$ cal invertir:</p>
+                    <p>$m = \sqrt[e]{c} \pmod n$</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>però</h2>
+                <p>sii $n$ no és primer el càlcul d'</p>
+                <p>$m \equiv \sqrt[e]{c} \pmod n$</p>
+                <p>és <a href="complexity.html">computacionalment difícil</a>* per valors d'$n$ amb factors suficientment grans (i desconeguts)</p>
+            </section>
+
+            <section>
+                <p>hem xifrat un missatge $m$<br>
+                    però no hi ha manera de desxifrar-ne el resultat $c$...</p>
+                <p class="fragment">...si és que no coneixem "la trampa"</p>
+            </section>
+
+            <section id="trapdoor">
+                <h2>la trampa</h2>
+                <p>segons el <a href="x-teoria-de-nombres.html#euler">teorema d'Euler</a>:</p>
+                <p>$m^{\phi(n)} \equiv 1 \pmod n$</p>
+                <br>
+                <div class="fragment"></p><p>$(m^{\phi(n)})^t \equiv 1 \pmod n$</p></div>
+                <div class="fragment"><p>$m^{t \phi(n)} \equiv 1 \pmod n$</p></div>
+                <div class="fragment"><p>$m^{t \phi(n)}m \equiv m \pmod n$</p></div>
+                <div class="fragment"><p>$m^{t \phi(n)+1} \equiv m \pmod n$</p></div>
+                <!-- <p>*) <em>trampa</em> és una traducció lliure de <em>trapdoor</em> (trapa, escapatòria)</p> -->
+                <!-- <div class="fragment"><p>$m^{r \pmod{\phi(n)}} \equiv m^{r} \pmod n$</p></div>-->
+            </section>
+
+
+            <section>
+                <p>$m^{t \phi(n)+1} \equiv m \pmod n$</p><hr/>
+                <div>
+                    <p>tenint-ho en compte per...</p>
+                    <p>\[
+                        \begin{aligned}
+                        c & \equiv m^{e} \pmod n \\
+                        m & \equiv \sqrt[e]{c} \pmod n \leftarrow \text{computacionalment infactible}
+                        \end{aligned}
+                        \] </p>
+                </div>
+                <div class="fragment">
+                    <p>...agafem una drecera donant la volta "per l'altra banda",
+                        exponenciant suficientment per arribar un altre cop a $m$:</p>
+                    <p>\[
+                        \begin{aligned}
+                        c & \equiv m^{e} \pmod n \\
+                        m & \equiv c^{\color{red}d} \pmod n \qquad \rightarrow m \equiv m^{e\color{red}d} \pmod n
+                        \end{aligned}
+                    \]</p>
+                </div>
+            </section>
+
+            <section>
+                <p>$m^{t \phi(n)+1} \equiv m \pmod n$</p>
+                <p>\[
+                    \begin{aligned}
+                    c & \equiv m^{e} \pmod n \\
+                    m & \equiv c^{\color{red}d} \pmod n \qquad \rightarrow m \equiv m^{e\color{red}d} \pmod n
+                    \end{aligned}
+                    \] </p>
+                <hr>
+                <div class="fragment">
+                    <p>només cal trobar un $\color{red}d$ que:</p>
+                    <p>$e\color{red}d = t \phi(n) + 1$</p>
+                </div>
+                <div class="fragment"><p>$e\color{red}d \equiv 1 \bmod{\phi(n)}$</p></div>
+                <div class="fragment"><p>$\color{red}d \equiv e^{-1} \bmod{\phi(n)}$</p></div>
+            </section>
+
+            <section>
+                <p>$\color{red}d \equiv e^{-1} \bmod{\phi(n)}$</p>
+                <p>&nbsp;</p>
+                <p>el càlcul de $\color{red}d$ és fàcil a condició que coneguem $\phi(n)$</p>
+                <div class="fragment">
+                    <p>i recordem que:</p>
+                    <p>$\phi(pq) = (p-1)(q-1)$</p>
+                </div>
+                <div class="fragment">
+                    <p>&nbsp;</p>
+                    <p>per a conèixer $\phi(n)$ cal conèixer els factors d'$n$ (computacionalment infactible
+                        per valors grans de $p$ i $q$ i coneixent només $n$)</p>
+                </div>
+            </section>
+            <section>
+                <p>$\color{red}d \equiv e^{-1} \bmod{\phi(n)}$</p>
+                <p>&nbsp;</p>
+                <p>s'ha de tenir en compte que $\phi(n)$ no és primer
+                    </br>($\phi(pq) = (p-1)(q-1)$ producte de nombres parells)</p>
+                <p>per tant:</p>
+                <p>cal vigilar que $e$ sigui invertible $\pmod{\phi{(n)}}$
+                    <br/>(és a dir, que $e$ i $\phi{(n)}$ siguin coprimers)
+                    <br/>(és a dir, que $\text{mcd}(e, \phi{(n)}) = 1$)
+                    <!-- <br/>per a poder invertir $e$ cal que $\text{mcd}(e,d) = 1$ -->
+                </p>
+            </section>
+            <section>
+                <p>$\color{red}d \equiv e^{-1} \bmod{\phi(n)}$</p>
+                <p>per a minimitzar la possibilitat de que $\text{mcd}(e,\phi{(n)}) \neq 1$, escollim un exponent $e$ primer, i vigilem simplement que $e$ no divideixi $d$</p>
+                <p>habitualment $e = 65537$ qué, a banda de ser primer, només té dos $1$ en base $2$
+                    i, per tant, permet una <a href="complexity.html#basic-op">execució ràpida</a> d'$m^e \pmod n$</p>
+                <p>i la probabilitat de que generem una clau privada $d \equiv 0 \pmod e$ és $1:65537$</p>
+            </section>
+
+            <section>
+                <h2>resum d'operació</h2>
+            </section>
+
+            <section>
+                <h3>Algorisme de generació</h3>
+                <ol>
+                <li>l'usuari $\text{u}$ escull un exponent $e$<br/>(habitualment comú a tothom: $e = 65537$)</li>
+                <li>escull aleatòriament dos nombres primers $p_\text{u}$ i $q_\text{u}$ prou
+                    grans<a title="dificultat per a factoritzar" href="#threats">*</a>
+                    i prou diferents<a title="Si p i q són iguals o inclús similars la factorització és factible" href="#threats">**</a>
+                </li>
+                <li>calcula $\phi(n_\text{u}) = (p_\text{u}-1)(q_\text{u}-1)$ </li>
+                <li>calcula $d_\text{u} = e^{-1} \bmod{\phi(n_\text{u})}$ </li>
+                </ol>
+
+                <br>
+                <p>La Clau pública de l'usuari $\text{u}$ és $(e, n_\text{u})$</p>
+                <p>La Clau privada de l'usuari $\text{u}$ és $(d_\text{u}, (e, n_\text{u}))$</p>
+            </section>
+            <section>
+                <h3>Algorismes de xifrat i desxifrat</h3>
+                <p>per a xifrar cap a l'usuari $\text{u}$, ens cal saber<br>la seva clau pública $(e, n_\text{u})$:</p>
+                <p>$c = m^{e} \pmod{n_\text{u}}$</p>
+                <br>
+                <p>per a desxifrar, l'usuari pot revertir el xifrat<br>ja que coneix $d_\text{u}$:</p>
+                <p>$m = c^{d_\text{u}} \pmod{n_\text{u}}$</p>
+            </section>
+            <section>
+                <h3>Alg/ de signatura i verificació</h3>
+                <p>per a signar, l'usuari $\text{u}$ usa la seva clau $(e, n_\text{u})$:</p>
+                <p>$c = m^{d_\text{u}} \pmod{n_\text{u}}$</p>
+                <br>
+                <p>qualsevol pot verificar la signatura coneixent $n_\text{u}$:</p>
+                <p>$m = c^{e} \pmod{n_\text{u}}$</p>
+            </section>
+            <section id="threats">
+				<h3>debilitats $\rightarrow$ contramesures</h3>
+                <p>sobre l'algorisme:</p>
+                <ul>
+                    <li>Propietats de l'exponenciació $\rightarrow$ <a href="#pkcs1">PKCS #1</a></li>
+                    <li>Casos especials sobre $\pmod{n}$ $\rightarrow$ PKCS #1</li>
+					<li>Factorització d'$n$ $\rightarrow$ <a href="#keysize">longitud</a> suficient d'$n$</li>
+                </ul>
+                <p>sobre la implementació:</p>
+                <ul>
+                    <li>Atacs de temps $\rightarrow$ randomització en l'execució</li>
+                    <li>Atacs sobre el consum, la radiació, etc.</li>
+                    <li>compromís de clau: accés software o físic al sistema</li>
+                    <li>qualitat dels nombres aleatoris (e.g. $\text{gcd}$ sobre servidors web)</li>
+                    <li>a futur: <a href="threats.html#/asymmetric-crypto" style="color:grey;">computació quàntica</a></li>
+                    <li>...</li>
+                </ul>
+            </section>
+
+            <section id="pkcs1">
+                <h3>PKCS #1</h3>
+                <p>Per <strong>xifrat</strong>: <em>Optimal asymmetric encryption padding</em>
+                    (<a href="">OAEP</a>)
+                    <br/>barreja un nombre aleatori en la signatura,
+                    de manera que dos xifrats de mateix valor són diferents
+                    <br/>(algorisme determinista $\rightarrow$ algorisme probabilístic)</p>
+                <p>Per  <strong>signatura</strong>: <em>Probabilistic Signature Scheme</em>
+                    (<a href="http://www.emc.com/emc-plus/rsa-labs/historical/raising-standard-rsa-signatures-rsa-pss.htm">PSS</a>)
+                    <br/>no signem directament el missatge si no que signem el hash, al qual afegim un random
+                    (<em>salt</em>) i un farciment (<em>padding</em>) fins la longitud $n$
+                    <br/>(algorisme determinista $\rightarrow$ algorisme probabilístic)</p>
+            </section>
+
+            <section id="keysize">
+                <h3>Longitud de clau</h3>
+                <p>la dificultat de l'<a href="complexity.html" title="RSA Problem">RSAP</a> $n$ és equivalent a fer l'arrel quadrada modular
+                mòdul un $n$ no primer, i és equivalent a factoritzar $n$</p>
+				<p>el major $n$ factoritzat és de $768$ bit $\Rightarrow$ <a href="https://en.wikipedia.org/wiki/RSA_numbers#RSA-768">Desafiament RSA-768</a> (2000 anys/CPU)
+				<p>
+				<p>el NIST 
+					<a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf">recomana</a> 
+					$\|n\| \geq 2048$ bit fins el 2030
+                    <thead>
+				</p>
+				<table>
+                        <tr>
+                            <td style="text-align: right;">RSA</td>
+							<td></td>
+                            <td>AES</td>
+							<td>(bits de seguretat)</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="">
+                            <td style="text-align: right;">$1024$</td>
+							<td>$\leftrightarrow$</td>
+                            <td>$80$</td>
+                            <td>$80$</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;">$2048$</td>
+							<td>$\leftrightarrow$</td>
+                            <td>$112$</td>
+                            <td>$112$</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;">$3072$</td>
+							<td>$\leftrightarrow$</td>
+                            <td>$128$</td>
+                            <td>$128$</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;">$15360$</td>
+							<td>$\leftrightarrow$</td>
+                            <td>$256$</td>
+                            <td>$256$</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="practice">
+                <h3>pràctica: openssl</h3>
+                <p>generem i mostrem (PKCS #1) una clau RSA-2048 amb $e=65537$</p>
+                <p  style="text-align: left;">
+                <code>
+                    <br/><span>$</span>
+                        <a href="https://www.openssl.org/docs/manmaster/apps/genrsa.html">openssl genrsa</a>
+                        <span title="exponent e = 4rt nombre de Fermat = 65537">-F4</span>
+                        <span title="longitud de clau n = 2048 bits">2048</span>
+                        |
+                        <a href="https://www.openssl.org/docs/manmaster/apps/rsa.html">openssl rsa</a>
+                        <span title="mostra els camps de la PVK">-text</span>
+                        <span title="no mostris el base64 codificat de la clau">-noout</span>
+                    <br/>modulus: ... $\rightarrow \color{red}{n}$
+                    <br/>publicExponent: 65537 (0x10001) $\rightarrow \color{red}{e}$
+                    <br/>privateExponent: ... $\rightarrow \color{red}{d}$
+                    <br/>prime1: ... $\rightarrow \color{red}{p}$
+                    <br/>prime2: ... $\rightarrow \color{red}{q}$
+                    <br/>exponent1: ... $\rightarrow$ <span style="color:red;">??</span>
+                    <br/>exponent2: ... $\rightarrow$ <span style="color:red;">??</span>
+                    <br/>coefficient: ... $\rightarrow$ <span style="color:red;">??</span>
+                    <br/><span>$</span> _
+                </code></p>
+                <!-- <p class="fragment">hi ha una manera més eficient de calcular $m^d \pmod n$ quan $n$ no
+                és primer</p> -->
+            </section>
+
+            <section id="chinese-remainder-theorem">
+                <h3>Teorema dels Residus Xinesos</h3>
+                <p>$
+                    \begin{aligned}
+                    x &\equiv a_1 \pmod{n_1} \\
+                    x &\equiv a_2 \pmod{n_2} \\
+                    &\vdots \\
+                    x &\equiv a_i \pmod{n_i}
+                    \end{aligned}$</p>
+                <p>té una solució única per:</p>
+                <p>$
+                    \begin{aligned}
+                    x &\equiv a \pmod{n_1 n_2 \cdots n_i}
+                    \end{aligned}$</p>
+                <span class="fragment">
+                    <hr/>
+                <p>$
+                    \begin{aligned}
+                    x &\equiv a_p \pmod{p} \\
+                    x &\equiv a_q \pmod{q} \\
+                    &\Downarrow \\
+                    x &\equiv a \pmod{pq}
+                    \end{aligned}$</p>
+                </span>
+            </section>
+
+            <section>
+                <h3>exemple senzill del <span title="Chinese Remainder Theorem">CRT</span></h3>
+                <p>$
+                    \begin{aligned}
+                    x &\equiv 0 \pmod{2} \rightarrow \text{x és parell}\\
+                    x &\equiv 3 \pmod{5} \rightarrow \text{x en decimal, acaba en 3 o en 8}\\
+                    &\Downarrow \\
+                    x &\equiv 8 \pmod{10} \rightarrow \text{x en decimal acaba en 8}
+                    \end{aligned}$</p>
+            </section>
+
+            <section>
+                <h3>Teorema dels Residus Xinesos</h3>
+                <p>aplicació a RSA (algorisme de Garner)</p>
+                <ol>
+                <li>precalculem i guardem en secret (com a part de la <code>PVK</code>):
+                    <p>$\begin{aligned}
+                    d_p &= e^{-1} \bmod{(p-1)} \\
+                    d_q &= e^{-1} \bmod{(q-1)} \\
+                    q_\text{inv} &= q^{-1} \bmod{(p-1)} \\
+                \end{aligned}$
+                    </p>
+                </li>
+
+                <li>mantenim $c = m^e \bmod{n}$; però en lloc de fer $m = c^d \bmod{n}$ fem:
+                    <p>$\begin{aligned}
+                    m_1 &= c^{d_p} \bmod{p} \\
+                    m_2 &= c^{d_q} \bmod{q} \\
+                    m &= m_2 + \bigg(q_\text{inv} (m_1 - m_2) \bmod p\bigg)
+                \end{aligned}$</p>
+                </li>
+                </ol>
+                <p>per què ens serveix aquest teorema?
+                    <br/>perquè 2. és més ràpid que $m = c^d \bmod{n}$</p>
+            </section>
+
+            <section>
+                <h3><a href="dsa.html">(Elgamal, DSA) $\rightarrow$</a></h3>
+            </section>
+        </div>
+
+    </div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-72628059-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <!-- <script type="text/javascript" src="js/svg_mathjax.js"></script> -->
+    <!-- <script type="text/javascript">new Svg_MathJax().install();</script> -->
+    <script type="text/javascript" src="lib/js/head.min.js"></script>
+    <script type="text/javascript" src="js/reveal.js"></script>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            slideNumber: 'c/t',
+            // history: false,
+            // fragments: true,
+            // help: true,
+            // previewLinks: false,
+            width: 1280,
+            height: 720,
+
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            math: {
+                mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+                config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+            },
+
+            // Optional reveal.js plugins
+            dependencies: [
+                { src: 'plugin/math/math.js', async: true },
+                { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true },
+                { src: 'plugin/notes/notes.js', async: true }
+            ]
+        });
+    </script>
+</html>

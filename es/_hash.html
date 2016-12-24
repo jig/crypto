@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="ca">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Hash</title>
+
+        <meta name="description" content="Hash">
+        <meta name="author" content="Jordi Íñigo Griera">
+        <!-- Implementat amb revealjs: https://github.com/hakimel/reveal.js -->
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+        <!-- Code syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+                    var link = document.createElement( 'link' );
+                    link.rel = 'stylesheet';
+                    link.type = 'text/css';
+                    link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+                    document.getElementsByTagName( 'head' )[0].appendChild( link );
+                </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+    <div class="reveal">
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+
+            <section>
+                <h1>Funcions<br/>de hash</h2>
+                    <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
+
+				<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">
+					&ldquo;Curs d'Introducció a la criptografia&rdquo;
+				</span>
+
+                        by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/jig" property="cc:attributionName" rel="cc:attributionURL">Jordi Íñigo Griera</a> is licensed under a<br/>
+
+                        <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+                        <br />Project hosted at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/jig/crypto" rel="dct:source">github.com/jig/crypto</a></em></small>
+            </section>
+
+            <section>
+                <h3>Funció de hash: objectius</h3>
+                <p>resumeix una cadena de longitud arbitrària $m$,<br/> a un valor de mida fixa $r$ (el resum):</p>
+                <p>$r = h(m)$</p>
+                <p>addicionalment, cal que la funció dongui resums diferents per missatges diferents...</p>
+            </section>
+
+            <section>
+                <h3>Col·lisions</h3>
+                <p>...és <u>impossible</u> garantir que una funció generi valors diferents per missatges diferents ja que
+                l'espai de resums és molt inferior a l'espai de missatges:
+                    <br/>$\|r\| \ll \|m\|$</p>
+                <p class="fragment">per exemple si:
+                    <br/>
+                    $\left.
+                    \begin{aligned}
+                        \|r\| & = 256\text{b} \Rightarrow |r| = 2^{256}\text{b} \\
+                        \|m\| & \approx 10^6\text{B} \Rightarrow |m| = 2^{2^{23}}\text{b}
+                    \end{aligned}
+                    \right\} \frac{|m|}{|r|} = \frac{2^{2^{23}}}{2^{256}} = 2^{2^{23}-256} \approx 2^{8·10^6}$
+                </p>
+            </section>
+
+            <section>
+                <h3>Funció de hash: objectius</h3>
+                <p>tot i que per a cada resum $r$ hi ha una enorme quantitat de missatges que el comparteixen (hi col·lisionen)
+                una funció de hash <u>segura</u> ha de fer que <em>sigui infactible</em> trobar-los</p>
+                <span class="fragment">
+                    <p>donat un missatge $m$ amb un resum $r = h(m)$ trobar un missatge amb el mateix resum
+                    $m$ la manera més eficient ha de ser generar missatges fins a trobar una altre amb el mateix $r$</p>
+                    <p>e.g. si el resum és de $\|r\| = 256$ llavors haurem de fer uns $2^{256}$ operacions de hash fins
+                    a trobar-ne un d'igual</p>
+                </span>
+            </section>
+
+            <section id="birthday-paradox">
+                <h3>Problema de l'aniversari</h3>
+                <p>(<em>Birthday paradox</em>)</p>
+                <p>hi ha un atac millor que l'anterior de força bruta, que deriva de
+                    <br/>la paradoxa de l'aniversari:</p>
+                    <p><em>&ldquo;si tenim un grup de 23 persones, la probabilitat de tenir un parell amb la mateixa data d'aniversari
+                    és del 50%&rdquo;</em></p>
+                <p>només cal un grup de 70 persones per a que la probabilitat augmenti al 99%</p>
+                <p class="fragment">en general, $p=0.5$ si el nombre d'experiments és $x \approx 1,25 \sqrt{\text{elements}}$</p>
+            </section>
+
+            <section  id="birthday-attack">
+                <h3>Atac de l'aniversari</h3>
+                <p>(<em>Birthday attack</em>)</p>
+                <p>si tenim un hash de mida $\|r\|$ la probabilitat de col·lisió serà molt alta quan ens apropem
+                    a les $\sqrt{|r|}$ operacions</p>
+                <p>e.g per a $\|r\| = 256\text{ b}$ això són unes $2^{128}$ operacions</p>
+                <p class="fragment">això implica que per a un hash cal resums el doble de llargs del que calia per les
+                    claus per a obtenir el mateix nivell de seguretat</p>
+                <p class="fragment">(la <em>security strength</em> d'una funció de hash de longitud $b$ bits és $b/2$)</p>
+            </section>
+
+            <section>
+                <h3>exemples</h3>
+                <p>els hashos recomenats en l'actualitat són els SHA-2 i el SHA-3</p>
+                <ul>
+                    <li>SHA-2: longituds de $256$ b i $512$ b (amb variants truncades de $224$ b i $384$ b)</li>
+                    <li>SHA-3: longituds entre $224$ b a $512$ b</li>
+                </ul>
+                <p>longituds aproximadament el doble que les longituds de claus que les claus de l'AES ($128$ b, $192$ b, $256$ b)
+		  per a una seguretat equivalent</p>
+            </section>
+
+            <section>
+                <h3>SHA-2 ò SHA-3</h3>
+                <p>els primers estan dissenyats per l'NSA, i els segons escollits pel NIST després d'organitzar una
+                    competició per a definir el següent hash a utilitzar</p>
+                <p>el SHA-3 s'ha desenvolupat tenint en compte l'eficiència i com a backup cas de trobar vulnerabilitats
+                    en el SHA-2 (disseny totalment diferent)</p>
+                <p>SHA-2 ara per ara té un treball d'anàlisi molt superior<br/>
+                    al SHA-3</p>
+            </section>
+
+            <section id="hmac">
+                <h1>HMAC</h1>
+                <p>MACs basats en funcions de hash</p>
+            </section>
+
+            <section>
+                <h3>HMAC basat en Hash+MAC</h3>
+                <p>si fem servir un MAC per missatges de mida fixa
+                    <br/>(directament <a href="mac.html#fixed-cbc">xifrant un bloc</a>)</p>
+                <p>podem fer un HMAC així:
+                <br/>$t = \text{MAC}(k, h(m))$</p>
+            </section>
+
+            <section>
+                <h3>SHA2-HMAC</h3>
+                <p>el HMAC que es fa servir habitualment fa servir com a xifrat el propi hash i $\oplus$</p>
+                <p>
+                    $\begin{aligned}
+                    k_\text{o} = k \oplus \text{opad} \; &| \; \text{opad} = \text{5C5C}\cdots \\
+                    k_\text{i} = k \oplus \text{ipad} \; &| \; \text{ipad} = \text{3636}\cdots \\
+                    \end{aligned}$</p>
+                <p>$t = \color{red}{h}( k_\text{o} \, \| \, \color{red}{h}( k_\text{i} \| m ) )$</p>
+                <p>Nota: $\|$ denota concatenació</p>
+                <p class="fragment">Nota: variants òbvies com $t = h(k \| m)$ són insegures <a href="http://cacr.uwaterloo.ca/hac/about/chap9.pdf">[9.64][9.65]</a></p>
+                <!-- SHA-3 HMAC encara no està definit -->
+            </section>
+
+            <section>
+                <h3>xifrar i autenticar</h3>
+                <p><em>(Authenticated Encryption)</em></p>
+                <p>aquestes dues funcions es fan servir juntes molt sovint</p>
+                <p>enviarem la concatenació $(c, t)$ on:<br/>
+                    $\begin{aligned}
+                    c &= e(k_e, m) \\
+                    t &= \text{MAC}(k_t, c)
+                    \end{aligned}$</p>
+                <p class="fragment">Nota: fer $t = \text{MAC}(k_t, \color{red}{m})$ no garanteix que la funció MAC no reveli
+                cap detall d'$m$ (en realitat ho fa: si dos missatges són iguals, un atacant ho sabrà simplement inspeccionant $t$ i $t'$</p>
+            </section>
+
+            <section>
+                <h3>seguretat en conjunts de missatges</h3>
+                <p>cal vigilar que la seguretat amb la que protegim els missatges individuals, cal extrapolar-la a
+                    seqüències de missatges (sessions)</p>
+                <p>si no fem res més del que hem comentat fins ara, seriem vulnerables a atacs:</p>
+                <p>de rèplica (<em>replay attacks)</em>)</p>
+                <p>de reordenat</p>
+                <p>de reflexió</p>
+            </section>
+
+	    <section>
+	      <h3><a href="number-theory.html">(Teoria de Nombres) $\rightarrow$</a></h3>
+	    </section>
+        </div>
+
+    </div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-72628059-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+    <!-- <script type="text/javascript" src="js/svg_mathjax.js"></script> -->
+    <!-- <script type="text/javascript">new Svg_MathJax().install();</script> -->
+    <script type="text/javascript" src="lib/js/head.min.js"></script>
+    <script type="text/javascript" src="js/reveal.js"></script>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            slideNumber: 'c/t',
+            // history: false,
+            // fragments: true,
+            // help: true,
+            // previewLinks: false,
+            width: 1280,
+            height: 720,
+
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            math: {
+                mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+                config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+            },
+
+            // Optional reveal.js plugins
+            dependencies: [
+                { src: 'plugin/math/math.js', async: true },
+                { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true },
+                { src: 'plugin/notes/notes.js', async: true }
+            ]
+        });
+    </script>
+
+    </body>
+</html>

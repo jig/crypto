@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="ca">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>AdES</title>
+
+    <meta name="description" content="Advanced Electronic Signature">
+    <meta name="author" content="Jordi Íñigo Griera">
+    <!-- Implementat amb revealjs: https://github.com/hakimel/reveal.js -->
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+                    var link = document.createElement( 'link' );
+                    link.rel = 'stylesheet';
+                    link.type = 'text/css';
+                    link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+                    document.getElementsByTagName( 'head' )[0].appendChild( link );
+                </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+
+        <section>
+            <h1 style="text-transform:none;">AdES</h1>
+            <p><em>(Advanced Electronic Signature)</em></p>
+            <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
+
+                <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">
+                &ldquo;Curs d'Introducció a la criptografia&rdquo;
+                </span>
+
+                by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/jig" property="cc:attributionName" rel="cc:attributionURL">Jordi Íñigo Griera</a> is licensed under a<br/>
+
+                <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+                <br />Project hosted at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/jig/crypto" rel="dct:source">github.com/jig/crypto</a></em></small>
+        </section>
+
+        <section>
+            <h1 style="text-transform:none;">AdES</h1>
+            <p>hi ha diferents codificacions:</p>
+            <ul>
+                <li>CAdES: CMS AdES,
+                    <a href="http://www.etsi.org/deliver/etsi_ts/101700_101799/101733/02.02.01_60/ts_101733v020201p.pdf">
+                        ETSI TS 101 733</a> <!-- (equivalent a <a href="http://tools.ietf.org/html/rfc5126.html">rfc5126</a>) --></li>
+                <li>XAdES: XML AdES,
+                    <a href="http://www.etsi.org/deliver/etsi_ts%5C101900_101999%5C101903%5C01.04.02_60%5Cts_101903v010402p.pdf">
+                        ETSI  TS 101 903</a></li>
+                <li>PAdES: PDF AdES,
+                    <a href="http://www.etsi.org/deliver/etsi_ts/102700_102799/10277801/01.01.01_60/ts_10277801v010101p.pdf">
+                        ETSI TS 102 778</a></li>
+            </ul>
+            <p>des del punt de vista de la signatura: equivalents</p>
+            <p>des del punt de vista de l'objecte signat: CAdES i XAdES són contenidors de fitxer genèrics,
+                i PAdES modifica un PDF per incrustar-hi la signatura</p>
+        </section>
+
+        <section>
+                <img src="img/AdES comparison.png"/><br/>
+                <small>(font <a href="http://blogs.adobe.com/security/91014620_eusig_wp_ue.pdf">Adobe</a>)</small>
+        </section>
+
+        <section>
+            <h3><span style="text-transform:none">CAdES</span>: format</h3>
+            <p>el format CAdES és el <a href="https://tools.ietf.org/html/rfc5652">CMS</a> (PKCS #7) restringit a
+                signatura, i les diferents variants són CMS amb més o menys atributs,
+                certificats, etc.</p>
+            <p>el format XAdES és l'<a href="http://www.w3.org/TR/xmldsig-core/">XMLDSig</a>,
+                afegint-hi elements específics</p>
+            <p>el format PAdES és el PDF (Adobe, ISO 32000) que ja suporta signatura insertant-hi un CMS
+                (a diferència dels anteriors suporta les múltiples signatures d'un flux de treball)</p>
+        </section>
+
+        <section>
+            <h3>Variants</h3>
+            <ul>
+                <li>CAdES-<strong>BES</strong>: Basic Electronic Signature</li>
+                <li>CAdES-<strong>EPES</strong>: Explicit Policy-based Electronic Signatures</li>
+                <li>CAdES-<strong>T</strong>: with Timestamp</li>
+                <li>CAdES-<strong>C</strong>: with Complete Validation Data References</li>
+                <li>CAdES-<strong>X</strong>: with EXtended Electronic Signature</li>
+                <li>CAdES-<strong>XL</strong>: with EXtended Long Electronic Signature</li>
+                <!-- <li>CAdES-X Type 1: EXtended Electronic Signature with Time Type 1</li>
+                <li>CAdES-X Type 2: EXtended Electronic Signature with Time Type 2</li>
+                <li>CAdES-X Long Type 1: EXtended Long Electronic Signature with Time 1</li>
+                <li>CAdES-X Long Type 2: EXtended Long Electronic Signature with Time 2</li> -->
+                <li>CAdES-<strong>LT</strong>: Long-Term Electronic Signature</li>
+                <li>CAdES-<strong>A</strong>: Archival</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3 style="text-transform:none;">CAdES-BES: Basic Electronic Signature</h3>
+            <p>bàsicament el mateix que CMS amb certes restriccions (bàsicament restringit a signatura)</p>
+        </section>
+        <section>
+            <h3 style="text-transform:none;">CAdES-EPES: Explicit Policy-based Electronic Signatures</h3>
+            <p>quan es signa un document no sempre és clar el propòsit (<em>commitment</em>) pel qual es signa</p>
+            <p>en certs procediments, els signataris poden signar el document per diferents raons: "l'he llegit", "estic
+            d'acord", "accepto", "aprovo"...</p>
+        </section>
+        <section>
+            <h3 style="text-transform:none;">CAdES-EPES: Explicit Policy-based Electronic Signatures</h3>
+            <p>CAdES-EPES permet afegir a la signatura la <em>Política de signatura</em> que explica des de quines
+                condicions han de tenir els dispositius de signatura, fins quins són els propòsits dels signants,
+                els seus rols en el flux de treball, el flux de treball, etc.</p>
+            <p>l'atribut <code>signature-policy-identifier</code> permet indicar (mitjançant URL, OID, etc.) aquest
+                text</p>
+        </section>
+        <section>
+            <h3 style="text-transform:none;">CAdES-EPES: Explicit Policy-based Electronic Signatures</h3>
+            <p>CAdES-EPES permet afegir a la signatura la <em>Política de signatura</em> que explica des de quines
+                condicions han de tenir els dispositius de signatura, fins quins són els propòsits dels signants, etc.</p>
+            <p>l'atribut <code>signature-policy-identifier</code> permet indicar aquest
+                text (mitjançant URL, OID, etc.)</p>
+        </section>
+        <section>
+            <h3 style="text-transform:none;">CAdES-EPES: Explicit Policy-based Electronic Signatures</h3>
+            <p>la política pot detallar (text) quins propòsits pot tenir la signatura, i quan es signa dóna la possibilitat
+                d'escollir-ne un (atribut <code>commitment-type-indication</code>)</p>
+            <p>la política pot distingir entre diferents rols, i es poden incorporar certificats d'atribut que
+                aportin informació validable del rol del signant (e.g. auditor, emissor, verificador...) i quins
+            propòsits per a signar pot tenir</p>
+        </section>
+
+        <section>
+            <h3 style="text-transform:none;">CAdES-T: Timestamped</h3>
+            <p>és un atribut (no signat) que conté un TST
+                (<em><a href="http://tools.ietf.org/html/rfc3161.html">Time Stamp Token</a></em>)
+            </p>
+            <p>aquest atribut signa el contingut original, on una tercera part demostra que el document
+            existia en un moment donat</p>
+            <p>el TST pot ser afegit a posteriori (pel receptor, o per qualsevol intermediari) sobre un
+            CAdES-BES/EPES</p>
+        </section>
+        <section>
+            <h3 style="text-transform:none;">CAdES-T: Timestamped</h3>
+            <p>en cas de no fer-ho el signatari, cal afegir el TST el més aviat possible per a evitar el repudi</p>
+        </section>
+
+        <section>
+            <h3 style="text-transform:none;">CAdES-C: Complete validation data refs</h3>
+            <p>la validació de CAdES-T requereix d'obtenir els certificats de les CAs subordinades i de les
+            proves de (no) revocació, ja sigui OCSPs o CRLs</p>
+            <p>CAdES-C és un CAdES-T amb els Certificats, proves OCSP i CRLs adjunts (atributs no signats) en una llista
+            de hashos que referencien cadascun d'ells (no inclou per tant el valor)</p>
+            <p>el material addicional pot ser afegit a posteriori (pel receptor, o per qualsevol intermediari)</p>
+        </section>
+        <section>
+            <h3 style="text-transform:none;">CAdES-C: Complete validation data refs</h3>
+            <p>el material addicional s'ha de revisat passat un <em>periode de gràcia</em>, i actualitzat</p>
+            <p>aquest periode de gràcia està definit a les CSP i inclou el temps en el qual es permet revocar un
+            certificat un cop coneguda la seva invalidació (per pèrdua de secret, etc.)</p>
+        </section>
+
+        <section>
+            <h3 style="text-transform:none;">CAdES-X: EXtended Electronic Signature with Time</h3>
+            <p>a partir del CAdES-C inclou el valor del material referenciat (Certificats i proves OCSP)</p>
+            <p>hi ha diferents variants (tipus) que poden incloure segells de temps sobre les referencies i/o el
+            material de validació inclòs</p>
+        </section>
+
+        <section>
+            <h3 style="text-transform:none;">CAdES-A: Archival</h3>
+            <p>permet afegir TST (i certificats i proves OCSP necesàries) que permeten superar la vida del material
+            original (certificats, OCSP), ja sia per caducitat propera, o per vulnerabilitat prevista d'algun algorisme</p>
+            <p>recursivament es pot anar "encapsulant" dins nous CAdES-A per a perllongar indefinidament la integritat</p>
+        </section>
+
+        <!-- <section data-background="#FF8888">
+            <h3 style="text-transform:none;">CAdES-LT: Long-Term Electronic Signature</h3>
+            <p>obsolet</p>
+        </section> -->
+
+        <section data-background="#FF8888">
+            <h3>QES</h3>
+            <p><em>(Qualified Electronic Signature)</em></p>
+
+            <h3>SSCD</h3>
+            <p><em>(Secure Signature-Creation Device)</em></p>
+        </section>
+    </div>
+
+</div>
+
+<script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-72628059-1', 'auto');
+      ga('send', 'pageview');
+</script>
+
+<!-- <script type="text/javascript" src="js/svg_mathjax.js"></script> -->
+<!-- <script type="text/javascript">new Svg_MathJax().install();</script> -->
+<script type="text/javascript" src="lib/js/head.min.js"></script>
+<script type="text/javascript" src="js/reveal.js"></script>
+
+<script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            slideNumber: 'c/t',
+            // history: false,
+            // fragments: true,
+            // help: true,
+            // previewLinks: false,
+            width: 1280,
+            height: 720,
+
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            math: {
+                mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+                config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+            },
+
+            // Optional reveal.js plugins
+            dependencies: [
+                { src: 'plugin/math/math.js', async: true },
+                { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true },
+                { src: 'plugin/notes/notes.js', async: true }
+            ]
+        });
+    </script>
+
+</body>
+</html>
