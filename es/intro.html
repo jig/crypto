@@ -4,9 +4,9 @@
     <head>
         <meta charset="utf-8">
 
-        <title>Introducció</title>
+        <title>Introducción</title>
 
-        <meta name="description" content="Introducció">
+        <meta name="description" content="Introducción">
         <meta name="author" content="Jordi Íñigo Griera">
         <!-- Implementat amb revealjs: https://github.com/hakimel/reveal.js -->
 
@@ -42,7 +42,7 @@
         <div class="slides">
 
             <section>
-                <h1>Introducció, Història</h1>
+                <h1>Introducción, Historia</h1>
 
                 <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
 
@@ -59,42 +59,41 @@
 
             <section>
                 <h1>1976</h1>
-                <p>L'NSA selecciona un algorisme de xifrat d'IBM per a ús federal: DES (Data Encryption Standard)</p>
-                <p>Whitfield Diffie i Martin Hellman generen el primer algorisme pràctic de criptografia asimètrica</p>
+                <p>La NSA selecciona un algoritmo de cifrado de IBM para comunicaciones de la administració: DES (Data Encryption Standard)</p>
+                <p>Whitfield Diffie y Martin Hellman generan el primer algoritmo práctico de criptografía asimétrica</p>
             </section>
 
             <section>
-                <h1>Història</h1>
+                <h1>Historia</h1>
                 <h2>(pre-1976)</h2>
             </section>
 
             <section>
-                <h3>Criptografia $\Rightarrow$ Xifrat</h3>
-                <p>Fins els '70 la criptografia es fa servir per a dificultar que algú aliè pugui entendre el
-                que s'envia</p>
+                <h3>Criptografía $\Rightarrow$ Cifrado</h3>
+                <p>Hasta los '70 la criptografía servía para dificultar que un tercero pudiera discernir lo que se envía</p>
                 <p>$c = e(k,m)$</p>
                 <p style="color:#888">
-                    un missatge $m$ (<em>plain-text</em>) es xifra amb la funció de xifrat $e()$, que se
-                    li passa amb una clau $k$ per a donar el missatge<br/>xifrat $c$ (<em>cipher-text</em>)
+                    un mensaje $m$ (<em>plain-text</em>) se cifra con la función de cifrado $e()$, que se
+                    le pasa junto a una clave $k$ para dar el mensaje <br/>cifrado $c$ (<em>cipher-text</em>)
                 </p>
                 <br/>
                 <p>$m = d(k,c)$</p>
                 <p style="color:#888">
-                    per desxifrar cal passar la clau $k$ i el missatge xifrat $c$ a la funció de desxifrat
-                    $m=d(k,c)$<br/>El resultat $m$ és el missatge en clar un altre cop
+                    para descifrar hace falta la clave $k$ y el mensaje cifrado $c$ a la función de descifrado
+                    $m=d(k,c)$<br/>El resultado $m$ es el mensaje en claro de vuelta
                 </p>
             </section>
 
             <section>
                 <h3>pre-1976</h3>
-                <p>Fins els '70 la criptografia o era "insegura" o no era "pràctica"</p>
+                <p>Hasta los '70 la criptografía o era "insegura" o no era "práctica"</p>
                 <p></p>
             </section>
 
             <section>
-                <h3>Xifrat del Cèsar</h3>
-                <p>Canviem cada lletra del missatge, per una lletra alternativa de l'alfabet</p>
-                <p>Per exemple, per $k=3$<br/>la funció de xifrat $e(3,m)$ genera la següent taula:</p>
+                <h3>Cifrado del Cèsar</h3>
+                <p>Cambiamos cada letra de un mensaje, por una letra alternativa del alfabeto</p>
+                <p>Por ejemplo, para $k=3$<br/>la función de cifrado $e(3,m)$ genera la siguiente tabla:</p>
                 <table>
                     <thead>
                     <tr>
@@ -139,8 +138,8 @@
             </section>
 
             <section>
-                <h3>Desxifrat del Cèsar</h3>
-                <p>Girem la taula</p>
+                <h3>Descifrado del Cèsar</h3>
+                <p>Giremos la tabla</p>
                 <table>
                     <thead>
                     <tr>
@@ -185,52 +184,52 @@
             </section>
 
             <section>
-                <h3>Seguretat del xifrat del César</h3>
+                <h3>Seguridad del cifrado del César</h3>
                 <code data-trim>
                     HOLAMON<br/>
                     ELIXJLK
                 </code>
-                <p class="fragment">què podem fer si tenim accés al text xifrat <code data-trim>ELIXJLK</code>?</p>
+                <p class="fragment">¿qué podemos hacer si tenemos acceso al texto cifrado <code data-trim>ELIXJLK</code>?</p>
                 <br/>
                 <span style="color:#585">
-                    <p class="fragment">$0 < k < 26 \implies $ podem fer un atac de <em>força bruta</em></p>
-                    <p class="fragment">si el missatge és prou llarg, podem analitzar la <em>freqüencia</em> d'aparició dels caràcters</p>
+                    <p class="fragment">$0 < k < 26 \implies $ podemos hacer un ataque de <em>fuerza bruta</em></p>
+                    <p class="fragment">si el mensaje es suficientemente largo, podemos analizar la <em>frecuencia</em> de aparición dels carácteres</p>
                 </span>
             </section>
             <section>
-                <h3>Seguretat del xifrat del César</h3>
-                <p style="color:#585">$0 < k < 26 \implies $ podem fer un atac de <em>força bruta</em></p>
-                <p>Un atac de <a href="#brute-force">força bruta</a> implica provar sobre el missatge xifrat $c$
-                    totes les possibles claus $k_i$ fins que trobem "la bona":</p>
+                <h3>Seguridad del cifrado del César</h3>
+                <p style="color:#585">$0 < k < 26 \implies $ podemos hacer un ataque de <em>fuerza bruta</em></p>
+                <p>Un ataque de <a href="#brute-force">fuerza bruta</a> implica probar sobre el mensaje cifrado $c$
+                    todas las posibles claves $k_i$ hasta que encontremos la "buena":</p>
                 <ul>
-                    <li>desxifrar amb la clau $\overset{?}{m} = d(c, k_i)$ ...</li>
-                    <li>...i validar si $\overset{?}{m}$ és vàlid (o sigui, si $m=\overset{?}{m}$)</li>
+                    <li>descifrar con la clave $\overset{?}{m} = d(c, k_i)$ ...</li>
+                    <li>...y validar si $\overset{?}{m}$ es válido (o sea, si $m=\overset{?}{m}$)</li>
                 </ul>
             </section>
             <section>
-                <h3>Redundància</h3>
+                <h3>Redundancia</h3>
                 <ul>
-                    <li style="color:#888">desxifrar amb la clau $\overset{?}{m} = d(c, k_i)$ ...</li>
-                    <li>...i validar si $\overset{?}{m}$ és vàlid (o sigui, si $m=\overset{?}{m}$)</li>
+                    <li style="color:#888">descifrar con la clave $\overset{?}{m} = d(c, k_i)$ ...</li>
+                    <li>...y validar si $\overset{?}{m}$ es válido (o sea, si $m=\overset{?}{m}$)</li>
                 </ul>
                 <br/>
-                <p>el segon punt no sempre és senzill</p>
-                <p>exigeix que l'espai de missatges contingui missatges
-                    vàlids (pocs) i missatges invàlids (molts)</p>
-                <p>cal <a href="https://en.wikipedia.org/wiki/Redundancy_(information_theory)">redundància</a></p>
-                <p>que en l'exemple anterior la redundància la tenim ja que <em>no</em> qualsevol
-                    combinació de caràcters genera "paraules" inintel·ligibles</p>
+                <p>el segundo paso no siempre es sencillo</p>
+                <p>exige que el espacio de mensajes contenga mensages
+                    válidos (pocos) y mensajes inválidos (muchos)</p>
+                <p>hace falta <a href="https://en.wikipedia.org/wiki/Redundancy_(information_theory)">redundancia</a></p>
+                <p>que en el ejemplo anterior la redundancia la tenemos ya que <em>no</em> cualquier
+                combinación de carácteres genera "palabras" ininteligibles</p>
             </section>
             <section>
-                <h3>Desxifrar</h3>
+                <h3>Descifrar</h3>
                 <ul>
-                    <li>desxifrar amb la clau $\overset{?}{m} = d(c, k_i)$ ...</li>
-                    <li style="color:#888">...i validar si $\overset{?}{m}$ és vàlid (o sigui, si $m=\overset{?}{m}$)</li>
+                    <li>descifrar con la clave $\overset{?}{m} = d(c, k_i)$ ...</li>
+                    <li style="color:#888">...y validar si $\overset{?}{m}$ es valido (o sea, si $m=\overset{?}{m}$)</li>
                 </ul>
                 <br/>
-                <p>el primer punt implica conèixer l'algorisme de<br/>(des)xifrat $d(\circ,\circ)$</p>
-                <p>sempre hem de suposar que un atacant coneix $d(\circ,\circ)$</p>
-                <p>la única cosa que no pot conèixer és la clau $k$</p>
+                <p>el primer punto implica conocer el algoritmo de<br/>(des)cifrado $d(\circ,\circ)$</p>
+                <p>siempre supondremos que un atacante conoce $d(\circ,\circ)$</p>
+                <p>la única cosa que no debe conocer es la clave $k$</p>
             </section>
             <!-- <section data-background="#FF8888">
                 <h3>Seguretat del xifrat del César</h3>
@@ -242,88 +241,88 @@
             <p class="fragment">El xifrat del César es trenca (en mitja) en una CPU estàndard en 13 μs</p>
             </section> -->
             <section id="brute-force">
-                <h3>Atac de força bruta</h3>
-                <p>Les contramesures contra els atacs de força bruta són:</p>
+                <h3>Ataques de fuerza bruta</h3>
+                <p>Las contramedidas contra los ataques de fuerza bruta son:</p>
                 <ul>
-                    <li>que la operació de desxifrat sigui costosa</li>
-                    <li>que calgui fer moltes operacions de desxifrat</li>
+                    <li>que la operación de desxifrado sea costosa</li>
+                    <li>que haga falta realizar muchas operaciones de descifrado</li>
                 </ul>
                 <p class="fragment">
-                    que la operació sigui costosa té el problema que qui desxifra lícitament tingui un cost
-                    innecessari: actualment això no es recomana
+                    que la operación sea costosa tiene el problema que quien descifra lícitamente tiene un coste
+                    innecessario: actualmente esto no se recomienda
                 </p>
                 <p class="fragment">
-                    cal que l'atacant estigui obligat a provar moltes claus
+                    que el atacante esté obligado a probar muchas claves
                 </p>
             </section>
             <section id="key-space">
-                <h3>moltes claus</h3>
-                <p>en una CPU "estàndard" es proven $1.000.000$ clau/CPU/s</p>
-                <p class="fragment">és a dir: $10^6$ clau/CPU/s</p>
-                <p class="fragment">és a dir: es proven $10^{9}$ claus/s en $1000$ CPU</p>
-                <p class="fragment">és a dir: es proven $3,6·10^{12}$ claus/h en $1000$ CPU</p>
+                <h3>muchas claves</h3>
+                <p>en una CPU "estándar" se prueban $1.000.000$ clave/CPU/s</p>
+                <p class="fragment">es decir: $10^6$ clau/CPU/s</p>
+                <p class="fragment">es decir: se prueban $10^{9}$ clave/s en $1000$ CPU</p>
+                <p class="fragment">es decir: es prueban $3,6·10^{12}$ clave/h en $1000$ CPU</p>
                 <span class="fragment">
-                    <p>en AWS EC2 una <a href="https://aws.amazon.com/es/ec2/pricing/">t2.micro</a> costa 1 cèntim/h</p>
-                    <p>és a dir $3,6·10^{11}$ claus/€</p>
+                    <p>en AWS EC2 una <a href="https://aws.amazon.com/es/ec2/pricing/">t2.micro</a> cuesta 1 céntimo/h</p>
+                    <p>es decir $3,6·10^{11}$ clave/€</p>
                 </span>
                 <span class="fragment">
-                    <p>si tenim capacitat de dissenyar/fabricar $d(\circ,\circ)$ en hardware
+                    <p>si tenemos capacidad de diseñar/fabricar $d(\circ,\circ)$ en hardware
                         (<a href="https://en.wikipedia.org/wiki/Application-specific_integrated_circuit">ASIC</a>)
-                        els costos baixen després d'un periode d'amortització
+                        los costes bajan después de un periodo de amortización
                     </p>
                 </span>
             </section>
             <section>
-                <h3>Moltes claus</h3>
-                <p>$10^{11}$ claus/€ en números rodons
-                <p>e.g. si el nostre "secret" té un cost de 1000 €,<br/>ens calen $2·10^{14}$ claus diferents ($\approx2^{48}$)</p>
+                <h3>Muchas claves</h3>
+                <p>$10^{11}$ clave/€ en números redondos
+                <p>e.g. si nuestro "secreto" tiene un coste de 1000 €,<br/>nos hacen falta $2·10^{14}$ claves diferentes ($\approx2^{48}$)</p>
             </section>
             <section>
-                <h3>Seguretat del xifrat del César</h3>
+                <h3>Seguridad del cifrat del César</h3>
                 <code data-trim>
                     HOLAMON<br/>
                     ELIXJLK
                 </code>
-                <p>què podem fer si tenim accés al text xifrat <code data-trim>ELIXJLK</code>?</p>
+                <p>¿qué podemos hacer si tenemos acceso al texto cifrado <code data-trim>ELIXJLK</code>?</p>
                 <br/>
-                <p>$0 < k < 26 \implies $ podem fer un atac de <em>força bruta</em></p>
-                <p style="color:#585">si el missatge és prou llarg, podem analitzar la <em>freqüència</em> d'aparició dels caràcters</p>
+                <p>$0 < k < 26 \implies $ podemos hacer un ataque de <em>fuerza bruta</em></p>
+                <p style="color:#585">si el mensaje es suficientemente largo, podemos analizar la <em>frecuencia</em> de aparición de los carácteres</p>
             </section>
             <section>
-                <h3>Anàlisi de freqüència</h3>
+                <h3>Análisis de frecuencia</h3>
                 <img data-src="img/freq-catala.png"/>
                 <br/>
-                <small>(article de Catalunya a la Viquipèdia /
+                <small>(artículo de Catalunya en la Viquipèdia /
                     <a href="http://www.counton.org/explorer/codebreaking/frequency-analysis.php">counton.org
                     </a>)</small>
                 <br/>
                 <img data-src="img/freq-fcb.png"/>
                 <br/>
-                <small>(article del FCB a la Viquipèdia /
+                <small>(artículo del FCB a la Viquipèdia /
                     <a href="http://www.counton.org/explorer/codebreaking/frequency-analysis.php">counton.org
                     </a>)</small>
             </section>
             <section>
-                <h3>Anàlisi de freqüència</h3>
+                <h3>Análisis de frecuencia</h3>
                 <img data-src="img/freq-catala-gran.png"/>
                 <br/>
-                <p>l'estadística es manté per diferents texts</p>
-                <p class="fragment">l'estadística es manté inalterada després del xifrat!</p>
-                <p class="fragment">podem aprofitar que l'estadistica es manté,<br/>per a trobar la clau $k$</p>
+                <p>la estadística se mantiene en textos diferentes</p>
+                <p class="fragment">¡la estadística se mantiene inalterada después del cifrado!</p>
+                <p class="fragment">podemos aprovechar que la estadística se mantiene<br/>para poder encontrar la clave $k$</p>
             </section>
 
             <section>
-                <h1>Millores al<br/>xifrat del Cèsar</h1>
+                <h1>Mejoras al<br/>cifrat del César</h1>
             </section>
 
             <section id="vigenere">
-                <h3>Xifrat de Vigenère</h3>
-                <p>Similar al xifrat del Cèsar, però $k$ ara serà una seqüència de números en lloc d'un
-                    sòl número (e.g. abans $k=3$):</p>
+                <h3>Cifrado de Vigenère</h3>
+                <p>Similar al cifrado del César, pero $k$ ahora será una secuencia de números en lugar de un 
+                    sólo número (e.g. antes $k=3$):</p>
                 <p>e.g. &nbsp; $k = \{3,24,10\}$</p>
-                <p>Nota: habitualment s'escriuen les lletres corresponents als números: $k = \{\text{D},\text{Y},\text{K}\}$
+                <p>Nota: habitualmente se escriben las letras corresponendientes a los números: $k = \{\text{D},\text{Y},\text{K}\}$
                 </p>
-                <p>exemple:</p>
+                <p>ejemplo:</p>
                 <code data-trim>
                     HOLAMON<br/>
                     DYKDYKD<br/>
