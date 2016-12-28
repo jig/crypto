@@ -331,8 +331,8 @@
             </section>
 
             <section id="vigenere-key-space">
-                <h3>Vigenère: Espai de claus</h3>
-                <p>Ara l'espai de claus és (clau de $3$ caràcters):</p>
+                <h3>Vigenère: Esàcop de claves</h3>
+                <p>Ahora el espacio de claves es (clave de $3$ carácteres):</p>
                 <p>
                     $\begin{eqnarray}
                     0 & < k & < {26}^{3} \\
@@ -340,84 +340,84 @@
                     \end{eqnarray}$
                 </p>
                 <span class="fragment">
-                    <p>no costa gaire incrementar l'espai de claus fent
-                        <br/>servir "contrasenyes" més llargues</p>
+                    <p>no cuesta mucho incrementar el espacio de claves utilizando
+                        <br/>"contraseñas" más largas</p>
                     <p>en general, per a $n$ caràcters:</p>
                     <p>$0 < k < {26}^{n}$</p>
                     <p>e.g. &nbsp; $n=8 \implies 2·10^{11}$ <span class="fragment">(0,50 €)</span></p>
                     <p class="fragment">e.g. &nbsp; $n=12 \implies 10^{17}$ (200.000 €)</p>
-                    <p class="fragment">e.g. &nbsp; $n=16 \implies 4·10^{22}$ (deute de Grècia)</p>
+                    <p class="fragment">e.g. &nbsp; $n=16 \implies 4·10^{22}$ (deuda de Grecia)</p>
                     <p class="fragment">e.g. &nbsp; $n=17 \implies$ (PIB mundial)</p>
                 </span>
             </section>
 
             <section id="vigenere-frequency-analysis">
-                <h3>Vigenère: Anàlisi freqüencial</h3>
-                <p>Si segmentem el text xifrat d'acord a la longitud de la contrasenya, cada fragment de text
-                mostrarà les mateixes estadístiques de l'idioma...</p>
-                <p>només cal saber la longitud de la "contrasenya" o...</p>
-                <p>...com que l'"espai de longituds" serà probablement
-                limitat, podem provar-los un per un fins que tenim una estadística reconeixible</p>
+                <h3>Vigenère: Análisis frecuencial</h3>
+                <p>Si segmentamos el texto cifrado de acuerdo a la longitud de la contraseña, cada fragmento de texto
+                    mostrará las mismas estadísticas del idioma...</p>
+                <p>sólo hace falta saber la longitud de la "contraseña" o...</p>
+                <p>...como el espacio de longitudes será probablemente 
+                    limitado, podemos probarlos uno por uno hasta que tenemos una estadística reconocible</p>
                 <p class="fragment">
-                    <u>amb un espai de claus gran no n'hi ha prou</u>
+                    <u>un espacio de claves grande no es suficiente</u>
                 </p>
             </section>
 
             <section id="perfect-secrecy">
-                <h2>Confidencialitat perfecte</h2>
-                <p>en general, <em>seguretat incondicional</em></p>
+                <h2>Confidencialidad perfecta</h2>
+                <p>en general, <em>seguridad incondicional</em></p>
             </section>
 
             <section>
-                <h3>què és la confidencialitat perfecte?</h3>
-                <p>a partir del text xifrat, no es pot deduir
-                    <br/><u>cap propietat</u><span class="fragment">*</span>
-                    <br/>del text original en clar,
-                    <br/>encara que l'atacant tingui capacitat computacional infinita
+                <h3>¿qué es la confidencialitad perfecta?</h3>
+                <p>a partir del texto cifrado, no se puede deducir
+                    <br/><u>ninguna propiedad</u><span class="fragment">*</span>
+                    <br/>del texto original en claro,
+                    <br/>aunque el atacante tenga capacidad computacional infinita
                 </p>
                 <br/>
                 <br/>
-                <p class="fragment">*) a part de la longitud</p>
-                <p class="fragment">*) a part del moment d'enviar-ho</p>
-                <p class="fragment">*) a part de la latència en respondre</p>
+                <p class="fragment">*) a parte de la longitud</p>
+                <p class="fragment">*) a parte del momento de enviarlo</p>
+                <p class="fragment">*) a parte de la latencia de la respuesta</p>
             </section>
 
             <section>
-                <h3>és factible la confidencialitat perfecte?</h3>
+                <h3>¿es factible la confidencialidad perfecta?</h3>
                 <p class="fragment">sí,
-                    <br/>i va ser inventada i patentada per Vernam el 1917
-                    <br/>i va ser demostrada la seva perfecció per Shannon el 1945</p>
+                    <br/>y fue inventada y patentada por Vernam en 1917
+                    <br/>y fue demostrada su "perfección" por Shannon en 1945</p>
                 <p></p>
             </section>
 
             <section>
-                <h3>com la podem implementar?</h3>
-                <p>el xifrat de Vigenère patia un problema similar al del César:<br/>
-                    manifestava l'estadística del missatge en clar<br/> en el missatge xifrat
+                <h3>¿cómo la podemos implementar?</h3>
+                <p>el cifrado de Vigenère sufría un problema similar al del César:<br/>
+                manifestaba la estadística del mensaje en claro<br/> en el mensaje cifrado
                 </p>
-                <p>podem evitar que es manifesti l'estadística en el text xifrat, si utilitzem
-                cada lletra de la contrasenya <u>només un cop</u></p>
-                <p class="fragment">tenim confidencialitat perfecte <em>sii</em> fem servir Vigenére amb una contrasenya tan llarga
-                com el missatge<span class="fragment"> i no coneguda per l'atacant (aleatòria)</span></p>
+                <p>podemos evitar que se manifieste la estadística en el texto cifrado, si utilizamos 
+                    cada letra de la contraseña <u>una sola vez</u></p>
+                <p class="fragment">tenimos confidencialidad perfecta <em>sii</em> usamos Vigenére con una contraseña tan larga
+                como el mensaje<span class="fragment"> y no conocida por el atacante (aleatoria)</span></p>
             </section>
 
             <section id="one-time-pad">
-                <h3>Bloc d'un sol ús: xifrat</h3>
-                <p>Vernam va definir el <em>one-time-pad</em> d'una manera similar (però equivalent)</p>
-                <p>La funció de xifrat $c = e(k, m)$ s'implementa:</p>
+                <h3>Bloques de un solo uso: cifrado</h3>
+                <p>Vernam definió el <em>one-time-pad</em> de una manera similar (pero equivalente)</p>
+                <p>La función de cifrado $c = e(k, m)$ se implementa:</p>
                 <p>$e(k, m) = k \oplus m$</p>
 		<p>on $\|k\| = \|m\|$</p>
 		<p/>
                 <p>Nota:
-		    <br/>$\oplus$ és la <em>or-exclusiva</em> o <code>XOR</code>
-                    <br/>$\|\circ\|$ és la longitud en bits de $\circ$
+		    <br/>$\oplus$ es la <em>or-exclusiva</em> o <code>XOR</code>
+                    <br/>$\|\circ\|$ es la longitud en bits de $\circ$
                 </p>
             </section>
             <section>
-                <h3>Bloc d'un sol ús: desxifrat</h3>
+                <h3>Bloque de un solo uso: descifrado</h3>
                 <p>$d(k, c) = k \oplus c$</p>
                 <span class="fragment">
-                    <p>és fàcil demostrar que funciona ja que:</p>
+                    <p>es fácil demostrar que funciona ya que:</p>
                     <p>$\begin{aligned}
                         m &= d(k, c) \\
                         m &= d(k, e(k, m)) \\
@@ -430,9 +430,9 @@
                 </span>
             </section>
             <section  style="text-align: left;">
-                <h3>Bloc d'un sol ús: desxifrat</h3>
+                <h3>Bloque de un solo uso: descifrado</h3>
                 <code data-trim>
-                    k = <em>...cal obtenir-la o generar-la</em><br/>
+                    k = <em>...hace falta obtenerla o generarla</em><br/>
                     assertEqual(len(m1), len(k))<br/>
                     c = xor(k,m1)<br/>
                     m2 = xor(k,c)<br/>
@@ -441,13 +441,13 @@
             </section>
 
             <section>
-                <h3>Experiment amb el Gimp</h3>
-                <small>(has de tenir Gimp instal·lat per a que et funcioni l'experiment)</small>
+                <h3>Experimento con Gimp</h3>
+                <small>(tienes que tener Gimp instalado para que te funcione el experimento)</small>
                 <br/>
                 <a href="gimp/hola-xor.xcf"><img data-src="gimp/hola-xor.png"/></a>
-                <p>clica sobre la imatge i obre el fitxer amb Gimp</p>
-                <p>mira que està composat per dues capes (<code>Ctrl+L</code>):
-                    <br/>la clau $k$ i el missatge $m$ combinades amb <em>substract</em> (<code>XOR</code>)</p>
+                <p>clica sobre la imagen y abre el fichero con Gimp</p>
+                <p>mira que está compuesto por dos capas (<code>Ctrl+L</code>):
+                    <br/>la clave $k$ y el mensaje $m$ combinadas con <em>substract</em> (<code>XOR</code>)</p>
             </section>
 
             <section id="c" data-transition="none">
@@ -466,18 +466,18 @@
             </section>
 
             <section>
-                <h3>Bloc d'un sol ús: perfecte?</h3>
-                <p>Shannon va demostrar que el blocs d'un sòl ús és "perfecte", i a més va demostrar que
-                    la longitud en bits de la clau $k$:</p>
+                <h3>Bloque de un solo uso: ¿perfecto?</h3>
+                <p>Shannon demostró que los bloques de un solo uso son "perfectos", y además demostró que
+                    la longitud en bits de la clave $k$:</p>
                 <p>$\|k\| \geq \|m\|$</p>
-                <p>i per tant, que els blocs d'un sol ús fessin servir</p>
+                <p>y por tanto, que los bloques de un solo uso hiciesen servir</p>
                 <p>$\|k\| = \|m\|$</p>
-                <p>era la manera més eficient d'obtenir confidencialitat perfecte</p>
+                <p>era la manera más eficiente de obtener confidencialidad perfecta</p>
             </section>
 
             <section>
-                <h3>Bloc d'un sol ús: &ldquo;perfecte&rdquo;</h3>
-                <p>tots els missatges possibles és poden obtenir donada la clau apropiada a partir d'un bloc xifrat $c_i$</p>
+                <h3>Bloque de un solo uso: &ldquo;perfecto&rdquo;</h3>
+                <p>todos los mensajes posibles se pueden obtener dada la clave apropiada a partir de un bloque cifrado $c_i$</p>
                 <p>$
                     \begin{aligned}
                     m_{ai} &= d(k_a, c_i) \\
@@ -486,52 +486,52 @@
                     & \quad \vdots
                     \end{aligned}
                     $
-                <br/>cada clau aplicada a $c_i$ em donarà tots els missatges possibles d'$\|m\|$ bits
-                    <br/>($\|m\| = \|k\|$ combinacions)</p>
+                <br/>cada clave aplicada a $c_i$ me dará todos los mensajes posibles de $\|m\|$ bits
+                    <br/>($\|m\| = \|k\|$ combinaciones)</p>
                 <span class="fragment">
-                    <p>un atacant no pot aprendre res a partir de $c_i$
+                    <p>un atacante no puede aprender nada a partir de $c_i$
                       <br/>$\Downarrow$
-                      <br/>la confidencialitat és &ldquo;perfecte&rdquo;</p>
+                      <br/>la confidencialidad es &ldquo;perfecta&rdquo;</p>
                 </span>
             </section>
 
             <section>
-                <h3>vulnerabilitats</h3>
-                <p>cap (fins i tot és invulnerable als atacs de força bruta)...</p>
+                <h3>vulnerabilidades</h3>
+                <p>cero (incluso es invulnerable a los ataques de fuerza bruta)...</p>
                 <span class="fragment">
-                    <p>...mentre es compleixin les hipòtesis de treball:</p>
+                    <p>...mientras se cumplan las hipótesis de trabajo:</p>
                     <ul>
-                    <li>clau $k$: només és un sol ús</li>
-                    <li>clau $k$: aleatòria (i.e. uniformement distribuïda)</li>
+                    <li>clave $k$: sólo un solo uso</li>
+                    <li>clave $k$: aleatoria (i.e. uniformemente distribuida)</li>
                     </ul>
                 </span>
             </section>
             <section>
                 <h3 style="color:#888">pre-1976</h3>
-                <p style="color:#888">Fins els '70 la criptografia o era "insegura" o no era <span style="color:black">"pràctica"</span></p>
+                <p style="color:#888">Hasta los '70 la criptografía o era "insegura" o no era <span style="color:black">"práctica"</span></p>
             </section>
 
             <section>
-                <h3>Bloc d'un sol ús: poc pràctic</h3>
+                <h3>Bloque de un solo uso: poco práctico</h3>
                 <p>$\|k\| = \|m\|$</p>
-                <p>costa tant acordar $k$ de forma segura, com enviar directament $m$ en clar
-                pel mateix canal segur</p>
+                <p>cuesta tanto acordar $k$ de forma segura, como enviar directamente $m$ en claro
+                por el mismo canal seguro</p>
             </section>
             <section>
-                <p><em>El <u>telèfon vermell</u> entre Washington i Moscou era (en realitat) un teletip
-                    que usava xifrat de <u>bloc d'un sol ús</u></em></p>
-                <p><em>La clau $k$ s'intercanviava via diplomàtica en cinta
-                    que s'entregava en ambdós sentits. Mentre no calia, s'havia de guardar protegida. Es destruïa
-                    després de ser usada</em></p>
-                    <p><em>En aquest cas la clau s'acordava/es preparava per endavant per a quan
-                    calgués enviar algún missatge poguer-ho fer de forma immediata</em></p>
+                <p><em>El <u>teléfono rojo</u> entre Washington y Moscú era (en realitat) un teletipo
+                    que usaba cifrado de <u>bloque de un solo uso</u></em></p>
+                <p><em>La clave $k$ se intercambiaba vía por valija diplomática en cinta
+                    que se entregaba en ambos sentidos. Mientrastanto no hacía falta, se tenía que guardar protegida. Se destruía
+                    después de ser usada</em></p>
+                    <p><em>En este caso la clave se acordaba/se preparaba por adelantado para cuando 
+                    hiciera falta enviar algún mensaje poderlo hacer de forma inmediata</em></p>
                 <p><em>
-                    A més a més, el one-time-pad permetia treballar de forma segura sense
-                    intercanviar cap algorisme secret que permetés donar una avantatge tècnic a l'enemic</em></p>
+                    Además, el one-time-pad permitía trabajar de forma segura sin
+                    intercambiar ningún algoritmo secreto que permetiera dar ventaja técnica al enemigo</em></p>
             </section>
 
             <section>
-               <h3><a href="symmetric.html">(Criptografia Simètrica) $\rightarrow$</a></h3>
+               <h3><a href="symmetric.html">(Criptografía Simétrica) $\rightarrow$</a></h3>
             </section>
         </div>
 
