@@ -2,6 +2,8 @@
 
 Transparències a [jig.github.io/crypto](https://jig.github.io/crypto)
 
+Versión en castellano [jig.github.io/crypto/es](https://jig.github.io/crypto/es) (en proceso de traducción)
+
 ## Contingut
 
   - [Índex](https://jig.github.io/crypto) `7`
