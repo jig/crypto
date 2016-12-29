@@ -8,7 +8,7 @@
 
         <meta name="description" content="Criptografía simétrica">
         <meta name="author" content="Jordi Íñigo Griera">
-        <!-- Implementat amb revealjs: https://github.com/hakimel/reveal.js -->
+        <!-- Implementat con revealjs: https://github.com/hakimel/reveal.js -->
 
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -38,10 +38,10 @@
     <body>
 
     <div class="reveal">
-        <!-- Any section element inside of this container is displayed as a slide -->
+        <!-- año section element inside of this container is displayed as a slide -->
         <div class="slides">
             <section>
-                <h1>Criptografia simètrica</h1>
+                <h1>Criptografía simétrica</h1>
                 <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
 
 				<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">
@@ -55,38 +55,38 @@
                     <br />Project hosted at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/jig/crypto" rel="dct:source">github.com/jig/crypto</a></em></small>
             </section>
             <section>
-                <h3>Criptografia simètrica</h3>
-                <p>cal que sigui segura i pràctica</p>
-                <p>el problema és que el requeriment definit fins ara de <a href="intro.html#perfect-secrecy">confidencialitat incondicional</a> no pot generar
-                xifrats pràctics<br/>(ja que $\|k\| = \|m\|$)</p>
+                <h3>Criptografía simétrica</h3>
+                <p>hace falta que segura y práctica</p>
+                <p>el problema es que el requisito definido hasta ahora de <a href="intro.html#perfect-secrecy">confidencialidad incondicional</a> no puede generar
+                cifrados prácticos<br/>(ja que $\|k\| = \|m\|$)</p>
             </section>
 
             <section>
-                <h3>Confidencialitat incondicional</h3>
-                <p>aquell que, a partir del text xifrat, no permet deduir
-                    <br/><u>cap propietat</u>
-                    <br/>del text original en clar,
-                    <br/>encara que l'atacant tingui capacitat computacional infinita
+                <h3>Confidencialidad incondicional</h3>
+                <p>aquella que, a partir del texto cifrado, no permite deducir
+                    <br/><u>ninguna propietdad</u>
+                    <br/>del texto original en claro,
+                    <br/>aunque el atacante tenga capacidad computacional infinita
                 </p>
             </section>
             <section>
-                <h3>Confidencialitat computacional</h3>
-                <p>habitualment no ens caldrà confidencialitat (o seguretat) incondicional, sino que
-                    podem admetre un cert risc de que el sistema/algorisme no sigui confidencial (segur)
-                    en front d'un atacant que tingui recursos computacionals finits
+                <h3>Confidencialidad computacional</h3>
+                <p>habitualmente no nos hará falta confidencialidad (o seguridad) incondicional, sino que
+                    podemos admitir un cierto riesgo de que el sistema/algoritmo no sea confidencial (seguro)
+                    frente a un atacante que tenga recursos computacionales finitos
                 </p>
-                <p>aquesta "cessió" la farem a canvi de tenir uns algorismes més pràctics:</p>
+                <p>esta "cesión" la haremos a cambio de tener algoritmos más prácticos:</p>
                 <p>$\|k\| \ll \|m\|$</p>
                 <!-- <p class="fragment">*) en general, seguretat computacional</p> -->
             </section>
             <section>
-                <h3>Confidencialitat computacional</h3>
-                <p>per exemple suposem que tenim $k$ i $m$ de les següents longituds:</p>
+                <h3>Confidencialidad computacional</h3>
+                <p>por ejemplo supongamos que tenemos $k$ y $m$ de las longitudes siguientes:</p>
                 <p>$\begin{aligned}
                     \|k\| &= 32 \\
                     \|m\| &= 8·10^{6}
                     \end{aligned}$</p>
-                <p>és a dir tenim un nombre de possibles $k$ i $m$:</p>
+                <p>es decir, tenemos un número de posibles $k$ y $m$:</p>
                 <p>$\begin{aligned}
                     |k| &= 2^{32} = 4294967296\\
                     |m| &= 2^{8·10^{6}} = 923234126834\cdots \\
@@ -94,195 +94,201 @@
                     \end{aligned}$</p>
             </section>
             <section>
-                <h3>Confidencialitat computacional</h3>
-                <p>la desproporció entre $|k|$ i $|c|$ fa que només una de les claus ens torni un missatge
-                    inintel·ligible, per tant, podem saber quina era la clau i el missatge</p>
-                <p class="fragment">si la trobem </p>
+                <h3>Confidencialidad computacional</h3>
+                <p>la desproporción entre $|k|$ y $|c|$ hace que sólo una de las claves devuelva un mensaje
+                    inteligible, por tanto, podemos saber cual era la clave y el mensaje</p>
+                <p class="fragment">si la encontramos</p>
             </section>
             <section>
-                <h3>Confidencialitat computacional</h3>
-                <p>si l'espai de claus es prou gran ($|k|$) no podrem probarles totes
-                    <br/><small>(<a href="intro.html#key-space">Moltes claus</a>
-                    i <a href="intro.html#vigenere-key-space">Vigenère: espai de claus</a>)</small>
+                <h3>Confidencialidad computacional</h3>
+                <p>si el espacio de claves es suficientemente grande ($|k|$) no podremos probarlas todas
+                    <br/><small>(<a href="intro.html#key-space">Muchas claves</a>
+                    y <a href="intro.html#vigenere-key-space">Vigenère: espacio de claves</a>)</small>
                 </p>
-                <p>podem provar $10^6$ k/CPU/s $\approx 2^{20}$ k/CPU/s</p>
-                <p>ò $10^{13}$ k/CPU/any $\approx 2^{43}$ k/CPU/any</p>
-                <p>ò $10^{16}$ k/any amb $1000$ CPU $\approx 2^{53}$ k/any</p>
-                <p>ò $10^{19}$ k/any amb $10^6$ CPU $\approx 2^{63}$ k/any
+                <p>podemos probar $10^6$ k/CPU/s $\approx 2^{20}$ k/CPU/s</p>
+                <p>ò $10^{13}$ k/CPU/año $\approx 2^{43}$ k/CPU/año</p>
+                <p>ò $10^{16}$ k/año con $1000$ CPU $\approx 2^{53}$ k/año</p>
+                <p>ò $10^{19}$ k/año con $10^6$ CPU $\approx 2^{63}$ k/año
                 <br/>$\vdots$</p>
             </section>
             <section>
 	      <p>$\vdots$
-                <br/>ò $10^{25}$ claus amb $10^6$ CPU un milió d'anys $\approx 2^{83}$ k</p>
-                <p>ò $10^{29}$ claus amb $10^6$ CPU des del Big Bang $\approx 2^{96}$ k
+                <br/>ò $10^{25}$ claus con $10^6$ CPU un milió d'años $\approx 2^{83}$ k</p>
+                <p>ò $10^{29}$ claus con $10^6$ CPU des del Big Bang $\approx 2^{96}$ k
                   <br/>$\vdots$</p>
-                <p>si tinc una "sort mitja" només em caldrà la meitat de proves (e.g. necessitarem "només"
-                    la meitat de l'edat de l'Univers per a trobar la clau en l'últim escenari)</p>
-                <p>i si tinc molta sort...</p>
+                <p>si tengo una "suerte media" sólo nos hará falta la mitad de las pruebas (e.g. en el
+                    último escenario necesitaremos "sólo" la mitad de la edad del Universo para encontrar la clave)
+                </p>
+                <p>y si tengo mucha suerte...</p>
             </section>
             <section>
-                <h3>i si tinc molta sort. . .</h3>
-                <p>...la probabilitat de que et toqui la grossa comprant només un número
-                    és $10^{-5}$ ($2^{-17}$)</p>
-                <p>la probabilitat de que et toqui la grossa comprant només un número, $5$ sortejos seguits,
-                    és $10^{-25}$ ($2^{-83}$)...</p>
-                <p>...aquesta és la probabilitat de que trobis la clau per força bruta en un temps negligible
-                    <br/>(1 milió d'anys amb 1 milio de CPU's...)</p>
+                <h3>y si tengo mucha suerte. . .</h3>
+                <p>...la probabilidad de que te toque el gordo comprando sólo un número
+                    es $10^{-5}$ ($2^{-17}$)</p>
+                <p>la probabilidad de que te toque comprando sólo un número, $5$ sorteos consecutivos,
+                    es $10^{-25}$ ($2^{-83}$)...</p>
+                <p>...esta es la probabilidad de que encuentres la clave por fuerza bruta en un tiempo negligible
+                    aquesta és la probabilitat de que trobis la clau per força bruta en un temps negligible
+                    <br/>(1 millíon de años con 1 millón de CPU's...)</p>
             </section>
             
             <section>
-                <h3>Confidencialitat computacional</h3>
-                <p>amb hardware ad-hoc podem arribar a multiplicar per $10^4$/$10^5$ vegades
-                    <br/>($2^{13}$/$2^{17}$ vegades)</p>
-                <p><em>Exemple
+                <h3>Confidencialidad computacional</h3>
+                <p>con hardware ad-hoc podemos llegar a multiplicar por $10^4$/$10^5$ veces
+                    <br/>($2^{13}$/$2^{17}$ veces)</p>
+                <p><em>Ejemplo
 		  <a htref="https://blockchain.info/block/0000000000000000082599be00bde6aca271d20c771542738343f3c940da7939">BitCoin</a>:
-		  SHA-256 en hardware massivament paral·lel</em></p>
+		  SHA-256 en hardware masivamente paralelo</em></p>
             </section>
             <section>
-                <h3>Espai de claus</h3>
-                <p>En <u>criptografia simètrica</u> farem servir algorismes de xifrat sobre els
-                    que el mecanisme més eficient per a un atacant serà provar totes les
-                    claus fins trobar la bona</p>
+                <h3>Espacio de claves</h3>
+                <p>En <u>criptografía simétrica</u> usaremos algoritmos de cifrado sobre los
+                que el mecanismo más eficiente para un atacante será probar todas las
+                claves hasta encontrar la buena</p>
             </section>
             <section>
                 <h3>NIST</h3>
-                <p>el <a href="http://csrc.nist.gov/publications/nistpubs/800-57/sp800-57_part1_rev3_general.pdf">NIST</a> recomana (2015)
-                    claus que un atacant<br/>hagi de fer $\frac{1}{2} 2^{113}$ proves</p>
-                <p>Més exactament, diu que les claus han de tenir una longitud
-		  <br/>$\|k\| = 112$ b, mínim</p>
-                <p class="fragment">A partir del 2030 recomanarà
-		  $\|k\| = 128$ b, mínim</p>
-                <p>NIST: <em>National Institute of Standards and Technology</em> (EUA)</p>
-                <p><em>Security Strength</em>: bits de seguretat o seguretat equivalent</p>
+                <p>el <a href="http://csrc.nist.gov/publications/nistpubs/800-57/sp800-57_part1_rev3_general.pdf">NIST</a> recomienda (2015)
+                    claves en las que un atacante<br/>haya de hacer $\frac{1}{2} 2^{113}$ pruebas</p>
+                <p>Más exactamente, dice que las claves han de tener una longitud
+		  <br/>$\|k\| = 112$ b, mínimo</p>
+                <p class="fragment">A partir del 2030 prevé recomendar
+		  $\|k\| = 128$ b, mínimo</p>
+                <p>NIST: <em>National Institute of Standards and Technology</em> (EE.UU.)</p>
+                <p><em>Security Strength</em>: bits de seguridad o seguridad equivalente</p>
             </section>
 
             <section>
-                <h3>Quantificació de la Seguretat</h3>
-                <p>el NIST recomana les següents longituds de clau (<em>security strength</em>) pels propers anys</p>
+                <h3>Cuantificación de la Seguridad</h3>
+                <p>el NIST recomienda las siguientes longitudes de clave (<em>security strength</em>) para los próximos años</p>
                 <ul>
-                    <li>112 bit: fins 2030; <a href="#triple-des">3DES</a> és suficient</li>
-                    <li>128 bit: a partir del 2030; <a href="#aes">AES-128</a> és suficient</li>
+                    <li>112 bit: hasta 2030; <a href="#triple-des">3DES</a> es suficiente</li>
+                    <li>128 bit: a partir de 2030; <a href="#aes">AES-128</a> es suficiente</li>
                 </ul>
-                <p>l'amença coneguda que pot modificar el calendari és la
-                    <a href="threats.html#quantum-computing">computació quàntica</a>
+                <p>la amenza conocida que puede modificar el calendario es la
+                    <a href="threats.html#quantum-computing">computación cuántica</a>
                     $\Rightarrow$ AES-256
                 </p>
             </section>
+
             <section>
-                <h3>Criptografia simètrica</h3>
-                <p>hi ha dos tipus de xifrat simètric</p>
+                <h3>Criptografía simétrica</h3>
+                <p>hay dos tipos de cifrado simétrico</p>
                 <ul>
-                    <li><a href="#stream-cipher">Xifrats de flux</a></li>
-                    <li><a href="#block-cipher">Xifrats de bloc</a></li>
+                    <li><a href="#stream-cipher">Cifrados de flujo</a></li>
+                    <li><a href="#block-cipher">Cifrados de bloque</a></li>
                 </ul>
                 <span class="fragment">
-                <p>ambdós els podem veure com una evolució del
-                    <br/><a href="symmetric.html#vigenere">xifrat de Vigenère</a>:</p>
+                <p>ambos los podemos ver como una evolución del
+                    <br/><a href="symmetric.html#vigenere"> cifrado de Vigenère</a>:</p>
                 <ul>
-                    <li>els primers extenent la clau (<a href="symmetric.html#one-time-pad">bloc d'un sol ús</a>)</li>
-                    <li>els segons aplicant-ho vàries vegades (aprox)</li>
+                    <li>los primeros extienden la clave (<a href="symmetric.html#one-time-pad">bloque de un solo uso</a>)</li>
+                    <li>los segundos aplicándolo varias veces (aprox)</li>
                 </ul>
                 </span>
             </section>
             <section id="stream-cipher">
-                <h1>Xifrat de flux</h1>
+                <h1>Cifrado de flujo</h1>
             </section>
             <section>
-                <h3>Xifrat de flux</h3>
-                <p>És una implementació pràctica dels blocs<br/>d'un sol ús (<em>one-time-pad</em>)</p>
-                <p>en el cas dels blocs d'un sol ús necessitàvem<br/>$\|k\| = \|m\|$</p>
-                <p>per a després fer:<br/>
+                <h3>Cifrado de flujo</h3>
+                <p>Es una implementación práctica de los bloques<br/>de una solo uso (<em>one-time-pad</em>)</p>
+                <p>en el caso de los bloques de un solo uso necesitábamos<br/>$\|k\| = \|m\|$</p>
+                <p>para después hacer:<br/>
                     $c = k \oplus m$
                     </p>
             </section>
             <section>
-                <h3>Xifrat de flux</h3>
-                <p>el que farem és generar $k_{\text{generat}}$...</p>
-                <p>$\|k_{\text{generat}}\| = \|m\|$</p>
-                <p>...a partir d'una clau $k$ de longitud curta:</p>
-                <p>$k \overset{f}{\longrightarrow} k_{\text{generat}}$</p>
-                <p class="fragment">per a després fer:<br/>
-                    $c = k_{\text{generat}} \oplus m$
+                <h3>Cifrado de flujo</h3>
+                <p>lo que haremos es generar una $k_{\text{generada}}$...</p>
+                <p>$\|k_{\text{generada}}\| = \|m\|$</p>
+                <p>...a partir de una clave $k$ de longitud corta:</p>
+                <p>$k \overset{f}{\longrightarrow} k_{\text{generada}}$</p>
+                <p class="fragment">para después hacer:<br/>
+                    $c = k_{\text{generada}} \oplus m$
                 </p>
             </section>
             <section>
-                <p>$k \xrightarrow{\text{PRNG}} k_{\text{generat}}$</p>
-                <p>la funció PRNG* és un generador de bits que té com entrada una <u>llavor</u> (que serà la
-                clau de xifrat $k$) i té com a sortida el flux de bits que aplicarem sobre el missatge per a
-                    xifrar-lo amb <code>XOR</code>:</p>
-                <p>$c = k_{\text{generat}} \oplus m$</p>
+                <p>$k \xrightarrow{\text{PRNG}} k_{\text{generada}}$</p>
+                <p>la función PRNG* es un generador de bits que tiene como entrada una <u>semilla</u> (que será la
+                  clave de cifrado $k$) y tiene como salida el flujo de bits que aplicaremos sobre el mensaje para 
+                  cifrarlo con <code>XOR</code>:</p>
+                <p>$c = k_{\text{generada}} \oplus m$</p>
                 <p><br/></p>
                 <p>*) PRNG: <em>Pseudo Random Number Generator</em></p>
             </section>
             <section>
-                <h3>PRNG: velocitat</h3>
-                <p>el xifrat anirà tant ràpid com siguem capaços de generar bits de $k_{\text{generat}}$</p>
-                <p>(ja que la funció <code>XOR</code> té un cost negligible en<br/>comparació a &ldquo;$\xrightarrow{\text{PRNG}}$&rdquo;)</p>
+                <h3>PRNG: velocidad</h3>
+                <p>el cifrado irá tan rápido como seamos capaces de generar bits de $k_{\text{generada}}$</p>
+                <p>(ya que la función <code>XOR</code> tiene un coste negligible en<br/>comparación a &ldquo;$\xrightarrow{\text{PRNG}}$&rdquo;)</p>
             </section>
             <section  style="text-align: left;">
-                <h3><span title="Pseudo Random Number Generation">PRNG</span>: seguretat</h3>
-                <p>una hipotètica funció PRNG és realment PRNG sii cap atacant pot distingir entre les dues seqüències:</p>
+                <h3><span title="Pseudo Random Number Generation">PRNG</span>: seguridad</h3>
+                <p>una hipotética función PRNG es realmente PRNG sii ningún atacante puede distingir entre las dos secuencias:</p>
                 <ul>
-                <li>una generada per una font aleatòria "uniforme" (RNG*)</li>
-                <li>una generada per la hipotètica funció PRNG</li>
+                <li>una generada por una fuente aleatoria "uniforme" (RNG*)</li>
+                <li>una generada per la hipotética función PRNG</li>
                 </ul>
-                <p>amb una probabilitat rellevantment diferent a $\frac{1}{2}$</p>
+                <p>con una probabilidad relevantmente diferente a $\frac{1}{2}$</p>
                 <p><br/></p>
-                <p>*) RNG: <em>Random Number Generator</em> (o <span title="True Random Number Generation">TRNG</span>) és un sistema que genera una seqüencia de bits no predible
-                sense caldre cap llavor; <u>no pot ser realitzat de forma algorísmica</u></p>
+                <p>*) RNG: <em>Random Number Generator</em> (o <span title="True Random Number Generation">TRNG</span>) es un sistema que genera una secuencia de bits no predecible
+                sin necesidad de una semilla; <u>no puede implementarse mediante un algoritmo</u></p>
             </section>
             <section>
                 <h1>(RNG)</h1>
             </section>
             <section>
-                <h3>RNG: generació</h3>
-                <p>Com implementem un RNG si no és algorísmic?</p>
+                <h3>RNG: generación</h3>
+                <p>¿Cómo implementamos un RNG si no es algorítmico?</p>
                 <ul>
-                <li>Recopilant events d'entrada (I/O) i acumulant els seus paràmatres (habitualment les xifres menys significatives de l'hora en ns ò μs)</li>
-                <li>Mitjançant dispositius especialitzats (<a href="hsm.html">HSM</a>*)</p>
+                <li>Recopilando eventos de entrada (I/O) y acumulando sus parámatres (habitualmente les cifras menos significativas de la hora en ns ò μs)</li>
+                <li>Mediante dispositivos especializados (<a href="hsm.html">HSM</a>*)</p>
                 <p><br/></p>
                 <p>*) HSM: <em>Hardware Secure Module</em></p>
             </section>
             <section>
                 <h3>RNG</h3>
-                <p>dedicarem una estona a <a href="hsm.html#rng">RNG</a> quant veiem HSM</p>
+                <p>dedicaremos un tiempo a <a href="hsm.html#rng">RNG</a> cuando veamos HSM</p>
             </section>
             <section>
-                <h3>RNG: propietats</h3>
+                <h3>RNG: propiedades</h3>
                 <ul>
-                    <li class="fragment">ha de tenir una <em>distribució uniforme</em> (és a dir, a de tendir a tenir el mateix nombre de 1's que de 0's,
-                    tendir al mateix nombre de 00's, que de 01's, 10's...</li>
-                    <li class="fragment">després d'$n$ bits no s'ha de poder predir el $n+1$ amb una probabilitat diferent de $\frac{1}{2}$</li>
+                    <li class="fragment">debe tener una <em>distribución uniforme</em> (es decir, debe tender a tener el mismo número de 1's que de 0's,
+                    tender al mismo número de 00's, que de 01's, 10's...</li>
+                    <li class="fragment">después de $n$ bits no se debe poder predecir el $n+1$ con una probabilidad diferente de $\frac{1}{2}$</li>
                 </ul>
             </section>
 
             <section>
-                <h1>(Tornem al PRNG)</h1>
+                <h1>(Volvamos al PRNG)</h1>
             </section>
             <section>
-                <h3>PRNG: propietats</h3>
-                <p>equivalents als RNG:</p>
+                <h3>PRNG: propiedades</h3>
+                <p>equivalentes als RNG:</p>
                 <ul>
-                    <li>distribució uniforme</li>
-                    <li>després de $n$ no s'ha de poder predir el $n+1$ amb una probabilitat diferent de $\frac{1}{2}$</li>
+                    <li>distribución uniforme</li>
+                    <li>despúes de $n$ no se debe poder predecir el $n+1$ con una probabilidad diferente de $\frac{1}{2}$</li>
                 </ul>
-                <p>Òbviament la segona suposant que no és conegui la
-                    <br/>llavor del PRNG (la clau de xifrat)</p>
-                    <p>llavor$|k \xrightarrow{\text{PRNG}}$ seqüència pseudo-aleatòria$|k_{\text{generat}}$</p>
+                <p>Obviamente la segunda suponiendo que no se conozca la
+                    <br/>semilla del PRNG (la clave de cifrado)</p>
+                    <p>entonces $|k \xrightarrow{\text{PRNG}}$ secuencia pseudo-aleatoria$|k_{\text{generada}}$</p>
             </section>
             <section>
-                <h1>Xifrat de flux</h1>
+                <h1>Cifrado de flujo</h1>
             </section>
             <section>
-                <h3>Xifrat de flux: algorisme</h3>
+                <h3>Cifrado de flujo: algoritmo</h3>
                 <ul>
-                    <li>tenim una funció $k \xrightarrow{\text{PRNG}} k_{\text{generat}}$</li>
-                    <li>la funció de xifrat és $c = k_{\text{generat}} \oplus m$</li>
-                    <li>la funció de desxifrat és $m = k_{\text{generat}} \oplus c$</li>
+                    <li>tenemos una función $k \xrightarrow{\text{PRNG}} k_{\text{generada}}$</li>
+                    <li>la función de cifrado es $c = k_{\text{generada}} \oplus m$</li>
+                    <li>la función de descifrado es $m = k_{\text{generada}} \oplus c$</li>
                 </ul>
             </section>
             <section>
-                <h3>Xifrat de flux: primer intent</h3>
+                <h3>Cifrado de flujo: primer intento</h3>
+
+                <p>+++++++++++++++++++++++++++++++++==================++++++++++++++++++++++++++++++++++++</p>
+                
                 <p>Suposem que tenim una funció PRNG, i fem servir una clau $k$ per xifrar un flux de dades
                     en una connexió (e.g. TLS)</p>
                 <p>hem de vigilar de no reutilitzar $k \xrightarrow{\text{PRNG}} k_{\text{g}}$, si no:</p>
@@ -307,7 +313,7 @@
                     k' &= f(k, r) \\
                     c &= k' \oplus m
                     \end{aligned}$</p>
-                <p>i enviem cada $r$ juntament amb cada $m$</p>
+                <p>i enviem cada $r$ juntament con cada $m$</p>
                 <p class="fragment">correcte i pràctic</p>
             </section>
             <section>
@@ -587,7 +593,7 @@
 
             <section>
                 <h3>Xifrat de bloc: model</h3>
-                <p>podem representar el xifrat amb una permutació $f$</p>
+                <p>podem representar el xifrat con una permutació $f$</p>
                 <p>$f : X\rightarrow X$</p>
                 <p>on $X$ és el conjunt de possibles blocs (tant de text en clar i xifrat)</p>
                 <p>i podem representar la funció de desxifrat com a la seva inversa $f^{-1}$
@@ -605,7 +611,7 @@
                     f &: X \rightarrow X \\
                     f &: \{0,1\}^n \rightarrow \{0,1\}^n
                     \end{aligned}$</p>
-                <p>si implementem $f$ en una taula amb $2^n$ entrades, ocupem $n·2^n$ bit</p>
+                <p>si implementem $f$ en una taula con $2^n$ entrades, ocupem $n·2^n$ bit</p>
                 <span class="fragment">
                   <p>on $n$ és la mida del <u>bloc</u></p>
                   <p>(si tenim missatges més llargs d'$n$ haurem de segmentar-los en blocs: <a href="#mode-of-operation">modes d'operació</a>)</p>
@@ -623,7 +629,7 @@
                 <p>per exemple, per <a href="#des">DES</a> que té una mida de bloc d'$n=64\text{ b}$ ens calen:</p>
                 <p>$64·2^{64} \text{ b} = 2^{70} \text{ b} = 2^{67}\text{ B} = 2^{37}\text{ GB} = 128\text{ EB}$</p>
                 <p>... <span class="fragment">per a cadascuna de les claus $k$</span></p>
-                <p class="fragment">òbviament no és factible implementar els xifrats moderns directament amb una taula indexada</p>
+                <p class="fragment">òbviament no és factible implementar els xifrats moderns directament con una taula indexada</p>
             </section>
 
             <section>
@@ -724,7 +730,7 @@
             <section>
                 <h3>transposició</h3>
                 <p>per a un bloc de longitud $t$ elements, el que fem és moure els mateixos elements entre sí</p>
-                <p>per exemple, en un sistema amb blocs de 4 lletres una funció $e$ de xifrat podria ser:</p>
+                <p>per exemple, en un sistema con blocs de 4 lletres una funció $e$ de xifrat podria ser:</p>
                 <table>
                     <tbody>
                     <tr>
@@ -777,7 +783,7 @@
                         forma que no apareguin en el text xifrat</li>
                 </ul>
                 <p><strong>etapes</strong> o <em>rounds</em>: les dues funcions s'agrupen en parelles i s'apliquen diferents cops
-                    (amb diferents claus) fins a obtenir un xifrat segur</p>
+                    (con diferents claus) fins a obtenir un xifrat segur</p>
                 <p>$c_i = e_1(k_i, c_{i-1})$</p>
             </section>
             <section>
@@ -786,7 +792,7 @@
             </section>
             <section id="aes">
                 <h3>AES</h3>
-                <p>AES és un xifrat de bloc amb:</p>
+                <p>AES és un xifrat de bloc con:</p>
                 <ul>
                     <li>bloc: $128$ bit ($16$ Byte)</li>
                     <li>clau:
@@ -909,22 +915,22 @@
                 <p>això fa que en lloc de transmetre $n$ blocs com en ECB, calgui transmetre'n $n+1$</p>
                 <ul>
                 <li>IV en CBC: és l'hipotètic bloc xifrat $-1$</li>
-                <li>IV en OFB: és el bloc que es xifra constantment $e(e(e(\cdots e(\text{IV}))))$ i s'aplica sobre els blocs en clar (amb $\oplus$)</li>
-                <li>IV en CTR: és el valor inicial del comptador que és xifra ECB, i s'aplica sobre els blocs en clar (amb $\oplus$)</li>
+                <li>IV en OFB: és el bloc que es xifra constantment $e(e(e(\cdots e(\text{IV}))))$ i s'aplica sobre els blocs en clar (con $\oplus$)</li>
+                <li>IV en CTR: és el valor inicial del comptador que és xifra ECB, i s'aplica sobre els blocs en clar (con $\oplus$)</li>
                 </ul>
                 <p class="fragment">AES_128_CTR és efectivament un <u>xifrat de flux</u> fent servir AES_128_CTR com a PRNG (sent
                     $k$ la llavor, i l'$IV$ el <em>nonce</em>)</p>
             </section>
 
             <section>
-                <h3>Modes d'operació amb autenticació</h3>
+                <h3>Modes d'operació con autenticació</h3>
                 <p>AEAD: <em>Authenticated Encryption with Associated Data</em></p>
                 <p>actualment apareixen modes d'operació que a més a més ofereixen <a href="#mac">MAC</a>
                 aconseguint un rendiment superior a fer servir xifrat + MAC (només lleugerament inferiors al xifrat sol)</p>
                 <p>els dos exemples més usats i recomanats en l'actualitat són:</p>
                 <ul>
-                    <li>CCM ò <em>Counter with <a href="mac.html#cbc">CBC-MAC</a></em>, és la combinació d'AES-CTR amb un CBC-MAC</li>
-                    <li>GCM ò <em>Galois Counter Mode</em>, també una combinació d'AES-CTR però ara amb amb una multiplicació
+                    <li>CCM ò <em>Counter with <a href="mac.html#cbc">CBC-MAC</a></em>, és la combinació d'AES-CTR con un CBC-MAC</li>
+                    <li>GCM ò <em>Galois Counter Mode</em>, també una combinació d'AES-CTR però ara con con una multiplicació
                     modular; permet velocitats superiors a CCM</li>
                 </ul>
             </section>
@@ -983,7 +989,7 @@
 
             <section>
                 <h3>AES: més vulnerabilitats</h3>
-                <p><a href="file:///home/sysadmin/git/src/github.com/jig/crypto-privat/reveal/reveal.js-3.2.0/threats.html#/symmetric-crypto">algorismes quàntics</a>: amb l'algorisme de <a href="https://en.wikipedia.org/wiki/Grover%27s_algorithm">Grover</a>
+                <p><a href="file:///home/sysadmin/git/src/github.com/jig/crypto-privat/reveal/reveal.js-3.2.0/threats.html#/symmetric-crypto">algorismes quàntics</a>: con l'algorisme de <a href="https://en.wikipedia.org/wiki/Grover%27s_algorithm">Grover</a>
                     les cerques en bases de dades no ordenades tenen
                     <a title="Notació O(·) i complexitat dels diferents algorismes criptogràfics" href="complexity.html#big-o">
                         complexitat
@@ -1039,7 +1045,7 @@
 
             <section>
                 <h3>Meet in the Middle: plantejament</h3>
-                <p>suposem que volem ampliar la seguretat de DES xifrant dues vegades amb DES estàndard:</p>
+                <p>suposem que volem ampliar la seguretat de DES xifrant dues vegades con DES estàndard:</p>
                 <p>$c = e(k_1, e(k_2, m))$</p>
             </section>
             <section>
