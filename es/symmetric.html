@@ -286,63 +286,60 @@
             </section>
             <section>
                 <h3>Cifrado de flujo: primer intento</h3>
-
-                <p>+++++++++++++++++++++++++++++++++==================++++++++++++++++++++++++++++++++++++</p>
-                
-                <p>Suposem que tenim una funció PRNG, i fem servir una clau $k$ per xifrar un flux de dades
-                    en una connexió (e.g. TLS)</p>
-                <p>hem de vigilar de no reutilitzar $k \xrightarrow{\text{PRNG}} k_{\text{g}}$, si no:</p>
+                <p>Supongamos que tenemos una función PRNG, y usamos una clave $k$ para cifrar un flujo de datos
+                    en una conexión (e.g. TLS)</p>
+                <p>hemos de vigilar de no reutilitzar $k \xrightarrow{\text{PRNG}} k_{\text{g}}$, si no:</p>
                 <p>$\begin{aligned}
                     c_1 &= k_{\text{g}} \oplus m_1 \\
                     c_2 &= k_{\text{g}} \oplus m_2 \\
                     c_1 \oplus c_2 &= m_1 \oplus m_2
                     \end{aligned}$
                 </p>
-                <p>hem eliminat les claus de l'equació!</p>
+                <p>hemos eliminado las claves de la ecuación!</p>
             </section>
             <section>
-                <h3>Xifrat de flux: segon intent</h3>
-                <p>canviar de claus a cada transmissió</p>
-                <p class="fragment">correcte, però costós (poc pràctic)</p>
+                <h3>Cifrado de flujo: segundo intento</h3>
+                <p>cambiar las claves en cada transmisión</p>
+                <p class="fragment">correcto, pero costoso (poco práctico)</p>
             </section>
             <section>
-                <h3>Xifrat de flux: tercer intent</h3>
-                <p>generar variacions de les claus a cada transmissió</p>
-                <p>suposem que tenim una funció</p>
+                <h3>Cifrado de flujo: tercer intento</h3>
+                <p>generar variaciones de las claves en cada transmisión</p>
+                <p>supongamos que tenemos una función</p>
                 <p>$\begin{aligned}
                     k' &= f(k, r) \\
                     c &= k' \oplus m
                     \end{aligned}$</p>
-                <p>i enviem cada $r$ juntament con cada $m$</p>
-                <p class="fragment">correcte i pràctic</p>
+                <p>y enviamos cada $r$ juntamente con cada $m$</p>
+                <p class="fragment">correcto y práctico</p>
             </section>
             <section>
-                <h3>Xifrat de flux: consideracions</h3>
-                <p>en resum: hem de generar un $r$ diferent per a cada missatge
-		  <br/>(anomenat <em>nonce</em>)</p>
-                <p>si tenim una comunicació bidireccional com<br/>HTTPS (TLS) cal:</p>
+                <h3>Cifrado de flujo: coinsideraciones</h3>
+                <p>en resumen: hemos de generar un $r$ diferente para cada mensaje
+		  <br/>(llamado <em>nonce</em>)</p>
+                <p>si tenemos una comunicación bidireccional como<br/>HTTPS (TLS) hace falta:</p>
                 <ul>
-                    <li>o bé generar un $r$ diferent per a cadascun dels dos sentits</li>
-                    <li>o bé generar una $k$ diferent per a cadascun dels dos sentits</li>
-                    <li>o totes dues coses <span class="fragment">$\leftarrow$</span></li>
+                    <li>o bien generar un $r$ diferente para cada sentido</li>
+                    <li>o bien generar una $k$ diferente para cada sentido</li>
+                    <li>o ambas <span class="fragment">$\leftarrow$</span></li>
                 </ul>
             </section>
             <section>
-                <h3>Xifrat de flux: seguretat</h3>
-                <p>el xifrat de flux serà tan segur com:
+                <h3>Cifrado de flujo: seguridad</h3>
+                <p>el cifrado de flujo es tan seguro como:
                 <ul>
-                <li>serà tan segur com la correcció de la hipòtesi de que la funció PRNG és realment PRNG</li>
-                <li>l'espai de claus (de llavors) sigui tant gran que sigui improbable que un atac de força bruta
-                    sigui factible</li>
-                <li>que es compleixin les hipòtesis d'ús</li>
+                <li>será tan seguro como la corrección de la hipótesis de que la función PRNG sea realmente PRNG</li>
+                <li>el espacio de claves (de semillas) sea tan grande que sea improbable que un ataque de fuerza bruta 
+                    sea factible</li>
+                <li>que se cumplan las hipótesis de uso</li>
                 </ul>
                 </p>
             </section>
             <section>
-                <h3>Exemples</h3>
+                <h3>Ejemplos</h3>
                 <ul>
-                    <li>RC4 (històric): obsolet</li>
-                    <li><a href="http://cr.yp.to/chacha.html">ChaCha</a>: derivat del <a href="http://cr.yp.to/salsa20.html">Salsa20</a> i probablement única alternativa a l'AES en TLS 1.3 (draft)<br/>
+                    <li>RC4 (histórico): obsoleto</li>
+                    <li><a href="http://cr.yp.to/chacha.html">ChaCha</a>: derivado del <a href="http://cr.yp.to/salsa20.html">Salsa20</a> y probablemente la única alternativa al AES en TLS 1.3 (draft)<br/>
                         <ul><li>$\|k\| = 256$ bit</li><li>$\|\text{nonce}\| = 64$ bit</li></ul>
                     </li>
                 </ul>
@@ -350,10 +347,10 @@
 
 
             <section id="block-cipher">
-                <h1>Xifrats de bloc</h1>
+                <h1>Cifrados de bloque</h1>
             </section>
             <section>
-                <h2>Funcions</h2>
+                <h2>Funciones</h2>
             </section>
 
             <section>
@@ -404,8 +401,8 @@
 
             <section>
                 <!-- <p>$f(d)$ no està definit ja que $f$ no asigna un element d'$Y$ per a tots els elements d'$X$</p> -->
-                <p>per tant $f$ no és una funció sobre $X$
-                    <br/>(o al menys no és una funció "ben definida" sobre $X$)</p>
+                <p>por tanto $f$ no es una función sobre $X$
+                    <br/>(o al menos no es una función "bien definida" sobre $X$)</p>
             </section>
 
             <section>
@@ -464,9 +461,9 @@
                     f : X \rightarrow Y \\
                     \]
                 </p>
-                <p>La funció completa és:<br> $f(a) = 1 \quad f(b) = 4 \quad f(c) = 2$</p>
-                <p>e.g. la imatge de $b$ és $4$, la preimatge de $4$ és $b$</p>
-                <p>Tots els elements d'$Y$ que tenen preimatge segons $f$ és<br>$Im(f) = \{1,2,4 \}$</p>
+                <p>La función completa es:<br> $f(a) = 1 \quad f(b) = 4 \quad f(c) = 2$</p>
+                <p>e.g. la imagen de $b$ es $4$, la preimagen de $4$ es $b$</p>
+                <p>Todos los elementos de $Y$ que tienen preimagen según $f$ es<br>$Im(f) = \{1,2,4 \}$</p>
                 <!-- <div class="fragment">
                     <p>$X$ és el domini d'$f$</p>
                     <p>$Y$ és el codomini d'$f$</p>
@@ -474,7 +471,7 @@
             </section>
 
             <section id="function-bijection">
-                <h3>Funció bijectiva</h3>
+                <h3>Función biyectiva</h3>
                 <!-- <p>o correspondència biunívoca</p> -->
                 <svg width="400" height="310" xmlns="http://www.w3.org/2000/svg">
                     <g>
@@ -506,12 +503,12 @@
                         </marker>
                     </defs>
                 </svg>
-                <p>tots els elements d'$Y$ tenen preimatge o el que és equivalent: $Im(f) = Y$ (per tant, $|X|=|Y|$)</p>
-                <p>per tant, la inversa d'$f$ (que simbolitzarem $f^{-1}$) està "ben definida"</p>
+                <p>todos los elementos de $Y$ tienen preimagen o lo que es equivalente: $Im(f) = Y$ (por tanto, $|X|=|Y|$)</p>
+                <p>por tanto, la inversa de $f$ (que simbolizaremos $f^{-1}$) está "bien definida"</p>
             </section>
 
             <section id="function-inverse">
-                <h3>Funció inversa</h3>
+                <h3>Función inversa</h3>
                 <!-- <p>o correspondència biunívoca</p> -->
                 <svg width="400" height="310" xmlns="http://www.w3.org/2000/svg">
                     <g>
@@ -544,14 +541,14 @@
                         </marker>
                     </defs>
                 </svg>
-                <p>la funció inversa de l'anterior $f^{-1}$</p>
-                <p>tots els elements d'$X$ tenen preimatge</p>
-                <p>i la inversa d'$f^{-1}$ está (òbviament) "ben definida"</p>
-                <p>per tant $f^{-1}$ també és bijectiva</p>
+                <p>la función inversa de la anterior $f^{-1}$</p>
+                <p>todos los elementos de $X$ tienen preimagen</p>
+                <p>y la inversa de $f^{-1}$ está (obviamente) "bien definida"</p>
+                <p>por tanto $f^{-1}$ también es biyectiva</p>
             </section>
 
             <section id="function-permutation">
-                <h3>permutació</h3>
+                <h3>permutación</h3>
                 <svg width="400" height="310" xmlns="http://www.w3.org/2000/svg">
                     <g>
                         <title>Layer 1</title>
@@ -588,118 +585,118 @@
                     \end{aligned} \\
                     f : X \rightarrow X
                     \]</p>
-                <p>una permutació és una funció bijectiva d'$X$ sobre sí mateix</p>
+                <p>una permutación es una función biyectiva de $X$ sobre sí mismo</p>
             </section>
 
             <section>
-                <h3>Xifrat de bloc: model</h3>
-                <p>podem representar el xifrat con una permutació $f$</p>
+                <h3>Cifrado de bloque: modelo</h3>
+                <p>podemos representar el cifrado con una permutación $f$</p>
                 <p>$f : X\rightarrow X$</p>
-                <p>on $X$ és el conjunt de possibles blocs (tant de text en clar i xifrat)</p>
-                <p>i podem representar la funció de desxifrat com a la seva inversa $f^{-1}$
+                <p>donde $X$ es el conjunto de posibles bloques (tanto de texto en claro como cifrado)</p>
+                <p>y podemos representar la función de descifrado como su inversa $f^{-1}$
                 </p>
                 <p>$f^{-1} : X\rightarrow X$</p>		
-                <p>és a dir:</p>
+                <p>es decir:</p>
                 <p>$\begin{aligned}
                     c &= f(m) \\
                     m &= f^{-1}(c)
                     \end{aligned}$</p>
             </section>
             <section>
-                <h3>Xifrat de bloc: mida</h3>
+                <h3>Cifrado de bloque: mida</h3>
                 <p>$\begin{aligned}
                     f &: X \rightarrow X \\
                     f &: \{0,1\}^n \rightarrow \{0,1\}^n
                     \end{aligned}$</p>
-                <p>si implementem $f$ en una taula con $2^n$ entrades, ocupem $n·2^n$ bit</p>
+                <p>si implementamos $f$ en una tabla con $2^n$ entradas, ocupamos $n·2^n$ bit</p>
                 <span class="fragment">
-                  <p>on $n$ és la mida del <u>bloc</u></p>
-                  <p>(si tenim missatges més llargs d'$n$ haurem de segmentar-los en blocs: <a href="#mode-of-operation">modes d'operació</a>)</p>
+                  <p>donde $n$ es el tamaño del <u>bloque</u></p>
+                  <p>(si tenemos mensajes más largos que $n$ deberemos de segmentarlos en bloques: <a href="#mode-of-operation">modos de operación</a>)</p>
                 </span>
             </section>
             <section id="random-permutation">
-                <h3>Xifrat de bloc: permutació aleatoria</h3>
-                <p>aquestes $2^{n}$ entrades (de longitud $n$) les haurem d'escollir de forma aleatòria</p>
-                <p>de forma que no podrem conèixer $f(x)$ sense conèixer la taula</p>
+                <h3>Cifrado de bloque: permutació aleatoria</h3>
+                <p>estas $2^{n}$ entradas (de longitud $n$) las deberemos escoger de forma aleatoria</p>
+                <p>de forma que no podremos conocer $f(x)$ sin conocer la tabla</p>
                 <p>$\downarrow$</p>
                 <p>RP: <em>Random Permutation</em></p>
             </section>
             <section>
-                <h3>Xifrat de bloc: model</h3>
-                <p>per exemple, per <a href="#des">DES</a> que té una mida de bloc d'$n=64\text{ b}$ ens calen:</p>
+                <h3>Cifrado de bloque: modelo</h3>
+                <p>por ejemplo, para <a href="#des">DES</a> que tiene un tamaño de bloque de $n=64\text{ b}$ hacen falta:</p>
                 <p>$64·2^{64} \text{ b} = 2^{70} \text{ b} = 2^{67}\text{ B} = 2^{37}\text{ GB} = 128\text{ EB}$</p>
-                <p>... <span class="fragment">per a cadascuna de les claus $k$</span></p>
-                <p class="fragment">òbviament no és factible implementar els xifrats moderns directament con una taula indexada</p>
+                <p>... <span class="fragment">para cada una de les claves $k$</span></p>
+                <p class="fragment">obviamente no es factible implementar els xifrats moderns directament con una taula indexada</p>
             </section>
 
             <section>
-                <h3>Xifrat de bloc: $f_k$</h3>
-                <p>en realitat per a que el xifrat sigui segur necessitarem una "familia" de funcions equivalents però
-                    diferents. Les indexarem en funció de la clau, $k$:</p>
+                <h3>Cifrado de bloque: $f_k$</h3>
+                <p>en realidad para que el cifrado sea seguro necesitaremos una "familia" de funciones equivalentes pero
+                    diferentes. Les indexarem en funció de la clau, $k$:</p>
                 <p>$\begin{aligned}
                     f_k &: X \rightarrow X \\
                     f_k &: \{0,1\}^n \rightarrow \{0,1\}^n
                     \end{aligned}$</p>
-                <p>o també, podem redefinir $f$ i afegir-li $k$ com a paràmetre:</p>
+                <p>o también, podemos redefinir $f$ y añadirle $k$ como parámetro:</p>
                 <p>$\begin{aligned}
                     f &: K \times X \rightarrow X \\
                     f &: \{0,1\}^{\|k\|} \times \{0,1\}^n \rightarrow \{0,1\}^n
                     \end{aligned}$</p>
                 </p>
-                <p>on $K$ és l'<em>espai</em> de claus $k$ (o <em>conjunt</em> de claus)</p>
+                <p>donde $K$ es el <em>espacio</em> de claves $k$ (o <em>conjunto</em> de claves)</p>
             </section>
 
             <section id="pseudo-random-permutation">
-                <h3>Xifrat de bloc:
-                    <br/>permutació pseudoaleatòria</h3>
-                <p>igual que per al xifrat de flux ens calia un flux de bits aparentment aleatoris per a qui no tingués
-                    la llavor (la clau $k$)...</p>
-                    <p>...per a xifrat de bloc farem servir permutacions pseudoaleatòries (PRP*) en les que la
-                    permutació serà aparentment aleatòria per algú que no conegui la clau</p>
+                <h3>Cifrado de bloque:
+                    <br/>permutación pseudoaleatoria</h3>
+                <p>igual que para el cifrado de flujo nos hacía falta un flujo de bits aparentmente aleatorio para quien no tuviera
+                    la semilla (la clave $k$)...</p>
+                    <p>...para cifrado de bloque utilizaremos permutaciones pseudoaleatorias (PRP*) en les que la
+                    permutación será aparentmente aleatoria para alguien que no conozca la clave</p>
                 <span class="fragment">
-                    <p>això ens permetrà fer xifrats de bloc factibles, intercanviant una quantitat immensa de memòria
-                    per una computació abordable</p>
+                    <p>esto nos permitirá realizar cifrados de bloque factibles, intercambiando una cantidad inmensa de memoria
+                        por una computación abordable</p>
                 </span>
                 <p>PRP: <em>Pseudo Random Permutation</em></p>
             </section>
             <section>
-                <h3>Xifrat de bloc:
-                    <br/>permutació pseudoaleatòria</h3>
-                <p>com en el cas de PRNG, per seguretat cal que les PRP siguin indistingibles de les RP</p>
+                <h3>Cifrado de bloque:
+                    <br/>permutación pseudoaleatoria</h3>
+                <p>como en el cas de PRNG, por seguridad hace falta que las PRP sean indistinguibles de las RP</p>
                 <span class="fragment">
-                    <p>a més cal que tant $f_k$ com $f_k^{-1}$ es puguin calcular de forma eficient</p>
+                    <p>además hace falta que tanto $f_k$ como $f_k^{-1}$ se puedan calcular de forma eficiente</p>
                 </span>
             </section>
 
             <section>
-                <h1>construcció de xifrats de bloc</h1>
+                <h1>construcción de cifrados de bloque</h1>
             </section>
 
             <section>
-                <h3>xifrats de bloc: classes bàsiques</h3>
-                <p>hi ha dues classes de xifrat de bloc
-		  <br/>(és a dir, dues maneres d'implementar
+                <h3>Cifrados de bloque: clases básicas</h3>
+                <p>hay dos clases de cifrado de bloque
+		  <br/>(es decir, dos maneras de implementar
 		  <span title="Permutació Pseudoaleatòria">PRP</span>)</p>
                 <ul>
-                    <li>xifrat de <u>substitució</u>
+                    <li>cifrado de <u>sustitución</u>
                         <ul class="fragment">
-                            <li>monoalfabètics ($\approx$ César)</li>
-                            <li><u>polialfabètics</u> (Vigenère)</li>
+                            <li>monoalfabéticos ($\approx$ César)</li>
+                            <li><u>polialfabéticos</u> (Vigenère)</li>
                         </ul>
                     </li>
-                    <li>xifrat de <u>transposició</u></li>
+                    <li>Cifrados de <u>transposición</u></li>
                 </ul>
-                <p class="fragment">a partir d'ara farem servir $e()$ i $d()$ en lloc<br/>de les $f()$ i $f^{-1}()$ usades fins ara</p>
+                <p class="fragment">a partir de ahora utilizaremos $e()$ y $d()$ en lugar<br/>de las $f()$ y $f^{-1}()$ utilizadas hasta ahora</p>
             </section>
             <section>
-                <h3>xifrats de bloc: composició</h3>
-                <p>per si sols, les 3 classes bàsiques de xifrat de bloc són insegures</p>
-                <p>però combinant-les podem obtenir seguretat creixent</p>
+                <h3>Cifrados de bloque: composición</h3>
+                <p>por si solas, las 3 clases básicas de cifrado de bloque son inseguras</p>
+                <p>pero combinandolas podemos obtener seguridad creciente</p>
             </section>
 
             <section>
-                <h3>substitució polialfabètica</h3>
-                <p>per a un bloc de longitud $t$ elements, el que fem és fer servir $t$ permutacions $p()$ independents</p>
+                <h3>substitución polialfabética</h3>
+                <p>para un bloque de longitud $t$ elementos, lo que haremos es utilizar $t$ permutaciones $p()$ independentes</p>
                 <table>
                     <tbody>
                     <tr>
@@ -718,19 +715,19 @@
                     </tr>
                     </tbody>
                 </table>
-                <p>i simplement: $d$ és la seqüència de permutacions inverses $f^{-1}$</p>
-                <p>(el xifrat de <a href="intro.html#vigenere">Vigenère</a> és un tipus de xifrat de substitució polialfabètica)</p>
+                <p>y simplemente: $d$ es la secuencia de permutaciones inversas $f^{-1}$</p>
+                <p>(el cifrado de <a href="intro.html#vigenere">Vigenère</a> es un tipo de cifrado de substitución polialfabética)</p>
             </section>
 
             <section>
-                <h3>substitució polialfabètica: seguretat</h3>
-                <p>com en el cas de Vigenère podem recuperar el text original mitjançant <a href="intro.html#vigenere-frequency-analysis">anàlisi freqüencial</a></p>
+                <h3>substitución polialfabética: seguridad</h3>
+                <p>como en el caso de Vigenère podemos recuperar el texto original mediante <a href="intro.html#vigenere-frequency-analysis">análisis frecuencial</a></p>
             </section>
 
             <section>
-                <h3>transposició</h3>
-                <p>per a un bloc de longitud $t$ elements, el que fem és moure els mateixos elements entre sí</p>
-                <p>per exemple, en un sistema con blocs de 4 lletres una funció $e$ de xifrat podria ser:</p>
+                <h3>transposición</h3>
+                <p>para un bloque de longitud $t$ elementes, lo que hacemos es mover los mismos elementos entre sí</p>
+                <p>por ejemplo, en un sistema con bloque de 4 letras una función $e$ de cifrado podría ser:</p>
                 <table>
                     <tbody>
                     <tr>
@@ -749,18 +746,18 @@
                     </tr>
                     </tbody>
                 </table>
-                <p>i simplement: $d = e^{-1}$</p>
+                <p>y simplemente: $d = e^{-1}$</p>
             </section>
 
             <section>
-                <h3>transposiciÓ: seguretat</h3>
-                <p>òbviament són insegurs ja que no només la freqüència dels símbols d'entrada és manté, si no que els
-                    propis símbols es mantenen (tot i que en posicions modificades)</p>
+                <h3>transposición: seguridad</h3>
+                <p>obviamente son inseguros ya que no solo la frecuencia de los símbolos de entrada se mantiene, si no que los
+                    propios símbolos se mantiene (aunque en posiciones diferentes)</p>
             </section>
 
             <section>
-                <h3>composició de xifrats de bloc</h3>
-                <p>una composició de dos xifrats de bloc, la podem escriure:</p>
+                <h3>composición de cifrados de bloque</h3>
+                <p>una composición de dos cifrados de bloque, la podemos escribir:</p>
                 <p>$\begin{aligned}
                     c_1 &= e_1(k_1, m)\\
                     c_2 &= e_2(k_2, c_1)\\
@@ -768,22 +765,22 @@
                     c &= e_1(k_n, c_{n-1})\\
                     \end{aligned}$</p>
                 <span class="fragment">
-                    <p>cadascuna de les claus $k_i$ pot ser independent, però habitualment és genera en un procés anomenat
-                    expansió de clau:
+                    <p>cada una de las clave $k_i$ puede ser independiente, pero habitualmente se genera en un procéso denominado
+                    expansión de clave:
                         <br/><p>$k \xrightarrow{\text{PRNG}} \{k_1, k_2, \dotsc, k_n\}$</p></p>
                 </span>
             </section>
             <section>
-                <h3>composició de xifrats de bloc: </h3>
-                <p>objectius de la composició:</p>
+                <h3>composición de cifrados de bloque: </h3>
+                <p>objetivos de la composición:</p>
                 <ul>
-                    <li><strong>substitució</strong>: dóna <em>confusió</em>, que permet dificultar l'obtenció de la clau a partir
-                        del text xifrat</li>
-                    <li><strong>transposició</strong>: dóna <em>difusió</em>, que permet difondre les redundàncies del text en clar, de
-                        forma que no apareguin en el text xifrat</li>
+                    <li><strong>substitución</strong>: da <em>confusión</em>, que permite dificultar la obtención de la clave a partir
+                        del texto cifrado</li>
+                    <li><strong>transposición</strong>: da <em>difusión</em>, que permite difundir las redundancias del texto en claro, de
+                        forma que no aparezcan en el texto cifrado</li>
                 </ul>
-                <p><strong>etapes</strong> o <em>rounds</em>: les dues funcions s'agrupen en parelles i s'apliquen diferents cops
-                    (con diferents claus) fins a obtenir un xifrat segur</p>
+                <p><strong>etapas</strong> o <em>rounds</em>: las dos funciones se agrupan en parejas y se aplican varias veces
+                    (con diferentes claves) hasta obtener un cifrado seguro</p>
                 <p>$c_i = e_1(k_i, c_{i-1})$</p>
             </section>
             <section>
@@ -792,10 +789,10 @@
             </section>
             <section id="aes">
                 <h3>AES</h3>
-                <p>AES és un xifrat de bloc con:</p>
+                <p>AES es un cifrado de bloque con:</p>
                 <ul>
-                    <li>bloc: $128$ bit ($16$ Byte)</li>
-                    <li>clau:
+                    <li>bloque: $128$ bit ($16$ Byte)</li>
+                    <li>clave:
                         <ul>
                             <li>$128$ bit $\implies$ 10 etapes</li>
                             <li>$192$ bit $\implies$ 12 etapes</li>
@@ -807,15 +804,15 @@
             <section>
                 <section>
                     <h3>AES</h3>
-                    <p>cadascuna de les 10|12|14 etapes es composa de</p>
+                    <p>cada una de las 10|12|14 etapas se compone de</p>
                     <ul>
-                        <li><code>SubBytes</code>: substitució de bytes en funció d'una taula fixa de 256 entrades</li>
-                        <li><code>ShiftRows</code>: transposició de bytes fixa</li>
+                        <li><code>SubBytes</code>: sustitución de bytes en función de una tabla fija de 256 entradas</li>
+                        <li><code>ShiftRows</code>: transposición de bytes fija</li>
                         <li><code>MixColumns</code>: 4
-			  <a href="https://en.wikipedia.org/wiki/Finite_field_arithmetic#Rijndael.27s_finite_field">multiplicacions modulars</a> de 4 Byte, valors fixes</li>
+			  <a href="https://en.wikipedia.org/wiki/Finite_field_arithmetic#Rijndael.27s_finite_field">multiplicaciones modulares</a> de 4 Byte, valores fijos</li>
                         <li><code>AddRoundKey</code>: $\text{bloc} \oplus k_{i}$ (subclau $k_{i}$)</li>
                     </ul>
-                    <p>això xifra el bloc, i es passa al següent on es fa el mateix canviant la la subclau </p>
+                    <p>esto cifra el bloque, y se pasa al siguiente donde se hace lo mismo pero cambiando la subclave</p>
                 </section>
                 <section>
                     <p><code>SubBytes</code></p>
@@ -839,21 +836,21 @@
                 </section>
             </section>
             <section>
-                <h3>Expansió de clau</h3>
-                <p>Cadascuna de les etapes (<em>rounds</em>) fa servir una subclau $k_{i}$ diferent</p>
-                <p>cadascuna de les subclaus $k_{i}$ es <a title="AES key expansion" href="https://en.wikipedia.org/wiki/Rijndael_key_schedule">deriva</a> de la clau $k$</p>
+                <h3>Expansión de clave</h3>
+                <p>Cada una de las etapas (<em>rounds</em>) utiliza una subclave $k_{i}$ diferente</p>
+                <p>cada una de les subclaves $k_{i}$ se <a title="AES key expansion" href="https://en.wikipedia.org/wiki/Rijndael_key_schedule">deriva</a> de la clave $k$</p>
                 <p><br/></p>
-                <p>Nota 1: les subclaus s'apliquen ($\oplus$) "entre" les etapes per tant cal una subclau més que etapes (11|13|15)</p>
-                <p>Nota 2: calen més etapes en els AES de clau llarga per "aplicar" el major espai de claus sobre el missatge en clar</p>
+                <p>Nota 1: las subclaves se aplican ($\oplus$) "entre" las etapas por tanto hace falta una subclave más que etapas hay (11|13|15)</p>
+                <p>Nota 2: hacen falta más etapas en los AES de clave larga para "aplicar" el mayor espacio de claves sobre el mensaje en claro</p>
             </section>
 
             <section>
-                <h3>AES: vulnerabilitats</h3>
+                <h3>AES: vulnerabilidades</h3>
                 <span class="fragment">
-                    <p>...l'estadística del missatge en clar apareix a al text xifrat igual que en el xifrat del Cèsar (!)</p>
-                    <p>ara els blocs són de $16$ B, no d'$1$ B per tant l'estadística és menys important
-                        <br/>($|\text{bloc}|=2^{128}$), però en seqüències constants
-                    (per exemple, com les d'imatges bitmap) es poden donar blocs sencers idèntics
+                    <p>...la estadística del mensaje en claro aparece a al text cifrado igual que en el cifrado del Cèsar (!)</p>
+                    <p>ahora los bloques son de $16$ B, no d'$1$ B por tanto la estadística es menos importante
+                        <br/>($|\text{bloc}|=2^{128}$), pero en secuencias constantes
+                    (por ejemplo, como las de un gráfico) se pueden dar bloques enteros idénticos
                     </p>
                 </span>
                 <span class="fragment">
@@ -865,7 +862,7 @@
             </section>
 
             <section>
-                <h3>modes d'operació</h3>
+                <h3>modos de operación</h3>
                 <p>aquesta "vulnerabilitat" és una <u>propietat</u> de tots els xifrats de bloc</p>
                 <p>la contramesura és per tots la mateixa: no xifrar mai bloc a bloc, cal acumular part del xifrat anterior
                 en el bloc actual</p>
