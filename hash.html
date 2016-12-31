@@ -85,8 +85,8 @@
                 una funció de hash <u>segura</u> ha de fer que <em>sigui infactible</em> trobar-los</p>
                 <span class="fragment">
                     <p>donat un missatge $m$ amb un resum $r = h(m)$ trobar un missatge amb el mateix resum
-                    $m$ la manera més eficient ha de ser generar missatges fins a trobar una altre amb el mateix $r$</p>
-                    <p>e.g. si el resum és de $\|r\| = 256$ llavors haurem de fer uns $2^{256}$ operacions de hash fins
+                    $m$ la manera més eficient ha de ser generar missatges fins a trobar una altre amb el mateix resum $r$</p>
+                    <p>e.g. si el resum és de $\|r\| = 256$ llavors haurem de fer unes $\frac{2^{256}}{2} = 2^{255}$ operacions de hash fins
                     a trobar-ne un d'igual</p>
                 </span>
             </section>
@@ -125,7 +125,7 @@
             </section>
 
             <section>
-                <h3>SHA-2 ò SHA-3</h3>
+                <h3>SHA-2 ò SHA-3?</h3>
                 <p>els primers estan dissenyats per l'NSA, i els segons escollits pel NIST després d'organitzar una
                     competició per a definir el següent hash a utilitzar</p>
                 <p>el SHA-3 s'ha desenvolupat tenint en compte l'eficiència i com a backup cas de trobar vulnerabilitats
@@ -179,9 +179,11 @@
                 <p>cal vigilar que la seguretat amb la que protegim els missatges individuals, cal extrapolar-la a
                     seqüències de missatges (sessions)</p>
                 <p>si no fem res més del que hem comentat fins ara, seriem vulnerables a atacs:</p>
-                <p>de rèplica (<em>replay attacks)</em>)</p>
-                <p>de reordenat</p>
-                <p>de reflexió</p>
+                <ul>
+                <li>de rèplica (<em>replay attacks</em>)</li>
+                <li>de reordenat</li>
+                <li>de reflexió</li>
+                </ul>
             </section>
 
 	    <section>
