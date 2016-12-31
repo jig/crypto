@@ -59,12 +59,12 @@
             </section>
 
             <section>
-                <h3>MAC: objectiu</h3>
-                <p>prova d'integritat:
-                <br/>impedeix que un atacant pugui modificar el missatge sense que el receptor se n'adoni</br>
+                <h3>MAC: objetivo</h3>
+                <p>pruebas de integridad:
+                <br/>impiden que un atacante pueda modificar el mensaje sin que el receptor se lo detecte</br>
                 <p>aquesta funcionalitat és ortogonal amb el xifrat:
                     <br/>xifrat i MAC es fan servir juntes per a obtenir confidencialitat i integritat</p>
-                <p class="fragment">Nota sobre el xifrat: un atacant pot modificar el missatge, encara que no el pugui
+                <p class="fragment">Nota sobre el xifrat: un atacant pot modificar el mensaje, encara que no el pugui
                 llegir
                     <br/>(fins hi tot en alguns casos pot realitzar operacions: e.g. $\oplus$ en xifrat de flux)</p>
             </section>
@@ -82,7 +82,7 @@
 
             <section>
                 <h3>MAC: funcionament</h3>
-                <p>ens caldrà una clau secreta que aplicarem al missatge amb la funció $\text{MAC}$:</p>
+                <p>ens caldrà una clau secreta que aplicarem al mensaje amb la funció $\text{MAC}$:</p>
                 <p><!-- tag -->$t = \text{MAC}(k, m)$</p>
 
                 <svg width="480" height="120" xmlns="http://www.w3.org/2000/svg">
@@ -119,7 +119,7 @@
                 <h3>MAC: primera implementació</h3>
                 <p>$t = e(k, m)$</p>
                 <p>aquesta construcció té una limitació:
-                <br/>només podem autenticar <u>missatges de la longitud de bloc</u></p>
+                <br/>només podem autenticar <u>mensajes de la longitud de bloc</u></p>
                 <span class="fragment">
                     <p>Alternatives: ECBC i <a href="hash.html#hmac">HMAC</a></p>
                 </span>
@@ -136,7 +136,7 @@
 
             <section>
                 <h3>ECBC-MAC</h3>
-                <p>rawCBC-MAC és insegur ja que un atacant pot combinar missatges bons per generar-ne de <em title="aparentment">"bons"</em></p>
+                <p>rawCBC-MAC és insegur ja que un atacant pot combinar mensajes bons per generar-ne de <em title="aparentment">"bons"</em></p>
                 <p>per evitar el problema podem canviar l'$\text{IV}=0$ per la longitud inicial $\text{IV}=\ell$</p>
             </section>
 
@@ -156,7 +156,7 @@
                 <p>e.g. en el cas de l'AES el bloc és de $128$ b, per tant, no podrem fer servir la mateixa clau:
                 <br/>$\text{ops} \ll \sqrt{2^{128}} = 2^{64}$</p>
                 <p>(valors acceptats per una clau AES-128/192/256:
-                    <br/> $2^{48}$ missatges autenticats)</p>
+                    <br/> $2^{48}$ mensajes autenticats)</p>
             </section>
 
             <section>
