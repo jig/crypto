@@ -42,7 +42,7 @@
         <div class="slides">
 
             <section>
-                <h1>Funcions<br/>de hash</h2>
+                <h1>Funciones<br/>de hash</h2>
                     <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
 
 				<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">
@@ -57,18 +57,18 @@
             </section>
 
             <section>
-                <h3>Funció de hash: objectius</h3>
-                <p>resumeix una cadena de longitud arbitrària $m$,<br/> a un valor de mida fixa $r$ (el resum):</p>
+                <h3>Función de hash: objetivos</h3>
+                <p>resume una cadena de longitud arbitraria $m$,<br/> a un valor de tamaño fijo $r$ (el resumen):</p>
                 <p>$r = h(m)$</p>
-                <p>addicionalment, cal que la funció dongui resums diferents per missatges diferents...</p>
+                <p>adicionalmente, hace falta que la función de resúmenes diferentes para mensajes diferentes...</p>
             </section>
 
             <section>
-                <h3>Col·lisions</h3>
-                <p>...és <u>impossible</u> garantir que una funció generi valors diferents per missatges diferents ja que
-                l'espai de resums és molt inferior a l'espai de missatges:
+                <h3>Colisiones</h3>
+                <p>...es <u>imposible</u> garantizar que una función genere valores diferentes para mensajes diferentes ya que
+                el espacio de resumenes es muy inferior al espacio de mensajes:
                     <br/>$\|r\| \ll \|m\|$</p>
-                <p class="fragment">per exemple si:
+                <p class="fragment">por ejemplo si:
                     <br/>
                     $\left.
                     \begin{aligned}
@@ -80,108 +80,111 @@
             </section>
 
             <section>
-                <h3>Funció de hash: objectius</h3>
-                <p>tot i que per a cada resum $r$ hi ha una enorme quantitat de missatges que el comparteixen (hi col·lisionen)
-                una funció de hash <u>segura</u> ha de fer que <em>sigui infactible</em> trobar-los</p>
+                <h3>Función de hash: objetivos</h3>
+                <p>aunque cada resumen $r$ es compartido por una gran cantidad de mensajes (colisiones)
+                una función de hash <u>segura</u> hace que <em>sea infactible</em> encontrar dichas duplicidades</p>
                 <span class="fragment">
-                    <p>donat un missatge $m$ amb un resum $r = h(m)$ trobar un missatge amb el mateix resum
-                    $m$ la manera més eficient ha de ser generar missatges fins a trobar una altre amb el mateix $r$</p>
-                    <p>e.g. si el resum és de $\|r\| = 256$ llavors haurem de fer uns $2^{256}$ operacions de hash fins
-                    a trobar-ne un d'igual</p>
+                    <p>dado un mensaje $m$ con un resumen $r = h(m)$ encontrar un mensaje con el mismo resumen
+                        $m$ la manera más eficiente tiene que ser generar mensajes hasta encontrar otro con el mismo resumen $r$</p>
+                    <p>e.g. si el resumen es de $\|r\| = 256$ entonces deberemos realizar $2^{256}$ operaciones de hash hasta
+                    encontrar una igual</p>
                 </span>
             </section>
 
             <section id="birthday-paradox">
-                <h3>Problema de l'aniversari</h3>
+                <h3>Paradoja del cumpleaños</h3>
                 <p>(<em>Birthday paradox</em>)</p>
-                <p>hi ha un atac millor que l'anterior de força bruta, que deriva de
-                    <br/>la paradoxa de l'aniversari:</p>
-                    <p><em>&ldquo;si tenim un grup de 23 persones, la probabilitat de tenir un parell amb la mateixa data d'aniversari
-                    és del 50%&rdquo;</em></p>
-                <p>només cal un grup de 70 persones per a que la probabilitat augmenti al 99%</p>
-                <p class="fragment">en general, $p=0.5$ si el nombre d'experiments és $x \approx 1,25 \sqrt{\text{elements}}$</p>
+                <p>hay un ataque mejor que el anterior de fuerza bruta, que deriva de
+                    <br/>la paradoja del cumpleaños:</p>
+                    <p><em>&ldquo;si tenemos un grupo de 23 personas, la probabilidad de tener un par con la misma fecha de cumpleaños
+                    es del 50%&rdquo;</em></p>
+                <p>sólo hace falta que el grupo llegue a 70 personas para que la probabilidad sea del 99%</p>
+                <p class="fragment">en general, $p=0.5$ si la cantidad de experimentos es $x \approx 1,25 \sqrt{\text{elementos}}$</p>
             </section>
 
             <section  id="birthday-attack">
-                <h3>Atac de l'aniversari</h3>
+                <h3>Ataque del cumpleaños</h3>
                 <p>(<em>Birthday attack</em>)</p>
-                <p>si tenim un hash de mida $\|r\|$ la probabilitat de col·lisió serà molt alta quan ens apropem
-                    a les $\sqrt{|r|}$ operacions</p>
-                <p>e.g per a $\|r\| = 256\text{ b}$ això són unes $2^{128}$ operacions</p>
-                <p class="fragment">això implica que per a un hash cal resums el doble de llargs del que calia per les
-                    claus per a obtenir el mateix nivell de seguretat</p>
-                <p class="fragment">(la <em>security strength</em> d'una funció de hash de longitud $b$ bits és $b/2$)</p>
+                <p>si tenemos un hash de tamaño $\|r\|$ la probabilidad de colisión será muy alta a medida que nos acercamos
+                    a las $\sqrt{|r|}$ operaciones</p>
+                <p>e.g para $\|r\| = 256\text{ b}$ esto son unas $2^{128}$ operaciones</p>
+                <p class="fragment">esto implica que para un hash hacen falta resumenes el doble de largos de lo que hacía falta para las
+                    claves para obtener el mismo nivel de seguridad</p>
+                <p class="fragment">(la <em>security strength</em> de una función de hash de longitud $b$ bits es $b/2$)</p>
             </section>
 
             <section>
-                <h3>exemples</h3>
-                <p>els hashos recomenats en l'actualitat són els SHA-2 i el SHA-3</p>
+                <h3>ejemplos</h3>
+                <p>los hashes recomendados en la actualidad son el SHA-2 y el SHA-3</p>
                 <ul>
-                    <li>SHA-2: longituds de $256$ b i $512$ b (amb variants truncades de $224$ b i $384$ b)</li>
-                    <li>SHA-3: longituds entre $224$ b a $512$ b</li>
+                    <li>SHA-2: longitudes de $256$ b y $512$ b (con variantes truncadas de $224$ b y $384$ b)</li>
+                    <li>SHA-3: longitudes entre $224$ b a $512$ b</li>
                 </ul>
-                <p>longituds aproximadament el doble que les longituds de claus que les claus de l'AES ($128$ b, $192$ b, $256$ b)
-		  per a una seguretat equivalent</p>
+                <p>longitudes aproximadamente el doble que las longitudes de claves que las claves de AES ($128$ b, $192$ b, $256$ b)
+		  para una seguridad equivalente</p>
             </section>
 
             <section>
-                <h3>SHA-2 ò SHA-3</h3>
-                <p>els primers estan dissenyats per l'NSA, i els segons escollits pel NIST després d'organitzar una
-                    competició per a definir el següent hash a utilitzar</p>
-                <p>el SHA-3 s'ha desenvolupat tenint en compte l'eficiència i com a backup cas de trobar vulnerabilitats
-                    en el SHA-2 (disseny totalment diferent)</p>
-                <p>SHA-2 ara per ara té un treball d'anàlisi molt superior<br/>
-                    al SHA-3</p>
+                <h3>¿SHA-2 ó SHA-3?</h3>
+                <p>los primeros están diseñados por la NSA, y los segundos escogidos por el NIST después de organizar una
+                    competición para definir el siguiente hash a utilizar</p>
+                <p>el SHA-3 se ha desarrollado teniendo en cuenta la eficiencia y como backup en caso de encontrar vulnerabilidades
+                    en el SHA-2 (diseños totalmente diferentes)</p>
+                <p>el SHA-2 hasta ahora ha sido sometido a un trabajo de <br/>
+                    análisis muy superior al SHA-3</p>
             </section>
 
             <section id="hmac">
                 <h1>HMAC</h1>
-                <p>MACs basats en funcions de hash</p>
+                <p>MACs basados en funciones de hash</p>
             </section>
 
-            <section>
-                <h3>HMAC basat en Hash+MAC</h3>
-                <p>si fem servir un MAC per missatges de mida fixa
-                    <br/>(directament <a href="mac.html#fixed-cbc">xifrant un bloc</a>)</p>
-                <p>podem fer un HMAC així:
+            <section data-background="#FF8888">
+                <h3>HMAC basado en Hash+MAC</h3>
+                <p>si utilizamos un MAC para mensajes de tamaño fijo
+                    <br/>(directamente <a href="mac.html#fixed-cbc">cifrando un bloque</a>)</p>
+                <p>podemos implementar una HMAC así:
                 <br/>$t = \text{MAC}(k, h(m))$</p>
             </section>
 
             <section>
                 <h3>SHA2-HMAC</h3>
-                <p>el HMAC que es fa servir habitualment fa servir com a xifrat el propi hash i $\oplus$</p>
+                <p>el HMAC que se utiliza habitualmente utiliza como cifrado<br/>
+                    el propio hash y $\oplus$</p>
                 <p>
                     $\begin{aligned}
                     k_\text{o} = k \oplus \text{opad} \; &| \; \text{opad} = \text{5C5C}\cdots \\
                     k_\text{i} = k \oplus \text{ipad} \; &| \; \text{ipad} = \text{3636}\cdots \\
                     \end{aligned}$</p>
                 <p>$t = \color{red}{h}( k_\text{o} \, \| \, \color{red}{h}( k_\text{i} \| m ) )$</p>
-                <p>Nota: $\|$ denota concatenació</p>
-                <p class="fragment">Nota: variants òbvies com $t = h(k \| m)$ són insegures <a href="http://cacr.uwaterloo.ca/hac/about/chap9.pdf">[9.64][9.65]</a></p>
+                <p>Nota: $\|$ denota concatenación</p>
+                <p class="fragment">Nota: variantes obvias como $t = h(k \| m)$ son inseguras <a href="http://cacr.uwaterloo.ca/hac/about/chap9.pdf">[9.64][9.65]</a></p>
                 <!-- SHA-3 HMAC encara no està definit -->
             </section>
 
             <section>
-                <h3>xifrar i autenticar</h3>
+                <h3>cifrar y autenticar</h3>
                 <p><em>(Authenticated Encryption)</em></p>
-                <p>aquestes dues funcions es fan servir juntes molt sovint</p>
-                <p>enviarem la concatenació $(c, t)$ on:<br/>
+                <p>estas dos funciones se utilizan juntas frecuentemente</p>
+                <p>enviaremos la concatenación $(c, t)$ donde:<br/>
                     $\begin{aligned}
                     c &= e(k_e, m) \\
                     t &= \text{MAC}(k_t, c)
                     \end{aligned}$</p>
-                <p class="fragment">Nota: fer $t = \text{MAC}(k_t, \color{red}{m})$ no garanteix que la funció MAC no reveli
-                cap detall d'$m$ (en realitat ho fa: si dos missatges són iguals, un atacant ho sabrà simplement inspeccionant $t$ i $t'$</p>
+                <p class="fragment">Nota: hacer $t = \text{MAC}(k_t, \color{red}{m})$ no garantiza que la función MAC no revele
+                ningún de detalle de $m$ (en realidad sí lo hace: si dos mensajes son iguales, un atacante lo sabrá simplemente inspeccionando $t$ y $t'$</p>
             </section>
 
             <section>
-                <h3>seguretat en conjunts de missatges</h3>
-                <p>cal vigilar que la seguretat amb la que protegim els missatges individuals, cal extrapolar-la a
-                    seqüències de missatges (sessions)</p>
-                <p>si no fem res més del que hem comentat fins ara, seriem vulnerables a atacs:</p>
-                <p>de rèplica (<em>replay attacks)</em>)</p>
-                <p>de reordenat</p>
-                <p>de reflexió</p>
+                <h3>seguredad en conjuntos de mensajes</h3>
+                <p>hace falta vigilar que la seguridad con la que protegemos los mensajes individuales, debe extrapolarse a
+                    secuencias de mensajes (la sesión)</p>
+                <p>si no hacemos nada más que lo comentado hasta ahora, seriemos vulnerables a ataques:</p>
+                <ul>
+                <li>de réplica (<em>replay attacks</em>)</li>
+                <li>de reordenado</li>
+                <li>de reflexión</li>
+                </ul>
             </section>
 
 	    <section>
