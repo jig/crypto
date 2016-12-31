@@ -863,25 +863,25 @@
 
             <section>
                 <h3>modos de operación</h3>
-                <p>aquesta "vulnerabilitat" és una <u>propietat</u> de tots els xifrats de bloc</p>
-                <p>la contramesura és per tots la mateixa: no xifrar mai bloc a bloc, cal acumular part del xifrat anterior
-                en el bloc actual</p>
-                <p>aquest encadenament se'n diu <a href="#mode-of-operation">modes d'operació</a>
-                    <br/>(i no és opcional)</p>
-                <p class="fragment">els modes d'operació s'han d'aplicar a tots els xifrats de bloc</p>
+                <p>esta "vulnerabilidad" es una <u>propiedad</u> de todos los cifrados de bloque</p>
+                <p>la contramedida es la misma para todos: no cifrar nunca bloque a bloque, si no cifrar parte del bloque anterior
+                    en el bloque actual</p>
+                <p>este encadenamiento se denomina <a href="#mode-of-operation">modo de operación</a>
+                    <br/>(y no es opcional)</p>
+                <p class="fragment">los modos de operación se deben aplicar a todos los cifrados de bloque</p>
             </section>
 
             <section id="mode-of-operation">
                 <section>
-                    <h3>Modes d'operació</h3>
-                    <p>si acumulem estat durant el xifrat, podem fer servir aquest estat sobre el xifrat del següent bloc</p>
+                    <h3>Modos de operación</h3>
+                    <p>si acumulamos estado durante el cifrado, podemos utilizar este estado sobre el cifrado del siguiente bloque</p>
                     <ul>
                       <li>ECB: <em>Electronic Code-Book</em>, <ul><li>no-op
-			    <span class="fragment">$\Rightarrow$ no s'ha de fer servir a la pràctica (...)</span>
+			    <span class="fragment">$\Rightarrow$ no se debe utilizar en la práctica (...)</span>
 		      </li></ul></li>
-                        <li>CBC: <em>Cipher Block Chaining</em><ul><li>el bloc $i-1$ s'aplica $\oplus$ sobre el bloc en clar $i$</li></ul></li>
-                        <li>OFB: <em>Output Feedback</em><ul><li>xifres el xifrat anterior, i el resultat $\oplus$ del missatge en clar</li></ul></li>
-                        <li>CTR: <em>Counter</em><ul><li>xifres un comptador, i el resultat $\oplus$ del missatge en clar</li></ul></li>
+                        <li>CBC: <em>Cipher Block Chaining</em><ul><li>el bloque $i-1$ se aplica $\oplus$ sobre el bloque en claro $i$</li></ul></li>
+                        <li>OFB: <em>Output Feedback</em><ul><li>cifras el cifrado anterior, y el resultado $\oplus$ del mensaje en claro</li></ul></li>
+                        <li>CTR: <em>Counter</em><ul><li>cifras un contador, y el resultado $\oplus$ del mensaje en claro</li></ul></li>
                         <!--<li>GCM: <em>Galois Counter Mode</em><ul><li></li></ul></li>-->
                     </ul>
                 </section>
@@ -907,109 +907,109 @@
                 </section>
             </section>
             <section style="text-align: left;">
-                <h3>Vector d'inicialització (IV)</h3>
-                <p>els diferents encadenats requereixen d'una llavor incial, prèvia, per començar l'encadenat</p>
-                <p>això fa que en lloc de transmetre $n$ blocs com en ECB, calgui transmetre'n $n+1$</p>
+                <h3>Vector de inicialización (IV)</h3>
+                <p>los distintos encadenados requieren de una semilla incial, previa, para empezar el encadenado</p>
+                <p>esto hace que en lugar de transmitir $n$ bloques como en ECB, haga falta transmitir $n+1$</p>
                 <ul>
-                <li>IV en CBC: és l'hipotètic bloc xifrat $-1$</li>
-                <li>IV en OFB: és el bloc que es xifra constantment $e(e(e(\cdots e(\text{IV}))))$ i s'aplica sobre els blocs en clar (con $\oplus$)</li>
-                <li>IV en CTR: és el valor inicial del comptador que és xifra ECB, i s'aplica sobre els blocs en clar (con $\oplus$)</li>
+                <li>IV en CBC: es el hipotético bloque cifrado $-1$</li>
+                <li>IV en OFB: es el bloque que se cifra constantmente $e(e(e(\cdots e(\text{IV}))))$ y se aplica sobre los bloques en claro (con $\oplus$)</li>
+                <li>IV en CTR: es el valor inicial del contador que se cifra ECB, y se aplica sobre los bloques en claro (con $\oplus$)</li>
                 </ul>
-                <p class="fragment">AES_128_CTR és efectivament un <u>xifrat de flux</u> fent servir AES_128_CTR com a PRNG (sent
-                    $k$ la llavor, i l'$IV$ el <em>nonce</em>)</p>
+                <p class="fragment">AES_128_CTR es efectivamente un <u>cifrado de flujo</u> utilizando AES_128_CTR como a PRNG (siendo
+                    $k$ la semilla, y el $IV$ el <em>nonce</em>)</p>
             </section>
 
             <section>
-                <h3>Modes d'operació con autenticació</h3>
+                <h3>Modos de operación con autenticación</h3>
                 <p>AEAD: <em>Authenticated Encryption with Associated Data</em></p>
-                <p>actualment apareixen modes d'operació que a més a més ofereixen <a href="#mac">MAC</a>
-                aconseguint un rendiment superior a fer servir xifrat + MAC (només lleugerament inferiors al xifrat sol)</p>
-                <p>els dos exemples més usats i recomanats en l'actualitat són:</p>
+                <p>actualmente aparecen modos de operación que además ofrecen <a href="#mac">MAC</a>
+                consiguiendo un rendimiento superior a usar cifrado + MAC (sólo ligeramente más lentos al cifrado solo)</p>
+                <p>los dos ejemplos más usados y recomendados en la actualidad son:</p>
                 <ul>
-                    <li>CCM ò <em>Counter with <a href="mac.html#cbc">CBC-MAC</a></em>, és la combinació d'AES-CTR con un CBC-MAC</li>
-                    <li>GCM ò <em>Galois Counter Mode</em>, també una combinació d'AES-CTR però ara con con una multiplicació
-                    modular; permet velocitats superiors a CCM</li>
+                    <li>CCM ò <em>Counter with <a href="mac.html#cbc">CBC-MAC</a></em>, es la combinación de AES-CTR con un CBC-MAC</li>
+                    <li>GCM ò <em>Galois Counter Mode</em>, también una combinación de AES-CTR pero ahora con con una multiplicación
+                    modular; permite velocidades superiores a CCM</li>
                 </ul>
             </section>
 
             <section>
-                <h3>AES: rendiment</h3>
-                <p>Intel, AMD o ARM disposen d'instruccions específiques per a tal d'accelerar el des/xifrat AES (i alguns
-                    d'ells també tenen instruccions per a GCM)</p>
-                <p>Segons l'anàlisi de <a href="">戴维 (Wei Dai)</a> els rendiments en implementacions purament software mesurades en
+                <h3>AES: rendimiento</h3>
+                <p>Intel, AMD o ARM disponen de instrucciones específicas con el fin de acelerar el des/cifrado AES (y algunos
+                    de ellos también tienen instrucciones para GCM)</p>
+                <p>Según el análisis de <a href="">戴维 (Wei Dai)</a> los rendimientos en implementaciones puramente software medidas en
                     Intel Core 2 (2009, MMX/SSE2, 32 b):</p>
                 <ul>
                     <li>AES-128: 1,1 Gbps</li>
                     <li>AES-192: 0,9 Gbps</li>
                     <li>AES-256: 0,7 Gbps</li>
                 </ul>
-                <p><small>bps: bits per segon (ò b/s)</small></p>
+                <p><small>bps: bits por segundo (ò b/s)</small></p>
             </section>
 
             <section>
-                <h3>AES rendiment comparatiu</h3>
+                <h3>AES rendimiento comparativo</h3>
                 <ul>
-                    <li>AES-128: 1,1 Gbps (seguretat 128 bit)</li>
-                    <li>AES-192: 0,9 Gbps (seguretat 192 bit)</li>
-                    <li>AES-256: 0,7 Gbps (seguretat 256 bit)</li>
-                    <li>Salsa20: 3,2 Gbps (seguretat 256 bit)</li>
-                    <li>ChaCha20: 3,2 Gbps (seguretat 256 bit)</li>
-                    <li class="fragment">DES: 250 Mbps (seguretat 56 bit)</li>
-                    <li class="fragment">3DES: 100 Mbps (seguretat 112 bit)</li>
-                    <li class="fragment">AES "hardware": ~8 vegades més ràpid (Intel, 2011)</li>
+                    <li>AES-128: 1,1 Gbps (seguridad 128 bit)</li>
+                    <li>AES-192: 0,9 Gbps (seguridad 192 bit)</li>
+                    <li>AES-256: 0,7 Gbps (seguridad 256 bit)</li>
+                    <li>Salsa20: 3,2 Gbps (seguridad 256 bit)</li>
+                    <li>ChaCha20: 3,2 Gbps (seguridad 256 bit)</li>
+                    <li class="fragment">DES: 250 Mbps (seguridad 56 bit)</li>
+                    <li class="fragment">3DES: 100 Mbps (seguridad 112 bit)</li>
+                    <li class="fragment">AES "hardware": ~8 veces más rápido (Intel, 2011)</li>
                 </ul>
-                <p><small>bps: bits per segon</small></p>
+                <p><small>bps: bits por segundo</small></p>
             </section>
 
             <section>
-                <h3>AES: vulnerabilitats</h3>
-                <p>hi ha diversos atacs que permeten realitzar cerques de forma més ràpida que un atac de força bruta</p>
+                <h3>AES: vulnerabilidades</h3>
+                <p>hay distintos ataques que permiten realizar búsquedas de forma más rápida que un ataque de fuerza bruta</p>
                 <ul>
-                    <li>AES-128/192/256: recuperació de clau en una quarta part del temps que força bruta $\Rightarrow$ és perden 2 bits</li>
-                    <li>AES-192/256: sii claus relacionades, complexitat $2^{119}$ (contramesura: claus aleatòries)</li>
-                    <li>el bloc de $128$ <span title="bit">b</span> limita l'ús del xifrat fins a $2^{64}$ blocs ($2^{68}$ <span title="byte">B</span>) a causa de
-                        la <a href="hash.html#/birthday-attack">paradoxa de l'aniversari</a> (contramesura: canviar la clau quan
-                        s'hagi usat per a $2^{68}$ <span title="byte">B</span>)</li>
+                    <li>AES-128/192/256: recuperación de clave en una quarta parte del tiempo que fuerza bruta $\Rightarrow$ se pierden 2 bits</li>
+                    <li>AES-192/256: sii claves relacionadas, complejidad $2^{119}$ (contramedida: claves aleatorias)</li>
+                    <li>el bloque de $128$ <span title="bit">b</span> limita el uso del cifrado hasta $2^{64}$ blocs ($2^{68}$ <span title="byte">B</span>) a causa de
+                        la <a href="hash.html#/birthday-attack">paradoja del cumpleaños</a> (contramedida: canviar la clave cuando
+                        se haya usado para cifrar $2^{68}$ <span title="byte">B</span>)</li>
                 </ul>
-                <p class="fragment">no són rellevants en quan a la seguretat pràctica</p>
-                <p class="fragment">aquestes són les vulnerabilitats conegudes...</p>
+                <p class="fragment">no son relevantes en cuanto a la seguridad práctica</p>
+                <p class="fragment">estas son las vulnerabilidades conocidas...</p>
             </section>
 
             <section>
-                <h3>AES: més vulnerabilitats</h3>
-                <p>AES porta des del 2000 públic: això implica un escrutini públic o secret sever</p>
-                <p class="fragment">segons els "papers d'Edward <a href="file:///home/sysadmin/git/src/github.com/jig/crypto-privat/reveal/reveal.js-3.2.0/threats.html#/snowden">Snowden</a>"
-                    l'NSA està estudiant-ne les vulnerabilitats (no públicament)</p>
-                <p class="fragment">altres "grans" organitzacions és altament improbable que no hi dediquin
-                    recursos importants</p>
+                <h3>AES: más vulnerabilidades</h3>
+                <p>AES es público desde el 2000: esto implica un escrutinio público o secreto severo</p>
+                <p class="fragment">según los "papeles de Edward <a href="file:///home/sysadmin/git/src/github.com/jig/crypto-privat/reveal/reveal.js-3.2.0/threats.html#/snowden">Snowden</a>"
+                    la NSA está estudiando las vulnerabilidades (no públicamente)</p>
+                <p class="fragment">otras "grandes" organizaciones es altamente improbable que no le dediquen
+                    recursos importantes</p>
             </section>
 
             <section>
-                <h3>AES: més vulnerabilitats</h3>
-                <p><a href="file:///home/sysadmin/git/src/github.com/jig/crypto-privat/reveal/reveal.js-3.2.0/threats.html#/symmetric-crypto">algorismes quàntics</a>: con l'algorisme de <a href="https://en.wikipedia.org/wiki/Grover%27s_algorithm">Grover</a>
-                    les cerques en bases de dades no ordenades tenen
+                <h3>AES: más vulnerabilidades</h3>
+                <p><a href="file:///home/sysadmin/git/src/github.com/jig/crypto-privat/reveal/reveal.js-3.2.0/threats.html#/symmetric-crypto">algorismes quàntics</a>: con el algoritmo de <a href="https://en.wikipedia.org/wiki/Grover%27s_algorithm">Grover</a>
+                    las búsquedas en bases de datos no ordenadas tienen
                     <a title="Notació O(·) i complexitat dels diferents algorismes criptogràfics" href="complexity.html#big-o">
-                        complexitat
+                        complejidad
                     </a>
                     $O({\sqrt{2^b}})$</p>
-                <p>(<em>òbviament</em>, en computació clàssica té complexitat $O({2^b})$)</p>
+                <p>(<em>obviamente</em>, en computación clásica tiene complejidad $O({2^b})$)</p>
                 <p/>
-                <p>Nota: $b$ són els bits de longitut de la clau AES: $128$, $192$ ò $256$</p>
+                <p>Nota: $b$ son los bits de longitud de la clau AES: $128$, $192$ ò $256$</p>
             </section>
 
             <section>
-                <h3>Computació quàntica</h3>
+                <h3>Computación cuántica</h3>
                 <ul>
-                    <li>els computadors quàntics actuals no tenen aplicació pràctica: a banda de per "trencar claus"
-                        serveixen per a simular... <span title="Richard Feynman, 1982">fenòmens de física quàntica</span></li>
-                    <li>es creu no hi haurà computació quàntica pràctica abans del ~2030</li>
+                    <li>los computadores cuánticos actuales no tienen aplicación práctica: a parte de romper claves
+                        sirven para simular... <span title="Richard Feynman, 1982">fenómenos de física cuántica</span></li>
+                    <li>se cree que no habrá computación cuántica pràctica antes del ~2030</li>
                 </ul>
                 <ul>
-                    <li>però per ser robustos a l'algorisme de Grover, només hem de <u>doblar</u> la longitud de claus,
-                        per exemple passar a AES-256 que donaria una fortalesa equivalent a 128 bits</li>
-                    <li>poc després es va demostrar que l'algorisme de Grover és òptim</li>
+                    <li>pero para ser robustos al algoritmo de Grover, sólo hemos de <u>doblar</u> la longitud de claves,
+                        por ejemplo pasar a AES-256 daría una fortaleza equivalente de 128 bits</li>
+                    poco después dse demostró que el algoritmo de Grover es òptimo</li>
                 </ul>
-                <p>per tant, es considera que la criptografia simètrica és robusta en front de la computació quàntica...</p>
+                <p>por tanto, es considera que la criptografia simétrica es robusta ante la computación cuántica...</p>
             </section>
 
             <section>
@@ -1024,47 +1024,47 @@
                     <li>clau: $56$ bit ($7$ Byte)</li>
                 </ul>
                 <p>16 etapes</p>
-                <p class="fragment">insegur, vulnerable a atacs de
-                    <a href="https://en.wikipedia.org/wiki/EFF_DES_cracker">força bruta</a>
+                <p class="fragment">inseguro, vulnerable a ataques de
+                    <a href="https://en.wikipedia.org/wiki/EFF_DES_cracker">fuerza bruta</a>
                 </p>
             </section>
 
             <section id="triple-des">
                 <h3>3DES / <span style="text-transform:none;">Triple</span>-DES / TDES</h3>
-                <p>El xifrat és $c = e(k_1, d(k_2, e(k_1, m)))$</p>
+                <p>El xifrat es $c = e(k_1, d(k_2, e(k_1, m)))$</p>
                 <ul>
-                    <li>bloc: $64$ bit ($8$ Byte)</li>
-                    <li>clau: $112$ bit ($14$ Byte, i.e. $k=k_1|k_2$)</li>
+                    <li>bloque: $64$ bit ($8$ Byte)</li>
+                    <li>clave: $112$ bit ($14$ Byte, i.e. $k=k_1|k_2$)</li>
                 </ul>
-                <p class="fragment">per què no doble-DES? o per què no $k=k_1|k_2|k_3$?</p>
-                <p class="fragment">atacs <em>Meet in the Middle</em></p>
+                <p class="fragment">por qué no doble-DES? o por qué no $k=k_1|k_2|k_3$?</p>
+                <p class="fragment">ataques <em>Meet in the Middle</em></p>
             </section>
 
             <section>
-                <h3>Meet in the Middle: plantejament</h3>
-                <p>suposem que volem ampliar la seguretat de DES xifrant dues vegades con DES estàndard:</p>
+                <h3>Meet in the Middle: plantamiento</h3>
+                <p>supongamos que queremos ampliar la seguridad de DES cifrando dos veces con DES estándar:</p>
                 <p>$c = e(k_1, e(k_2, m))$</p>
             </section>
             <section>
                 <h3>Meet in the Middle: forma</h3>
-                <p>(condició) suposem que tenim el xifrat d'un bloc $c$, i en sabem el valor en <u>clar</u> $m$ (això
-                    no sempre és possible, però és perfectament factible)</p>
+                <p>(condición) supongamos que tenimos el cifrado de un bloque $c$, y sabemos el valor en <u>claro</u> $m$ (esto
+                    no siempre es posible, pero es perfectamente factible)</p>
                 <p>$c = e(k_1, e(k_2, m))$</p>
-                <p>i girem</p>
+                <p>i giramos</p>
                 <p>$e(k_2, m) = d(k_1, c)$</p>
                 <p></p>
             </section>
             <section>
-                <h3>Meet in the Middle: truc</h3>
-                <p>Calculem $x = e(k_i, m) \, \forall i \,$ (cost $2^{56}$)</p>
-                <p>situem els valors una llista i els ordenem segons $x$ (cost $2^{56}·\log_2{2^{56}}\approx2^{62}$, cost en memòria $2^{56}$)</p>
-                <p>calculem $x' = d(k_i, c) \, \forall i \,$</p>
-                <p>mirem si hi ha un $x \overset{?}{=} x'$ (cost 1)</p>
-                <p class="fragment">...cost total $\approx2^{62}$ (cost en memòria $2^{56}$)</p>
+                <h3>Meet in the Middle: truco</h3>
+                <p>Calculemos $x = e(k_i, m) \, \forall i \,$ (cost $2^{56}$)</p>
+                <p>situemos los valores en una lista y los ordenamos según $x$ (coste $2^{56}·\log_2{2^{56}}\approx2^{62}$, coste en memoria $2^{56}$)</p>
+                <p>calculamos $x' = d(k_i, c) \, \forall i \,$</p>
+                <p>miramos si hay un $x \overset{?}{=} x'$ (coste 1)</p>
+                <p class="fragment">...coste total $\approx2^{62}$ (coste en memoria $2^{56}$)</p>
             </section>
 
             <section data-background="#FF8888">
-                <h3>derivació de $k$ a partir d'una contrasenya</h3>
+                <h3>derivación de $k$ a partir de una contraseña</h3>
             </section>
 
             <section>
