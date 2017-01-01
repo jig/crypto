@@ -136,8 +136,8 @@
 
             <section>
                 <h3>ECBC-MAC</h3>
-                <p>rawCBC-MAC és insegur ja que un atacant pot combinar missatges bons per generar-ne de <em title="aparentment">"bons"</em></p>
-                <p>per evitar el problema podem canviar l'$\text{IV}=0$ per la longitud inicial $\text{IV}=\ell$</p>
+                <p>...rawCBC-MAC és insegur ja que un atacant pot combinar missatges bons per generar-ne de <em title="aparentment">"bons"</em></p>
+                <p>per a evitar el problema podem canviar l'$\text{IV}=0$ per la longitud del missatge $\text{IV}=\ell$</p>
             </section>
 
             <section id="cbc">
@@ -152,7 +152,7 @@
             <section>
                 <h3>ECBC-MAC: seguretat</h3>
                 <p>ECBC-MAC és segur mentre sigui improbable trobar una <a href="hash.html#collision">col·lisió</a></p>
-                <p>la probabilita de col·lisió és propera a $0.5$ per a $\sqrt{|\text{bloc}|}$</p>
+                <p>la probabilitat de col·lisió és propera a $0.5$ per a un nombre de blocs d'aproximadament $\sqrt{|\text{bloc}|}$</p>
                 <p>e.g. en el cas de l'AES el bloc és de $128$ b, per tant, no podrem fer servir la mateixa clau:
                 <br/>$\text{ops} \ll \sqrt{2^{128}} = 2^{64}$</p>
                 <p>(valors acceptats per una clau AES-128/192/256:
