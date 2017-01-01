@@ -58,7 +58,7 @@
                 <h1>RSA</h1>
                 <p>{Ron Rivest,  &#1506;&#1491;&#1497; &#1513;&#1502;&#1497;&#1512; (Adi Shamir), Leonard Adleman; 1978}</p>
                 <p>Permet implementar el xifrat i la signatura, mitjançant l'<span title="RSA Problem">RSAP</span> (Problema RSA)</p>
-                <p>L'RSAP es un <em>problema amb trampa</em> que es basa en la dificultat del càlcul de
+                <p>L'RSAP és un <em>problema amb trampa</em> que es basa en la dificultat del càlcul de
                     l'arrel $e$-èssima$\pmod{n}$ per a valors d'$n$ amb certes propietats
                 </p>
             </section>
@@ -171,7 +171,7 @@
             <section>
                 <p>$\color{red}d \equiv e^{-1} \bmod{\phi(n)}$</p>
                 <p>per a minimitzar la possibilitat de que $\text{mcd}(e,\phi{(n)}) \neq 1$, escollim un exponent $e$ primer, i vigilem simplement que $e$ no divideixi $d$</p>
-                <p>habitualment $e = 65537$ qué, a banda de ser primer, només té dos $1$ en base $2$
+                <p>habitualment $e = 65537$ que, a banda de ser primer, només té dos $1$ en base $2$
                     i, per tant, permet una <a href="complexity.html#basic-op">execució ràpida</a> d'$m^e \pmod n$</p>
                 <p>i la probabilitat de que generem una clau privada $d \equiv 0 \pmod e$ és $1:65537$</p>
             </section>
