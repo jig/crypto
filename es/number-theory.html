@@ -4,9 +4,9 @@
     <head>
         <meta charset="utf-8">
 
-        <title>Teoria de nombres</title>
+        <title>Teoría de números</title>
 
-        <meta name="description" content="Introducció a la teoria de nombres per a criptografia">
+        <meta name="description" content="Introducción a la teoría de números para criptografía">
         <meta name="author" content="Jordi Íñigo Griera">
         <!-- Implementat amb revealjs: https://github.com/hakimel/reveal.js -->
 
@@ -41,14 +41,13 @@
         <!-- Any section element inside of this container is displayed as a slide -->
         <div class="slides">
             <section>
-                <h1>Teoria de <a class="external text" href="http://www.ub.edu/cub/criteri.php?id=1223" style="color:#333">Nombres</a></h1>
-                <a href="https://ca.wikipedia.org/wiki/Teoria_de_nombres"">
-                    "<em>La teoria de nombres és la branca de les matemàtiques pures que estudia les
-                    propietats dels nombres enters i conté una quantitat considerable de problemes que
-                    són &ldquo;fàcilment compresos pels no matemàtics&rdquo;...<!--, però més en general, estudia les
-                    propietats dels elements de dominis enters (anells commutatius amb element unitari
-                    i element neutre), així com diversos problemes derivats del seu estudi--></em>"
-                </a>
+                <h1>Teoría de <a class="external text" href="http://www.ub.edu/cub/criteri.php?id=1223" style="color:#333">Números</a></h1>
+                <p><a href="https://es.wikipedia.org/wiki/Teor%C3%ADa_de_n%C3%BAmeros">
+                    "<em>La teoría de números es la rama de las matemáticas que estudia las 
+                    propiedades de los números, en particular los enteros (&hellip;) 
+                    Contiene una cantidad considerable de problemas que podrían ser comprendidos por &ldquo;no matemáticos&rdquo;&hellip;</em>"
+                </a></p>
+                <p>
                 <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
 
 				<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">
@@ -60,6 +59,7 @@
                     <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 
                     <br />Project hosted at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/jig/crypto" rel="dct:source">github.com/jig/crypto</a></em></small>
+                </p>
             </section>
 <!--
             <section id="fermat-little" style="text-align: left;">
@@ -79,22 +79,22 @@
             <section>
                 <h1>$\mathbb{Z}$</h1>
                 <span class="fragment">
-                    <p>Definició: $\mathbb{Z}$ és el conjunt (infinit) dels enters</p>
+                    <p>Definición: $\mathbb{Z}$ es el conjunto (infinito) de los enteros</p>
                     <p>$\mathbb{Z} = \{\dotsc, -3,-2,-1,0,1,2,3,\dotsc\}$</p>
                 </span>
             </section>
 
             <section style="text-align: left;">
-                <h3>Operacions sobre $\mathbb{Z}$</h3>
+                <h3>Operaciones sobre $\mathbb{Z}$</h3>
                 <p>$+$, $-$, $\times$, $\text{div}$</p>
                 <br/>
-                <p>$a, b \in \mathbb{Z}$ i $b \neq 0$ llavors:</p>
+                <p>$a, b \in \mathbb{Z}$ i $b \neq 0$ entonces:</p>
                 <p>$\begin{aligned}
-                    a \text{ div } b &= \lfloor a/b\rfloor \leftarrow \text{quocient }q\text{, dividend }a\text{, divisor }b\\
-                    a \bmod b &= a - b\lfloor a/b\rfloor \leftarrow \text{residu } r\;(0 \leq r < b)
+                    a \text{ div } b &= \lfloor a/b\rfloor \leftarrow \text{cociente }q\text{, dividendo }a\text{, divisor }b\\
+                    a \bmod b &= a - b\lfloor a/b\rfloor \leftarrow \text{resto } r\;(0 \leq r < b)
                     \end{aligned}$
                 </p>
-                <p>o sigui:</p>
+                <p>o sea:</p>
                 <p>$\begin{aligned}
                     a &= qb + r \\
                     a &= (a \text{ div } b)b + (a \bmod b)
@@ -105,19 +105,19 @@
             </section>
 
             <section>
-                <h3>Fets</h3>
-                <p>Diem que $c$ és un divisor comú a $a$ i a $b$ si $c|a$ i $c|b$</p>
-                <p>El <em>màxim comú divisor</em> d'$a$ i $b$ és
+                <h3>Hechos</h3>
+                <p>Decimos que $c$ es un divisor común a $a$ y a $b$ si $c|a$ y $c|b$</p>
+                <p>El <em>máximo común divisor</em> de $a$ y $b$ es
                     <br/>$d = \text{mcd(a,b)}$
-                    <br>si $d$ és el valor màxim que $d|a$ i $d|b$
+                    <br>si $d$ es el valor máximo que cumple $d|a$ y $d|b$
                 </p>
             </section>
 
             <section id="fundamental">
-                <h3>Fet: Teorema fonamental de l'aritmètica</h3>
-                <p>Tot enter $n$ pot <em>factoritzar</em>-se (descomposar-se) en el producte de potències de nombres <em>primers</em>:</p>
+                <h3>Hecho: Teorema fundamental de la aritmética</h3>
+                <p>Todo entero $n$ se puede <em>factorizar</em> (descomponerse) en el producto de potencies de números <em>primos</em>:</p>
                 <p>$n = p_1^{e_1}p_2^{e_2}p_3^{e_3}\cdots p_k^{e_k}$ amb $(e_i \geq 0)$</p>
-                <p>I aquesta factorització és única</p>
+                <p>Y esta descomposición es única</p>
             </section>
 
             <section id="coprime">
