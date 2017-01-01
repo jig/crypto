@@ -6,7 +6,7 @@
 
         <title>RSA</title>
 
-        <meta name="description" content="Introducció a l'algorisme RSA">
+        <meta name="description" content="Introducción al algoritmo RSA">
         <meta name="author" content="Jordi Íñigo Griera">
         <!-- Implementat amb revealjs: https://github.com/hakimel/reveal.js -->
 
@@ -56,10 +56,10 @@
             </section>
             <section>
                 <h1>RSA</h1>
-                <p>{Ron Rivest,  &#1506;&#1491;&#1497; &#1513;&#1502;&#1497;&#1512; (Adi Shamir), Leonard Adleman; 1978}</p>
-                <p>Permet implementar el xifrat i la signatura, mitjançant l'<span title="RSA Problem">RSAP</span> (Problema RSA)</p>
-                <p>L'RSAP es un <em>problema amb trampa</em> que es basa en la dificultat del càlcul de
-                    l'arrel $e$-èssima$\pmod{n}$ per a valors d'$n$ amb certes propietats
+                <p>{Ron Rivest, &#1506;&#1491;&#1497; &#1513;&#1502;&#1497;&#1512; (Adi Shamir), Leonard Adleman; 1978}</p>
+                <p>Permite implementar el cifrado y la firma, mediante el <span title="RSA Problem">RSAP</span> (Problema RSA)</p>
+                <p>El RSAP es un <em>problema con trampa</em> que se basa en la dificultad del cálculo de
+                    la raíz $e$-ésima$\pmod{n}$ para valores de $n$ con ciertas propiedades
                 </p>
             </section>
 
@@ -67,30 +67,30 @@
             <section>
                 <h2>RSAP</h2>
                 <h3>(el problema RSA)</h3>
-                <p>Suposem que tenim un missatge $m$ i que el <a href="complexity.html#/function-permutation">permutem</a> amb la funció:</p>
+                <p>Supongamos que tenemos un mensaje $m$ y que lo <a href="complexity.html#/function-permutation">permutamos</a> con la función:</p>
                 <p>$c = m^e \pmod n$</p>
                 <div class="fragment">
-                    <p>per recuperar (desxifrar) el missatge original a partir de $c$ cal invertir:</p>
+                    <p>para recuperar (descifrar) el mensaje original a partir de $c$ hace falta invertir:</p>
                     <p>$m = \sqrt[e]{c} \pmod n$</p>
                 </div>
             </section>
 
             <section>
-                <h2>però</h2>
-                <p>sii $n$ no és primer el càlcul d'</p>
+                <h2>pero</h2>
+                <p>sii $n$ no es primo el cálculo de</p>
                 <p>$m \equiv \sqrt[e]{c} \pmod n$</p>
-                <p>és <a href="complexity.html">computacionalment difícil</a>* per valors d'$n$ amb factors suficientment grans (i desconeguts)</p>
+                <p>es <a href="complexity.html">computacionalmente difícil</a>* para valores de $n$ con factores suficientmente grandes (y desconocidos)</p>
             </section>
 
             <section>
-                <p>hem xifrat un missatge $m$<br>
-                    però no hi ha manera de desxifrar-ne el resultat $c$...</p>
-                <p class="fragment">...si és que no coneixem "la trampa"</p>
+                <p>hemos cifrado un mensaje $m$<br>
+                    pero no hay manera de descifrar el resuldo $c$&hellip;</p>
+                <p class="fragment">&hellip;si no conocemos "la trampa"</p>
             </section>
 
             <section id="trapdoor">
                 <h2>la trampa</h2>
-                <p>segons el <a href="x-teoria-de-nombres.html#euler">teorema d'Euler</a>:</p>
+                <p>según el <a href="x-teoria-de-nombres.html#euler">teorema de Euler</a>:</p>
                 <p>$m^{\phi(n)} \equiv 1 \pmod n$</p>
                 <br>
                 <div class="fragment"></p><p>$(m^{\phi(n)})^t \equiv 1 \pmod n$</p></div>
@@ -105,17 +105,17 @@
             <section>
                 <p>$m^{t \phi(n)+1} \equiv m \pmod n$</p><hr/>
                 <div>
-                    <p>tenint-ho en compte per...</p>
+                    <p>teniendo esto en cuenta para&hellip;</p>
                     <p>\[
                         \begin{aligned}
                         c & \equiv m^{e} \pmod n \\
-                        m & \equiv \sqrt[e]{c} \pmod n \leftarrow \text{computacionalment infactible}
+                        m & \equiv \sqrt[e]{c} \pmod n \leftarrow \text{computacionalmente infactible}
                         \end{aligned}
                         \] </p>
                 </div>
                 <div class="fragment">
-                    <p>...agafem una drecera donant la volta "per l'altra banda",
-                        exponenciant suficientment per arribar un altre cop a $m$:</p>
+                    <p>&hellip; tomamos un atajo dando la vuelta "por el otro lado",
+                        exponenciando suficientemente para llegar otra vez hasta $m$:</p>
                     <p>\[
                         \begin{aligned}
                         c & \equiv m^{e} \pmod n \\
@@ -135,7 +135,7 @@
                     \] </p>
                 <hr>
                 <div class="fragment">
-                    <p>només cal trobar un $\color{red}d$ que:</p>
+                    <p>sólo hace falta encontrar un $\color{red}d$ que:</p>
                     <p>$e\color{red}d = t \phi(n) + 1$</p>
                 </div>
                 <div class="fragment"><p>$e\color{red}d \equiv 1 \bmod{\phi(n)}$</p></div>
@@ -145,115 +145,115 @@
             <section>
                 <p>$\color{red}d \equiv e^{-1} \bmod{\phi(n)}$</p>
                 <p>&nbsp;</p>
-                <p>el càlcul de $\color{red}d$ és fàcil a condició que coneguem $\phi(n)$</p>
+                <p>el cálculo de $\color{red}d$ es fácil a condición que conozcamos $\phi(n)$</p>
                 <div class="fragment">
-                    <p>i recordem que:</p>
+                    <p>y recordemos que:</p>
                     <p>$\phi(pq) = (p-1)(q-1)$</p>
                 </div>
                 <div class="fragment">
                     <p>&nbsp;</p>
-                    <p>per a conèixer $\phi(n)$ cal conèixer els factors d'$n$ (computacionalment infactible
-                        per valors grans de $p$ i $q$ i coneixent només $n$)</p>
+                    <p>para conocer $\phi(n)$ hace falta conocer los factores de $n$ (computacionalmente infactible
+                        para valores grandes de $p$ y $q$ y conociendo sólo $n$)</p>
                 </div>
             </section>
             <section>
                 <p>$\color{red}d \equiv e^{-1} \bmod{\phi(n)}$</p>
                 <p>&nbsp;</p>
-                <p>s'ha de tenir en compte que $\phi(n)$ no és primer
-                    </br>($\phi(pq) = (p-1)(q-1)$ producte de nombres parells)</p>
-                <p>per tant:</p>
-                <p>cal vigilar que $e$ sigui invertible $\pmod{\phi{(n)}}$
-                    <br/>(és a dir, que $e$ i $\phi{(n)}$ siguin coprimers)
-                    <br/>(és a dir, que $\text{mcd}(e, \phi{(n)}) = 1$)
+                <p>se debe tener en cuenta que $\phi(n)$ no es primo
+                    </br>($\phi(pq) = (p-1)(q-1)$ producto de números pares)</p>
+                <p>por tanto:</p>
+                <p>hace falta vigilar que $e$ sea invertible $\pmod{\phi{(n)}}$
+                    <br/>(es decir, que $e$ y $\phi{(n)}$ sean coprimos)
+                    <br/>(es decir, que $\text{mcd}(e, \phi{(n)}) = 1$)
                     <!-- <br/>per a poder invertir $e$ cal que $\text{mcd}(e,d) = 1$ -->
                 </p>
             </section>
             <section>
                 <p>$\color{red}d \equiv e^{-1} \bmod{\phi(n)}$</p>
-                <p>per a minimitzar la possibilitat de que $\text{mcd}(e,\phi{(n)}) \neq 1$, escollim un exponent $e$ primer, i vigilem simplement que $e$ no divideixi $d$</p>
-                <p>habitualment $e = 65537$ qué, a banda de ser primer, només té dos $1$ en base $2$
-                    i, per tant, permet una <a href="complexity.html#basic-op">execució ràpida</a> d'$m^e \pmod n$</p>
-                <p>i la probabilitat de que generem una clau privada $d \equiv 0 \pmod e$ és $1:65537$</p>
+                <p>para minimizar la posibilidad que $\text{mcd}(e,\phi{(n)}) \neq 1$, escogemos un exponente $e$ primo, y vigilamos simplemente que $e$ no divida $d$</p>
+                <p>habitualmente $e = 65537$ que, a parte de ser primo, sólo tiene $1$ en base $2$
+                    y, por tanto, permite una <a href="complexity.html#basic-op">ejecución rápida</a> de $m^e \pmod n$</p>
+                <p>y la probabilidad de que generemos una clave privada $d \equiv 0 \pmod e$ es $1:65537$</p>
             </section>
 
             <section>
-                <h2>resum d'operació</h2>
+                <h2>resumen de operación</h2>
             </section>
 
             <section>
-                <h3>Algorisme de generació</h3>
+                <h3>Algoritmo de generación</h3>
                 <ol>
-                <li>l'usuari $\text{u}$ escull un exponent $e$<br/>(habitualment comú a tothom: $e = 65537$)</li>
-                <li>escull aleatòriament dos nombres primers $p_\text{u}$ i $q_\text{u}$ prou
-                    grans<a title="dificultat per a factoritzar" href="#threats">*</a>
-                    i prou diferents<a title="Si p i q són iguals o inclús similars la factorització és factible" href="#threats">**</a>
+                <li>el usuario $\text{u}$ escoge un exponente $e$<br/>(habitualmente común: $e = 65537$)</li>
+                <li>escoge aleatoriamente dos primos $p_\text{u}$ y $q_\text{u}$ suficientemente
+                    grandes<a title="dificuldad para factorizar" href="#threats">*</a>
+                    y suficientemente diferentes<a title="Si p y q son iguals o incluso similares la factoritzación es factible" href="#threats">**</a>
                 </li>
                 <li>calcula $\phi(n_\text{u}) = (p_\text{u}-1)(q_\text{u}-1)$ </li>
                 <li>calcula $d_\text{u} = e^{-1} \bmod{\phi(n_\text{u})}$ </li>
                 </ol>
 
                 <br>
-                <p>La Clau pública de l'usuari $\text{u}$ és $(e, n_\text{u})$</p>
-                <p>La Clau privada de l'usuari $\text{u}$ és $(d_\text{u}, (e, n_\text{u}))$</p>
+                <p>La Clave pública del usuario $\text{u}$ es $(e, n_\text{u})$</p>
+                <p>La Clave privada del usuario $\text{u}$ es $(d_\text{u}, (e, n_\text{u}))$</p>
             </section>
             <section>
-                <h3>Algorismes de xifrat i desxifrat</h3>
-                <p>per a xifrar cap a l'usuari $\text{u}$, ens cal saber<br>la seva clau pública $(e, n_\text{u})$:</p>
+                <h3>Algoritmos de cifrado y descifrado</h3>
+                <p>para cifrar hacia el usuario $\text{u}$, nos hace falta saber<br>su clave pública $(e, n_\text{u})$:</p>
                 <p>$c = m^{e} \pmod{n_\text{u}}$</p>
                 <br>
-                <p>per a desxifrar, l'usuari pot revertir el xifrat<br>ja que coneix $d_\text{u}$:</p>
+                <p>para descifrar, el usuario puede revertir el cifrado<br>ya que conoce $d_\text{u}$:</p>
                 <p>$m = c^{d_\text{u}} \pmod{n_\text{u}}$</p>
             </section>
             <section>
-                <h3>Alg/ de signatura i verificació</h3>
-                <p>per a signar, l'usuari $\text{u}$ usa la seva clau $(e, n_\text{u})$:</p>
+                <h3>Algoritmos de firma y verificación</h3>
+                <p>para firmar, el usuario $\text{u}$ usa su clave $(e, n_\text{u})$:</p>
                 <p>$c = m^{d_\text{u}} \pmod{n_\text{u}}$</p>
                 <br>
-                <p>qualsevol pot verificar la signatura coneixent $n_\text{u}$:</p>
+                <p>cualquiera puede verificar la firma conociendo $n_\text{u}$:</p>
                 <p>$m = c^{e} \pmod{n_\text{u}}$</p>
             </section>
             <section id="threats">
-				<h3>debilitats $\rightarrow$ contramesures</h3>
-                <p>sobre l'algorisme:</p>
+				<h3>debilidades $\rightarrow$ contramedidas</h3>
+                <p>sobre el algoritmo:</p>
                 <ul>
-                    <li>Propietats de l'exponenciació $\rightarrow$ <a href="#pkcs1">PKCS #1</a></li>
-                    <li>Casos especials sobre $\pmod{n}$ $\rightarrow$ PKCS #1</li>
-					<li>Factorització d'$n$ $\rightarrow$ <a href="#keysize">longitud</a> suficient d'$n$</li>
+                    <li>Propiedades de la exponenciación $\rightarrow$ <a href="#pkcs1">PKCS #1</a></li>
+                    <li>Casos especiales sobre $\pmod{n}$ $\rightarrow$ PKCS #1</li>
+					<li>Factoritzación de $n$ $\rightarrow$ <a href="#keysize">longitud</a> suficiente de $n$</li>
                 </ul>
-                <p>sobre la implementació:</p>
+                <p>sobre la implementación:</p>
                 <ul>
-                    <li>Atacs de temps $\rightarrow$ randomització en l'execució</li>
-                    <li>Atacs sobre el consum, la radiació, etc.</li>
-                    <li>compromís de clau: accés software o físic al sistema</li>
-                    <li>qualitat dels nombres aleatoris (e.g. $\text{gcd}$ sobre servidors web)</li>
-                    <li>a futur: <a href="threats.html#/asymmetric-crypto" style="color:grey;">computació quàntica</a></li>
-                    <li>...</li>
+                    <li>Ataques de tiempo $\rightarrow$ randomitzación en la ejecución</li>
+                    <li>Ataques sobre el consumo, la radiación, etc.</li>
+                    <li>compromiso de clave: acceso software o físico al sistema</li>
+                    <li>calidad de los números aleatorios (e.g. $\text{gcd}$ sobre servidores web)</li>
+                    <li>a futuro: <a href="threats.html#/asymmetric-crypto" style="color:grey;">computación cuántica</a></li>
+                    <li>&hellip;</li>
                 </ul>
             </section>
 
             <section id="pkcs1">
                 <h3>PKCS #1</h3>
-                <p>Per <strong>xifrat</strong>: <em>Optimal asymmetric encryption padding</em>
+                <p>Para <strong>cifrado</strong>: <em>Optimal asymmetric encryption padding</em>
                     (<a href="">OAEP</a>)
-                    <br/>barreja un nombre aleatori en la signatura,
-                    de manera que dos xifrats de mateix valor són diferents
-                    <br/>(algorisme determinista $\rightarrow$ algorisme probabilístic)</p>
-                <p>Per  <strong>signatura</strong>: <em>Probabilistic Signature Scheme</em>
+                    <br/>mezcla un número aleatorio con la firma,
+                    de manera que dos cifrados del mismo valor son diferentes
+                    <br/>(algoritmo determinista $\rightarrow$ algoritmo probabilístico)</p>
+                <p>Para  <strong>firma</strong>: <em>Probabilistic Signature Scheme</em>
                     (<a href="http://www.emc.com/emc-plus/rsa-labs/historical/raising-standard-rsa-signatures-rsa-pss.htm">PSS</a>)
-                    <br/>no signem directament el missatge si no que signem el hash, al qual afegim un random
-                    (<em>salt</em>) i un farciment (<em>padding</em>) fins la longitud $n$
-                    <br/>(algorisme determinista $\rightarrow$ algorisme probabilístic)</p>
+                    <br/>no firmamos directamente el mensaje si no que firmamos su hash, al cual añadimos un valor aleatorio
+                    (<em>salt</em>) i un relleno (<em>padding</em>) hasta la longitud $n$
+                    <br/>(algoritmo determinista $\rightarrow$ algoritmo probabilístico)</p>
             </section>
 
             <section id="keysize">
-                <h3>Longitud de clau</h3>
-                <p>la dificultat de l'<a href="complexity.html" title="RSA Problem">RSAP</a> $n$ és equivalent a fer l'arrel quadrada modular
-                mòdul un $n$ no primer, i és equivalent a factoritzar $n$</p>
-				<p>el major $n$ factoritzat és de $768$ bit $\Rightarrow$ <a href="https://en.wikipedia.org/wiki/RSA_numbers#RSA-768">Desafiament RSA-768</a> (2000 anys/CPU)
+                <h3>Longitud de clave</h3>
+                <p>la dificultad del <a href="complexity.html" title="RSA Problem">RSAP</a> $n$ es equivalente realizar la raíz cuadrada modular
+                módulo un $n$ no primo, y es equivalente a factorizar $n$</p>
+				<p>el mayor $n$ factorizado es de $768$ bit $\Rightarrow$ <a href="https://en.wikipedia.org/wiki/RSA_numbers#RSA-768">Desafio RSA-768</a> (2000 anys/CPU)
 				<p>
 				<p>el NIST 
-					<a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf">recomana</a> 
-					$\|n\| \geq 2048$ bit fins el 2030
+					<a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf">recomienda</a> 
+					$\|n\| \geq 2048$ bit hasta el 2030
                     <thead>
 				</p>
 				<table>
@@ -261,7 +261,7 @@
                             <td style="text-align: right;">RSA</td>
 							<td></td>
                             <td>AES</td>
-							<td>(bits de seguretat)</td>
+							<td>(bits de seguridad)</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -294,8 +294,8 @@
             </section>
 
             <section id="practice">
-                <h3>pràctica: openssl</h3>
-                <p>generem i mostrem (PKCS #1) una clau RSA-2048 amb $e=65537$</p>
+                <h3>práctica: openssl</h3>
+                <p>generamos y mostramos (PKCS #1) una clave RSA-2048 con $e=65537$</p>
                 <p  style="text-align: left;">
                 <code>
                     <br/><span>$</span>
@@ -321,7 +321,7 @@
             </section>
 
             <section id="chinese-remainder-theorem">
-                <h3>Teorema dels Residus Xinesos</h3>
+                <h3>Teorema de los restos chinos</h3>
                 <p>$
                     \begin{aligned}
                     x &\equiv a_1 \pmod{n_1} \\
@@ -329,7 +329,7 @@
                     &\vdots \\
                     x &\equiv a_i \pmod{n_i}
                     \end{aligned}$</p>
-                <p>té una solució única per:</p>
+                <p>tiene una solución única para:</p>
                 <p>$
                     \begin{aligned}
                     x &\equiv a \pmod{n_1 n_2 \cdots n_i}
@@ -347,7 +347,7 @@
             </section>
 
             <section>
-                <h3>exemple senzill del <span title="Chinese Remainder Theorem">CRT</span></h3>
+                <h3>ejemplo simple del <span title="Chinese Remainder Theorem">CRT</span></h3>
                 <p>$
                     \begin{aligned}
                     x &\equiv 0 \pmod{2} \rightarrow \text{x és parell}\\
@@ -358,10 +358,10 @@
             </section>
 
             <section>
-                <h3>Teorema dels Residus Xinesos</h3>
-                <p>aplicació a RSA (algorisme de Garner)</p>
+                <h3>Teorema de los restos chinos</h3>
+                <p>aplicación en RSA (algoritmo de Garner)</p>
                 <ol>
-                <li>precalculem i guardem en secret (com a part de la <code>PVK</code>):
+                <li>precalculamos y guardamos en secreto (como parte de la <code>PVK</code>):
                     <p>$\begin{aligned}
                     d_p &= e^{-1} \bmod{(p-1)} \\
                     d_q &= e^{-1} \bmod{(q-1)} \\
@@ -370,7 +370,7 @@
                     </p>
                 </li>
 
-                <li>mantenim $c = m^e \bmod{n}$; però en lloc de fer $m = c^d \bmod{n}$ fem:
+                <li>mantenemos $c = m^e \bmod{n}$; pero en lugar de hacer $m = c^d \bmod{n}$ hacemos:
                     <p>$\begin{aligned}
                     m_1 &= c^{d_p} \bmod{p} \\
                     m_2 &= c^{d_q} \bmod{q} \\
@@ -378,8 +378,8 @@
                 \end{aligned}$</p>
                 </li>
                 </ol>
-                <p>per què ens serveix aquest teorema?
-                    <br/>perquè 2. és més ràpid que $m = c^d \bmod{n}$</p>
+                <p>para que nos sirve este teorema?
+                    <br/>porqué 2. es más rápido que $m = c^d \bmod{n}$</p>
             </section>
 
             <section>
