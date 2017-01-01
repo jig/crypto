@@ -146,7 +146,7 @@
                     a \text{ div } b &\equiv a{b}^{-1} \pmod n
                     \end{aligned}$
                 </p>
-                <p class="fragment">$b$ no sempre tindrà inversa: en cas de no tenir-ne, la divisió no estará definida per $b$</p>
+                <p class="fragment">$b$ no sempre tindrà inversa: en cas de no tenir-ne, la divisió no estarà definida per $b$</p>
                 <!-- <p>o sigui:</p>
                 <p>$a+b=b+a$ i $ab = ba$</p>
                 <p>$(a+b)+c=a+(b+c)$ i $(ab)c = a(bc)$</p>-->
@@ -218,7 +218,7 @@
                 <h2>Test de primalitat de Fermat</h2>
                 <p>A partir del teorema petit de Fermat, podem deduir un algorisme per a provar si
                     un nombre és primer o no.</p>
-                <p>Sigui $n$, per saber si és primer prenem un conjunt prou alt de nombres i
+                <p>Sigui $n$ un enter, per saber si és primer prenem un conjunt prou alt de nombres i
                     provem si el teorema "petit" es compleix:
                 </p>
                 <p>$\begin{aligned}
@@ -233,7 +233,7 @@
                 <h2>Test de primalitat de ...</h2>
                 <p>El problema és que hi ha nombres no primers que són "vàlids" segons el test
                     per qualsevol valor d'$a$:<br/>
-                    són els "mentiders" o nombres de Carmichel
+                    són els "mentiders" o nombres de Carmichael
                 </p>
                 <p>Tot i que la probabilitat de topar amb un nombre "mentider" de Fermat és baixa
                     (molt baixa), per a obtenir nombres primers de forma fiable hi ha algorismes
@@ -265,7 +265,7 @@
             <section>
                 <h1>$\mathbb{Z}_n^*$</h1>
                 <span class="fragment">
-                    <p>Definició: $\mathbb{Z}_n^*$ és $\mathbb{Z}_n$ excloent els $n$ invertibles</p>
+                    <p>Definició: $\mathbb{Z}_n^*$ és $\mathbb{Z}_n$ excloent els $n$ no invertibles</p>
                     <p>$\mathbb{Z}_n^* = \{a \in \mathbb{Z}_n \; | \; a$ invertible $\}$</p>
                 </span>
                 <!-- <span class="fragment">($\mathbb{Z}_p^*$ n'és un cas particular)</span> -->
@@ -301,7 +301,7 @@
                 <p>Funció "phi" d'Euler o funció <em>Totient</em> d'Euler</p>
                 <p>$\phi(n)$ es el nombre de valors<br/><a href="#coprimer">coprimers</a> amb $n$</p>
                 <p class="fragment">Per tant: $\phi(n) = |\mathbb{Z}_n^*|$
-                    <br/>(traduït: <em>$\phi(n)$ és el nombre d'elements $\mathbb{Z}_n^*$</em>; la seva mida o
+                    <br/>(traduït: <em>$\phi(n)$ és el nombre d'elements de $\mathbb{Z}_n^*$</em>; la seva mida o
                     <a href="#order">ordre</a>)</p>
             </section>
 
@@ -469,7 +469,7 @@
                 <p>&nbsp;</p>
                 <p class="fragment">Fixem-nos que $\phi(9)=9(1-1/3)=6$
                     <br/>i que $\text{ord}(a)|6  \quad \forall a \in \mathbb{Z}_{9}^*$</p>
-                <p class="fragment">com que hi ha al menys un element amb ordre $6$ (n'hi ha 2, el $2$ i $5$),
+                <p class="fragment">com que hi ha al menys un element amb ordre $6$ (n'hi ha dos, el $2$ i el $5$),
                     tenim generadors i per tant, $\mathbb{Z}_{9}^*$ és cíclic</p>
             </section>
 
@@ -483,8 +483,8 @@
             </section>
 
             <section>
-                <h3>Fet: $\;\mathbb{Z}_{n}^*$ és cíclic...</h3>
-                <p>...sii $n = 2,4,p^k, 2p^k$ per a tot primer $p \geq 3$</p>
+                <h3>Fet: $\;\mathbb{Z}_{n}^*$ és cíclic&hellip;</h3>
+                <p>&hellip;sii $n = 2,4,p^k, 2p^k$ per a tot primer $p \geq 3$</p>
             </section>
 
             <section>
