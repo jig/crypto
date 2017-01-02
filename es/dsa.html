@@ -4,9 +4,9 @@
     <head>
         <meta charset="utf-8">
 
-        <title>Elgamal i DSA</title>
+        <title>Elgamal y DSA</title>
 
-        <meta name="description" content="Introducció als algorismes Elgamal i DSA">
+        <meta name="description" content="Introducción a los algoritmos Elgamal y DSA">
         <meta name="author" content="Jordi Íñigo Griera">
         <!-- Implementat amb revealjs: https://github.com/hakimel/reveal.js -->
 
@@ -57,66 +57,66 @@
             </section>
 
             <section id="elgamal">
-                <h2>Elgamal en combinació de signatura</h2>
+                <h2>Elgamal en combinación de firma</h2>
                 <p>{&#1591;&#1575;&#1607;&#1585; &#1575;&#1604;&#1580;&#1605;&#1604; (Taher Elgamal), 1985}</p>
-                <p>Fonamentat sobre l'algorisme
-                    <a href="dh.html">DH</a>, i base pel
-                    <a href="#dsa">DSA</a> i
-                    l'<a href="ecdsa.html">ECDSA</a>
+                <p>Basado sobre el algoritmo
+                    <a href="dh.html">DH</a>, y es base para el
+                    <a href="#dsa">DSA</a> y
+                    el <a href="ecdsa.html">ECDSA</a>
                     <br>
-                    (Elgamal es pot combinar per a fer signatura o xifrat; veurem només la combinació de signatura que és
-                    de la que partirem per a veure el DSA i l'ECDSA)
+                    (Elgamal se puede combinar para implementar firma o cifrado; veremos sólo la combinación de firma que es
+                    de la que partiremos para ver el DSA y el ECDSA)
                 </p>
-                <p>Tots aquests algorismes es basen en<br/>els problemes
-                    <a title="Hipòtesi computacional DH" href="dh.html#cdh">CDH</a> i
-                    <a title="Hipòtesi d'indistingibilitat (decisional) DH" href="dh.html#ddh">DDH</a>
-                    (i aquests, del <a title="Problema del Logaritme Discret" href="dh.html#dlp">DLP</a>)</p>
+                <p>Todos estos algoritmos se basan en<br/>los problemas
+                    <a title="Hipótesis computacional DH" href="dh.html#cdh">CDH</a> i
+                    <a title="Hipótesis de indistingibilidad (decisional) DH" href="dh.html#ddh">DDH</a>
+                    (i aquests, del <a title="Problema del Logaritmo Discreto" href="dh.html#dlp">DLP</a>)</p>
                 <!-- scheme: arranjament, disposició o combinació-->
             </section>
 
             <section id="dlp">
-                <h3>Recordem la hipòtesi <a href="dh.html#dlp">DLP</a>:</h3>
-                <p>Donats $\mathbb{Z}_{p}^{*}$ ($p$ primer), i $\alpha$ un generador (per tant
-                    $\mathbb{Z}_{p}^{*}$ és <a href="number-theory.html#cyclic">cíclic</a>)</p>
+                <h3>Recordemos la hipótesis <a href="dh.html#dlp">DLP</a>:</h3>
+                <p>Dados $\mathbb{Z}_{p}^{*}$ ($p$ primo), y $\alpha$ un generador (por tanto
+                    $\mathbb{Z}_{p}^{*}$ es <a href="number-theory.html#cyclic">cíclico</a>)</p>
                 <p>$x \equiv \log_{\alpha} \beta \pmod p$</p>
-                <p>és computacionalment difícil</p>
+                <p>es computacionalmente difícil</p>
                 <p>$\Downarrow$</p>
-                <p>farem servir aquest fet per a generar le claus:
-                <br/>la privada serà el logaritme (modular) de la pública
+                <p>utilizaremos este hecho para generar las claves:
+                <br/>la privada será el logaritmo (modular) de la pública
                 </p>
             </section>
 
             <section id="elgamal-domain-parameters">
-                <h2>Creació dels paràmetres comuns</h2>
-                <p>Tots els usuaris poden compartir els paràmetres bàsics:
-                <br/>el grup cíclic $\mathbb{Z}_{p}^{*}$ i un generador $\alpha$</br>
-                <p class="fragment">Les mateixes consideracions de <a href="dh.html#parameter-selection">DH</a> per a
-                    <a href="number-theory.html#generator-quantity">$p$</a> i
-                    <a href="number-theory.html#generator-selection">$\alpha$</a> apliquen aquí</p>
+                <h2>Creación de los parámetros comunes</h2>
+                <p>Todos los usuarios pueden compartir los parámetros básicos:
+                <br/>el grupo cíclico $\mathbb{Z}_{p}^{*}$ y un generador $\alpha$</br>
+                <p class="fragment">Las mismas consideraciones de <a href="dh.html#parameter-selection">DH</a> para
+                    <a href="number-theory.html#generator-quantity">$p$</a> y
+                    <a href="number-theory.html#generator-selection">$\alpha$</a> aplican aquí</p>
             </section>
 
             <section  id="elgamal-key-generation" style="text-align: left;">
-                <h2>Generació de claus</h2>
-                <p>Cada usuari $\text{u}$ ha de generar:</p>
+                <h2>Generación de claves</h2>
+                <p>Cada usuario $\text{u}$ debe generar:</p>
                 <ul>
-                    <li>$a_\text{u}$: seleccionem un valor (pseudo)aleatori $0 < a_\text{u} < p-1$</li>
-                    <li>$y_\text{u}$: calculem $y_\text{u} = \alpha^{a_\text{u}}$</li>
+                    <li>$a_\text{u}$: seleccionamos un valor (pseudo)aleatorio $0 < a_\text{u} < p-1$</li>
+                    <li>$y_\text{u}$: calculamos $y_\text{u} = \alpha^{a_\text{u}}$</li>
                 </ul>
-                <p>Gestió:</p>
+                <p>Gestión:</p>
                 <ul>
-                    <li>Publiquem $y_\text{u}$ ja que la nostra clau pública serà
-                        <br/>la tupla $(p, \alpha, y_\text{u})$ (o simplement $y_\text{u}$)</li>
-                    <li>Guardem $a_\text{u}$ ja que la nostra clau secreta serà
-                        <br/>la tupla $(a_\text{u}, (p, \alpha, y_\text{u}))$ (o simplement $a_\text{u}$)</li>
+                    <li>Publicamos $y_\text{u}$ ya que nuestra clave pública será
+                        <br/>la tupla $(p, \alpha, y_\text{u})$ (o simplemente $y_\text{u}$)</li>
+                    <li>Guardamos $a_\text{u}$ ya que nuestra clave secreta será
+                        <br/>la tupla $(a_\text{u}, (p, \alpha, y_\text{u}))$ (o simplemente $a_\text{u}$)</li>
                 </ul>
                 <p class="fragment"><em>
-                    Nota: comparem el cost de generació de claus
-                        <br/>d'Elgamal (1 random + 1 exp) amb el d'RSA (2 primers)
+                    Nota: comparamos el coste de generación de claves
+                        <br/>de Elgamal (1 random + 1 exp) con la de RSA (2 primers)
                 </em></p>
             </section>
 
             <section id="elgamal-signature" style="text-align: left;">
-                <h2>Signatura</h2>
+                <h2>Firma</h2>
                 <ol>
                     <li>calcula el hash del missatge $h(m)$</li>
                     <li>generem un random $k$, tal que $0 < k < p-1$ amb $\text{mcd}(k, p-1)=1$; $\,k$ ha de ser privat i únic</li>
