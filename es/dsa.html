@@ -118,27 +118,27 @@
             <section id="elgamal-signature" style="text-align: left;">
                 <h2>Firma</h2>
                 <ol>
-                    <li>calcula el hash del missatge $h(m)$</li>
-                    <li>generem un random $k$, tal que $0 < k < p-1$ amb $\text{mcd}(k, p-1)=1$; $\,k$ ha de ser privat i únic</li>
+                    <li>calcula el hash del mensaje $h(m)$</li>
+                    <li>generamos un random $k$, tal que $0 < k < p-1$ con $\text{mcd}(k, p-1)=1$; $\,k$ debe ser privado y único</li>
                     <br/>
                     <li>$r = \alpha^k \bmod p$</li>
                     <br/>
-                    <li>$s = \dfrac{h(m)-a_\text{u}r}{k} \bmod {(p-1)}\quad$ (apunt: <a href="number-theory.html#/fermat-generalized">Fermat petit</a>)</li>
+                    <li>$s = \dfrac{h(m)-a_\text{u}r}{k} \bmod {(p-1)}\quad$ (apunte: <a href="number-theory.html#/fermat-generalized">Fermat pequeño</a>)</li>
                 </ol>
                 <br/>
-                <p>La signatura d'$m$ és la tupla $(r, s)$</p>
+                <p>La firma de $m$ es la tupla $(r, s)$</p>
             </section>
 
             <section style="text-align: left;">
                 <section id="elgamal-verification">
-                    <h2>Verificació</h2>
-                    <p>A partir de la recepció del missatge $m$ i la signatura $(r,s)$</p>
+                    <h2>Verificación</h2>
+                    <p>A partir de la recepción del mensaje $m$ y la firma $(r,s)$</p>
                     <ol>
-                        <li>(previ: calculem el hash $h(m)$)</li>
-                        <li>(previ: verifiquem que $0 < r < p-1$)</li>
+                        <li>(previo: calculamos el hash $h(m)$)</li>
+                        <li>(previo: verificamos que $0 < r < p-1$)</li>
                         <li>$v_2 = \alpha^{h(m)} \bmod p$</li>
                         <li>$v_1 = (y_\text{u})^{r} r^s \bmod p$</li>
-                        <li>$v_1 \overset{?}{=} v_2 \implies$ signatura vàlida</li>
+                        <li>$v_1 \overset{?}{=} v_2 \implies$ firma válida</li>
                     </ol>
                     <br/>
                     <p class="fragment">
@@ -171,28 +171,28 @@
             </section>
             <!--&=& \alpha^{a_\text{u}r} r^{(\frac{h(m)-a_\text{u}r}{k} \bmod{p-1})} \bmod{p} = \\-->
             <section id="elgamal-vs-rsa-benchmark">
-                <h3>Rendiment: Elgamal <span style="text-transform:none;">vs</span> RSA</h3>
+                <h3>Rendimiento: Elgamal <span style="text-transform:none;">vs</span> RSA</h3>
                 <table>
                     <thead>
                         <tr>
                             <td>&nbsp;</td>
-                            <td>Generació</td>
-                            <td>Signatura</td>
-                            <td>Validació</td>
+                            <td>Generación</td>
+                            <td>Firma</td>
+                            <td>Validación</td>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>RSA</td>
-                            <td>molt lent</td>
-                            <td>mig</td>
-                            <td>ràpid</td>
+                            <td>muy lento</td>
+                            <td>medio</td>
+                            <td>rápido</td>
                         </tr>
                         <tr>
                             <td>Elgamal</td>
-                            <td>molt ràpid</td>
-                            <td>mig</td>
-                            <td>mig</td>
+                            <td>muy rápido</td>
+                            <td>medio</td>
+                            <td>medio</td>
                         </tr>
                     </tbody>
                 </table>
@@ -207,26 +207,25 @@
             <section id="dsa">
                 <h2>DSA</h2>
                 <p>{NIST, 1991}</p>
-                <p>Directament basat en<br/>l'algorisme Elgamal en combinació de signatura</p>
-                <p>DSA (<em>Digital Signature Algorithm</em>) actualment està sent desplaçat per la variant
-                    sobre corbes el·líptiques (<a href="ecdsa.html">ECDSA</a>)
+                <p>Directamente basado en<br/>el algoritmo Elgamal en combinación de firma</p>
+                <p>DSA (<em>Digital Signature Algorithm</em>) actualmente está siendo desplazado por la variante
+                    sobre curvas elípticas (<a href="ecdsa.html">ECDSA</a>)
                 </p>
             </section>
 
             <section style="text-align: left;">
                 <h2>DSA vs Elgamal</h2>
-                <p>DSA té una seguretat equivalent a Elgamal però:</p>
+                <p>DSA tiene una seguridad equivalente a Elgamal pero:</p>
                 <ul>
-                    <li>Amb major velocitat de procés</li>
-                    <li>Amb una mida de les signatures inferior (de fet, inferior a RSA de seguretat equivalent)</li>
+                    <li>Con mayor velocidad de proceso</li>
+                    <li>Con un tamaño de las firmas inferior (de hecho, inferior a RSA de seguridad equivalente)</li>
                 </ul>
-                <p>Aquests dos fets fan que Elgamal no es faci servir per signatura, en favor de l'equivalent DSA</p>
+                <p>Estos dos hechos hacen que Elgamal no se use para firma, en favor del equivalente DSA</p>
                 <!-- <p>Després veurem que al DSA li passa el mateix respecte l'ECDSA</p> -->
-
             </section>
 
             <section id="elgamal-vs-dsa">
-                <p>Elgamal $\rightarrow$ DSA: reduïm $r$ i $s$ mòdul $\color{red}{q}$, on $\color{red}{q | (p-1)}$:</p>
+                <p>Elgamal $\rightarrow$ DSA: reducimos $r$ y $s$ módulo $\color{red}{q}$, donde $\color{red}{q | (p-1)}$:</p>
                 <p>\[\begin{eqnarray}
                     \text{random }k &\rightarrow& 0 < k < p-1 \\
                     r &=& \alpha^k \bmod p \\
@@ -242,78 +241,78 @@
             </section>
 
             <section>
-                <p>Quan vegem com dimensionar els paràmetres pels diferents
-                    algorismes, veurem que la mida recomanada en bits és:
+                <p>Cuando veamos como dimensionar los parámetros para los diferentes
+                    algoritmos, veremos que el tamaño recomendado en bits es:
                     <br/>$\|q\| \approx \dfrac{1}{6}\|p\|$</p>
             </section>
 
             <section id="dsa-domain-parameters" style="text-align: left;">
                 <h2>DSA</h2>
-                <p>&nbsp;&nbsp;&nbsp;Paràmetres: $p$, $q$, $\alpha$</p>
-                <p>&nbsp;&nbsp;&nbsp;Clau privada: $a$ (un nombre aleatori $0 < a < q-2$)
-                <p>&nbsp;&nbsp;&nbsp;Clau pública: $\alpha^a \bmod p$</p>
+                <p>&nbsp;&nbsp;&nbsp;Parámetros: $p$, $q$, $\alpha$</p>
+                <p>&nbsp;&nbsp;&nbsp;Clave privada: $a$ (un número aleatorio $0 < a < q-2$)
+                <p>&nbsp;&nbsp;&nbsp;Clave pública: $\alpha^a \bmod p$</p>
                 <span class="fragment" style="text-align: center;">
                 <hr/>
-                    <p>Com a Elgamal, tots els usuaris poden<br/>compartir els paràmetres bàsics:
-                        <br/>el grup cíclic $\mathbb{Z}_{p}^{*}$, el generador $\alpha$, i a més a més $q$
-                    <p>Les mateixes consideracions de <a href="dh.html#parameter-selection">DH</a> i Elgamal per a
-                        <a href="number-theory.html#generator-quantity">$p$</a> apliquen aquí</p>
-                    <p>En canvi en DSA, $\alpha$ no ha de ser <a href="number-theory.html#generator">generador</a>
+                    <p>Como Elgamal, todos los usuarios pueden<br/>compartir los parámetros básicos:
+                        <br/>el grupo cíclico $\mathbb{Z}_{p}^{*}$, el generador $\alpha$, y además $q$
+                    <p>Las mismas consideraciones de <a href="dh.html#parameter-selection">DH</a> y Elgamal para
+                        <a href="number-theory.html#generator-quantity">$p$</a> aplican aquí</p>
+                    <p>En cambio en DSA, $\alpha$ no ha de ser <a href="number-theory.html#generator">generador</a>
                         de $\mathbb{Z}_p^*$
-                        <br/>(no ha de tenir $\text{ord}{(\alpha)} = \phi(p) = p -1$),
+                        <br/>(no debe tener $\text{ord}{(\alpha)} = \phi(p) = p -1$),
                         <br/>si no que $\text{ord}{(\alpha)} = q$ i $q|(p-1)$</p>
                 </span>
             </section>
 
             <section id="dsa-vs-rsa-benchmark">
-                <h3>Rendiment: DSA <span style="text-transform:none;">vs</span> RSA</h3>
+                <h3>Rendimiento: DSA <span style="text-transform:none;">vs</span> RSA</h3>
                 <table>
                     <thead>
                     <tr>
                         <td>&nbsp;</td>
-                        <td>Generació</td>
-                        <td>Signatura</td>
-                        <td>Validació</td>
+                        <td>Generación</td>
+                        <td>Firma</td>
+                        <td>Validación</td>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
                         <td>RSA</td>
-                        <td>molt lent</td>
-                        <td>mig</td>
-                        <td>ràpid</td>
+                        <td>muy lento</td>
+                        <td>medio</td>
+                        <td>rápido</td>
                     </tr>
                     <tr>
                         <td>DSA</td>
-                        <td>molt ràpid</td>
-                        <td>mig</td>
-                        <td>mig</td>
+                        <td>muy rápido</td>
+                        <td>medio</td>
+                        <td>medio</td>
                     </tr>
                     </tbody>
                 </table>
             </section>
 
             <section id="threats">
-                <h3>debilitats $\rightarrow$ contramesures</h3>
+                <h3>debilidades $\rightarrow$ contramedidas</h3>
                 <ul>
-                    <li>sobre la predicibilitat de l'aleatori $k$ &nbsp; <span style="color:darkgrey;">($r = \alpha^k \bmod p$)</span></li>
+                    <li>sobre la predicibilidad del aleatorio $k$ &nbsp; <span style="color:darkgrey;">($r = \alpha^k \bmod p$)</span></li>
                     <span style="color:grey;">
-                        <li>Atacs de temps $\rightarrow$ randomització en l'execució</li>
-                        <li>Atacs sobre el consum, la radiació, etc.</li>
-                        <li>compromís de clau: accés software o físic al sistema</li>
-                        <li>qualitat dels nombres aleatoris</li>
-                        <li>a futur: <a href="threats.html#/asymmetric-crypto" style="color:grey;">computació quàntica</a></li>
+                        <li>Ataques de tiempo $\rightarrow$ randomización en la ejecución</li>
+                        <li>Ataques sobre el consumo, la radiación, etc.</li>
+                        <li>compromiso de clave: acceso software o físico al sistema</li>
+                        <li>calidad de los números aleatorios</li>
+                        <li>a futuro: <a href="threats.html#/asymmetric-crypto" style="color:grey;">computación cuántica</a></li>
                         <li>...</li>
                     </span>
                 </ul>
             </section>
 
             <section id="keysize">
-                <h3>Longitud de clau</h3>
-                <p>els atacs sobre DSA son els algorismes per a calcular el logaritme discret</p>
+                <h3>Longitud de clave</h3>
+                <p>los ataques sobre DSA son los algoritmos para calcular el logaritmo discreto</p>
 				<p>el NIST 
-					<a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf">recomana</a> 
-					$\|p\| \geq 2048$ bit i $\|q\| \geq 224$ fins el 2030
+					<a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf">recomienda</a> 
+					$\|p\| \geq 2048$ bit i $\|q\| \geq 224$ hasta el 2030
                     <thead>
 				</p>
 				<table>
@@ -321,7 +320,7 @@
                             <td style="text-align: right;">$p$</td>
                             <td style="text-align: right;">$q$</td>
 							<td></td>
-							<td>(bits de seguretat)</td>
+							<td>(bits de seguridad)</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -348,7 +347,7 @@
             </section>
 
             <section>
-                <h3><a href="ecc.html">(Criptografia de Corba El·líptica) $\rightarrow$</a></h3>
+                <h3><a href="ecc.html">(Criptografía de Curva Elíptica) $\rightarrow$</a></h3>
             </section>
         </div>
 
