@@ -6,7 +6,7 @@
 
         <title>Diffie-Hellman</title>
 
-        <meta name="description" content="Introducció a l'algorisme DH">
+        <meta name="description" content="Introducción al algoritmo DH">
         <meta name="author" content="Jordi Íñigo Griera">
         <!-- Implementat amb revealjs: https://github.com/hakimel/reveal.js -->
 
@@ -42,7 +42,7 @@
         <div class="slides">
 
             <section>
-                <h1>Acord de claus
+                <h1>Acuerdo de claves
                     <br/>Diffie-Hellman</h1>
                 <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
 
@@ -58,132 +58,131 @@
             </section>
 
             <section>
-                <h2>Acord de claus DH</h2>
+                <h2>Acuerdo de claves DH</h2>
                 <p>{Diffie, Hellman; 1976}</p>
-                <p>Permet acordar un nombre aleatori entre dos usuaris a partir de la hipòtesi <span title="Computational Diffie-Hellman">CDH</span>
-                    (hipòtesi computacional Diffie-Hellman).
-                    Aquest nombre aleatori es pot fer servir de clau per a xifrar les posteriors comunicacions
-                    fent servir xifrat simètric.
+                <p>Permite acordar un número aleatorio entre dos usuarios a partir de la hipótesis <span title="Computational Diffie-Hellman">CDH</span>
+                    (hipótesis computacional Diffie-Hellman).
+                    Este número aleatorio se puede utilizar como clave (simétrica) para posteriores comunicacions.
                     <br>
-                    (DH no permet signar ni xifrar, però és la base d'altres algorismes que sí ho permeten)
+                    (DH no permite cifrar ni firmar, pero es la base de otros sistemas que si lo permiten)
                 </p>
-                <p>CDH és un <em>problema amb trampa</em> relacionat amb el problema
+                <p>CDH es un <em>problema con trampa</em> relacionado con el problema
                     <span title="Discrete Logarithm Problem">DLP</span>
-                    (Problema del logaritme discret).
-                    El DLP conjectura que es difícil el càlcul del logaritme (funció inversa de l'exponenciació) en certs grups
+                    (Problema del logaritmo discreto).
+                    El DLP conjetura que es difícil el cálculo del logaritmo (función inversa de la exponenciación) en ciertos grupos
                 </p>
             </section>
 
             <section id="dlp">
                 <h2>DLP</h2>
-                <h3>(el problema del logaritme discret)</h3>
-                <p>Tenim un $\mathbb{Z}_{p}^{*}$ ($p$ primer) i seleccionem
-                    <br/>un element <a href="number-theory.html#generator">generador</a> $\alpha\,$
-                    ($\mathbb{Z}_{p}^{*}$ és <a href="number-theory.html#cyclic">cíclic</a>)
+                <h3>(el problema del logaritmo discreto)</h3>
+                <p>Tenemos un $\mathbb{Z}_{p}^{*}$ ($p$ primo) y seleccionamos
+                    <br/>un elemento <a href="number-theory.html#generator">generador</a> $\alpha\,$
+                    ($\mathbb{Z}_{p}^{*}$ es <a href="number-theory.html#cyclic">cíclico</a>)
                     <!-- <br>($g^{\phi{(p)}} \equiv 1 \pmod p$)-->
                 </p>
                 <br>
-                <p>Llavors, existeix un $0 \leq x < p-1$ únic que compleix per a cada $\beta \in \mathbb{Z}_{p}^{*}$:</p>
+                <p>Entonces, existe un $0 \leq x < p-1$ único que cumple para cada $\beta \in \mathbb{Z}_{p}^{*}$:</p>
                 <p>$x \equiv \log_{\alpha} \beta \pmod p$</p>
-                <p class="fragment">(o de forma equivalent: $\beta \equiv \alpha^x \pmod p$)</p>
+                <p class="fragment">(o de forma equivalente: $\beta \equiv \alpha^x \pmod p$)</p>
                 <p>
-                    ...però és <em>computacionalment difícil</em>* calcular-lo
+                    ...pero es <em>computacionalmente difícil</em>* calcularlo
                 </p>
             </section>
 
             <section>
                 <section id="cdh">
                     <h2>CDH</h2>
-                    <h3>(hipòtesi computacional<br>Diffie-Hellman)</h3>
-                    <p>Suposem que tenim un <a href="number-theory.html#cyclic">grup cíclic</a> sobre un conjunt $\mathbb{Z}_{p}^{*}$
-                        <br>($p$ primer) amb l'element <a href="number-theory.html#generator">generador</a> $\alpha$
+                    <h3>(hipótesis computacional<br>Diffie-Hellman)</h3>
+                    <p>Supongamos que tenemos un <a href="number-theory.html#cyclic">grupo cíclico</a> sobre un conjunto $\mathbb{Z}_{p}^{*}$
+                        <br>($p$ primo) con el elemento <a href="number-theory.html#generator">generador</a> $\alpha$
                     </p>
                     <br>
-                    <p>A partir de conèixer $\alpha$, $\alpha^i$ i $\alpha^j$ per a $0 \leq i,j < p-1$
-                        <br>llavors el càlcul de $\alpha^{ij}$ és computacionalment difícil...
+                    <p>A partir de conocer $\alpha$, $\alpha^i$ i $\alpha^j$ per a $0 \leq i,j < p-1$
+                        <br>entonces el cálculo de $\alpha^{ij}$ es computacionalmente difícil&hellip;
                     </p>
-                    <p class="fragment">...si és que no coneixem "la trampa"</p>
+                    <p class="fragment">...si es que no conocemos "la trampa"</p>
                 </section>
 
                 <section id="ddh">
-                    <p>CDH requereix que DLP sigui computacionalment difícil</p>
-                    <p>CDH està relacionat amb la hipòtesi DDH (<em>Decisional DH</em>):
-                        <br>que diu que $\alpha^{ij}$ és indistingible d'un valor escollit aleatòriament
+                    <p>CDH requiere que DLP sea computacionalmente difícil</p>
+                    <p>CDH está relacionado con la hipótesis DDH (<em>Decisional DH</em>):
+                        <br>que dice que $\alpha^{ij}$ es indistingible de un valor escogido aleatóriamente
                         de $\mathbb{Z}_{p}^{*}$</p>
-                    <p>Totes les hipòtesis han de ser certes per a que DH sigui segur</p>
+                    <p>Todas estas hipótesis deben ser ciertas para que DH sea seguro</p>
                 </section>
             </section>
 
             <section id="trapdoor">
                 <h2>La trampa</h2>
-                <p>Si coneixem $i$ i $\alpha^j$ (ò $j$ i $\alpha^i$) llavors el càlcul d'$\alpha^{ij}$ és fàcil:</p>
-                <p>Si coneixes $i$: $\alpha^{ij} = {(\alpha^j)}^{i} \pmod p$</p>
-                <p>Si coneixes $j$: $\alpha^{ij} = {(\alpha^i)}^{j} \pmod p$</p>
-                <p>(en canvi si no coneixes ni $i$ ni $j$, és computacionalment difícil encara que coneguis $\alpha^i$ i $\alpha^j$)</p>
+                <p>Si conocemos $i$ i $\alpha^j$ (ò $j$ i $\alpha^i$) entonces el cálculo d'$\alpha^{ij}$ es fácil:</p>
+                <p>Si conocemos $i$: $\alpha^{ij} = {(\alpha^j)}^{i} \pmod p$</p>
+                <p>Si conocemos $j$: $\alpha^{ij} = {(\alpha^i)}^{j} \pmod p$</p>
+                <p>(en cambio si no conocemos ni $i$ ni $j$, es computacionalmente difícil aunque conozcas $\alpha^i$ y $\alpha^j$)</p>
             </section>
 
             <section style="text-align: left;">
-                <h3>protocol</h3>
+                <h3>protocolo</h3>
                 <ol>
-                    <li>Donats dos usuaris $I$ i $J$ cal que generin respectivament dos nombres $i$ i $j$ i que els
-                    mantinguin en secret</li>
+                    <li>Dados dos usuarios $I$ i $J$ hace falta que generenen respectivamente dos números $i$ y $j$ y que los
+                    mantingan en secreto</li>
 
-                    <li>$I$ ha d'enviar $\alpha^i \pmod p$ a $J$;
+                    <li>$I$ debe enviar $\alpha^i \pmod p$ a $J$;
                         <br>$J$ calcula $\alpha^{ij} = {(\alpha^i)}^{j} \pmod p$</li>
 
-                    <li>$J$ ha d'enviar $\alpha^j \pmod p$ a $I$;
+                    <li>$J$ debe enviar $\alpha^j \pmod p$ a $I$;
                         <br>$I$ calcula $\alpha^{ij} = {(\alpha^j)}^{i} \pmod p$</li>
                 </ol>
-                <p>A partir d'aquí $I$ i $J$ comparteixen el secret $\alpha^{ij}$</p>
-                <p>Un atacant que vegi el tràfic ($\alpha^i$ i $\alpha^j$) i conegui $\alpha$ no és capaç d'aprendre res sobre
-                    el secret $\alpha^{ij}$</p>
+                <p>A partir de aquí $I$ y $J$ comparten el secreto $\alpha^{ij}$</p>
+                <p>Un atacante que vea el tráfic ($\alpha^i$ y $\alpha^j$) y conozca $\alpha$ no es capaz de descubrir nada sobre
+                    el secreto $\alpha^{ij}$</p>
             </section>
 
             <section style="text-align: left;" id="parameter-selection">
-                <h3>Selecció dels paràmetres $p$, <!-- i --> $\alpha$</h3>
-                <p>Els paràmetres $p$ i $\alpha$ es poden seleccionar a priori, poden ser públics
-                    i fer-se servir múltiples vegades:</p>
+                <h3>Selección de los parámetros $p$, <!-- i --> $\alpha$</h3>
+                <p>Los parámetros $p$ y $\alpha$ se pueden seleccionar a priori, pueden ser públicos
+                    y utilizarse múltiples veces:</p>
                 <!--<ul>
                 <li>DLP a $\mathbb{Z}_{p}^{*}$ força que $p$ sigui un nombre primer que compleixi:</li>
                     <p style="text-align: center;">$p = 2q+1$ amb $q$ sent un altre primer</p>
                 <li>$\alpha$ pot ser qualsevol enter $1 < \alpha < (p-1)$ i habitualment es pren un valor baix (e.g $2$)</li>
                 </ul>-->
                 <ul>
-                    <li>$p$: ha de ser un primer gran (en la forma $p=2q+1$ per a
-                        <a href="number-theory.html#generator-quantity">facilitar la cerca</a>
-                        de generadors $\alpha$)</li>
-                    <li>$\alpha$: <a href="number-theory.html#generator-selection">seleccionar</a> un valor aleatori $\alpha \in \mathbb{Z}_{p}^{*}$ que
-                        sigui generador de $\mathbb{Z}_{p}^{*}$</li>
+                    <li>$p$: debe ser un primo grande (en la forma $p=2q+1$ para
+                        <a href="number-theory.html#generator-quantity">facilitar la búsqueda</a>
+                        de generadores $\alpha$)</li>
+                    <li>$\alpha$: <a href="number-theory.html#generator-selection">seleccionar</a> un valor aleatorio $\alpha \in \mathbb{Z}_{p}^{*}$ que
+                        sea generador de $\mathbb{Z}_{p}^{*}$</li>
                 </ul>
             </section>
 
             <section style="text-align: left;">
-                <h3>debilitats $\rightarrow$ contramesures</h3>
+                <h3>debilidades $\rightarrow$ contramedidas</h3>
                 <p>DH no autentica:</p>
                 <ul>
-                    <li><span title="Man In The Middle">MITM</span> $\rightarrow$ cal combinar DH amb algun protocol per a autenticar els extrems</li>
+                    <li><span title="Man In The Middle">MITM</span> $\rightarrow$ hace falta combinar DH con algún protocolo para autenticar los extremos</li>
                 </ul>
                 <p>
-                    problemes sobre la implementació:
+                    problemes sobre la implementación:
                     <!-- https://www.eff.org/deeplinks/2015/10/how-to-protect-yourself-from-nsa-attacks-1024-bit-DH -->
                 </p>
                 <ul>
-                    <li><a href="https://weakdh.org/">Logjam attack</a> $\rightarrow$ rèmora de l'<em>export grade</em> crypto: $512$ bit encara en algun
+                    <li><a href="https://weakdh.org/">Logjam attack</a> $\rightarrow$ rémora del <em>export grade</em> crypto: $512$ bit encara en algun
                         software</li>
                     <!-- http://dl.acm.org/authorize?N94522 -->
-                    <li>moltes implementacions limiten la longitud de les claus (en el cas de EDH, <em>Ephemeral DH</em>)
+                    <li>muchas implementaciones limitan la longitud de las claves (en el caso de EDH, <em>Ephemeral DH</em>)
                     a $1024$ bit (Apache, <a href="http://bugs.java.com/bugdatabase/view_bug.do?bug_id=7044060">Java</a>)</li>
-                    <li>hi ha <a href="">sospites</a> que l'NSA és capaç de trencar (sistemàticament?) DH-1024</li>
+                    <li>se <a href="">sospecha</a> que la NSA es capaz de romper (¿sistemáticamente?) DH-1024</li>
                 </ul>
                 <!-- <a href="https://weakdh.org/sysadmin.html">Guide to Deploying Diffie-Hellman for TLS</a> -->
             </section>
 
             <section id="keysize">
-                <h3>Longitud de clau</h3>
-                <p>els atacs sobre DH són els millors algorismes per a calcular $log_{\alpha}(\alpha^{ij}) \pmod p$</p>
+                <h3>Longitud de clave</h3>
+                <p>los ataques sobre DH son los mejores algoritmos para calcular $log_{\alpha}(\alpha^{ij}) \pmod p$</p>
                 <p>el NIST
-                    <a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf">recomana</a>
-                    $\|p\| \geq 2048$ bit fins el 2030
+                    <a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf">recomienda</a>
+                    $\|p\| \geq 2048$ bit hasta 2030
                     <thead>
                 </p>
                 <table>
@@ -191,7 +190,7 @@
                         <td style="text-align: right;">RSA</td>
                         <td></td>
                         <td>AES</td>
-                        <td>(bits de seguretat)</td>
+                        <td>(bits de seguridad)</td>
                     </tr>
                     </thead>
                     <tbody>
