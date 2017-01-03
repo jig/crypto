@@ -4,9 +4,9 @@
     <head>
         <meta charset="utf-8">
 
-        <title>Amenaces</title>
+        <title>Amenazas</title>
 
-        <meta name="description" content="Amenaces">
+        <meta name="description" content="Amenazas">
         <meta name="author" content="Jordi Íñigo Griera">
         <!-- Implementat amb revealjs: https://github.com/hakimel/reveal.js -->
 
@@ -42,7 +42,7 @@
         <div class="slides">
 
             <section>
-                <h1>Amenaces a la criptografia</h2>
+                <h1>Amenazas a la criptografía</h2>
                 <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
 
                 <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">
@@ -57,78 +57,75 @@
             </section>
 
             <section>
-                <h1>Física quàntica</h1>
+                <h1>Física cuántica</h1>
             </section>
 
             <section>
-                <p>no confondre tres conceptes que semblen relacionats però no ho estan:</p>
+                <p>no confundir tres conceptos que parecen relacionados pero no lo están:</p>
                 <ul>
-                    <li><a href="hsm.html#quantum-rng">aleatorietat quàntica</a></li>
-                    <li>computació quàntica</li>
-                    <li>criptografia quàntica</li>
+                    <li><a href="hsm.html#quantum-rng">aleatoriedad cuántica</a></li>
+                    <li>computación cuántica</li>
+                    <li>criptografía cuántica</li>
                 </ul>
             </section>
 
             <section id="asymmetric-crypto">
-                <h3>computació quàntica: cripto asimètrica</h3>
-                <p>els computadors quàntics fan servir algorismes quàntics; certs problemes exponencials o
-                    subexponencials en computadors tradicionals es converteixen en polinòmics:</p>
-                <p>DH, DSA, RSA i les variants ECC quedaran obsoletes:
-                    <br/>l'algorisme de
+                <h3>computación cuántica: cripto asimétrica</h3>
+                <p>los computadores cuánticos utilizan algoritmos cuánticos; ciertos problemas exponenciales o
+                    subexponencials en computadores tradicionales se convierten en polinómicos:</p>
+                <p>DH, DSA, RSA y les variantes ECC quedarán obsoletas:
+                    <br/>el algoritmo de
                     <a href="http://arxiv.org/abs/quant-ph/9508027">Shor, 1994</a>
-                    és polinòmic per a factoritzar $pq$
+                    es polinómico para factorizar $pq$
                     (<a href="rsa.html#rsap" title="RSA Problem" href="">RSAP</a>)
-                    o per a resoldre el
+                    o para resolver el
                     <a href="dh.html#dlp" title="Discrete Logarithm Problem" href="">DLP</a>
-                    o l'
+                    o el 
                     <a href="ecc.html#ecdlp" title="Elliptic Curve Discrete Logarithm Problem">ECDLP</a>
                 </p>
-                <p class="fragment">Computació quàntica <a href="http://dilbert.com/strip/2012-04-17">segons Dilbert</a>; bits i <em>qubits</em></p>
+                <p class="fragment">Computación cuántica <a href="http://dilbert.com/strip/2012-04-17">según Dilbert</a>; bits y <em>qubits</em></p>
             </section>
 
             <section>
-                <h3>computació quàntica: cripto asimètrica</h3>
-                <p>canviar la mida de clau no resol el problema (el pot allunyar en el temps ja que força a
-                    treballar amb computadors quàntics majors ($\times 4$ <u>qubits</u>))</p>
-                <p>fins ara (2014) s'ha factoritzat nombres de fins a $16$ bit
+                <h3>computación cuántica: cripto asimétrica</h3>
+                <p>cambiar el tamaño de la clave no resuelve el problema (lo puede alejar en el tiempo ya que fuerza a 
+                    trabajar con computadores cuánticos mayores ($\times 4$ <u>qubits</u>))</p>
+                <p>hasta ahora (2014) se ha factorizado números de hasta $16$ bit
                     (<a href="http://arxiv.org/abs/1411.6758">$pq=56153$</a>)
-                <p class="fragment">el 2001 IBM va factoritzar el
+                <p class="fragment">el 2001 IBM factorizó el
                     <a href="https://www-03.ibm.com/press/us/en/pressrelease/965.wss">$pq=15$</a>
                 </p>
             </section>
 
             <section>
-                <h3>computació quàntica: cripto asimètrica</h3>
-                <p>no se sap quan hi haurà computadors quàntics utilitzables</p>
+                <h3>computación cuántica: cripto asimétrica</h3>
+                <p>no se sabe cuando habrá computadores cuánticos utilizables</p>
                 <span class="fragment">
-                    <p>no se sap quan hi haurà <u>un</u> computador quàntic utilitzable, ni qui
-                        el tindrà
-                        <br/> (però es pot suposar que probablement no ho faci públic)
+                    <p>no se sabe cuando habrá <u>un</u> computador cuántico utilizable, ni quien
+                        lo tendrá
+                        <br/> (pero suponer que probablemente no lo haga público)
                     </p>
                 </span>
-                <p>s'ha d'estar preparat per a tenir un backup per a la criptografia asimètrica probable cap el 2030</p>
-                <p style="color:grey;" class="fragment">s'ha de ser conscient que no tothom tindrà un computador quàntic durant un temps (llarg),
-                    depenent de quin sigui l'objectiu de la nostra criptografia això serà rellevant anys més tard</p>
+                <p>se ha de estar preparado para tener un backup para la criptografía asimétrica probablemente hacia el 2030</p>
+                <p style="color:grey;" class="fragment">se ha de ser consciente que no todo el mundo tendrá un computador cuántico durante un tiempo (llarg),
+                    dependiendo de cual sea el objectivo de nuestra criptografía esto será relevante años más tarde</p>
             </section>
 
             <section>
-                <h3>computació quàntica i
-                    <br/>criptografia simètrica</h3>
+                <h3>computación cuántica y
+                    <br/>criptografía simétrica</h3>
             </section>
             <section>
-                    <h3>computació quàntica: cripto simètrica</h3>
-                <p>l'algorisme de <a href="http://arxiv.org/abs/quant-ph/9605043">Grover, 1996</a> permet trobar
-                    les claus AES-128 en $2^{64}$ operacions (quàntiques) sobre un coneixent una petita quantitat de
-                    text en clar</p>
-                <p>si passem a AES-256 tindrem una seguretat equivalent de $128$ bit (ara tenim $256$ bit de seguretat
-                equivalent)</p>
-                <p>probablement s'hagi de tenir en compte en aplicacions de llarga durada (xifrat), i caldrà tenir un
-                    algorisme més fort a AES-256, però el cost de la contramesura és baix</p>
+                    <h3>computació cuántica: cripto simétrica</h3>
+                <p>el algoritmo de <a href="http://arxiv.org/abs/quant-ph/9605043">Grover, 1996</a> permite encontrar
+                    las claves AES-128 en $2^{64}$ operaciones (cuánticas) conociendo una pequeña cantidad de texto en claro</p>
+                <p>si pasamos a AES-256 tendremos una seguridad equivalente de $128$ bit (ara tenemos $256$ bit de seguridad
+                equivalente)</p>
             </section>
 
             <section>
-                <h3>computació quàntica: cripto simètrica</h3>
-                <p>no es coneix cap atac sobre els hashos ni els HMAC</p>
+                <h3>computació cuántica: cripto simétrica</h3>
+                <p>no se conoce ningún ataque sobre los hashes y los HMAC</p>
             </section>
 
             <section>
@@ -141,7 +138,7 @@
                             <li>en VPNs intercanviar claus simètriques</li>
                             <li>en TLS fer servir claus molt grans (calen $n$ <em>qubits</em> per trencar claus d'$n$ bits; això retarda
                                 uns anys la factibilitat de l'atac)</li>
-                            <li>a llarg termini cal trobar problemes matemàtics que tinguin complexitat sub/exponencial en un ordinador quàntic
+                            <li>a llarg termini cal trobar problemes matemàtics que tinguin complexitat sub/exponencial en un ordinador cuántico
                                 <ul><li>esperança factible: <a href="#sidh">SIDH</a></li></ul>
                             </li>
                         </ul>
@@ -154,13 +151,13 @@
                     Supersingular Isogeny
                     <br/>Diffie-Hellman Key Exchange</h3>
                 <p>SIDH està basat en corbes el·líptiques</p>
-                <p>té complexitat clàssica de $O(\sqrt[4]{2^b})$ i complexitat quàntica de $O(\sqrt[6]{2^b})$ per
+                <p>té complexitat clàssica de $O(\sqrt[4]{2^b})$ i complexitat cuántica de $O(\sqrt[6]{2^b})$ per
                     tant té complexitat exponencial en els dos tipus de computadors
                 </p>
                 <p>la longitud recomanada contra un ordenador clàssic (deduït de les $O()$ anteriors), és:
                     <ul>
                         <li>$512$ b per a $128$ b de seguretat equivalent ara</li>
-                        <li>$768$ b per a $128$ b de seguretat equivalent en era post-quàntica</li>
+                        <li>$768$ b per a $128$ b de seguretat equivalent en era post-cuántica</li>
                     </ul>
                 </p>
             </section>
@@ -180,7 +177,7 @@
                 <p>el 2013 Edward Snowden filtra quantitat de documents que mostren les activitats de certes
                     agències dels EUA (en particular de l'NSA)</p>
                 <ul>
-                    <li>inversió en computació quàntica</li>
+                    <li>inversió en computació cuántica</li>
                     <li>captura de comunicacions (xifrades o no): Echelon (pre-Snowden), emmagatzematge de dades per a
                         possibilitar-ne el posterior desxifrat</li>
                     <li>milers d'enginyers i doctors dedicats a criptoanàlisi (coneixen la info publicada, i no
