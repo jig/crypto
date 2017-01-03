@@ -129,17 +129,17 @@
             </section>
 
             <section>
-                <h3>contramesures, resum</h3>
+                <h3>contramedidas, resumen</h3>
                 <ul>
-                    <li>fer servir claus de $256$ bit o superiors per <u>criptografia simètrica</u></li>
-                    <li><u>cripto asimètrica</u>: en els casos que es pugui fer servir cripto simètrica...
-                        <br/>...fer-les servir:
+                    <li>usar claves de $256$ bit o superiores para <u>criptografia simétrica</u></li>
+                    <li><u>cripto asimétrica</u>: en los casos que se pueda utilizar cripto simétrica&hellip;
+                        <br/>&hellip;utilizarla:
                         <ul>
-                            <li>en VPNs intercanviar claus simètriques</li>
-                            <li>en TLS fer servir claus molt grans (calen $n$ <em>qubits</em> per trencar claus d'$n$ bits; això retarda
-                                uns anys la factibilitat de l'atac)</li>
-                            <li>a llarg termini cal trobar problemes matemàtics que tinguin complexitat sub/exponencial en un ordinador cuántico
-                                <ul><li>esperança factible: <a href="#sidh">SIDH</a></li></ul>
+                            <li>en VPNs intercambiar claves simétricas</li>
+                            <li>en TLS utilizar claves muy grandes (hacen falta $n$ <em>qubits</em> para romper claves de $n$ bits; esto retarda
+                                unos años la factibilidad del ataque)</li>
+                            <li>a largo plazo hace falta encontrar problemas matemáticos que tengan complejidad sub/exponencial en un ordenador cuántico
+                                <ul><li>esperanza factible: <a href="#sidh">SIDH</a></li></ul>
                             </li>
                         </ul>
                     </li>
@@ -150,102 +150,106 @@
                 <h3><a href="https://en.wikipedia.org/wiki/Supersingular_isogeny_key_exchange">SIDH</a>:
                     Supersingular Isogeny
                     <br/>Diffie-Hellman Key Exchange</h3>
-                <p>SIDH està basat en corbes el·líptiques</p>
-                <p>té complexitat clàssica de $O(\sqrt[4]{2^b})$ i complexitat cuántica de $O(\sqrt[6]{2^b})$ per
-                    tant té complexitat exponencial en els dos tipus de computadors
+                <p>SIDH está basado en curvas elíptiques</p>
+                <p>tiene complejeidad clássica de $O(\sqrt[4]{2^b})$ y complejidad cuántica de $O(\sqrt[6]{2^b})$ por
+                    tanto tiene complejidad exponencial en ambos tipos de computadores
                 </p>
-                <p>la longitud recomanada contra un ordenador clàssic (deduït de les $O()$ anteriors), és:
+                <p>la longitud recomendada contra un ordenador clássico (deducido de las $O()$ anteriores), es:
                     <ul>
-                        <li>$512$ b per a $128$ b de seguretat equivalent ara</li>
-                        <li>$768$ b per a $128$ b de seguretat equivalent en era post-cuántica</li>
+                        <li>$512$ b para $128$ b de seguridad equivalente ahora (ligeramente peor a ECDSA)</li>
+                        <li>$768$ b per a $128$ b de seguredad equivalente en era post-cuántica</li>
                     </ul>
                 </p>
             </section>
 
             <section>
-                <h3><em>Criptografia</em> Quàntica</h3>
-                <p>(no confondre amb <em>computació</em>)</p>
-                <p>acord de clau, a partir del qual es defineix una clau simètrica tradicional</p>
+                <h3><em>Criptografía</em> cuántica</h3>
+                <p>(no confundir con <em>computación</em>)</p>
+                <p>acuerdo de clave, a partir del cual se define una clave simétrica tradicional</p>
+                <br/>
+                <p>los dos extremos se envían fotones individuales (fibra óptica habitualmente) con polarizaciones aleatorias y sumas de control:</p>
+                <p>si un atacante "observa" el intercambio modifica los fotones, destruyendo el intercambio de la clave y siendo detectado</p>
             </section>
+
             <section>
                 <h1>2013,
                     <br/>Edward Snowden</h1>
             </section>
 
             <section id="snowden">
-                <h3>Revelacions Snowden</h3>
-                <p>el 2013 Edward Snowden filtra quantitat de documents que mostren les activitats de certes
-                    agències dels EUA (en particular de l'NSA)</p>
+                <h3>Revelaciones Snowden</h3>
+                <p>el 2013 Edward Snowden filtra cantidad de documentos que muestran las actividades de ciertas
+                    agencies de los EE.UU. (en particular de la NSA)</p>
                 <ul>
-                    <li>inversió en computació cuántica</li>
-                    <li>captura de comunicacions (xifrades o no): Echelon (pre-Snowden), emmagatzematge de dades per a
-                        possibilitar-ne el posterior desxifrat</li>
-                    <li>milers d'enginyers i doctors dedicats a criptoanàlisi (coneixen la info publicada, i no
-                        publiquen les seves descobertes): <code>DH-1024</code>, corbes el·líptiques, <code>RC4</code>, <code>MD5</code>; per a cada dissenyador
-                        d'algorismes, l'NSA té 100 criptoanalistes (segons la pròpia NSA)</li>
-                    <li>a banda de una (suposada) capacitat de computació enorme, l'NSA dedica esforços a modificar
-                    el codi font tant de programari lliure, com de codi propietari (ja sigui "amistosament",
-                        com trobant-hi vulnerabilitats sense comunicar-les o injectant-les de forma encoberta). Programa Bullrun</li>
+                    <li>inversión en computación cuántica</li>
+                    <li>captura de comunicaciones (cifradas o no): Echelon (pre-Snowden), almacenamiento de datos para
+                        posibilitar el posterior descifrado</li>
+                    <li>miles de ingenieros y doctores dedicados al criptoanálisis (conocen la info publicada, y no
+                        publican sus avances): <code>DH-1024</code>, curvas elípticas, <code>RC4</code>, <code>MD5</code>; por cada diseñador
+                        de algoritmos, la NSA tiene 100 criptoanalistas (según la propia NSA)</li>
+                    <li>a parte de una (supuesta) capacidad de computación enorme, la NSA dedica esfuerzos a modificar
+                    el código fuente tanto de software libre, como del código propietario (ya sea "amistosamente",
+                        como encontrando vulnerabilidades sin comunicarlas o inyectandolas de forma encubierta). Programa Bullrun</li>
                 </ul>
             </section>
 
             <section>
-                <h3>Revelacions Snowden</h3>
+                <h3>Revelaciones Snowden</h3>
                 <ul>
-                    <li>si poden evitar la criptografia ho fan:
+                    <li>si pueden evitar la criptografía lo prefieren:
                         <ul>
-                            <li>és més fàcil infectar que desencriptar</li>
-                            <li>manipulació de codi (propietari i obert): coneixement d'exploits, troians</li>
-                            <li>manipulació del hardware (RNG, APIs)</li>
-                            <li>accés al núvol per la porta del darrera</li>
-                            <li>publicació d'algorismes (a través del NIST), intoxicació (<code>Dual_EC_DRGB</code>)</li>
-                            <li>extracció de dades de les metadades: eines d'inferència sobre Big-Data (tenen
-                                punxada Internet: proveïdors de núvol, d'Internet)</li>
+                            <li>es más fácil infectar que desencriptar</li>
+                            <li>manipulación de código (propietario y abierto): conocimiento de exploits, troyanos</li>
+                            <li>manipulación del hardware (RNG, APIs)</li>
+                            <li>acceso a la nube por la puerta de atrás</li>
+                            <li>publicación de algoritmos (a través del NIST), intoxicación (<code>Dual_EC_DRGB</code>)</li>
+                            <li>extracción de datos de los metadatos: herramientas de inferencia sobre Big-Data (tienen
+                                pinchada Internet: proveedores de la nube, de Internet)</li>
                         </ul>
                     </li>
                 </ul>
             </section>
 
             <section>
-                <h3>contramesures a l'NSA</h3>
+                <h3>contramedidas a la NSA</h3>
                 <ul>
-                    <li>TLS amb ECDH $\Rightarrow$ (<en>Perfect Forward Secrecy</en>, PFS): el més probable es que
-                        llegeixin les teves claus del disc del teu servidor
-                        (estan en clar) $\rightarrow$ si han guardat tot el tràfic anterior tindran accés a ell amb les teves claus
-                    si el teu TLS no complia amb PFS</li>
-                    <li>gestió segura de software,
-                        restricció de la "secció" presentada,
-                        gestió d'actualitzacions fiable...</li>
-                    <li>els algorismes amb paràmetres (ECC) han d'estar validats</li>
-                    <li>no fer servir algorismes obsolets: es creu que són capaços de desxifrar RC4 sistemàticament,
-                    trobar col·lisions d'MD5, potser resoldre DLP fins a $p=1024$...</li>
-                    <li>...</li>
+                    <li>TLS con ECDH $\Rightarrow$ (<en>Perfect Forward Secrecy</en>, PFS): lo más probable es que 
+                    lean tus claves en el disco del servidor
+                    (están en claro) $\rightarrow$ si han guardad en algún sitio todo el tráfico tendrán acceso a él con tus claves
+                    si tu TLS no cumple con PFS</li>
+                    <li>gestión segura de software,
+                        restricción de la "sección" presentada,
+                        gestión de actualizaciones fiable&hellip;</li>
+                    <li>los algoritmos con parámetros (ECC) deben estar validados</li>
+                    <li>no usar algoritmos obsoletos: se cree que son capaces de descifrar RC4 sistemáticamente,
+                    encontrar colisiones en MD5, y quizás resolver DLP hasta a $p=1024$...</li>
+                    <li>&hellip;</li>
                 </ul>
             </section>
 
             <section>
-                <h3>papers d'Snowden: el què no surt</h3>
-                <p>els papers filtrats no parlen de què hi ha a la Suite-A</p>
-                <p>els papers filtrats parlen d'aliats dels EUA (<code>Five Eyes</code>), però no d'altres com Xina, Rússia, etc:
-                    se sap per altres revelacions que tenen programes equivalents</p>
+                <h3>papeles de Snowden: lo que no sale</h3>
+                <p>los papeles filtrados no hablan de que hay en la Suite-A</p>
+                <p>los papeles filtrados hablan de los aliados de los EE.UU. (<code>Five Eyes</code>), pero no de otros como China, Rusia, etc:
+                    se sabe por otras revelaciones que tienen programas equivalentes</p>
             </section>
 
             <section data-background="#FF8888" style="text-align: left;">
-                <h3>Altres Consells</h3>
-                <p>$\rightarrow$ som a un curs de gestió de la seguretat!</p>
-                <p>$\rightarrow$ <em>formació</em>, minimització de complexitat
-                    <br/>(no sobrevalorar la nostra capacitat intel·lectual)</p>
-                <p>$\rightarrow$ <em>disciplina</em>, test/eines automàtiques, gestió d'actualitzacions procedimentada...
-                    procedimenta la teva activitat
-                    <br/>(no sobrevalorar la nostra memòria)</p>
-                <p>$\rightarrow$ <em>comunicació</em>, tots els actors rellevants de l'Organització han de entendre i compartir uns mateixos objectius
-                    de seguretat, i per tant, unes mateixes restriccions
-                    <br/>(no sobrevalorar la nostra capacitat de fer entendre a tothom que
-                    1234 en un post-it no és una $k$ <code>AES-128</code> segura...)</p>
+                <h3>Otros consejos</h3>
+                <p>$\rightarrow$ ¡estamos en un curso de gestión de la seguridad!</p>
+                <p>$\rightarrow$ <em>formación</em>, minimización de complejidad
+                    <br/>(no sobrevalorar nuestra capacidad intelectual)</p>
+                <p>$\rightarrow$ <em>disciplina</em>, test/herramientas automáticas, gestión de actualizaciones procedimentada...
+                    procedimenta tu actividad
+                    <br/>(no sobrevalorar nuestra memória)</p>
+                <p>$\rightarrow$ <em>comunicación</em>, todos los actores relevantes de la Organización deben entender y compartir unos mismos objetivos
+                    de seguridad, y por tanto, unas mismas restricciones
+                    <br/>(no sobrevalorar nuestra capacidad de hacer entender a todo el mundo que 
+                    1234 en un post-it no es una $k$ <code>AES-128</code> segura&hellip;)</p>
             </section>
 
             <section>
-                <h3><a href="hsm.html">(RNG i HSM) $\rightarrow$</a></h3>
+                <h3><a href="hsm.html">(RNG y HSM) $\rightarrow$</a></h3>
             </section>
 
 <!-- <section>
