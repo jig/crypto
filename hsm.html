@@ -113,7 +113,7 @@
             <section>
                 <h3>RNG: fonts</h3>
                 <p><span title="User Interface">UI</span> ($\ll 1$ kbps després de reducció)</p>
-                <p>latencia disc dur ($\ll 1$ kbps després de reducció)</p>
+                <p>latència disc dur ($\ll 1$ kbps després de reducció)</p>
                 <p>Xarxa ($\approx 1$ kbps després de reducció)</p>
                 <p>funcions de processador (Intel: $\gg$ Mbps)</p>
             </section>
@@ -126,7 +126,7 @@
             <section>
                 <h3>RNG: distribució uniforme</h3>
                 <p>per a $n$ bits generats, la probabilitat d'una seqüència donada és la mateixa de la de cap altra ($2^{-n}$)</p>
-                <p>cap algorisme pot predir el següent bit coneguts els anteriors</p>
+                <p>cap algorisme pot predir el següent bit coneguts els anteriors (y a més a més, la probabilitat d'encert ha de ser $p \aprox 0,5$)</p>
             </section>
             <section>
                 <h3>RNG: validació</h3>
@@ -167,7 +167,7 @@
                     <p>podem fer servir PRNG a condició que:</p>
                     <ol>
                         <li>el PRNG s'alimenti d'una llavor RNG</li>
-                        <li>que el PRNG sigui de qualitat cryptogràfica (fer servir un
+                        <li>que el PRNG sigui de qualitat criptogràfica (fer servir un
                             <code>AES-CTR</code>
                             xifrant una seqüència constant és una bona opció)
                         </li>
@@ -176,7 +176,7 @@
                             com <code>AES-128</code> o <code>RSA-3072</code>)</li>
                         <li>i que es mantinguin les hipòtesi de seguretat: no reutilitzar en cap cas cap seqüència de bits
                         (ja sigui RNG ò PRNG) i que les fonts físiques de RNG tinguin una entropia ben estimada i condicionada,
-                        i que els generadors PRNG siguin de bona qualitat y cobreixin un espai de possibilitats suficient (i.e.
+                        i que els generadors PRNG siguin de bona qualitat i cobreixin un espai de possibilitats suficient (i.e.
                             cal fer servir <code>AES-256-CTR</code> si volem generar claus amb $256$ b de seguretat amb una mateixa
                             seqüència)</li>
                     </ol>
