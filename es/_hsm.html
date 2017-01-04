@@ -42,8 +42,8 @@
         <div class="slides">
 
             <section>
-                <h2>Generació de Nombres Aleatoris
-                    <br/><span style="text-transform:none;">i</span> HSM</h2>
+                <h2>Generación de Números Aleatorios
+                    <br/><span style="text-transform:none;">y</span> HSM</h2>
                 <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
 
 				<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">
@@ -64,128 +64,128 @@
             <section id="rng">
                 <h1>RNG</h1>
                 <p>o TRNG (<em>True Random Number Generation</em>)</p>
-                <p>parèntesi: RNG en ordinadors tradicionals (no HSM)</p>
+                <p>paréntesis: RNG en ordinadores tradicionales (no HSM)</p>
             </section>
 
             <section>
-                <h3>RNG: generació</h3>
-                <p>Com implementem un RNG si no és algorísmic?</p>
+                <h3>RNG: generación</h3>
+                <p>Como implementamos un RNG si no es algorítmico?</p>
                 <ul>
-                    <li>Recopilant events d'entrada (I/O) i acumulant els seus paràmetres (habitualment les xifres menys significatives de l'hora en ns ò μs)</li>
-                    <li>Mitjançant dispositius especialitzats (<a href="hsm.html">HSM</a>*)</p>
+                    <li>Recopilando eventos de entrada (I/O) y acumulando sus parámetros (habitualmente las cifras menos significativas de la hora en ns ó μs)</li>
+                    <li>Mediante dispositivos especializados (<a href="hsm.html">HSM</a>*)</p>
                         <p><br/></p>
                         <p>*) HSM: Hardware Secure Module</p>
             </section>
 
             <section>
-                <h3>RNG: acumulació d'aleatorietat</h3>
-                <p>les diverses fonts que farem servir per a generar la seqüència del RNG
-                    &mdash;ja sigui d'I/O, o de dispositius hardware especialitzats&mdash;
-                    les podem acumular de diferents fonts individuals mitjançant $\oplus$
+                <h3>RNG: acumulación de aleatoriedad</h3>
+                <p>las distintas fuentes que usaremos para generar la secuencia del RNG
+                    &mdash;ya sea de I/O, o de dispositivos hardware especializados&mdash;
+                    las podemos acumular de diferentes fuentes individuales mediante $\oplus$
                 </p>
-                <p>en el cas de que una de les fonts no sigui del tot uniforme, això no empitjora la qualitat final del RNG
-                    a condició de que al menys una de elles si que ho sigui</p>
+                <p>en el caso de que una de las fuentes no sea del todo uniforme, esto no empeora la calidad final del RNG
+                    a condición de que al menos una de ellas si que lo sea</p>
             </section>
             <section>
-                <h3>RNG: acumulació d'aleatorietat</h3>
-                <p>s'ha de vigilar però que la acumulació garanteixi que:</p>
+                <h3>RNG: acumulación de aleatoriedad</h3>
+                <p>se ha de vigilar que la acumulación garantice que:</p>
                 <ul>
-                    <li>RNG tingui una distribució uniforme</li>
-                    <li>després de $n$ no s'ha de poder predir el $n+1$ amb una probabilitat diferent de $\frac{1}{2}$</li>
+                    <li>RNG tinga una distribución uniforme</li>
+                    <li>después de $n$ no se debe poder predecir el $n+1$ con una probabilidad diferente de $\frac{1}{2}$</li>
                 </ul>
             </section>
             <section>
-                <h3>RNG: entropia</h3>
-                <p>el que podem fer és marcar cada font individual d'aleatorietat amb una <em>entropia</em></p>
+                <h3>RNG: entropía</h3>
+                <p>lo que podemos hacer es marcar cada fuente individual de aleatoriedad con una <em>entropía</em></p>
                 <ul>
-                    <li>per a fonts perfectes tenim 1 bit d'entropia per a cada bit generat</li>
-                    <li>per a fonts menys perfectes podem necessitar diversos bits per a generar un bit d'aleatorietat</li>
+                    <li>para fuentes perfectas tenemos 1 bit de entropía per a cada bit generado</li>
+                    <li>para fuentes menos perfectas podemos necesitar varios bits para generar un bit de aleatoriedad</li>
                 </ul>
             </section>
             <section>
-                <h3>RNG: entropia</h3>
+                <h3>RNG: entropía</h3>
                 <ul>
-                    <li>és important "etiquetar" bé les nostres fonts (entropia)</li>
-                    <li>hem de reduir els bits rebuts a bits amb entropia 1</li>
-                    <li>els bps del RNG (abans i sobretot després de reduir) poden ser pocs (lentitut)</li>
+                    <li>es importante "etiquetar" bien nuestras fuentes (entropía)</li>
+                    <li>debemos reducir los bits recibidos a bits con entropía 1</li>
+                    <li>los bps del RNG (antes y sobretodo después de reducir) pueden ser pocos (lentitud)</li>
                 </ul>
             </section>
             <section>
-                <h3>RNG: fonts</h3>
-                <p><span title="User Interface">UI</span> ($\ll 1$ kbps després de reducció)</p>
-                <p>latencia disc dur ($\ll 1$ kbps després de reducció)</p>
-                <p>Xarxa ($\approx 1$ kbps després de reducció)</p>
-                <p>funcions de processador (Intel: $\gg$ Mbps)</p>
+                <h3>RNG: fuentes</h3>
+                <p><span title="User Interface">UI</span> ($\ll 1$ kbps después de reducción)</p>
+                <p>latencia disco duro ($\ll 1$ kbps después de reducción)</p>
+                <p>red ($\approx 1$ kbps después de reducción)</p>
+                <p>funciones de procesador (Intel: $\gg$ Mbps)</p>
             </section>
             <section>
-                <h3>RNG: distribució uniforme</h3>
-                <p>Els RNG han de tenir unes propietats</p>
-                <p>aquestes propietats no aplican al nombre generat (o el bit) en sí, si no a les seqüències de nombres generats</p>
-                <p>la seqüència de nombres (o de bits) ha de tenir una <em>distribució uniforme</em></p>
+                <h3>RNG: distribución uniforme</h3>
+                <p>Los RNG deben tener unas propiedades</p>
+                <p>estas propiedades no aplican al número generado (o el bit) en sí, si no a las secuencias de números generados</p>
+                <p>la secuencia de números (o de bits) debe tener una <em>distribución uniforme</em></p>
             </section>
             <section>
-                <h3>RNG: distribució uniforme</h3>
-                <p>per a $n$ bits generats, la probabilitat d'una seqüència donada és la mateixa de la de cap altra ($2^{-n}$)</p>
-                <p>cap algorisme pot predir el següent bit coneguts els anteriors</p>
+                <h3>RNG: distribución uniforme</h3>
+                <p>para $n$ bits generados, la probabilidad de una secuencia dada es la misma de la de cualquier otra ($2^{-n}$)</p>
+                <p>ningún algoritmo puede predecir el seguiente bit conocidos los anteriores (y además, la probabilidad de acierto debe ser $p \aprox 0,5$)</p>
             </section>
             <section>
-                <h3>RNG: validació</h3>
-                <p>per seqüències prou llargues el nombre d'$1$'s i $0$'s tendeix a ser el mateix</p>
-                <p>per seqüències prou llargues el nombre de grups ${00, 01, 10, 11}$ tendeix a ser el mateix</p>
+                <h3>RNG: validación</h3>
+                <p>para secuencias suficientemente largas el número de '$1$'s y $0$'s tiende a ser el mismo</p>
+                <p>para secuencias suficientemente largas el número de grupos ${00, 01, 10, 11}$ tiende a ser el mismo</p>
                 <p>etc.</p>
-                <p class="fragment">aquests tipus de tests permeten saber que la meva font no té problemes obvis, però no és suficient contra un
-                    atacant capaç de modificar convenient el sistema RNG</p>
+                <p class="fragment">estos tipos de test permiten saber que mi fuente no tiene problemas obvios, pero no es suficiente contra un
+                    atacante capaz de modificar conveniente el sistema RNG</p>
             </section>
             <section>
-                <h3>RNG: validació?</h3>
-                <p>un RNG només es pot considerar segur si sabem com el generem, i el generem de forma segura</p>
+                <h3>RNG: validación?</h3>
+                <p>un RNG sólo sólo se puede considerar seguro si sabemos como lo generamos, y lo generamos de forma segura</p>
             </section>
 
             <section>
-                <h3>RNG: vulnerabilitats</h3>
-                <p><a href="https://en.wikipedia.org/wiki/Random_number_generator_attack">Wikipedia: Random number generator attack</a></p>
-                <p class="fragment">Cloud: random... amb poca entropia per poca I/O</p>
-                <p class="fragment">Debian: random... amb poca entropia per errors de codi</p>
-                <p class="fragment">Intel: random... <a href="https://en.wikipedia.org/wiki/RdRand#Reception">implementació tancada</a>
+                <h3>RNG: vulnerabilidades</h3>
+                <p><a href="https://en.wikipedia.org/wiki/Random_number_generator_attack">Wikipedia: Random number generator atack</a></p>
+                <p class="fragment">Cloud: random... con poca entropía por poca I/O</p>
+                <p class="fragment">Debian: random... con poca entropía por errores de código</p>
+                <p class="fragment">Intel: random... <a href="https://en.wikipedia.org/wiki/RdRand#Reception">implementación cerrada</a>
                     (<a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.473.8078&rep=rep1&type=pdf">...</a>)</p>
                 <p class="fragment">PlayStation 3: random...
-                    <a href="http://www.engadget.com/2010/12/29/hackers-obtain-ps3-private-cryptography-key-due-to-epic-programm/">constant</a></p>
+                    <a href="http://www.engadget.com/2010/12/29/hackers-obtain-ps3-private-cryptography-key-due-to-epic-programm/">constante</a></p>
             </section>
 
             <section>
-                <h3>RNG: vulnerabilitats</h3>
-                <p>la criptografia és segura sempre que les hipòtesis de funcionament es compleixin</p>
-                <p>l'aleatorietat suficient de la font RNG (o PRNG) és una d'elles</p>
+                <h3>RNG: vulnerabilidades</h3>
+                <p>la criptografía es segura siempre que las hipótesis de funcionamiento se cumplan</p>
+                <p>la aleatoriedad suficiente de la fuente RNG (o PRNG) es una de ellas</p>
                 <p class="fragment"><img data-src="img/random_number.png"/>
                     <br/><small>(de <a href="https://xkcd.com/221/">xkcd.com/221</a>)</small></p>
             </section>
 
             <section>
-                <h3>RNG <span style="text-transform:none;">ò</span> PRNG</h3>
-                <p>per a generar claus hem de fer servir PRNG o RNG?</p>
+                <h3>RNG <span style="text-transform:none;">ó</span> PRNG</h3>
+                <p>¿para generar claves hemos de utilizar PRNG o RNG?</p>
                 <span class="fragment">
-                    <p>podem fer servir PRNG a condició que:</p>
+                    <p>podemos usar PRNG a condición que:</p>
                     <ol>
-                        <li>el PRNG s'alimenti d'una llavor RNG</li>
-                        <li>que el PRNG sigui de qualitat cryptogràfica (fer servir un
+                        <li>el PRNG se alimente de una semilla RNG</li>
+                        <li>que el PRNG sea de calidad criptográfica (hacer servir un
                             <code>AES-CTR</code>
-                            xifrant una seqüència constant és una bona opció)
+                            cifrando una secuencia constante es una buena opción)
                         </li>
-                        <li>que la llavor tingui prou entropia per a cobrir el nivell de seguretat
-                        requerit (i.e. $128$ b d'entropia per a claus de seguretat $128$ b equivalent
-                            com <code>AES-128</code> o <code>RSA-3072</code>)</li>
-                        <li>i que es mantinguin les hipòtesi de seguretat: no reutilitzar en cap cas cap seqüència de bits
-                        (ja sigui RNG ò PRNG) i que les fonts físiques de RNG tinguin una entropia ben estimada i condicionada,
-                        i que els generadors PRNG siguin de bona qualitat y cobreixin un espai de possibilitats suficient (i.e.
-                            cal fer servir <code>AES-256-CTR</code> si volem generar claus amb $256$ b de seguretat amb una mateixa
-                            seqüència)</li>
+                        <li>que la semilla tenga suficiente entropía para cubrir el nivel de seguridad
+                        requerido (i.e. $128$ b de entropía para claves de seguridad $128$ b equivalente
+                            como <code>AES-128</code> ó <code>RSA-3072</code>)</li>
+                        <li>y que se mantengan las hipótesis de seguridad: no reutilizar bajo ningún concepto una secuencia de bits
+                        (ja sea RNG ó PRNG) y que las fuentes físicas RNG tengan una entropía bien estimada y condicionada,
+                        y que los generadoros PRNG sean de buena calidad y cubran un espacio de posibilidades suficiente (i.e.
+                            hace falta usar <code>AES-256-CTR</code> si queremos generar claves con $256$ b de seguridad con una única
+                            secuencia)</li>
                     </ol>
                 </span>
             </section>
 
             <section>
-                <h1>dispositius<br/> ad-hoc per a<br/> RNG</h1>
-                <p>(<em>usats en HSM, SmartCards, algunes CPUs, etc.</em>)</p>
+                <h1>dispositivos<br/> ad-hoc para<br/> RNG</h1>
+                <p>(<em>usados en HSM, SmartCards, algunas CPUs, etc.</em>)</p>
             </section>
 
             <section>
