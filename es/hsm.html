@@ -175,7 +175,7 @@
                         requerido (i.e. $128$ b de entropía para claves de seguridad $128$ b equivalente
                             como <code>AES-128</code> ó <code>RSA-3072</code>)</li>
                         <li>y que se mantengan las hipótesis de seguridad: no reutilizar bajo ningún concepto una secuencia de bits
-                        (ja sea RNG ó PRNG) y que las fuentes físicas RNG tengan una entropía bien estimada y condicionada,
+                        (ja sea RNG ó PRNG) y que las fuentes físicas RNG tengan una entropía bien estimada y acondicionada,
                         y que los generadoros PRNG sean de buena calidad y cubran un espacio de posibilidades suficiente (i.e.
                             hace falta usar <code>AES-256-CTR</code> si queremos generar claves con $256$ b de seguridad con una única
                             secuencia)</li>
@@ -189,61 +189,61 @@
             </section>
 
             <section>
-                <h3>RNG: soroll tèrmic</h3>
+                <h3>RNG: ruido térmico</h3>
                 <p><img data-src="img/sorolltermic.png" width="480"/></p>
-                <p>una resistència a temperatura ambient, té electrons lliures que es mouen aleatòriament (càrrega negativa)
-                    i podem mesurar-ne el desequilibri momentani amb un conversor Analògic/Digital</p>
-                <p>el conversor donarà una seqüència indefinida de bits aleatoris</p>
+                <p>una resistencia a temperatura ambiente, tiene electrones libres que se mueven aleatoriamente (carga negativa)
+                    y podemos medir el desequilibrio momentáneo con un conversor Analógico/Digital</p>
+                <p>el conversor dará una secuencia indefinida de bits aleatorios</p>
             </section>
 
             <section>
-                <h3>RNG: soroll tèrmic</h3>
-                <p>el soroll tèrmic és el resultat d'un fenòmen caòtic (no estrictament aleatori)</p>
+                <h3>RNG: ruido térmico</h3>
+                <p>el ruido térmico es el resultado de un fenómeno caótico (no estrictament aleatori)</p>
                 <p>(...)</p>
             </section>
 
             <section id="quantum-rng">
-                <h3>RNG: indeterminació quàntica</h3>
+                <h3>RNG: indeterminación cuántica</h3>
                 <p><img data-src="img/randomquantic.png" width="480"/></p>
-                <p>amb una font (tènue) apuntem a un mirall semireflectant; dos fotodetectors detecten un o l'altre el fotó
-                de forma totalment aleatòria</p>
+                <p>con una fuente (tenue) apuntamos a un espejo semireflectante; dos fotodetectores detectan uno u otro el fotón
+                de forma totalment aleatoria</p>
             </section>
 
             <section>
-                <h3>generador random quàntic</h3>
+                <h3>generador random cuántico</h3>
                 <p><img data-src="img/idquantiquerng.png" width="480"/>
                     <br/><small>(d'<a href="http://www.idquantique.com/random-number-generation/quantis-rng-oem-component/">idquantique.com</a>)</small></p>
             </section>
 
             <section>
                 <h3>RNG?</h3>
-                <p>les dues famílies de dispositius generen nombres aleatoris... però no uniformes</p>
+                <p>las dos familias de dispositivos generan números aleatorios&hellip; pero no uniformes</p>
                 <ul>
-                    <li>RNG tèrmic: limitat per l'amplada de banda (senyal)</li>
-                    <li>RNG quàntic: limitat per la precisió del mirall (semireflectància del 50,000...%)</li>
+                    <li>RNG térmic: limitado por el ancho de banda (señal)</li>
+                    <li>RNG cuántico: limitado por la precisión del espejo (semireflectancia del 50,000&hellip;%)</li>
                 </ul>
             </section>
 
             <section>
-                <h3>Reducció/condicionament</h3>
+                <h3>Reducción/acondicionado</h3>
                 <p>el flux en cru es processa sempre, típicament:</p>
                 <ul>
                     <li>es descarten les seqüències de '1' i de '0' i només es genera un random en els canvis</li>
                     <p><img data-src="img/condicionatrng.png" width="480"/>
                         <br/>això redueix els bps però "uniformitza" la seqüència
                     </p>
-                    <li>s'aplica una PRF/PRP sobre el flux anterior (e.g. les CPU's Intel xifren la seqüència amb AES-128 i la clau 0..0)</li>
+                    <li>se aplica una PRF/PRP sobre el flujo anterior (e.g. las CPU's Intel cifran la secuencia con AES-128 y la clav 0x00..00)</li>
                 </ul>
             </section>
 
             <section>
-                <h3>RNG a Linux</h3>
-                <p>a Linux (Ubuntu) tenim dues fonts random:</p>
+                <h3>RNG en Linux</h3>
+                <p>en Linux (Ubuntu) tenemos dos fuentes random:</p>
                 <ul>
-                    <li><code>/dev/random</code>: sortida RNG basada en I/O ($\approx$ bps)</li>
-                    <li><code>/dev/urandom</code>: <em>unblocking random</em>, sortida PRNG enriquida amb <code>/dev/random</code>; ($\approx$ Mbps)</li>
+                    <li><code>/dev/random</code>: salida RNG basada en I/O ($\approx$ bps)</li>
+                    <li><code>/dev/urandom</code>: <em>unblocking random</em>, salida PRNG enriquecida con <code>/dev/random</code>; ($\approx$ Mbps)</li>
                 </ul>
-                <p>a altres Linux tenim diferents combinacions de <code>/dev/random</code> i amb aleatorietat obtinguda de fonts diferents</p>
+                <p>en otros Linux tenemos diferentes combinaciones de <code>/dev/random</code> y con aleatoriedad obtenida de diferentes fuentes</p>
             </section>
 
 
@@ -258,65 +258,65 @@
             <section>
                 <h3>HSM</h3>
                 <p><em>(Hardware Secure Module)</em></p>
-                <p>les funcions d'un HSM són:</p>
+                <p>las funciones de un HSM son:</p>
                 <ul>
-                    <li>generar claus de qualitat</li>
-                    <li>custodiar-les de forma segura</li>
-                    <li>protegir-les contra ús ilegítim</li>
-                    <li>assegurar-ne l'ús correcte</li>
-                    <li>secundàries: <ul>
-                        <li>velocitat (TPS, acceleració TLS)</li>
-                        <li>volum (quantitat de claus)</li>
-                        <li>portabilitat (mobilitat física)</li>
-                        <li>clau compartida (n/m)</li>
+                    <li>generar claves de calidad</li>
+                    <li>custodiar las de forma segura</li>
+                    <li>protegir las contra uso ilegítimo</li>
+                    <li>assegurar su correcto uso</li>
+                    <li>secundarias: <ul>
+                        <li>velocidad (TPS, acceleración TLS)</li>
+                        <li>volumen (cantidad de claves)</li>
+                        <li>portabilidad (mobilidad física)</li>
+                        <li>clave compartida (n/m)</li>
                     </ul>
                     </li>
                 </ul>
             </section>
 
             <section id="smartcard">
-                <h3>Exemples: portabilitat</h3>
+                <h3>Ejemplos: portabilidad</h3>
                 <p>
                     <img src="img/dni30xip.png"/>
-                    <br/><small>(font
+                    <br/><small>(fuente
                         <a href="http://www.dnielectronico.es/PDFs/Guia_de_Referencia_DNIe_con_NFC.pdf">DGP</a>)
                     </small>
                 </p>
             </section>
 
             <section id="usb">
-                <h3>Exemples: portabilitat</h3>
+                <h3>Ejemplos: portabilidad</h3>
                 <img src="img/jig-yubikey4nano.png"/>
             </section>
 
             <section id="pci">
-                <h3>Exemples: servidors</h3>
+                <h3>Ejemplos: servidores</h3>
                 <img src="img/ncipher-pci.png"/>
             </section>
 
             <section id="rack-thales">
-                <h3>Exemples: servei en xarxa</h3>
+                <h3>Ejemplos: servicio en red</h3>
                 <img src="img/ncipher-xarxa.png"/>
             </section>
 
             <section id="rack-safenet">
-                <h3>Exemples: servei en xarxa</h3>
+                <h3>Ejemplos: servicio en red</h3>
                 <img src="img/safenet.png"/>
             </section>
 
             <section>
-                <h3>subsistemes</h3>
-                <p>per a implementar les funcions anteriors cal:</p>
+                <h3>subsistemas</h3>
+                <p>para implementar las funciones anteriores hace falta:</p>
                 <ul>
-                    <li>generador de claus aleatòries (RNG)</li>
-                    <li>ús controlat verificable
+                    <li>generador de claves aleatories (RNG)</li>
+                    <li>us controlado verificable
                         <ul>
-                            <li>protecció física (no es pot llegir el sistema de fitxers, o modificar el software
-                                sense fer malbé l'HSM)</li>
-                            <li>protecció software (API amb control d'accés)</li>
+                            <li>protección física (no se puede leer el sistema de ficheros, o modificar el software
+                                sin "estropear" el HSM)</li>
+                            <li>protección software (API con control de accéso)</li>
                         </ul>
                     </li>
-                    <li>àrea d'atac mínima (API "minimalista", fa més improbable els <em>bugs</em> o els <em>security flaws</em>)</li>
+                    <li>área de ataque mínima (API "minimalista", hace más improbable los <em>bugs</em> o los <em>security flaws</em>)</li>
                 </ul>
             </section>
 
@@ -326,11 +326,11 @@
 
             <section>
                 <h3>FIPS 140-2</h3>
-                <p>els HSM poden ser certificats segons
+                <p>los HSM pueden ser certificados según
                     <a href="https://web.archive.org/web/20070817151620/http://csrc.nist.gov/publications/fips/fips140-2/fips1402.pdf">FIPS 140-2</a>
-                    <br/>en diferents nivells:
+                    <br/>en diferentes niveles:
                 </p>
-                <p>aquest estàndar defineix els requeriments de seguretat que han de seguir els HSM (certificats):</p>
+                <p>este estándar define los requisitos de seguredad que deben seguir los HSM (certificados):</p>
                 <p><em>
                     The security requirements cover areas related to the secure design and implementation of a
                     cryptographic module. These areas include cryptographic module specification; cryptographic module
@@ -342,96 +342,96 @@
             <section>
                <h3>FIPS 140-2</h3>
                 <ul>
-                    <li>FIPS 140-2 <strong>nivell 1</strong>: sense mesures físiques (llibreries); anàlisi lògic i de algorismes</li>
-                    <li>FIPS 140-2 <strong>nivell 2</strong>: nivell 1, i ha de disposar de mesures passives per a detectar l'accés físic (segells, evidències)</li>
-                    <li>FIPS 140-2 <strong>nivell 3</strong>: nivell 2, i ha de disposar de mesures actives per a contrarestar l'accéss físic (zeroització)
-                    i només permet exporta les claus xifrades</li>
-                    <li>FIPS 140-2 <strong>nivell 4</strong>: nivell 3, i ha de disposar de validació formal del funcionament</li>
+                    <li>FIPS 140-2 <strong>nivell 1</strong>: sin contramedidas físicas (son librerias); análisis lógico y de algoritmos</li>
+                    <li>FIPS 140-2 <strong>nivell 2</strong>: nivel 1, y debe disponer de contramedidas pasivas para detectar el acceso físico (sellos, evidencias)</li>
+                    <li>FIPS 140-2 <strong>nivell 3</strong>: nivel 2, y debe disponer de contramedidas activas para contrarrestar el acceso físico (ceroización)
+                    y sólo permite exportar las claves cifradas</li>
+                    <li>FIPS 140-2 <strong>nivell 4</strong>: nivel 3, y debe disponer de validación formal del funcionamento</li>
                 </ul>
             </section>
 
             <section>
                 <h3>FIPS 140-2</h3>
-                <p>per a gestionar claus d'usuaris per a signatura avançada habitualment es requereix FIPS 140-2 <strong>nivell 2</strong></p>
-                <p>per a autoritats de validació o de segell de temps, habitualment es requereix FIPS 140-2 <strong>nivell 2</strong></p>
-                <p>per a autoritats de certificació habitualment es requereix FIPS 140-2 <strong>nivell 3</strong></p>
+                <p>para gestionar claves de usuarios para firma avanzada habitualmente se requiere FIPS 140-2 <strong>nivel 2</strong></p>
+                <p>para autoridades de validación o de sello de tiempo, habitualmente se requiere FIPS 140-2 <strong>nivel 2</strong></p>
+                <p>para autoridades de certificación habitualmente se require FIPS 140-2 <strong>nivel 3</strong></p>
             </section>
 
             <section id="pkcs11">
                 <h3>PKCS #11</h3>
                 <p><a href="https://www.emc.com/emc-plus/rsa-labs/standards-initiatives/pkcs-11-cryptographic-token-interface-standard.htm">PKCS #11</a>
-                    és una especificació de la API dels HSM en llenguatge C (literalment un <code>.h</code>)</p>
+                    es una especificación de la API de los HSM en lenguaje C (literalmente un <code>.h</code>)</p>
                 <p><br/></p>
-                <p>PKCS: <em>Public Key Cryptographic Standard</em>. Estàndards de facto publicats per RSA Labs. Inc. (ara EMC<sup>2</sup>);
-                    actualment la gestió de l'estàndard ha passat a
+                <p>PKCS: <em>Public Key Cryptographic Standard</em>. Estándares de facto publicados por RSA Labs. Inc. (ahora EMC<sup>2</sup> (ahora Dell Technologies));
+                    actualmente la gestión del estàndar ha pasado a
                     <a href="https://www.oasis-open.org/committees/documents.php?wg_abbrev=pkcs11">OASIS</a>
                 </p>
             </section>
 
             <section data-background="#FF8888">
-                <h3>PKCS#11: operacions</h3>
+                <h3>PKCS#11: operaciones</h3>
                 <ul>
-                    <li>login, gestió de sessió</li>
-                    <li>generació de claus simètriques/asimètriques</li>
-                    <li>xifrat/desxifrat simètric</li>
-                    <li>signat/verificat simètric</li>
-                    <li>desxifrat/signat asimètric</li>
-                    <li>operacions per a acord de claus (TLS)</li>
+                    <li>login, gestión de sesión</li>
+                    <li>generación de claves simétricas/asimétricas</li>
+                    <li>cifrado/descifrado simétrica</li>
+                    <li>firma/verificación simétrica</li>
+                    <li>descifrado/firma asimétrica</li>
+                    <li>operaciones para acuerdo de claves (TLS)</li>
                     <li>RNG</li>
-                    <li>des/ensobrat de claus (<em>key un/wrap</em>)</li>
-                    <li>gestió d'objectes</li>
+                    <li>des/ensobrado de claves (<em>key un/wrap</em>)</li>
+                    <li>gestión de objetos</li>
                 </ul>
             </section>
 
             <!-- Shamir Shamir Shamir Shamir -->
 
             <section>
-                <h3>Partició de Secrets</h3>
-                <p>en claus importants (e.g. d'una CA arrel) un HSM pot no ser suficient (i si el roben?)</p>
-                <p>en aquests casos podem dividir la clau en trossos:</p>
+                <h3>Partición de Secretos</h3>
+                <p>en claves importantes (e.g. la de una CA raíz) un HSM puede no ser suficiente (y si lo roban?)</p>
+                <p>en estos casos podemos dividir la clave en trozos:</p>
                 <ul>
-                    <li>dividir la cadena de bits en trossos $\Rightarrow$ disminueix la seguretat</li>
-                    <li>$\oplus$ entre les claus $\Rightarrow$
-                        <a href="intro.html#perfect-secrecy" title="confidencialitat perfecte">segur incondicionalment</a>,
-                        però fràgil</li>
-                    <li>algorisme de Shamir $\Rightarrow$
-                        <a href="intro.html#perfect-secrecy" title="confidencialitat perfecte">segur incondicionalment</a>,
-                        i robust</li>
+                    <li>dividir la cadena de bits en trozos $\Rightarrow$ disminuye la seguridad</li>
+                    <li>$\oplus$ entre las claves $\Rightarrow$
+                        <a href="intro.html#perfect-secrecy" title="confidencialitat perfecte">seguro incondicionalmente</a>,
+                        pero frágil</li>
+                    <li>algoritmo de Shamir $\Rightarrow$
+                        <a href="intro.html#perfect-secrecy" title="confidencialitat perfecte">seguro incondicionalmente</a>,
+                        y robusto</li>
                 </ul>
             </section>
 
             <section>
-                <h3>Partició de secrets</h3>
-                <p>ho podem fer "per software"?</p>
+                <h3>Partición de secretos</h3>
+                <p>lo podemos hacer "por software"?</p>
                 <span class="fragment">
-                <p>sí, però el secret ha estat "en clar" en la RAM de l'ordinador per tant un cop recuperat
-                el secret la seva exposició ha augmentat notablement</p>
-                <p>però en HSM és una propietat habitual</p>
+                <p>sí, pero el secreto ha estado "en claro" en la RAM del ordenador por tanto una vez recuperado
+                el secreto su exposición ha aumentado notablemente</p>
+                <p>pero en HSM es una propiedad habitual</p>
                 </span>
             </section>
 
             <section>
-                <h3>Algorisme de Shamir</h3>
+                <h3>Algoritmo de Shamir</h3>
                 <p><img src="img/shamir-secret-sharing.png"/>
-                <br/>permet dividir el secret en $M$ trossos, dels quals en calen $N$ per a recuperar-lo</p>
+                <br/>permite dividir el secreto en $M$ trozos, de los cuales nos hacen falta $N$ para recuperarlos</p>
             </section>
 
             <section>
-                <h3>Algorisme de Shamir</h3>
-                <p>definit sobre $\mathbb{Z_p}$ (no sobre $\mathbb{R}$ com al dibuix anterior)</p>
-                <p>si en lloc de fer servir una recta (polinomi de grau $1$),
-                    fem servir un polinomi de grau $M-1$ podem ajustar quants trossos
-                    cal recuperar ($M$)</p>
-                <p>podem fer-ne tants trossos ($N$) com calgui ($N | N\leq M$)</p>
+                <h3>Algoritmo de Shamir</h3>
+                <p>definido sobre $\mathbb{Z_p}$ (no sobre $\mathbb{R}$ como en el dibujo anterior)</p>
+                <p>si en lugar de utilizar una recta (polinomio de grado $1$),
+                    usamos un polinomio de grado $M-1$ podemos ajustar cuantos trozos
+                    se deben recuperar ($M$)</p>
+                <p>podemos dividirlo en tantos trozos ($N$) como haga falta ($N | N\leq M$)</p>
             </section>
             <section>
-                <h3>Algorisme de Shamir</h3>
+                <h3>Algoritmo de Shamir</h3>
                 <ul>
-                <li>és robust: si no perdem més d'$M-N-1$ fragments, podrem recuperar el secret</li>
-                <li>és segur: cal robar/extorquir/pressionar/... $N$ participants per a obtenir el secret</li>
-                <li class="fragment">és segur: sobre $\mathbb{Z}_p^*$
-                    és <a href="intro.html#perfect-secrecy">incondicionalment segura</a></li>
-                <li class="fragment">és segur: a condició que es compleixi la hipòtesi que l'HSM és impenetrable</li>
+                <li>es robusto: si no perdemos más de $M-N-1$ fragmentos, podemos recuperar el secreto</li>
+                <li>es seguro: hace falta robar/extorsionar/presionar/&hellip; $N$ participantes para obtener el secreto</li>
+                <li class="fragment">es seguro: sobre $\mathbb{Z}_p^*$
+                    es <a href="intro.html#perfect-secrecy">incondicionalmente segura</a></li>
+                <li class="fragment">es seguro: a condición que se cumpla la hipótesis que el HSM es impenetrable</li>
                 </ul>
             </section>
 
