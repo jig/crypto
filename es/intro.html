@@ -59,7 +59,7 @@
 
             <section>
                 <h1>1976</h1>
-                <p>La NSA selecciona un algoritmo de cifrado de IBM para comunicaciones de la administració: DES (Data Encryption Standard)</p>
+                <p>La NSA selecciona un algoritmo de cifrado de IBM para comunicaciones de la administración: DES (Data Encryption Standard)</p>
                 <p>Whitfield Diffie y Martin Hellman generan el primer algoritmo práctico de criptografía asimétrica</p>
             </section>
 
@@ -213,12 +213,14 @@
                     <li>...y validar si $\overset{?}{m}$ es válido (o sea, si $m=\overset{?}{m}$)</li>
                 </ul>
                 <br/>
-                <p>el segundo paso no siempre es sencillo</p>
+                <p>el segundo paso no siempre es posible</p>
                 <p>exige que el espacio de mensajes contenga mensages
                     válidos (pocos) y mensajes inválidos (muchos)</p>
                 <p>hace falta <a href="https://en.wikipedia.org/wiki/Redundancy_(information_theory)">redundancia</a></p>
                 <p>que en el ejemplo anterior la redundancia la tenemos ya que <em>no</em> cualquier
                 combinación de carácteres genera "palabras" ininteligibles</p>
+                <p>una contramedida contra el ataque de fuerza bruta contra el cifrado del César es minimizar la redundancia
+                    de los mensajes (compresión, etc.)</p>
             </section>
             <section>
                 <h3>Descifrar</h3>
@@ -244,7 +246,7 @@
                 <h3>Ataques de fuerza bruta</h3>
                 <p>Las contramedidas contra los ataques de fuerza bruta son:</p>
                 <ul>
-                    <li>que la operación de desxifrado sea costosa</li>
+                    <li>que la operación de descifrado sea costosa</li>
                     <li>que haga falta realizar muchas operaciones de descifrado</li>
                 </ul>
                 <p class="fragment">
@@ -260,7 +262,7 @@
                 <p>en una CPU "estándar" se prueban $1.000.000$ clave/CPU/s</p>
                 <p class="fragment">es decir: $10^6$ clave/CPU/s</p>
                 <p class="fragment">es decir: se prueban $10^{9}$ clave/s en $1000$ CPU</p>
-                <p class="fragment">es decir: es prueban $3,6·10^{12}$ clave/h en $1000$ CPU</p>
+                <p class="fragment">es decir: se prueban $3,6·10^{12}$ clave/h en $1000$ CPU</p>
                 <span class="fragment">
                     <p>en AWS EC2 una <a href="https://aws.amazon.com/es/ec2/pricing/">t2.micro</a> cuesta 1 céntimo/h</p>
                     <p>es decir $3,6·10^{11}$ clave/€</p>
