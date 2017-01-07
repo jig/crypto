@@ -106,15 +106,15 @@
                     y <a href="intro.html#vigenere-key-space">Vigenère: espacio de claves</a>)</small>
                 </p>
                 <p>podemos probar $10^6$ k/CPU/s $\approx 2^{20}$ k/CPU/s</p>
-                <p>ò $10^{13}$ k/CPU/año $\approx 2^{43}$ k/CPU/año</p>
-                <p>ò $10^{16}$ k/año con $1000$ CPU $\approx 2^{53}$ k/año</p>
-                <p>ò $10^{19}$ k/año con $10^6$ CPU $\approx 2^{63}$ k/año
+                <p>ó $10^{13}$ k/CPU/año $\approx 2^{43}$ k/CPU/año</p>
+                <p>ó $10^{16}$ k/año con $1000$ CPU $\approx 2^{53}$ k/año</p>
+                <p>ó $10^{19}$ k/año con $10^6$ CPU $\approx 2^{63}$ k/año
                 <br/>$\vdots$</p>
             </section>
             <section>
 	      <p>$\vdots$
-                <br/>ò $10^{25}$ claus con $10^6$ CPU un milió d'años $\approx 2^{83}$ k</p>
-                <p>ò $10^{29}$ claus con $10^6$ CPU des del Big Bang $\approx 2^{96}$ k
+                <br/>ó $10^{25}$ claves con $10^6$ CPU un millón de años $\approx 2^{83}$ k</p>
+                <p>ó $10^{29}$ claves con $10^6$ CPU desde el Big Bang $\approx 2^{96}$ k
                   <br/>$\vdots$</p>
                 <p>si tengo una "suerte media" sólo nos hará falta la mitad de las pruebas (e.g. en el
                     último escenario necesitaremos "sólo" la mitad de la edad del Universo para encontrar la clave)
@@ -128,7 +128,6 @@
                 <p>la probabilidad de que te toque comprando sólo un número, $5$ sorteos consecutivos,
                     es $10^{-25}$ ($2^{-83}$)...</p>
                 <p>...esta es la probabilidad de que encuentres la clave por fuerza bruta en un tiempo negligible
-                    aquesta és la probabilitat de que trobis la clau per força bruta en un temps negligible
                     <br/>(1 millíon de años con 1 millón de CPU's...)</p>
             </section>
             
@@ -241,7 +240,7 @@
                 <h3>RNG: generación</h3>
                 <p>¿Cómo implementamos un RNG si no es algorítmico?</p>
                 <ul>
-                <li>Recopilando eventos de entrada (I/O) y acumulando sus parámatres (habitualmente les cifras menos significativas de la hora en ns ò μs)</li>
+                <li>Recopilando eventos de entrada (I/O) y acumulando sus parámatres (habitualmente les cifras menos significativas de la hora en ns ó μs)</li>
                 <li>Mediante dispositivos especializados (<a href="hsm.html">HSM</a>*)</p>
                 <p><br/></p>
                 <p>*) HSM: <em>Hardware Secure Module</em></p>
@@ -632,7 +631,7 @@
             <section>
                 <h3>Cifrado de bloque: $f_k$</h3>
                 <p>en realidad para que el cifrado sea seguro necesitaremos una "familia" de funciones equivalentes pero
-                    diferentes. Les indexarem en funció de la clau, $k$:</p>
+                    diferentes. Las indexaremos en función de la clave, $k$:</p>
                 <p>$\begin{aligned}
                     f_k &: X \rightarrow X \\
                     f_k &: \{0,1\}^n \rightarrow \{0,1\}^n
@@ -676,7 +675,7 @@
                 <h3>Cifrados de bloque: clases básicas</h3>
                 <p>hay dos clases de cifrado de bloque
 		  <br/>(es decir, dos maneras de implementar
-		  <span title="Permutació Pseudoaleatòria">PRP</span>)</p>
+		  <span title="Permutación Pseudoaleatoria">PRP</span>)</p>
                 <ul>
                     <li>cifrado de <u>sustitución</u>
                         <ul class="fragment">
@@ -810,7 +809,7 @@
                         <li><code>ShiftRows</code>: transposición de bytes fija</li>
                         <li><code>MixColumns</code>: 4
 			  <a href="https://en.wikipedia.org/wiki/Finite_field_arithmetic#Rijndael.27s_finite_field">multiplicaciones modulares</a> de 4 Byte, valores fijos</li>
-                        <li><code>AddRoundKey</code>: $\text{bloc} \oplus k_{i}$ (subclau $k_{i}$)</li>
+                        <li><code>AddRoundKey</code>: $\text{bloc} \oplus k_{i}$ (subclave $k_{i}$)</li>
                     </ul>
                     <p>esto cifra el bloque, y se pasa al siguiente donde se hace lo mismo pero cambiando la subclave</p>
                 </section>
@@ -847,7 +846,7 @@
             <section>
                 <h3>AES: vulnerabilidades</h3>
                 <span class="fragment">
-                    <p>...la estadística del mensaje en claro aparece a al text cifrado igual que en el cifrado del Cèsar (!)</p>
+                    <p>...la estadística del mensaje en claro aparece a al text cifrado igual que en el cifrado del César (!)</p>
                     <p>ahora los bloques son de $16$ B, no d'$1$ B por tanto la estadística es menos importante
                         <br/>($|\text{bloc}|=2^{128}$), pero en secuencias constantes
                     (por ejemplo, como las de un gráfico) se pueden dar bloques enteros idénticos
@@ -926,8 +925,8 @@
                 consiguiendo un rendimiento superior a usar cifrado + MAC (sólo ligeramente más lentos al cifrado solo)</p>
                 <p>los dos ejemplos más usados y recomendados en la actualidad son:</p>
                 <ul>
-                    <li>CCM ò <em>Counter with <a href="mac.html#cbc">CBC-MAC</a></em>, es la combinación de AES-CTR con un CBC-MAC</li>
-                    <li>GCM ò <em>Galois Counter Mode</em>, también una combinación de AES-CTR pero ahora con con una multiplicación
+                    <li>CCM ó <em>Counter with <a href="mac.html#cbc">CBC-MAC</a></em>, es la combinación de AES-CTR con un CBC-MAC</li>
+                    <li>GCM ó <em>Galois Counter Mode</em>, también una combinación de AES-CTR pero ahora con con una multiplicación
                     modular; permite velocidades superiores a CCM</li>
                 </ul>
             </section>
@@ -943,7 +942,7 @@
                     <li>AES-192: 0,9 Gbps</li>
                     <li>AES-256: 0,7 Gbps</li>
                 </ul>
-                <p><small>bps: bits por segundo (ò b/s)</small></p>
+                <p><small>bps: bits por segundo (ó b/s)</small></p>
             </section>
 
             <section>
@@ -986,15 +985,15 @@
 
             <section>
                 <h3>AES: más vulnerabilidades</h3>
-                <p><a href="file:///home/sysadmin/git/src/github.com/jig/crypto-privat/reveal/reveal.js-3.2.0/threats.html#/symmetric-crypto">algorismes quàntics</a>: con el algoritmo de <a href="https://en.wikipedia.org/wiki/Grover%27s_algorithm">Grover</a>
+                <p><a href="file:///home/sysadmin/git/src/github.com/jig/crypto-privat/reveal/reveal.js-3.2.0/threats.html#/symmetric-crypto">algoritmos cuánticos</a>: con el algoritmo de <a href="https://en.wikipedia.org/wiki/Grover%27s_algorithm">Grover</a>
                     las búsquedas en bases de datos no ordenadas tienen
-                    <a title="Notació O(·) i complexitat dels diferents algorismes criptogràfics" href="complexity.html#big-o">
+                    <a title="Notación O(·) y complejidad de los diferentes algoritmos criptográficos" href="complexity.html#big-o">
                         complejidad
                     </a>
                     $O({\sqrt{2^b}})$</p>
                 <p>(<em>obviamente</em>, en computación clásica tiene complejidad $O({2^b})$)</p>
                 <p/>
-                <p>Nota: $b$ son los bits de longitud de la clau AES: $128$, $192$ ò $256$</p>
+                <p>Nota: $b$ son los bits de longitud de la clave AES: $128$, $192$ ó $256$</p>
             </section>
 
             <section>
@@ -1002,14 +1001,14 @@
                 <ul>
                     <li>los computadores cuánticos actuales no tienen aplicación práctica: a parte de romper claves
                         sirven para simular... <span title="Richard Feynman, 1982">fenómenos de física cuántica</span></li>
-                    <li>se cree que no habrá computación cuántica pràctica antes del ~2030</li>
+                    <li>se cree que no habrá computación cuántica práctica antes del ~2030</li>
                 </ul>
                 <ul>
                     <li>pero para ser robustos al algoritmo de Grover, sólo hemos de <u>doblar</u> la longitud de claves,
                         por ejemplo pasar a AES-256 daría una fortaleza equivalente de 128 bits</li>
-                    poco después dse demostró que el algoritmo de Grover es òptimo</li>
+                    poco después dse demostró que el algoritmo de Grover es óptimo</li>
                 </ul>
-                <p>por tanto, es considera que la criptografia simétrica es robusta ante la computación cuántica...</p>
+                <p>por tanto, es considera que la criptografía simétrica es robusta ante la computación cuántica...</p>
             </section>
 
             <section>
@@ -1021,7 +1020,7 @@
                 <h3>DES</h3>
                 <ul>
                     <li>bloc: $64$ bit ($8$ Byte)</li>
-                    <li>clau: $56$ bit ($7$ Byte)</li>
+                    <li>clave: $56$ bit ($7$ Byte)</li>
                 </ul>
                 <p>16 etapes</p>
                 <p class="fragment">inseguro, vulnerable a ataques de
