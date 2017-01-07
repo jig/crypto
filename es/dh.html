@@ -134,7 +134,7 @@
                         <br>$I$ calcula $\alpha^{ij} = {(\alpha^j)}^{i} \pmod p$</li>
                 </ol>
                 <p>A partir de aquí $I$ y $J$ comparten el secreto $\alpha^{ij}$</p>
-                <p>Un atacante que vea el tráfic ($\alpha^i$ y $\alpha^j$) y conozca $\alpha$ no es capaz de descubrir nada sobre
+                <p>Un atacante que vea el tráfico ($\alpha^i$ y $\alpha^j$) y conozca $\alpha$ no es capaz de descubrir nada sobre
                     el secreto $\alpha^{ij}$</p>
             </section>
 
@@ -154,6 +154,10 @@
                     <li>$\alpha$: <a href="number-theory.html#generator-selection">seleccionar</a> un valor aleatorio $\alpha \in \mathbb{Z}_{p}^{*}$ que
                         sea generador de $\mathbb{Z}_{p}^{*}$</li>
                 </ul>
+                <span class="fragment"> 
+                    <hr>        
+                    Nota: habitualmente $\alpha$ es $2$ (lo que optimiza las operaciones)
+                </span>
             </section>
 
             <section style="text-align: left;">
@@ -163,11 +167,11 @@
                     <li><span title="Man In The Middle">MITM</span> $\rightarrow$ hace falta combinar DH con algún protocolo para autenticar los extremos</li>
                 </ul>
                 <p>
-                    problemes sobre la implementación:
+                    problemas sobre la implementación:
                     <!-- https://www.eff.org/deeplinks/2015/10/how-to-protect-yourself-from-nsa-attacks-1024-bit-DH -->
                 </p>
                 <ul>
-                    <li><a href="https://weakdh.org/">Logjam attack</a> $\rightarrow$ rémora del <em>export grade</em> crypto: $512$ bit encara en algun
+                    <li><a href="https://weakdh.org/">Logjam attack</a> $\rightarrow$ rémora del <em>export grade</em> crypto: $512$ bit aún en algún
                         software</li>
                     <!-- http://dl.acm.org/authorize?N94522 -->
                     <li>muchas implementaciones limitan la longitud de las claves (en el caso de EDH, <em>Ephemeral DH</em>)
