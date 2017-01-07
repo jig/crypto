@@ -58,7 +58,7 @@
                 <h3>Criptografía simétrica</h3>
                 <p>hace falta que segura y práctica</p>
                 <p>el problema es que el requisito definido hasta ahora de <a href="intro.html#perfect-secrecy">confidencialidad incondicional</a> no puede generar
-                cifrados prácticos<br/>(ja que $\|k\| = \|m\|$)</p>
+                cifrados prácticos<br/>(ya que $\|k\| = \|m\|$)</p>
             </section>
 
             <section>
@@ -128,7 +128,7 @@
                 <p>la probabilidad de que te toque comprando sólo un número, $5$ sorteos consecutivos,
                     es $10^{-25}$ ($2^{-83}$)...</p>
                 <p>...esta es la probabilidad de que encuentres la clave por fuerza bruta en un tiempo negligible
-                    <br/>(1 millíon de años con 1 millón de CPU's...)</p>
+                    <br/>("sólo" en 1 millón de años con 1 millón de CPU's...)</p>
             </section>
             
             <section>
@@ -228,7 +228,7 @@
                 <li>una generada por una fuente aleatoria "uniforme" (RNG*)</li>
                 <li>una generada per la hipotética función PRNG</li>
                 </ul>
-                <p>con una probabilidad relevantmente diferente a $\frac{1}{2}$</p>
+                <p>con una probabilidad relevantemente diferente a $\frac{1}{2}$</p>
                 <p><br/></p>
                 <p>*) RNG: <em>Random Number Generator</em> (o <span title="True Random Number Generation">TRNG</span>) es un sistema que genera una secuencia de bits no predecible
                 sin necesidad de una semilla; <u>no puede implementarse mediante un algoritmo</u></p>
@@ -270,7 +270,7 @@
                 </ul>
                 <p>Obviamente la segunda suponiendo que no se conozca la
                     <br/>semilla del PRNG (la clave de cifrado)</p>
-                    <p>entonces $|k \xrightarrow{\text{PRNG}}$ secuencia pseudo-aleatoria$|k_{\text{generada}}$</p>
+                    <p>semilla$|k \xrightarrow{\text{PRNG}}$ secuencia pseudo-aleatoria$|k_{\text{generada}}$</p>
             </section>
             <section>
                 <h1>Cifrado de flujo</h1>
@@ -294,7 +294,7 @@
                     c_1 \oplus c_2 &= m_1 \oplus m_2
                     \end{aligned}$
                 </p>
-                <p>hemos eliminado las claves de la ecuación!</p>
+                <p>¡hemos eliminado las claves de la ecuación!</p>
             </section>
             <section>
                 <h3>Cifrado de flujo: segundo intento</h3>
@@ -623,7 +623,7 @@
             <section>
                 <h3>Cifrado de bloque: modelo</h3>
                 <p>por ejemplo, para <a href="#des">DES</a> que tiene un tamaño de bloque de $n=64\text{ b}$ hacen falta:</p>
-                <p>$64·2^{64} \text{ b} = 2^{70} \text{ b} = 2^{67}\text{ B} = 2^{37}\text{ GB} = 128\text{ EB}$</p>
+                <p>$64·2^{64} \text{ b} = 2^{70} \text{ b} = 2^{67}\text{ B} = 2^{27}\text{ TB} = 128\text{ EB}$</p>
                 <p>... <span class="fragment">para cada una de les claves $k$</span></p>
                 <p class="fragment">obviamente no es factible implementar los cifrados modernos directamente con una tabla indexada</p>
             </section>
@@ -695,7 +695,7 @@
 
             <section>
                 <h3>substitución polialfabética</h3>
-                <p>para un bloque de longitud $t$ elementos, lo que haremos es utilizar $t$ permutaciones $p()$ independentes</p>
+                <p>para un bloque de longitud $t$ elementos, lo que haremos es utilizar $t$ permutaciones $e()$ independentes</p>
                 <table>
                     <tbody>
                     <tr>
@@ -725,7 +725,7 @@
 
             <section>
                 <h3>transposición</h3>
-                <p>para un bloque de longitud $t$ elementes, lo que hacemos es mover los mismos elementos entre sí</p>
+                <p>para un bloque de longitud $t$ elementos, lo que hacemos es mover los mismos elementos entre sí</p>
                 <p>por ejemplo, en un sistema con bloque de 4 letras una función $e$ de cifrado podría ser:</p>
                 <table>
                     <tbody>
@@ -756,7 +756,7 @@
 
             <section>
                 <h3>composición de cifrados de bloque</h3>
-                <p>una composición de dos cifrados de bloque, la podemos escribir:</p>
+                <p>una composición de $n$ cifrados de bloque, la podemos escribir:</p>
                 <p>$\begin{aligned}
                     c_1 &= e_1(k_1, m)\\
                     c_2 &= e_2(k_2, c_1)\\
@@ -816,22 +816,22 @@
                 <section>
                     <p><code>SubBytes</code></p>
                     <img src="img/AES-SubBytes.svg"/>
-                    <p><small>(font <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">Wikipedia</a>)</small></p>
+                    <p><small>(fuente <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">Wikipedia</a>)</small></p>
                 </section>
                 <section>
                     <p><code>ShiftRows</code></p>
                     <img src="img/AES-ShiftRows.svg"/>
-                    <p><small>(font <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">Wikipedia</a>)</small></p>
+                    <p><small>(fuente <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">Wikipedia</a>)</small></p>
                 </section>
                 <section>
                     <p><code>MixColumns</code></p>
                     <img src="img/AES-MixColumns.svg"/>
-                    <p><small>(font <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">Wikipedia</a>)</small></p>
+                    <p><small>(fuente <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">Wikipedia</a>)</small></p>
                 </section>
                 <section>
                     <p><code>AddRoundKey</code></p>
                     <img src="img/AES-AddRoundKey.svg"/>
-                    <p><small>(font <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">Wikipedia</a>)</small></p>
+                    <p><small>(fuente <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">Wikipedia</a>)</small></p>
                 </section>
             </section>
             <section>
@@ -855,7 +855,7 @@
                 <span class="fragment">
                     <p>
                          <img src="img/Tux.jpg"/><img src="img/Tux_ecb.jpg"/><br/>
-                        <small>(font <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation">Wikipedia</a>)</small>
+                        <small>(fuente <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation">Wikipedia</a>)</small>
                     </p>
                 </span>
             </section>
@@ -887,22 +887,22 @@
                 <section>
                     <p>ECB: <em>Electronic Code-Book</em></p>
                     <img src="img/ECB_encryption.svg"/>
-                    <p><small>(font <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation">Wikipedia</a>)</small></p>
+                    <p><small>(fuente <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation">Wikipedia</a>)</small></p>
                 </section>
                 <section>
                     <p>CBC: <em>Cipher Block Chaining</em></p>
                     <img src="img/CBC_encryption.svg"/>
-                    <p><small>(font <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation">Wikipedia</a>)</small></p>
+                    <p><small>(fuente <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation">Wikipedia</a>)</small></p>
                 </section>
                 <section>
                     <p>OFB: <em>Output Feedback</em></p>
                     <img src="img/OFB_encryption.svg"/>
-                    <p><small>(font <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation">Wikipedia</a>)</small></p>
+                    <p><small>(fuente <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation">Wikipedia</a>)</small></p>
                 </section>
                 <section>
                     <p>CTR: <em>Counter</em></p>
                     <img src="img/CTR_encryption.svg"/>
-                    <p><small>(font <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation">Wikipedia</a>)</small></p>
+                    <p><small>(fuente <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation">Wikipedia</a>)</small></p>
                 </section>
             </section>
             <section style="text-align: left;">
@@ -979,8 +979,7 @@
                 <p>AES es público desde el 2000: esto implica un escrutinio público o secreto severo</p>
                 <p class="fragment">según los "papeles de Edward <a href="file:///home/sysadmin/git/src/github.com/jig/crypto-privat/reveal/reveal.js-3.2.0/threats.html#/snowden">Snowden</a>"
                     la NSA está estudiando las vulnerabilidades (no públicamente)</p>
-                <p class="fragment">otras "grandes" organizaciones es altamente improbable que no le dediquen
-                    recursos importantes</p>
+                <p class="fragment">otras "grandes" organizaciones es probable que le dediquen recursos</p>
             </section>
 
             <section>
@@ -1006,9 +1005,9 @@
                 <ul>
                     <li>pero para ser robustos al algoritmo de Grover, sólo hemos de <u>doblar</u> la longitud de claves,
                         por ejemplo pasar a AES-256 daría una fortaleza equivalente de 128 bits</li>
-                    poco después dse demostró que el algoritmo de Grover es óptimo</li>
+                    poco después se demostró que el algoritmo de Grover es óptimo</li>
                 </ul>
-                <p>por tanto, es considera que la criptografía simétrica es robusta ante la computación cuántica...</p>
+                <p>por tanto, se considera que la criptografía simétrica es robusta ante la computación cuántica...</p>
             </section>
 
             <section>
@@ -1046,10 +1045,10 @@
             </section>
             <section>
                 <h3>Meet in the Middle: forma</h3>
-                <p>(condición) supongamos que tenimos el cifrado de un bloque $c$, y sabemos el valor en <u>claro</u> $m$ (esto
+                <p>(condición) supongamos que tenemos el cifrado de un bloque $c$, y sabemos el valor en <u>claro</u> $m$ (esto
                     no siempre es posible, pero es perfectamente factible)</p>
                 <p>$c = e(k_1, e(k_2, m))$</p>
-                <p>i giramos</p>
+                <p>y giramos</p>
                 <p>$e(k_2, m) = d(k_1, c)$</p>
                 <p></p>
             </section>
