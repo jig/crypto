@@ -190,7 +190,7 @@
         </section>
         <section>
             <h3>PGP</h3>
-            <p>en PGP podem signar les claus de coneguts nosaltres mateixos que ens les han donat de forma segura</p>
+            <p>en PGP podem signar les claus de coneguts nosaltres mateixos si ens les han donat de forma segura</p>
             <p class="fragment">...i ells també poden fer el mateix, permetent abastar un pas més</p>
             <p><br/></p>
             <p>Nota: PGP té una versió de lliure distribució anomenada <a href="https://www.gnupg.org/">GPG</a> derivada
@@ -267,7 +267,7 @@
                     <ul><li>són les <u>CAs arrel</u> (<em>root CA</em>)</li></ul>
                 </li>
                 <br/>
-                <li>els usuaris poden rebre certificats no de les CAs que coneixen els usuaris final, si no
+                <li>els usuaris poden rebre certificats no de les CAs que coneixen els usuaris finals, si no
                     d'entitats intermèdies
                     <ul><li>són les <u>CAs subordinades</u></li></ul>
                 </li>
@@ -275,7 +275,7 @@
         </section>
         <section>
             <h3>CA<span style="text-transform:none;">s</span> arrel</h3>
-            <p>les diferents CAs poden especialitzar-se: nivells de seguretat, mètodes de registre, legalitats, costos,
+            <p>les diferents CAs poden especialitzar-se: nivells de seguretat, mètodes de registre, legislación, costos,
                 o simplement diferents organitzacions</p>
             <p>els usaris poden escollir en quines CAs arrel confiar i en quines no</p>
             <p class="fragment">l'usuari (...) ha de <u>gestionar</u>
@@ -289,7 +289,7 @@
             <p>$\Downarrow$</p>
             <p>probabilitat "alta" de compromís de la <code>PVK</code></p>
             <p>$\Downarrow$</p>
-            <p>hem de poder-les <a href="#revocation">revocar</a> en cas de compromísde la <code>PVK</code></p>
+            <p>hem de poder-les <a href="#revocation">revocar</a> en cas de compromís de la <code>PVK</code></p>
         </section>
 
         <section>
@@ -297,7 +297,7 @@
             <ul>
                 <li><strong>CA arrel</strong>: només emet certificats per a CA subordinades i "<a href="#revocation">revocacions</a>"
                     <ul>
-                        <li>està en activa en moments puntuals (fora de línia)</li>
+                        <li>està activa en moments puntuals (fora de línia)</li>
                         <li>en cas de compromís no hi ha protocol definit</li>
                     </ul>
                 </li>
@@ -342,7 +342,7 @@
                             <li>presencial: per a certificats
                                 personals, o amb <em>polítiques de certificació</em> restrictives com els certificats
                                 <span title="Extended Validation Certificate">EVC</span></li>
-                            <li>en línea, basats en desafiaments sobre el control d'un:
+                            <li>en línia, basats en desafiaments sobre el control d'un:
                                     <ul>
                                         <li>compte de correu</li>
                                         <li>nom de domini DNS</li>
@@ -423,7 +423,7 @@ Lrb5fFz7UWlT6/2lwe7o1BB5A8sxfrhPpsl8xj5qolZX+0yp9z4no0/ro/3BDYXA
             <p>PEM: <em>Privace Enhanced Mail</em></p>
             <ul>
                 <li>principi/final començant per guions i indicant-ne el contingut</li>
-                <li>(opcional) capçalera amb detallant-ne el contingut</li>
+                <li>(opcional) capçalera detallant-ne el contingut</li>
                 <li>contingut en base64 (segmentat en línies curtes)</li>
             </ul>
         </section>
