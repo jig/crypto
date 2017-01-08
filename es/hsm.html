@@ -69,7 +69,7 @@
 
             <section>
                 <h3>RNG: generación</h3>
-                <p>Como implementamos un RNG si no es algorítmico?</p>
+                <p>¿Cómo implementamos un RNG si no es algorítmico?</p>
                 <ul>
                     <li>Recopilando eventos de entrada (I/O) y acumulando sus parámetros (habitualmente las cifras menos significativas de la hora en ns ó μs)</li>
                     <li>Mediante dispositivos especializados (<a href="hsm.html">HSM</a>*)</p>
@@ -91,7 +91,7 @@
                 <p>se ha de vigilar que la acumulación garantice que:</p>
                 <ul>
                     <li>RNG tinga una distribución uniforme</li>
-                    <li>después de $n$ no se debe poder predecir el $n+1$ con una probabilidad diferente de $\frac{1}{2}$</li>
+                    <li>después de $n$ no se debe poder predecir el $n+1$ con una probabilidad diferente de $1/2$</li>
                 </ul>
             </section>
             <section>
@@ -126,7 +126,7 @@
             <section>
                 <h3>RNG: distribución uniforme</h3>
                 <p>para $n$ bits generados, la probabilidad de una secuencia dada es la misma de la de cualquier otra ($2^{-n}$)</p>
-                <p>ningún algoritmo puede predecir el seguiente bit conocidos los anteriores (y además, la probabilidad de acierto debe ser $p \aprox 0,5$)</p>
+                <p>ningún algoritmo puede predecir el seguiente bit conocidos los anteriores (y además, la probabilidad de acierto debe ser $p \approx 1/2$)</p>
             </section>
             <section>
                 <h3>RNG: validación</h3>
@@ -137,8 +137,8 @@
                     atacante capaz de modificar conveniente el sistema RNG</p>
             </section>
             <section>
-                <h3>RNG: validación?</h3>
-                <p>un RNG sólo sólo se puede considerar seguro si sabemos como lo generamos, y lo generamos de forma segura</p>
+                <h3>RNG: ¿validación?</h3>
+                <p>un RNG sólo se puede considerar seguro si sabemos como lo generamos, y lo generamos de forma segura</p>
             </section>
 
             <section>
@@ -198,8 +198,8 @@
 
             <section>
                 <h3>RNG: ruido térmico</h3>
-                <p>el ruido térmico es el resultado de un fenómeno caótico (no estrictament aleatori)</p>
-                <p>(...)</p>
+                <p>el ruido térmico es el resultado de un fenómeno caótico (no estrictamente aleatorio)</p>
+                <p>(&hellip;)</p>
             </section>
 
             <section id="quantum-rng">
@@ -216,7 +216,7 @@
             </section>
 
             <section>
-                <h3>RNG?</h3>
+                <h3>¿RNG?</h3>
                 <p>las dos familias de dispositivos generan números aleatorios&hellip; pero no uniformes</p>
                 <ul>
                     <li>RNG térmic: limitado por el ancho de banda (señal)</li>
@@ -262,7 +262,7 @@
                 <ul>
                     <li>generar claves de calidad</li>
                     <li>custodiar las de forma segura</li>
-                    <li>protegir las contra uso ilegítimo</li>
+                    <li>protegerlas contra uso ilegítimo</li>
                     <li>assegurar su correcto uso</li>
                     <li>secundarias: <ul>
                         <li>velocidad (TPS, acceleración TLS)</li>
@@ -309,11 +309,11 @@
                 <p>para implementar las funciones anteriores hace falta:</p>
                 <ul>
                     <li>generador de claves aleatories (RNG)</li>
-                    <li>us controlado verificable
+                    <li>uso controlado verificable
                         <ul>
                             <li>protección física (no se puede leer el sistema de ficheros, o modificar el software
                                 sin "estropear" el HSM)</li>
-                            <li>protección software (API con control de accéso)</li>
+                            <li>protección software (API con control de acceso)</li>
                         </ul>
                     </li>
                     <li>área de ataque mínima (API "minimalista", hace más improbable los <em>bugs</em> o los <em>security flaws</em>)</li>
@@ -342,19 +342,19 @@
             <section>
                <h3>FIPS 140-2</h3>
                 <ul>
-                    <li>FIPS 140-2 <strong>nivell 1</strong>: sin contramedidas físicas (son librerias); análisis lógico y de algoritmos</li>
-                    <li>FIPS 140-2 <strong>nivell 2</strong>: nivel 1, y debe disponer de contramedidas pasivas para detectar el acceso físico (sellos, evidencias)</li>
-                    <li>FIPS 140-2 <strong>nivell 3</strong>: nivel 2, y debe disponer de contramedidas activas para contrarrestar el acceso físico (ceroización)
+                    <li>FIPS 140-2 <strong>nivel 1</strong>: sin contramedidas físicas (son librerías); análisis lógico y de algoritmos</li>
+                    <li>FIPS 140-2 <strong>nivel 2</strong>: nivel 1, y debe disponer de contramedidas pasivas para detectar el acceso físico (sellos, evidencias)</li>
+                    <li>FIPS 140-2 <strong>nivel 3</strong>: nivel 2, y debe disponer de contramedidas activas para contrarrestar el acceso físico (ceroización)
                     y sólo permite exportar las claves cifradas</li>
-                    <li>FIPS 140-2 <strong>nivell 4</strong>: nivel 3, y debe disponer de validación formal del funcionamento</li>
+                    <li>FIPS 140-2 <strong>nivel 4</strong>: nivel 3, y debe disponer de validación formal del funcionamento</li>
                 </ul>
             </section>
 
             <section>
                 <h3>FIPS 140-2</h3>
-                <p>para gestionar claves de usuarios para firma avanzada habitualmente se requiere FIPS 140-2 <strong>nivel 2</strong></p>
-                <p>para autoridades de validación o de sello de tiempo, habitualmente se requiere FIPS 140-2 <strong>nivel 2</strong></p>
-                <p>para autoridades de certificación habitualmente se require FIPS 140-2 <strong>nivel 3</strong></p>
+                <p>para gestionar claves de usuarios para firma avanzada habitualmente se<br/>requiere FIPS 140-2 <strong>nivel 2</strong></p>
+                <p>para autoridades de validación o de sello de tiempo, habitualmente se<br/>requiere FIPS 140-2 <strong>nivel 2</strong></p>
+                <p>para autoridades de certificación habitualmente se<br/>require FIPS 140-2 <strong>nivel 3</strong></p>
             </section>
 
             <section id="pkcs11">
@@ -363,7 +363,7 @@
                     es una especificación de la API de los HSM en lenguaje C (literalmente un <code>.h</code>)</p>
                 <p><br/></p>
                 <p>PKCS: <em>Public Key Cryptographic Standard</em>. Estándares de facto publicados por RSA Labs. Inc. (ahora EMC<sup>2</sup> (ahora Dell Technologies));
-                    actualmente la gestión del estándar ha pasado a
+                    <br/>actualmente la gestión del estándar ha pasado a
                     <a href="https://www.oasis-open.org/committees/documents.php?wg_abbrev=pkcs11">OASIS</a>
                 </p>
             </section>
@@ -387,7 +387,7 @@
 
             <section>
                 <h3>Partición de Secretos</h3>
-                <p>en claves importantes (e.g. la de una CA raíz) un HSM puede no ser suficiente (y si lo roban?)</p>
+                <p>en claves importantes (e.g. la de una CA raíz) un HSM puede no ser suficiente (¿y si lo roban?)</p>
                 <p>en estos casos podemos dividir la clave en trozos:</p>
                 <ul>
                     <li>dividir la cadena de bits en trozos $\Rightarrow$ disminuye la seguridad</li>
@@ -402,7 +402,7 @@
 
             <section>
                 <h3>Partición de secretos</h3>
-                <p>lo podemos hacer "por software"?</p>
+                <p>¿lo podemos hacer "por software"?</p>
                 <span class="fragment">
                 <p>sí, pero el secreto ha estado "en claro" en la RAM del ordenador por tanto una vez recuperado
                 el secreto su exposición ha aumentado notablemente</p>
@@ -418,17 +418,17 @@
 
             <section>
                 <h3>Algoritmo de Shamir</h3>
-                <p>definido sobre $\mathbb{Z_p}$ (no sobre $\mathbb{R}$ como en el dibujo anterior)</p>
+                <p>definido sobre $\mathbb{Z}_{p}^{*}$ (no sobre $\mathbb{R}$ como en el dibujo anterior)</p>
                 <p>si en lugar de utilizar una recta (polinomio de grado $1$),
                     usamos un polinomio de grado $M-1$ podemos ajustar cuantos trozos
                     se deben recuperar ($M$)</p>
-                <p>podemos dividirlo en tantos trozos ($N$) como haga falta ($N | N\leq M$)</p>
+                <p>podemos dividirlo en tantos trozos ($N$) como haga falta ($N | N \geq M$)</p>
             </section>
             <section>
                 <h3>Algoritmo de Shamir</h3>
                 <ul>
-                <li>es robusto: si no perdemos más de $M-N-1$ fragmentos, podemos recuperar el secreto</li>
-                <li>es seguro: hace falta robar/extorsionar/presionar/&hellip; $N$ participantes para obtener el secreto</li>
+                <li>es robusto: mientras tengamos $M$ fragmentos (de los $N$ totales), podemos recuperar el secreto</li>
+                <li>es seguro: hace falta robar/extorsionar/presionar/&hellip; $M$ participantes para obtener el secreto</li>
                 <li class="fragment">es seguro: sobre $\mathbb{Z}_p^*$
                     es <a href="intro.html#perfect-secrecy">incondicionalmente segura</a></li>
                 <li class="fragment">es seguro: a condición que se cumpla la hipótesis que el HSM es impenetrable</li>
