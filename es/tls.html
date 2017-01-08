@@ -44,7 +44,7 @@
         <section>
             <h1>TLS</h1>
             <p><em>(Transport Layer Security/<a href="https://tools.ietf.org/html/rfc5246">rfc5246</a>)</em></p>
-            <p><em>(abans de TLS 1.0 $\rightarrow$ SSL, Secure Sockets Layer)  </em></p>
+            <p><em>(antes de TLS 1.0 $\rightarrow$ SSL, Secure Sockets Layer)  </em></p>
 
             <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
                 <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" />
@@ -62,8 +62,8 @@
         </section>
 
         <section>
-            <h3>xarxa</h3>
-            <p>Ubicació de TLS dins la pila TCP/IP en aplicacions HTTPS</p>
+            <h3>red</h3>
+            <p>Ubicación de TLS dentro de la pila TCP/IP en aplicaciones HTTPS</p>
             <svg width="640" height="480" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
                 <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
                 <g>
@@ -85,44 +85,44 @@
         </section>
 
         <section>
-            <h3>TLS: funcions</h3>
-            <p>Funcionalment equivalent a un socket
+            <h3>TLS: funciones</h3>
+            <p>Funcionalmente equivalente a un socket
                 <a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol">TCP</a>
-                aportant-hi:
+                aportandole:
             </p>
             <ul>
-                <li>autenticitat: Clau pública
+                <li>autenticidad: Clave pública
                     <ul>
-                        <li><u>autenticació mútua</u>: client i servidor tenen certificat/<code>PVK</code></li>
-                        <li><u>autenticació de servidor</u>: al client no li cal certificat/<code>PVK</code></li>
+                        <li><u>autenticación mutua</u>: cliente y servidor tienen certificado/<code>PVK</code></li>
+                        <li><u>autenticación de servidor</u>: el cliente no precisa certificado/<code>PVK</code></li>
                     </ul>
                 </li>
-                <li>integritat: <a href="hmac.html">HMAC</a>/<a href="mac.html">MAC</a></li>
-                <li>confidencialitat: <a href="dh.html">acord de claus</a> + <a href="symmetric.html">xifrat simètric</a></li>
-                <li>confidencialitat persistent* (opcional fins TLS v1.2)</li>
+                <li>integridad: <a href="hmac.html">HMAC</a>/<a href="mac.html">MAC</a></li>
+                <li>confidencialidad: <a href="dh.html">acuerdo de claves</a> + <a href="symmetric.html">cifrado simétrico</a></li>
+                <li>confidencialidad persistente* (opcional hasta TLS v1.2)</li>
             </ul>
             <p><br/></p>
-            <p>*) PFS: <em>Perfect Forward Secrecy</em>; acord de claus independent de l'autenticació</p>
+            <p>*) PFS: <em>Perfect Forward Secrecy</em>; acuerdo de claves independiente de la autenticación</p>
         </section>
 
         <section>
-            <h3>TLS: autenticació</h3>
+            <h3>TLS: autenticación</h3>
             <p>
             <ul style="color:grey;">
-                <li><u>autenticació mútua</u>: client i servidor tenen certificat/<code>PVK</code></li>
-                <li><u>autenticació de servidor</u>: al client no li cal certificat/<code>PVK</code></li>
+                <li><u>autenticación mutua</u>: cliente y servidor tienen certificado/<code>PVK</code></li>
+                <li><u>autenticación de servidor</u>: el cliente no precisa certificado/<code>PVK</code></li>
             </ul></p>
             <ul>
-                <li>servidor: clau privada habitualment en fitxer en clar protegit únicament pel
-                    <span title="Sistema Operatiu">SO</span>
+                <li>servidor: clave privada habitualmente en fichero en claro protegido únicamente por el
+                    <span title="Sistema Operativo">SO</span>
                     (<span title="Access Conrol List">ACL</span>)
                     o en <a title="Hardware Secure Module" href="hsm.html">HSM</a>
-                    amb activació automàtica</li>
+                    con activación automática</li>
                 <li>client:
                     <ul>
-                        <li>sense autenticació de client: anònim, usuari i contrasenya, etc.</li>
-                        <li>amb autenticació de client: fitxer <a href="pki.html#pkcs">PKCS #12</a>,
-                            o accedint a un HSM en forma d'<a href="hsm.html#smartcard">SmartCard</a>
+                        <li>sin autenticación de cliente: anónimo, usuario y contraseña, etc.</li>
+                        <li>con autenticación de cliente: fichero <a href="pki.html#pkcs">PKCS #12</a>,
+                            o accediendo a un HSM en forma de <a href="hsm.html#smartcard">SmartCard</a>
                             o de <a href="hsm.html#usb">token</a> USB via llibrería <a href="hsm.html#pkcs11">PKCS #11</a>
                         </li>
                     </ul>
@@ -131,16 +131,16 @@
         </section>
 
         <section>
-            <h3>TLS: història</h3>
-            <p>TLS és el successor de l'SSL i ha anat evolucionant per diferents versions en resposta als diferents atacs
-            teòrics i pràctics que han anat sortint</p>
-            <p>els clients quan es connecten acorden fer servir la versió més moderna que suportin ambdós versions:</p>
+            <h3>TLS: historia</h3>
+            <p>TLS es el succesor del SSL y ha ido evolucionando por diferentes versionas en respuesta a los direntes ataques
+                teóricos y prácticos que han ido surgiendo</p>
+            <p>los clientes cuando se conectan acuerdan utilizar la versión más moderna que soporten ambos extremos:</p> 
             <ul>
-                <li>SSL 3.0 $\rightarrow$ obsolet</li>
-                <li>TLS 1.0 $\rightarrow$ mínim versió del protocol utilitzable</li>
+                <li>SSL 3.0 $\rightarrow$ obsoleto</li>
+                <li>TLS 1.0 $\rightarrow$ mínima versión del protocolo utilizable</li>
                 <li>TLS 1.1</li>
-                <li>TLS 1.2 $\rightarrow$ versió recomanda</li>
-                <li>TLS 1.3 draft $\rightarrow$ es força a utilitzar DHE/ECDHE per acord de claus</li>
+                <li>TLS 1.2 $\rightarrow$ versión recomendada</li>
+                <li>TLS 1.3 draft $\rightarrow$ fuerza a utilizar DHE/ECDHE como acuerdo de claves</li>
             </ul>
         </section>
         <!-- <section>
@@ -158,128 +158,131 @@
               Certificate*
               ClientKeyExchange
               CertificateVerify*
-             -- a partir d'aquí s'inicia l'intercanvi de dades protegit --
+             -- a partir de aquí se inicia el intercambio de datos protegido --
             </pre>
         </section> -->
         <section>
             <small>
-            <h3>inicialització (resum; suposant caché TLS buida)</h3>
-            <p style="text-align: left;"><code>ClientHello</code> $\longrightarrow$<br/>conté un random, cipher-suites suportats, versió</p>
+            <h3>inicialización (resumen; suponiendo caché TLS vacía)</h3>
+            <p style="text-align: left;"><code>ClientHello</code> $\longrightarrow$<br/>contiene un random, cipher-suites soportados, versión</p>
                 <p/>
-            <p style="text-align: right;">$\longleftarrow$ <code>ServerHello</code><br/>conté un random, session-ID, i la versió de TLS i el cipher-suite usats<!-- extensions --></p>
-            <p style="text-align: right;">$\longleftarrow$ <code>Certificate</code><br/>cadena de certificats incloent el del servidor</p>
-            <p style="text-align: right;">$\longleftarrow$ <code>ServerKeyExchange</code><br/>(si DHE) paràmetres DH i la seva clau pública (efímera: <u>preMasterSecret</u>)</p>
-            <p style="text-align: right;">$\longleftarrow$ <span title="Cas que el servidor vulgui autenticació de client"><code>CertificateRequest</code>$\dagger$</span><br/>(si el servidor requereix autenticació de client) DN's de les CA acceptades</p>
-                <p/>
-            <p style="text-align: left;"><code>Certificate</code> $\longrightarrow$<br/>(si el servidor requereix autenticació de client) cadena de certificats incloent la del client</p>
-            <p style="text-align: left;"><code>ClientKeyExchange</code> $\longrightarrow$<br/>(si DHE) clau pública DH (efímera: <u>preMasterSecret</u>)</p>
-            <p style="text-align: left;"><span title="Cas que el servidor demani autenticació de client"><code>CertificateVerify</code>$\dagger$</span>
-                $\longrightarrow$<br/>(si el servidor requereix autenticació de client) signatura dels missatges anteriors</p>
+            <p style="text-align: right;">$\longleftarrow$ <code>ServerHello</code><br/>contiene un random, session-ID, y la versión de TLS y el cipher-suite usado<!-- extensions --></p>
+            <p style="text-align: right;">$\longleftarrow$ <code>Certificate</code><br/>cadena de certificados incluyendo el del servidor</p>
+            <p style="text-align: right;">$\longleftarrow$ <code>ServerKeyExchange</code><br/>(si DHE) parámetros DH y su clave pública (efímera: <u>preMasterSecret</u>)</p>
+            <p style="text-align: right;">$\longleftarrow$ <span title="Caso que el servidor requiera autenticación de cliente"><code>CertificateRequest</code>$\dagger$</span>
+                <br/>(si el servidor requiere autenticación de cliente) DN's de las CA aceptadas</p>
+            <p/>
+            <p style="text-align: left;"><code>Certificate</code> $\longrightarrow$
+                <br/>(si el servidor requiere autenticación de cliente) cadena de certificados incluyendo la del cliente
+            </p>
+            <p style="text-align: left;"><code>ClientKeyExchange</code> $\longrightarrow$<br/>(si DHE) clave pública DH (efímera: <u>preMasterSecret</u>)</p>
+            <p style="text-align: left;"><span title="Caso que el servidor requiera autenticación de cliente"><code>CertificateVerify</code>$\dagger$</span>
+                $\longrightarrow$<br/>(si el servidor requiere autenticación de cliente) firma de los mensajes anteriores</p>
             </small>
         </section>
 
         <section>
-            <h3>Protocol: inicialització</h3>
-            <p>a partir dels dos <code>PreMasterSecret</code> és genera el <code>MasterSecret</code></p>
-            <p>del <code>MasterSecret</code> se'n deriven 4 claus i 2 IV:</p>
+            <h3>Protocol: inicialización</h3>
+            <p>a partir de los dos <code>PreMasterSecret</code> se genera el <code>MasterSecret</code></p>
+            <p>del <code>MasterSecret</code> se derivan 4 claves y 2 IV:</p>
             <ul>
-                <li>clau de xifrat de client a servidor (i viceversa)</li>
-                <li>IV, pel xifrat de client a servidor (i viceversa)</li>
-                <li>clau HMAC de client a servidor (i viceversa)</li>
+                <li>clave de cifrado de cliente a servidor (y viceversa)</li>
+                <li>IV, para el cifrado de cliente a servidor (y viceversa)</li>
+                <li>clave HMAC de cliente a servidor (y viceversa)</li>
             </ul>
         </section>
 
         <section>
-            <h3>protocol: transport <em>(record)</em></h3>
-            <p>les dades es fragmenten en blocs de fins 16 kB</p>
-            <p>cada bloc està protegit pels algorismes simètrics acordats durant la inicialització i les claus i IV's
-            derivats de la <code>MasterKey</code>...</p>
-            <p>i per un nombre de seqüència</p>
+            <h3>protocolo: transporte <em>(record)</em></h3>
+            <p>los datos se fragmentan en bloques de hasta 16 kB</p>
+            <p>cada bloque está protegido por algoritmos simétricos acordados durante la inicialización y las claves y IV's
+            derivados de la <code>MasterKey</code>...</p>
+            <p>y por un número de secuencia</p>
         </section>
         <section>
             <h3><em>Cipher suites</em></h3>
-            <p>S'identifiquen amb la cadena <code>TLS_<span style="color:blue;">KEA</span>_<span style="color:green;">SIGN</span>_WITH_<span style="color:red;">CIPHER</span>_<span style="color:orange;">HASH</span></code></p>
+            <p>Se identifican con la cadena <code>TLS_<span style="color:blue;">KEA</span>_<span style="color:green;">SIGN</span>_WITH_<span style="color:red;">CIPHER</span>_<span style="color:orange;">HASH</span></code></p>
             <table>
                 <thead>
                 <tr>
-                    <td>Component</td>
-                    <td>Contingut</td>
+                    <td>Componente</td>
+                    <td>Contenido</td>
                 </tr>
                 </thead>
                 <tbody>
-                <tr><td><span style="color:blue;">KEA</span></td><td>algorisme d'acord de claus</td></tr>
-                <tr><td><span style="color:green;">SIGN</span></td><td>algorisme de signatura</td></tr>
-                <tr><td><span style="color:red;">CIPHER</span></td><td>algorisme de xifrat simètric</td></tr>
-                <tr><td><span style="color:orange;">HASH</span></td><td>algorisme de hash</td></tr>
+                <tr><td><span style="color:blue;">KEA</span></td><td>algoritmo de acuerdo de claves</td></tr>
+                <tr><td><span style="color:green;">SIGN</span></td><td>algoritmo de firma</td></tr>
+                <tr><td><span style="color:red;">CIPHER</span></td><td>algoritmo de cifrado simétrico</td></tr>
+                <tr><td><span style="color:orange;">HASH</span></td><td>algoritmo de hash</td></tr>
                 </tbody>
             </table>
         </section>
 
         <section style="text-align: left;">
-            <h3>Algorismes a TLS v1.3 <span style="text-transform:none;">
+            <h3>Algoritmos en TLS v1.3 <span style="text-transform:none;">
                 (<a
                         title="draft-11"
-                        href="https://tools.ietf.org/html/draft-ietf-tls-tls13-11"
-                >esborrany-11</a
+                        href="https://tools.ietf.org/html/draft-ietf-tls-tls13-18"
+                >esborrany-18</a
                 >/<a
                     href="https://github.com/tlswg/tls13-spec"
                 >git</a
                 >)</span></h3>
-            <p>els següents <em>cipher-suites</em> són d'obligatòria implementació (<a href="https://tools.ietf.org/html/rfc2119">MUST</a>):</p>
+            <p>los siguientes <em>cipher-suites</em> son de obligada implementación (<a href="https://tools.ietf.org/html/rfc2119">MUST</a>):</p>
             <p style="text-align: left;"><code>
                 TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
                 <br/>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
             </code></p>
-            <p>i es recomana l'implementació d'aquests (<a href="https://tools.ietf.org/html/rfc2119">SHOULD</a>):</p>
+            <p>y se recomienda la implementación de estos (<a href="https://tools.ietf.org/html/rfc2119">SHOULD</a>):</p>
             <p style="text-align: left;"><code>
                 TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
                 <br/>TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256
                 <br/>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
                 <br/>TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256
             </code></p>
-            <p>Notes:
+            <p>Notas:
                 <ul>
-                    <li>eliminació d'acord de claus no efímers</li>
-                    <li><code>RSA-2048</code>, <code>ECDSA-224</code>, <code>ECDH-224</code>: longituds mínimes;</li>
-                    <li>desapareixen <code>DSA</code>, <code>SHA-1</code>, <code>SHA-224</code>, <code>3DES</code></li>
-                    <li>es suporta opcionalment <code title="Diffie-Hellman Ephemeral">DHE</code> (com alternativa a <code>ECDHE</code>)</li>
+                    <li>eliminación de acuerdos de claves no efímeros</li>
+                    <li><code>RSA-2048</code>, <code>ECDSA-224</code>, <code>ECDH-224</code>: longitudes mínimas;</li>
+                    <li>desaparecen <code>DSA</code>, <code>SHA-1</code>, <code>SHA-224</code>, <code>3DES</code></li>
+                    <li>se soporta opcionalmente <code title="Diffie-Hellman Ephemeral">DHE</code> (como alternativa a <code>ECDHE</code>)</li>
                 </ul>
             </p>
         </section>
 
         <section>
             <h3><em>Cipher suites</em></h3>
-            <p>Valors previstos per a cada camp de <code>TLS_<span style="color:blue;">KEA</span>_<span style="color:green;">SIGN</span>_WITH_<span style="color:red;">CIPHER</span>_<span style="color:orange;">HASH</span></code>
-            <br/>encara que poden canviar</p>
+            <p>Valores previstos para cada campo de <code>TLS_<span style="color:blue;">KEA</span>_<span style="color:green;">SIGN</span>_WITH_<span style="color:red;">CIPHER</span>_<span style="color:orange;">HASH</span></code>
+            <br/>aunque pueden cambiar</p>
             <table>
                 <thead>
                 <tr>
-                    <td>Component</td>
-                    <td>Contingut</td>
+                    <td>Componente</td>
+                    <td>Contenido</td>
                 </tr>
                 </thead>
                 <tbody>
                 <tr><td><span style="color:blue;">KEA</span></td><td>DHE, ECDHE
-                    <br/>$\quad \Rightarrow$ només variants efímeres DH</td></tr>
+                    <br/>$\quad \Rightarrow$ sólo para variantes efímeras DH</td></tr>
                 <tr><td><span style="color:green;">SIGN</span></td><td>RSA, ECDSA
-                    <br/>$\quad \Rightarrow$ desapareix DSA</td></tr>
+                    <br/>$\quad \Rightarrow$ desaparece DSA</td></tr>
                 <tr><td><span style="color:red;">CIPHER</span></td><td>AES-128, AES-256, ChaCha20
-                    <br/>$\quad \Rightarrow$ desapareixen 3DES, RC4, </td></tr>
+                    <br/>$\quad \Rightarrow$ desaparecen 3DES, RC4, </td></tr>
                 <tr><td><span style="color:orange;">HASH</span></td><td>SHA-2, Poly1305
-                    <br/>$\quad \Rightarrow$ desapareixen MD5, SHA-1, SHA-2/224</td></tr>
+                    <br/>$\quad \Rightarrow$ desaparecen MD5, SHA-1, SHA-2/224</td></tr>
                 </tbody>
             </table>
         </section>
 
         <section>
-            <h3>Confiança</h3>
-            <p>les dades es protegeixen amb <code><span style="color:red;">CIPHER</span>_<span style="color:orange;">HASH</span></code></p>
+            <h3>Confianza</h3>
+            <p>los datos se protegen con <code><span style="color:red;">CIPHER</span>_<span style="color:orange;">HASH</span></code></p>
             <p>$\downarrow$</p>
-            <p>derivades amb <code><span style="color:blue;">KEA</span></code></p>
+            <p>derivadas con <code><span style="color:blue;">KEA</span></code></p>
             <p>$\downarrow$</p>
-            <p>autenticats (els secrets) amb <code><span style="color:green;">SIGN</span></code></p>
+            <p>autenticadas (los secretos) con <code><span style="color:green;">SIGN</span></code></p>
             <p>$\downarrow$</p>
-            <p>Claus públiques de servidor i client (opcionalment)
+            <p>Claves públicas de servidor y cliente (opcionalmente)
             <br/><a href="pki.html">?</a></p>
         </section>
     </div>
