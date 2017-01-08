@@ -363,7 +363,7 @@
                     és una especificació de la API dels HSM en llenguatge C (literalment un <code>.h</code>)</p>
                 <p><br/></p>
                 <p>PKCS: <em>Public Key Cryptographic Standard</em>. Estàndards de facto publicats per RSA Labs. Inc. (ara EMC<sup>2</sup> (ara Dell Technologies));
-                    actualment la gestió de l'estàndard ha passat a
+                    <br/>actualment la gestió de l'estàndard ha passat a
                     <a href="https://www.oasis-open.org/committees/documents.php?wg_abbrev=pkcs11">OASIS</a>
                 </p>
             </section>
@@ -418,17 +418,17 @@
 
             <section>
                 <h3>Algorisme de Shamir</h3>
-                <p>definit sobre $\mathbb{Z_p}$ (no sobre $\mathbb{R}$ com al dibuix anterior)</p>
+                <p>definit sobre $\mathbb{Z}_{p}^{*}$ (no sobre $\mathbb{R}$ com al dibuix anterior)</p>
                 <p>si en lloc de fer servir una recta (polinomi de grau $1$),
                     fem servir un polinomi de grau $M-1$ podem ajustar quants trossos
                     cal recuperar ($M$)</p>
-                <p>podem fer-ne tants trossos ($N$) com calgui ($N | N\leq M$)</p>
+                <p>podem fer-ne tants trossos ($N$) com calgui ($N | N \geq M$)</p>
             </section>
             <section>
                 <h3>Algorisme de Shamir</h3>
                 <ul>
-                <li>és robust: si no perdem més d'$M-N-1$ fragments, podrem recuperar el secret</li>
-                <li>és segur: cal robar/extorquir/pressionar/... $N$ participants per a obtenir el secret</li>
+                <li>és robust: mentre disposem d'$M$ dels $N$ fragments, podrem recuperar el secret</li>
+                <li>és segur: cal robar/extorquir/pressionar/... $M$ participants per a obtenir el secret</li>
                 <li class="fragment">és segur: sobre $\mathbb{Z}_p^*$
                     és <a href="intro.html#perfect-secrecy">incondicionalment segura</a></li>
                 <li class="fragment">és segur: a condició que es compleixi la hipòtesi que l'HSM és impenetrable</li>
