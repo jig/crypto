@@ -123,7 +123,7 @@
                         <li>sense autenticació de client: anònim, usuari i contrasenya, etc.</li>
                         <li>amb autenticació de client: fitxer <a href="pki.html#pkcs">PKCS #12</a>,
                             o accedint a un HSM en forma d'<a href="hsm.html#smartcard">SmartCard</a>
-                            o de <a href="hsm.html#usb">token</a> USB via llibrería <a href="hsm.html#pkcs11">PKCS #11</a>
+                            o de <a href="hsm.html#usb">token</a> USB via llibreria <a href="hsm.html#pkcs11">PKCS #11</a>
                         </li>
                     </ul>
                 </li>
@@ -134,7 +134,7 @@
             <h3>TLS: història</h3>
             <p>TLS és el successor de l'SSL i ha anat evolucionant per diferents versions en resposta als diferents atacs
             teòrics i pràctics que han anat sortint</p>
-            <p>els clients quan es connecten acorden fer servir la versió més moderna que suportin ambdós versions:</p>
+            <p>els clients quan es connecten acorden fer servir la versió més moderna que suportin ambdós extrems:</p>
             <ul>
                 <li>SSL 3.0 $\rightarrow$ obsolet</li>
                 <li>TLS 1.0 $\rightarrow$ mínim versió del protocol utilitzable</li>
@@ -166,12 +166,15 @@
             <h3>inicialització (resum; suposant caché TLS buida)</h3>
             <p style="text-align: left;"><code>ClientHello</code> $\longrightarrow$<br/>conté un random, cipher-suites suportats, versió</p>
                 <p/>
-            <p style="text-align: right;">$\longleftarrow$ <code>ServerHello</code><br/>conté un random, session-ID, i la versió de TLS i el cipher-suite usats<!-- extensions --></p>
+            <p style="text-align: right;">$\longleftarrow$ <code>ServerHello</code><br/>conté un random, session-ID, i la versió de TLS i el cipher-suite usat<!-- extensions --></p>
             <p style="text-align: right;">$\longleftarrow$ <code>Certificate</code><br/>cadena de certificats incloent el del servidor</p>
             <p style="text-align: right;">$\longleftarrow$ <code>ServerKeyExchange</code><br/>(si DHE) paràmetres DH i la seva clau pública (efímera: <u>preMasterSecret</u>)</p>
-            <p style="text-align: right;">$\longleftarrow$ <span title="Cas que el servidor vulgui autenticació de client"><code>CertificateRequest</code>$\dagger$</span><br/>(si el servidor requereix autenticació de client) DN's de les CA acceptades</p>
-                <p/>
-            <p style="text-align: left;"><code>Certificate</code> $\longrightarrow$<br/>(si el servidor requereix autenticació de client) cadena de certificats incloent la del client</p>
+            <p style="text-align: right;">$\longleftarrow$ <span title="Cas que el servidor vulgui autenticació de client"><code>CertificateRequest</code>$\dagger$</span>
+                <br/>(si el servidor requereix autenticació de client) DN's de les CA acceptades</p>
+            <p/>
+            <p style="text-align: left;"><code>Certificate</code> $\longrightarrow$
+                <br/>(si el servidor requereix autenticació de client) cadena de certificats incloent la del client
+            </p>
             <p style="text-align: left;"><code>ClientKeyExchange</code> $\longrightarrow$<br/>(si DHE) clau pública DH (efímera: <u>preMasterSecret</u>)</p>
             <p style="text-align: left;"><span title="Cas que el servidor demani autenticació de client"><code>CertificateVerify</code>$\dagger$</span>
                 $\longrightarrow$<br/>(si el servidor requereix autenticació de client) signatura dels missatges anteriors</p>
@@ -180,7 +183,7 @@
 
         <section>
             <h3>Protocol: inicialització</h3>
-            <p>a partir dels dos <code>PreMasterSecret</code> és genera el <code>MasterSecret</code></p>
+            <p>a partir dels dos <code>PreMasterSecret</code> es genera el <code>MasterSecret</code></p>
             <p>del <code>MasterSecret</code> se'n deriven 4 claus i 2 IV:</p>
             <ul>
                 <li>clau de xifrat de client a servidor (i viceversa)</li>
