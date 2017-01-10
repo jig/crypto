@@ -456,40 +456,40 @@ Lrb5fFz7UWlT6/2lwe7o1BB5A8sxfrhPpsl8xj5qolZX+0yp9z4no0/ro/3BDYXA
             </p>
             <p>DER es independiente de la arquitectura del procesador
                 <br/>(<em>endianness</em>, tamaño de los registros de la CPU)</p>
-            <p>Codificación TLV: <code>Tipus + Longitud + Valor</code></p>
+            <p>Codificación TLV: <code>Tipo + Longitud + Valor</code></p>
         </section>
 
         <section>
-            <h3>ASN.1: Serialització DER</h3>
-            <p><code>Tipus + Longitud + Valor</code></p>
+            <h3>ASN.1: Serialización DER</h3>
+            <p><code>Tipo + Longitud + Valor</code></p>
             <ul>
-                <li>TL + V: Valor no estructurat o final (cadena, enter...)</li>
-                <li>TL + (TL+..., TL+..., ...): valor estructurat (<code>SEQUENCE</code>...)</li>
+                <li>TL + V: Valor no estructurado o final (cadena, entero&hellip;)</li>
+                <li>TL + (TL+&hellip;, TL+&hellip;, &hellip;): valor estructurado (<code>SEQUENCE</code>&hellip;)</li>
             </ul>
-            <p>Experiment: Parser DER en línia: <a href="https://lapo.it/asn1js/">lapo.it</a></p>
+            <p>Experimento: Parser DER en línea: <a href="https://lapo.it/asn1js/">lapo.it</a></p>
         </section>
 <!-- https://certlogik.com/decoder/ -->
         <section>
-            <h3>ASN.1: Notació per a definir tipus</h3>
+            <h3>ASN.1: Notación para definir tipos</h3>
             <p>ASN.1: <em>Abstract Syntax Notation (One)</em></p>
-            <p>equivalent als "esquemes" XML, a les "classes" de Java (que després podem serialitzar), etc.</p>
+            <p>equivalente a los "esquemas" XML, a las "clases" de Java (que después podemos serializar), etc.</p>
         </section>
 
         <section>
             <h3>ASN.1</h3>
-            <p>Tipus bàsics</p>
+            <p>Tipos básicos</p>
             <ul>
-                <li>Numèrics: <code>INTEGER</code>, <code>BOOLEAN</code>, <code>ENUMERATED</code>...</li>
-                <li>Cadenes: <code>OCTET STRING</code>, <code>BIT STRING</code>, <code>Utf8String</code>,  <code>GeneralizedTime</code>...</li>
+                <li>Numéricos: <code>INTEGER</code>, <code>BOOLEAN</code>, <code>ENUMERATED</code>&hellip;</li>
+                <li>Cadenas: <code>OCTET STRING</code>, <code>BIT STRING</code>, <code>Utf8String</code>,  <code>GeneralizedTime</code>&hellip;</li>
                 <li>NULL</li>
-                <li>OBJECT IDENTIFIER...</li>
+                <li>OBJECT IDENTIFIER&hellip;</li>
             </ul>
             <ul></ul>
         </section>
 
         <section>
             <h3>ASN.1: OBJECT IDENTIFIER</h3>
-            <p>seqüència única que identifica un concepte, que s'obté
+            <p>secuencia única que identifica un concepto, que se obtiene
                 <br/> de la
                 <a href="http://itu.int">ITU-T/CCITT</a> o la
                 <a href="http://iso.org">ISO</a>
@@ -500,20 +500,20 @@ Lrb5fFz7UWlT6/2lwe7o1BB5A8sxfrhPpsl8xj5qolZX+0yp9z4no0/ro/3BDYXA
         </section>
 
         <section>
-            <h3>ASN.1: Tipus Constructors i Metatipus</h3>
+            <h3>ASN.1: Tipos Constructores y Metatipos</h3>
             <ul>
-                <li><code>SEQUENCE</code>: equivalent a un <code>struct</code> de C/C++</li>
-                <li><code>SEQUENCE OF</code>: equivalent a un vector <code>[]</code> de C/C++</li>
-                <li><code>SET</code>: com <code>SEQUENCE</code> però sense ordre (semàntica)</li>
-                <li><code>SET OF</code>: com <code>SEQUENCE OF</code> però sense ordre (semàntica)</li>
-                <li><code>SEQUENCE</code>: equivalent a un <code>struct</code> de C/C++</li>
-                <li><code>CHOICE</code>: alternativa de tipus; equivalent a <code>union</code> de C/C++</li>
+                <li><code>SEQUENCE</code>: equivalente a un <code>struct</code> de C/C++</li>
+                <li><code>SEQUENCE OF</code>: equivalente a un vector <code>[]</code> de C/C++</li>
+                <li><code>SET</code>: como <code>SEQUENCE</code> pero sin orden (semántica)</li>
+                <li><code>SET OF</code>: como <code>SEQUENCE OF</code> pero sin orden (semántica)</li>
+                <li><code>SEQUENCE</code>: equivalente a un <code>struct</code> de C/C++</li>
+                <li><code>CHOICE</code>: alternativa de tipo; equivalente a <code>union</code> de C/C++</li>
             </ul>
         </section>
 
         <section>
-            <h3>ASN.1: Certificats X.509 (<a href="https://tools.ietf.org/html/rfc5280">rfc5280</a>)</h3>
-            <p>exemple d'estructura ASN.1:</p>
+            <h3>ASN.1: Certificados X.509 (<a href="https://tools.ietf.org/html/rfc5280">rfc5280</a>)</h3>
+            <p>ejemplo de estructura ASN.1:</p>
 <pre>
 Certificate  ::=  SEQUENCE  {
         tbsCertificate       TBSCertificate,
@@ -539,14 +539,14 @@ Certificate  ::=  SEQUENCE  {
         </section>
 
         <section>
-            <h1>Certificats X.509</h1>
+            <h1>Certificados X.509</h1>
             <p><code>Certificate</code></p>
         </section>
 
         <section>
             <h3 style="text-transform:none;"><code>
-                <span style="color:red">PVK<sub>CA</sub></span>(<span style="color:green">usuari<sub>x</sub></span>,
-                <span style="color:blue">PBK<sub>usuari<sub>x</sub></sub></span>)
+                <span style="color:red">PVK<sub>CA</sub></span>(<span style="color:green">usuario<sub>x</sub></span>,
+                <span style="color:blue">PBK<sub>usuario<sub>x</sub></sub></span>)
             </code></h3>
             <pre>
 Certificate  ::=  SEQUENCE  {
@@ -573,21 +573,21 @@ TBSCertificate  ::=  SEQUENCE  {
         </section>
         <section>
             <h3><code style="text-transform:none;">Name</code></h3>
-            <p>el <code>Name</code> defineix els <em>Distinguished Name</em> o DN</p>
-            <p>un DN és una seqüència d'RDN (<em>Relative</em> DN)</p>
-            <p style="text-align: left;">RDNs habituals:</p>
+            <p>el <code>Name</code> define los <em>Distinguished Name</em> o DN</p>
+            <p>un DN es una secuencia de RDN (<em>Relative</em> DN)</p>
+            <p style="text-align: left;">RDNs habituales:</p>
             <ul>
-                <li>CN: <em>Common Name</em> (Nom de l'usuari o DNS del servidor)</li>
-                <li>OU: <em>Organisational Unit</em> (Departament)</li>
+                <li>CN: <em>Common Name</em> (Nommbre del usuari o DNS del servidor)</li>
+                <li>OU: <em>Organisational Unit</em> (Departamento)</li>
                 <li>O: <em>Organisation</em> (Empresa)</li>
-                <li>C: <em>Country</em> (Estat)</li>
-                <li>d'altres: (L) localitat, (ST) estat/província, (DC) domain component...</li>
+                <li>C: <em>Country</em> (Estado)</li>
+                <li>otros: (L) localidad, (ST) estado/provincia, (DC) domain component&hellip;</li>
             </ul>
-            <p>corresponen a un estructura en arbre (LDAP, X.500)</p>
+            <p>corresponden a un estructura en árbol (LDAP, X.500)</p>
         </section>
 
         <section>
-            <h3>Altres camps</h3>
+            <h3>Otros campos</h3>
             <ul>
                 <li><code>validity {notBefore, notAfter}</code></li>
                 <li><code>issuer Name</code></li>
@@ -598,47 +598,47 @@ TBSCertificate  ::=  SEQUENCE  {
 
         <section id="extensions">
             <h3><code style="text-transform:none;">extensions<br/>SEQUENCE OF {OID, Bool, OCTET STRING}</code></h3>
-            <p>és una manera d'afegir informació addicional que no està especificada en el moment de definició de l'estructura
+            <p>es una manera de añadir información adicional que no está especificada en el momento de definición de la estructura
             X.509
-                <br/>(X.509 versió 3)
+                <br/>(X.509 versión 3)
             </p>
-            <p>hi ha extensions que cal que siguin processades: es marquen amb el <code>Critical Bool</code>: si un
-            sistema processa el certificat i no entén l'extensió (no en coneix l'<code>OID</code>) l'ha de rebutjar</p>
+            <p>hay extensiones que hace falta que sean procesadas: se marcan con el <code>Critical Bool</code>: si un
+            sistema procesa el certificado y no entiende la extensión (no conoce el <code>OID</code>) debe dar el certificado por inválido</p>
             <ul>
                 <li><code>BasicConstraints</code>: <code>cA, pathLenConstraint</code></li>
                 <li><code>KeyUsage</code></li>
                 <li><code>NameConstraints</code></li>
                 <li><code>AuthorityInformationAccess</code></li>
-                <li>...</li>
+                <li>&hellip;</li>
             </ul>
         </section>
 
         <section id="recognised-ca" data-background="#FF8888">
-            <h3>Llista de CA<span style="text-transform:lowercase;">s</span> reconegudes</h3>
-            <p>les CAs reconegudes (arrel) han d'obtenir-se de forma fiable</p>
+            <h3>Lista de CA<span style="text-transform:lowercase;">s</span> reconocidas</h3>
+            <p>las CAs reconocidas (raíz) deben obtener se de forma fiable</p>
             <ul>
-                <li>dins el S.O. i les actualitzacions de l'S.O.</li>
-                <li>dins el programari que fa servir les claus (navegador, validador de firmas) i les seves
-                    actualitzacions</li>
+                <li>dentro del S.O. y las actualizaciones del S.O.</li>
+                <li>dentro del software que utiliza las claves (navegador, validador de firmas) y sus
+                    actualizaciones</li>
             </ul>
-            <p>aquest S.O. o el programari actuen de "TTP arrel"</p>
-            <p>en alguns sistemes es poden modificar aquestes llistes (per part de l'usuari, o l'administrador de
-                sistemes)</p>
+            <p>el S.O. o el software actúan de "<span title="Trusted Third Party">TTP</span> raíz"</p>
+            <p>en algunos sistemas se pueden modificar estas listas (por parte del usuario, o el administrador de
+                sistemas)</p>
         </section>
 
         <section>
-            <h3>Certificats &ldquo;verds&rdquo;</h3>
-            <p>Hi ha CAs arrel bones? com gestiono la llista de CAs arrel haig de fer servir? </p>
-            <p>el fet que la llista de certificats pugui ser manipulada (usuari, sysadmin) ha fet que apareguin
-            mecanismes "més segurs"</p>
+            <h3>Certificados &ldquo;verdes&rdquo;</h3>
+            <p>¿Hay CAs raíz buenas? ¿cómo gestiono la lista de CAs raíz que usaré? </p>
+            <p>el hecho que la lista de certificados pueda ser manipulada (usuario, sysadmin) ha hecho que aparezcan
+            mecanismos "más seguros"</p>
             <ul>
-	          <li><em>Certificate Transparency</em>: els certificats dels servidors (web) es publiquen en una llista
-	            descentralitzada</li>
-              <li>EV, <em>Extended Validation</em>: les CAs que emeten aquests certificats segueixen una procedimentació
-                específica per la validació de les dades del titular (<a href="registration">registre</a>); la llista de certificats arrel normalment està
-                gravada al codi font dels navegadors, etc.</li>
-              <li><em>PBK pinning</em>: en aplicacions (no navegadors) podem gravar-hi la PBK<sub>interlocutor</sub> que
-              ens interessi; en navegadors puc dir: em crec aquest servidor web</li>
+	          <li><em>Certificate Transparency</em>: los certificados de los servidores (web) se publican en una lista
+	            descentralizada</li>
+              <li>EV, <em>Extended Validation</em>: las CAs que emiten estos certificados siguen unos procedimientos
+                específicos para la validación de los datos del titular (<a href="registration">registro</a>); la lista de certificados raíz normalmente está
+                grabada en el código fuente de los navegadores, etc.</li>
+              <li><em>PBK pinning</em>: en aplicaciones (no navegadores) podemos grabar la PBK<sub>interlocutor</sub> que
+              nos interese; en navegadores puedo decir: me creo este servidor web</li>
             </ul>
         </section>
 
@@ -652,17 +652,17 @@ TBSCertificate  ::=  SEQUENCE  {
         </section> -->
 
         <section>
-            <h1>Revocacions</h1>
+            <h1>Revocaciones</h1>
         </section>
 
         <section id="revocation">
-            <h3>Revocació</h3>
-            <p>els certificats tenen una validesa limitada en el temps, però és possible
-            que el seu contingut deixi de ser vàlid abans</p>
-            <p>si això passa, cal comunicar-ho a l'RA (Autoritat de Registre) seguint els procediment
-            que dictamini la <em>Política de Certificació</em> (o la <em>Declaració de Pràctiques de Certificació</em>
-                que en depengui)</p>
-            <p class="fragment">exemple <span title="DNI electrónico">DNIe</span>:
+            <h3>Revocación</h3>
+            <p>los certificados tienen una validez limitada en el tiempo, pero es posible
+            que su contenido deje de ser válido antes</p>
+            <p>si esto pasa, hace falta comunicarlo a la RA (Autoritat de Registre) siguiendo los procedimientos
+            que dictamine la <em>Política de Certificación</em> (o la <em>Declaración de Pràcticas de Certificación</em>
+                derivada)</p>
+            <p class="fragment">ejemplo <span title="DNI electrónico">DNIe</span>:
                 <a href="http://www.dnielectronico.es/PDFs/politicas_de_certificacion.pdf">
                     Declaración de prácticas y políticas de certificación
                 </a>
@@ -670,39 +670,39 @@ TBSCertificate  ::=  SEQUENCE  {
         </section>
 
         <section id="revocation-reason">
-            <h3>Raons de revocació</h3>
+            <h3>Razones de revocación</h3>
             <ul>
-                <li><code>keyCompromise</code>: potser he perdut el control de la PVK</li>
-                <li><code>affiliationChanged</code>: el <code>DN</code>/<code>SubjectAltName</code> ja no és correcte</li>
-                <li><code>superseded</code>: s'ha emès un certificat que el substitueix</li>
-                <li><code>cessationOfOperation</code>: ja no cal (e.g. el servidor web ja no existeix)</li>
-                <li><code>certificateHold</code>: suspès (posteriorment es cancel·la la suspensió, o es revoca)</li>
-                <li><code>privilegeWithdrawn</code>: algun atribut ja no li correspon al titular</li>
+                <li><code>keyCompromise</code>: quizás he perdido el control de mi PVK</li>
+                <li><code>affiliationChanged</code>: el <code>DN</code>/<code>SubjectAltName</code> ya no es correcto</li>
+                <li><code>superseded</code>: se ha emitido un certificado que lo sustituye</li>
+                <li><code>cessationOfOperation</code>: ya no hace falta (e.g. el servidor web ya no existe)</li>
+                <li><code>certificateHold</code>: suspendido (posteriormente se cancela la suspensión, o se revoca)</li>
+                <li><code>privilegeWithdrawn</code>: algún atributo ya no le corresponde al titular</li>
             </ul>
         </section>
 
         <section>
-            <h3>Com sabem si un certificat ha estat revocat?</h3>
+            <h3>¿Cómo sabemos si un certificado ha sido revocado?</h3>
             <ul>
-                <li>és publica una CRL</li>
-                <li>és publica en un servidor OCSP</li>
+                <li>se publica una CRL</li>
+                <li>se publica en un servidor OCSP</li>
             </ul>
         </section>
 
         <section>
             <h3>CRL</h3>
             <p><em>Certificate Revocation List</em></p>
-            <p>és una llista signada (<a href="https://tools.ietf.org/html/rfc5280">rfc5280</a>) que conté els certicats
-                no caducats que han estat revocats per una CA (o vàries: CRL indirectes), el moment en el que han deixat de ser vàlids,
-                i la raó per la que han deixat de ser vàlids</p>
+            <p>es una lista firmada (<a href="https://tools.ietf.org/html/rfc5280">rfc5280</a>) que contiene los certicados
+                no caducados que han sido revocados por una CA (o varies: CRL indirectas), el momento en el que han dejado de ser válidos,
+                y la razón por la que han dejado de ser válidos</p>
         </section>
 
         <section>
-            <h3>CRL: observacions</h3>
+            <h3>CRL: observaciones</h3>
             <ul>
-                <li>les CRL poden créixer molt: cal ajustar el període de validesa dels certificats emesos</li>
-                <li>es poden emetre CRL incrementals (delta CRL)</li>
-                <li>es poden acumular les revocacions de diverses CA en una CRL (CRL indirectes)</li>
+                <li>las CRL pueden crecer mucho: hace falta ajustar el período de validez de los certificados emitidos</li>
+                <li>se pueden emitir CRL incrementales (delta CRL)</li>
+                <li>se poden acumular las revocaciones de diferents CA en una CRL (CRL indirectas)</li>
             </ul>
         </section>
 
@@ -730,84 +730,84 @@ TBSCertList  ::=  SEQUENCE  {
 }</pre>
         </section>
         <section>
-            <h3>Extensions</h3>
-            <p>el mateix format que els certificats, però altres OID</p>
+            <h3>Extensiones</h3>
+            <p>el mismo formato que los certificados, pero otros OID</p>
             <ul>
                 <li><code><a href="#revocation-reason">reasonCode</a></code></li>
                 <li><code>invalidityDate</code></li>
-                <li><code>certificateIssuer</code> (només per a CRL indirectes)</li>
+                <li><code>certificateIssuer</code> (sólo para CRLs indirectas)</li>
             </ul>
 
         </section>
 
         <section>
             <h3>OCSP: On-line Certificate Status Protocol</h3>
-            <p>en CA de gran volum les CRL són inacceptablement grans: OCSP</p>
-            <p>els servidors OCSP o VA (<em>Validation Authorities</em>) responen l'estat de validesa d'un certificat
+            <p>en CAs de gran volumen las CRL son inaceptablemente grandes: OCSP</p>
+            <p>los servidores OCSP o VA (<em>Validation Authorities</em>) responden el estado de validez de un certificado
                 individual</p>
-            <p class="fragment">en servidors web d'alt rendiment,
-                <br/>la VA pot patir una càrrega similar $\rightarrow$ <em>OCSP stapling</em></p>
+            <p class="fragment">en servidores web de alto rendimiento,
+                <br/>la VA puede sufrir una carga similar $\rightarrow$ <em>OCSP stapling</em></p>
         </section>
 
         <section>
-            <h1>Miscel·lània</h1>
+            <h1>Miscelánea</h1>
         </section>
 
         <section>
-            <h3>Cost</h3>
+            <h3>Coste</h3>
             <ul>
-                <li>gestió de la seguretat de les claus de les entitats finals (usuaris):
-                    <br/>procediments de registre, revocació i renovació, personalització <em>Smart Cards</em>,
-                    administració de les CA, CRLA, VA, RA...</li>
-                <li>renovació de claus de la CA (subordinades, roots): les migracions de PKI fins ara han estat massives
-                    pel pas de SHA-1 a SHA-2</li>
-                <li>compromís de clave: hi ha certa probabilitat (assegurança) de que no s'hagin aplicat els procedimnts
-                    i mesures tècniques per a protegir les claus</li>
-                <li>certificats &ldquo;verds&rdquo; (contraexemple: CA
+                <li>gestión de la seguridad de las claves de las entidades finales (usuarios):
+                    <br/>procedimientos de registro, revocación y renovación, personalización <em>Smart Cards</em>,
+                    administración de las CA, CRLA, VA, RA&hellip;</li>
+                <li>renovación de claves de la CA (subordinadas, raíces): las migraciones de PKI hasta ahora han sido masivas
+                    por el paso de SHA-1 a SHA-2</li>
+                <li>compromíso de clave: hay cierta probabilidad (póliza de seguro) de que no se hayan aplicado los procedimientos
+                    y medidas técnicas para proteger las claves</li>
+                <li>certificados &ldquo;verdes&rdquo; (contraejemplo: CA
                     <a
-                            title="Let's Encrypt de l'Internet Security Research Group"
+                            title="Let's Encrypt del Internet Security Research Group"
                             href="https://letsencrypt.org"
-                    >Let's Encrypt</a> de la fundació ISRG)</li>
-                <li>Administració de sistemes: distribució de CA pròpies de forma segura</li>
-                <li>Procediment de registre per a certificació, revocació</li>
-                <li>complexitat: no/formació...</li>
+                    >Let's Encrypt</a> de la fundación ISRG)</li>
+                <li>Administración de sistemas: distribución de CA propias de forma segura</li>
+                <li>Procedimiento de registro para certificación, revocación</li>
+                <li>complejidad: no/formación&hellip;</li>
             </ul>
         </section>
 
         <section>
             <h3>Time-Stamp Protocol (<a href="http://tools.ietf.org/html/rfc3161">rfc3161</a>)</h3>
-            <p>les TSA (<a href="#tsa"><em>Time-Stamp Authorities</em></a>) emeten proves signades de que un conjunt de bytes (hash) ha
-                estat presentat a una hora determinada</p>
-            <p>es un format de petició y un de resposta que conté un token <code>TimeStampToken</code> (TST):
-                <br/>el token TST es pot presentar com a prova de que un document
-                existia en un cert moment</p>
+            <p>las TSA (<a href="#tsa"><em>Time-Stamp Authorities</em></a>) emiten pruebas firmadas de que un conjunto de bytes (hash) ha
+                sido presentado a una hora determinada</p>
+            <p>es un formato de petición y uno de respuesta que contiene un token <code>TimeStampToken</code> (TST):
+                <br/>el token TST se puede presentar como prueba de que un documento
+                existia en un cierto momento</p>
         </section>
         <section id="tsa">
             <h3>TSA: Time-Stamp Authority</h3>
-            <p>les TSA s'assemblen a les CA però a banda de disposar d'HSM, tenen una font fiable de temps:
-                <br/>rellotge atòmic, o un rellotge estabilitzat tèrmicament, o connexió GPS, o connexió a un
-            servidor NTP (Stratum-2 o proper), o alguna combinació dels anteriors (habitualment les CA fan servir NTP i prou)</p>
+            <p>las TSA se parecen a las CA pero a parte de disposar de HSM, tienen una fuente fiable de tiempo:
+                <br/>reloj atómico, o un reloj estabilizado térmicamente, o conexión GPS, o connexión a un
+            servidor NTP (Stratum-2 o proper), o alguna combinación de las anteriores (habitualmente las CA utilizan exclusivamente NTP)</p>
         </section>
 
         <section>
-            <h1>Ús</h1>
+            <h1>Uso</h1>
         </section>
 
         <section>
-            <h3>Ús</h3>
+            <h3>Uso</h3>
             <ul>
                 <li><a title="rfc5246 (TLS v1.2)" href="https://tools.ietf.org/html/rfc5246">TLS</a>:
-                    autenticació dels extrems de la connexió (e.g. HTTPS)</li>
+                    autenticación de los extremos de la conexión (e.g. HTTPS)</li>
                 <li><a title="rfc5652 (CMS)" href="https://tools.ietf.org/html/rfc5652">PKCS #7/CMS</a>:
-                    xifrat i sobretot firma</li>
+                    cifrado y sobretodo firma</li>
             </ul>
         </section>
 
         <section id="pkcs7">
             <h3>PKCS #7 / CMS</h3>
-            <p>CMS o <em>Cryptographic Message Standard</em> ens permet xifrar o signar un conjunt de bytes:
-                correu, fitxers individuals, etc.</p>
-            <p>és una estructura ASN.1:</p>
+            <p>CMS o <em>Cryptographic Message Standard</em> nos permite cifrar o firmar un conjunto de bytes:
+                correo, ficheros individuales, etc.</p>
+            <p>es una estructura ASN.1:</p>
             <pre>
 ContentInfo ::= SEQUENCE {
     contentType ContentType,
@@ -820,17 +820,17 @@ ContentType ::= OBJECT IDENTIFIER
 
         <section id="pkcs7-content">
             <h3 style="text-transform:none;">PKCS #7 <code>content</code></h3>
-            <p>tipus disponibles:</p>
+            <p>tipos disponibles:</p>
             <ul>
-                <li><code>Data</code>: dades sense tractar</li>
-                <li><code>SignedData</code>: dades signades per un o més signants</li>
-                <li><code>EnvelopedData</code>: dades xifrades simétricament, i claus xifrades amb la PBK d'un o més receptors</li>
-                <li><code>DigestedData</code>: hash (emmagatzament local, o per posterior ensobrat)</li>
-                <li><code>EncryptedData</code>: xifrat en cru (emmagatzament local, xifrat simètric)</li>
-                <li><clode>AuthenticatedData</clode>: MAC (emmagatzament local, o en combinació amb ensobrat)</li>
+                <li><code>Data</code>: datos sin tratar</li>
+                <li><code>SignedData</code>: datos firmados por uno o más firmantes</li>
+                <li><code>EnvelopedData</code>: datos cifrados simétricamente, y claves cifradas con la PBK de uno o más receptores</li>
+                <li><code>DigestedData</code>: hash (almacenamiento local, o para posterior ensobrado)</li>
+                <li><code>EncryptedData</code>: cifrado en crudo (almacenamiento local, cifrado simétrico)</li>
+                <li><clode>AuthenticatedData</clode>: MAC (almacenamiento local, o en combinación con ensobrado)</li>
             </ul>
-            <p>que es poden combinar recursivament: e.g.
-                <br/><code>SignedData(Data("dades"), [firmas])</code></p>
+            <p>que se pueden combinar recursivamente: e.g.
+                <br/><code>SignedData(Data("datos"), [firmas])</code></p>
         </section>
 
         <section>
@@ -840,10 +840,10 @@ ContentType ::= OBJECT IDENTIFIER
 SignedData ::= SEQUENCE {
     version CMSVersion,
     digestAlgorithms DigestAlgorithmIdentifiers,
-    encapContentInfo EncapsulatedContentInfo,          -- dades signades
-    certificates [0] IMPLICIT CertificateSet OPTIONAL, -- certificats necessaris (CAs sub.)
-    crls [1] IMPLICIT RevocationInfoChoices OPTIONAL,  -- CRL necessàries
-    signerInfos SignerInfos }                          -- firma(/es en paral·lel)
+    encapContentInfo EncapsulatedContentInfo,          -- datos firmados
+    certificates [0] IMPLICIT CertificateSet OPTIONAL, -- certificados necesarios (CAs sub.)
+    crls [1] IMPLICIT RevocationInfoChoices OPTIONAL,  -- CRL necesarias
+    signerInfos SignerInfos }                          -- firma(/as en paralelo)
 
 DigestAlgorithmIdentifiers ::= SET OF DigestAlgorithmIdentifier
 
@@ -853,7 +853,7 @@ SignerInfos ::= SET OF SignerInfo
 
         <section>
             <h3 style="text-transform:none;">PKCS #7: <code>content</code>$\rightarrow$<code>EnvelopedData</code></h3>
-            <p>xifrat, simètric o asimètric (ensobrat)</p>
+            <p>cifrado, simétrio o asimétrico (ensobrado)</p>
             <pre>
 EnvelopedData ::= SEQUENCE {
     version CMSVersion,
@@ -867,37 +867,37 @@ EnvelopedData ::= SEQUENCE {
 
         <section>
             <h3 style="text-transform:none;">PKCS #7: <code>content</code>$\rightarrow$<code>EnvelopedData + SignedData</code></h3>
-            <p>una combinació habitual (e.g. S/MIME) és signar i xifrar</p>
+            <p>una combinación habitual (e.g. S/MIME) es firmar y cifrar</p>
             <aside class="notes">
-                al contrari que en la part simétrica de TLS, on es xifrava, i després signava (MAC) per a impedir que desxifressim
-                dades no íntegres/autèntiques
+                al contrario que en la parte simétrica de TLS, donde se cifraba y después se firmaba (MAC) para impedir que descifrasen
+                datos no íntegros/auténticos
             </aside>
         </section>
 
         <section>
-            <h3>PKCS #7: com a arxiu de certificats</h3>
-            <p>el PKCS #7 es fa servir sovint com a format per a entregar certificats (i CRL)
+            <h3>PKCS #7: como a archivo de certificados</h3>
+            <p>el PKCS #7 se usa a veces como formato para entregar certificados (y CRL)
                 <br/>(e.g. el meu certificat i la cadena de CA):</p>
-            <p>el PKCS #7 se li dóna amb <code>content</code> <code>SignedData</code>... contenint els certificats
-                i/o les CRL, però sense dades ni firmas</p>
+            <p>el PKCS #7 se le da con <code>content</code> <code>SignedData</code>&hellip; conteniendo los certificados
+                i/o las CRL, pero sin datos ni firmas</p>
         </section>
 
         <section id="pkcs" style="color:FF8888;">
-            <h3>Altres "formats PKCS"</h3>
+            <h3>Otros "formatos PKCS"</h3>
             <ul>
-                <li><a href="#pkcs7">PKCS #7</a>: format ASN.1 firma, xifrat, arxiu de certificats i CRL</li>
-                <li><a href="hsm.html#pkcs11">PKCS #11</a>: plantilla C per a llibreries (<code>pkcs11.h</code>)
-                    d'<span title="Hardware Secure Module">HSM</span></li>
-                <li><a href="rsa.html#pkcs1">PKCS #1</a>: (només RSA)
-                    formats de firma i xifrat; algunes vegades es fa servir com a manera d'identificar el format
-                    de clave privada RSA en clar; usat per servidors (TLS)</li>
-                <li>PKCS #5: procediment per a xifrar bytes a partir d'una contrasenya</li>
-                <li>PKCS #8: format de clave privada, habitualment xifrat amb
-                    <br/>el procediment PKCS #5</li>
-                <li><a href="pki.html#pkcs10">PKCS #10</a>: format de petició de certificació, que conté les dades d'identificació
-                    (<span title="Distinguished Name">DN</span>), la clave pública, i la firma per a poder validar-ne
-                    la posessió (alternatiu a un <a href="#x509">X.509</a> autosignat)</li>
-                <li>PKCS #12: fitxer xifrat de clave i certificats (usat pels navegadors)</li>
+                <li><a href="#pkcs7">PKCS #7</a>: formato ASN.1 firma, cifrado, archivo de certificados y CRL</li>
+                <li><a href="hsm.html#pkcs11">PKCS #11</a>: plantilla C para librerías (<code>pkcs11.h</code>)
+                    de <span title="Hardware Secure Module">HSM</span></li>
+                <li><a href="rsa.html#pkcs1">PKCS #1</a>: (sólo RSA)
+                    formatos de firma y cifrado; algunas veces se usa como a manera de identificar el formato
+                    de clave privada RSA en claro; usado por servidores (TLS)</li>
+                <li>PKCS #5: procedimiento para cifrar bytes a partir de una contraseña</li>
+                <li>PKCS #8: formato de clave privada, habitualmente cifrado con
+                    <br/>el procedimiento PKCS #5</li>
+                <li><a href="pki.html#pkcs10">PKCS #10</a>: formato de petición de certificación, que contiene los datos de identificación
+                    (<span title="Distinguished Name">DN</span>), la clave pública, y la firma para poder validar
+                    la posesión (alternativo a un <a href="#x509">X.509</a> autofirmado)</li>
+                <li>PKCS #12: fichero cifrado de clave y certificados (usado por navegadores)</li>
             </ul>
         </section>
 
