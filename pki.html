@@ -603,7 +603,7 @@ TBSCertificate  ::=  SEQUENCE  {
                 <br/>(X.509 versió 3)
             </p>
             <p>hi ha extensions que cal que siguin processades: es marquen amb el <code>Critical Bool</code>: si un
-            sistema processa el certificat i no entén l'extensió (no en coneix l'<code>OID</code>) l'ha de rebutjar</p>
+            sistema processa el certificat i no entén l'extensió (no en coneix l'<code>OID</code>) ha de rebutjar el certificat</p>
             <ul>
                 <li><code>BasicConstraints</code>: <code>cA, pathLenConstraint</code></li>
                 <li><code>KeyUsage</code></li>
@@ -628,7 +628,7 @@ TBSCertificate  ::=  SEQUENCE  {
 
         <section>
             <h3>Certificats &ldquo;verds&rdquo;</h3>
-            <p>Hi ha CAs arrel bones? com gestiono la llista de CAs arrel haig de fer servir? </p>
+            <p>Hi ha CAs arrel bones? com gestiono la llista de CAs arrel que haig de fer servir? </p>
             <p>el fet que la llista de certificats pugui ser manipulada (usuari, sysadmin) ha fet que apareguin
             mecanismes "més segurs"</p>
             <ul>
@@ -778,7 +778,7 @@ TBSCertList  ::=  SEQUENCE  {
             <h3>Time-Stamp Protocol (<a href="http://tools.ietf.org/html/rfc3161">rfc3161</a>)</h3>
             <p>les TSA (<a href="#tsa"><em>Time-Stamp Authorities</em></a>) emeten proves signades de que un conjunt de bytes (hash) ha
                 estat presentat a una hora determinada</p>
-            <p>es un format de petició y un de resposta que conté un token <code>TimeStampToken</code> (TST):
+            <p>és un format de petició i un de resposta que conté un token <code>TimeStampToken</code> (TST):
                 <br/>el token TST es pot presentar com a prova de que un document
                 existia en un cert moment</p>
         </section>
