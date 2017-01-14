@@ -62,7 +62,7 @@
                 <p>{Diffie, Hellman; 1976}</p>
                 <p>Permite acordar un número aleatorio entre dos usuarios a partir de la hipótesis <span title="Computational Diffie-Hellman">CDH</span>
                     (hipótesis computacional Diffie-Hellman).
-                    Este número aleatorio se puede utilizar como clave (simétrica) para posteriores comunicacions.
+                    Este número aleatorio se puede utilizar como clave (simétrica) para posteriores comunicaciones.
                     <br>
                     (DH no permite cifrar ni firmar, pero es la base de otros sistemas que si lo permiten)
                 </p>
@@ -98,7 +98,7 @@
                         <br>($p$ primo) con el elemento <a href="number-theory.html#generator">generador</a> $\alpha$
                     </p>
                     <br>
-                    <p>A partir de conocer $\alpha$, $\alpha^i$ i $\alpha^j$ per a $0 \leq i,j < p-1$
+                    <p>A partir de conocer $\alpha$, $\alpha^i$ y $\alpha^j$ para $0 \leq i,j < p-1$
                         <br>entonces el cálculo de $\alpha^{ij}$ es computacionalmente difícil&hellip;
                     </p>
                     <p class="fragment">...si es que no conocemos "la trampa"</p>
@@ -107,7 +107,7 @@
                 <section id="ddh">
                     <p>CDH requiere que DLP sea computacionalmente difícil</p>
                     <p>CDH está relacionado con la hipótesis DDH (<em>Decisional DH</em>):
-                        <br>que dice que $\alpha^{ij}$ es indistingible de un valor escogido aleatóriamente
+                        <br>que dice que $\alpha^{ij}$ es indistingible de un valor escogido aleatoriamente
                         de $\mathbb{Z}_{p}^{*}$</p>
                     <p>Todas estas hipótesis deben ser ciertas para que DH sea seguro</p>
                 </section>
@@ -115,7 +115,7 @@
 
             <section id="trapdoor">
                 <h2>La trampa</h2>
-                <p>Si conocemos $i$ i $\alpha^j$ (ó $j$ i $\alpha^i$) entonces el cálculo de $\alpha^{ij}$ es fácil:</p>
+                <p>Si conocemos $i$ y $\alpha^j$ (ó $j$ y $\alpha^i$) entonces el cálculo de $\alpha^{ij}$ es fácil:</p>
                 <p>Si conocemos $i$: $\alpha^{ij} = {(\alpha^j)}^{i} \pmod p$</p>
                 <p>Si conocemos $j$: $\alpha^{ij} = {(\alpha^i)}^{j} \pmod p$</p>
                 <p>(en cambio si no conocemos ni $i$ ni $j$, es computacionalmente difícil aunque conozcas $\alpha^i$ y $\alpha^j$)</p>
@@ -124,7 +124,7 @@
             <section style="text-align: left;">
                 <h3>protocolo</h3>
                 <ol>
-                    <li>Dados dos usuarios $I$ i $J$ hace falta que generenen respectivamente dos números $i$ y $j$ y que los
+                    <li>Dados dos usuarios $I$ y $J$ hace falta que generenen respectivamente dos números $i$ y $j$ y que los
                     mantingan en secreto</li>
 
                     <li>$I$ debe enviar $\alpha^i \pmod p$ a $J$;
