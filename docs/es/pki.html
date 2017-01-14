@@ -1,0 +1,962 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>PKI</title>
+
+    <meta name="description" content="Public Key Infrastructure">
+    <meta name="author" content="Jordi Íñigo Griera">
+    <!-- Implementat amb revealjs: https://github.com/hakimel/reveal.js -->
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+                    var link = document.createElement( 'link' );
+                    link.rel = 'stylesheet';
+                    link.type = 'text/css';
+                    link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+                    document.getElementsByTagName( 'head' )[0].appendChild( link );
+                </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+
+        <section>
+            <h1>PKI</h1>
+            <p><em>(Public Key Infrastructure)</em></p>
+            <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
+
+                <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">
+                &ldquo;Curso de Introducción a la Criptografía&rdquo;
+                </span>
+
+                by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/jig" property="cc:attributionName" rel="cc:attributionURL">Jordi Íñigo Griera</a> is licensed under a<br/>
+
+                <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+                <br />Project hosted at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/jig/crypto" rel="dct:source">github.com/jig/crypto</a></em></small>
+        </section>
+
+        <section>
+            <h3>Confianza</h3>
+            <p>los datos se protegen con <code><span style="color:red;">CIPHER</span>_<span style="color:orange;">HASH</span></code></p>
+            <p>$\downarrow$</p>
+            <p>derivadas con <code><span style="color:blue;">KEA</span></code></p>
+            <p>$\downarrow$</p>
+            <p>autenticados (los secretos) con <code><span style="color:green;">SIGN</span></code></p>
+            <p>$\downarrow$</p>
+            <p>Claves públicas de servidor y cliente (opcionalmente)
+                <br/>?</p>
+        </section>
+
+        <section>
+            <h3>Confianza: Claves públicas</h3>
+            <p>hemos cambiado el problema de</p>
+            <p><em>&ldquo;compartir claves simétricas&rdquo;</em></p>
+            <p>por el de</p>
+            <p><em>&ldquo;compartir claves públicas (asimétricas)&rdquo;</em></p>
+            <p class="fragment">hemos simplificado el problema, pero sigue siendo demasiado complejo como para que lo solventen los usuarios</p>
+            <!-- claus diferents per a cada -->
+            <p class="fragment">¿cómo intercambiamos las claves públicas (<code>PBK</code>) de forma segura?</p>
+        </section>
+
+        <section>
+            <h3>Confianza: Claves públicas</h3>
+            <p>nos hace falta un mapeo <u>seguro</u>:</p>
+            <p><br/></p>
+            <p>PBK<sub>usuario</sub> &nbsp; <span style="color:violet;">$\rightarrow$</span> &nbsp; identidad usuario</p>
+        </section>
+        <section>
+            <p>los datos se protegen con <code><span style="color:red;">CIPHER</span>_<span style="color:orange;">HASH</span></code></p>
+            <p>$\downarrow$</p>
+            <p>derivadas con <code><span style="color:blue;">KEA</span></code></p>
+            <p>$\downarrow$</p>
+            <p>autenticados (los secretos) con <code><span style="color:green;">SIGN</span></code></p>
+            <p>$\downarrow$</p>
+            <p>Claves públicas de servidor y cliente (opcionalmente)
+            <p style="color:violet;">$\downarrow$</p>
+            <p>identidad usuario</p>
+        </section>
+        <section>
+            <h3>Confianza: Claves públicas</h3>
+            <p>PBK<sub>usuario</sub> &nbsp; <span style="color:violet;">$\leftrightarrow$</span> &nbsp; identidad usuario</p>
+            <ul>
+            <li>sistema central de distribución: lista de PBKs compartida
+                <ul>
+                    <li>idea original de Diffie y Hellman el 1976</li>
+                </ul>
+            </li>
+            <li>manualmente: nos guardamos una lista de PBKs propia
+                <ul>
+                    <li><code>SSH</code></li>
+                </ul>
+            </li>
+            <li>certificados
+                <ul>
+                    <li><code>PGP</code>: gestión descentralizada (<em>Web of trust</em>)</li>
+                    <li><code>PKI/X.509</code>: gestión centralitzada</li>
+                </ul>
+            </li>
+            </ul>
+        </section>
+        <section id="ssh">
+            <h3>gestión "manual": SSH</h3>
+            <ul>
+                <li>el cliente guarda cifrada la clave privada
+                    <ul>
+                        <code>cliente<span style="color:green">$</span>  <strong>~/.ssh/id_rsa</strong></code> (...)
+                    </ul>
+                </li>
+                <li>el cliente se guarda en un directorio las claves públicas de los servidores en los que confía
+                    <ul>
+                        <code>cliente<span style="color:green">$</span>  <strong>~/.ssh/known_hosts</strong></code>
+                    </ul>
+                </li>
+                <li>el servidor guarda en claro la clave privada (del servicio <code>sshd</code>)
+                    <ul>
+                        <code>servidor<span style="color:red">#</span>  <strong>/etc/ssh/ssh_host_rsa_key</strong></code> (...)
+                    </ul>
+                </li>
+                <li>el servidor guarda la clave pública válida per a cada usuario
+                    <ul>
+                        <code>servidor|<span style="color:orange">pep$</span>  <strong>~/.ssh/authorized_keys</strong></code> (...)
+                    </ul>
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h3>Gestión con Certificados</h3>
+            <p>un certificado contiene la tupla:</p>
+            <p><code>(identidad usuario, PBK<sub>usuario</sub>)</code></p>
+            <p><br/></p>
+            <p>y para poder verificar la integridad (y la autenticidad) una
+                <em>tercera parte de confianza</em> (TTP)
+                firma esta tupla:</p>
+            <p><code>PVK<sub>TTP</sub>(identidad usuario, PBK<sub>usuario</sub>)</code></p>
+            <p><br/></p>
+            <p>Nota: <code>PVK<sub>TTP</sub>(</code>&hellip;<code>)</code> significa firma RSA o ECDSA sobre la cadena "&hellip;"</p>
+        </section>
+        <section>
+            <h3>Tercera parte de confianza</h3>
+            <p>hemos de confiar en <code>PBK<sub>TTP</sub></code></p>
+            <p>el propietario de la <code>PVK<sub>TTP</sub></code> correspondiente puede ser:</p>
+            <ul>
+                <li>una autoridad central: en una Infraestructura de Clave Pública (PKI)</li>
+                <li>un "igual": en el modelo "web of trust" (como en PGP)</li>
+            </ul>
+            <p><br/></p>
+            <p style="text-align: left;">
+                Nota:
+                <br/> &nbsp; PGP: <em>Pretty Good Privacy</em>
+                <br/> &nbsp; PKI: <em>Public Key Infrastructure</em>
+            </p>
+        </section>
+
+        <section>
+            <h3>Encadenado</h3>
+            <p>frecuentemente ni en PGP ni en PKI dispondremos localmente de la <code>PBK<sub>TTP</sub></code>
+                que ha firmado el certificado de nuestro interlocutor
+            </p>
+            <p>pero podemos "llegar" de forma segura si descargamos los certificados de los eslabones intermedios</p>
+            <p><code>
+                PVK<sub>i-1</sub>(i, PBK<sub>i</sub>)
+                <br/>
+                PVK<sub>i-2</sub>(i-1, PBK<sub>i-1</sub>)
+                <br/></code>
+                $\vdots$
+                <code><br/>
+                PVK<sub>TTP</sub>(1, PBK<sub>1</sub>)
+            </code></p>
+        </section>
+        <section>
+            <h3>PGP</h3>
+            <p>en PGP podemos firmar las claves de conocidos nosotros mismos si nos las han pasado de forma segura</p>
+            <p class="fragment">...y ellos también pueden hacer lo mismo, permitiendo alzacanzar un paso más</p>
+            <p><br/></p>
+            <p>Nota: PGP tiene una versión de libre distribución llamada <a href="https://www.gnupg.org/">GPG</a> derivada
+            de la <a href="https://tools.ietf.org/html/rfc4880">rfc4880</a> (OpenPGP)</p>
+        </section>
+        <section>
+            <h3>PGP</h3>
+            <p>con PGP podemos llegar a tener confianza en grupos pequeños o medianos, pero no escala bien en grupos grandes</p>
+            <p>cada eslabón (certificado) tiene una garantía de autenticidad $<1$</p>
+            <p>a partir de unos cuantos certificados el nivel de seguredad deja de ser aceptable</p>
+        </section>
+        <section>
+            <h3>PKI: Infraestructura de clave pública</h3>
+            <p>el encadenado de certificados lo hacemos hasta un punto común</p>
+            <p>en el caso extremo, todo el mundo puede recibir un certificado de una única TTP: una autoridad de certificación (CA)
+            <!-- <br/><img title="CA única" src="img/ca-unica.png"> -->
+                <br/>
+                <svg width="640" height="480" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+                    <g>
+                        <title>Layer 1</title>
+                        <rect id="svg_1" height="82" width="123" y="29" x="264" stroke-width="2" stroke="#000000" fill="none"/>
+                        <text xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" id="svg_2" y="77" x="324" stroke-width="0" stroke="#000000" fill="#000000">CA</text>
+  <text xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" id="svg_3" y="95" x="414.5" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">PVK</text>
+                        <rect id="svg_4" height="82" width="123" y="253" x="46.5" stroke-width="2" stroke="#000000" fill="none"/>
+                        <text xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" id="svg_5" y="364" x="71.5" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">PVK</text>
+  <text xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" id="svg_6" y="403.25" x="166" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">PVK     (us1, PBK      )</text>
+  <text xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" id="svg_7" y="301" x="107.5" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">usuari 1</text>
+                        <rect id="svg_8" height="82" width="123" y="253.5" x="300.73438" stroke-width="2" stroke="#000000" fill="none"/>
+                        <text id="svg_11" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="303.5" x="363.73438" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">usuari 2</text>
+                        <line stroke-width="2" id="svg_12" y2="252" x2="111" y1="110.75" x1="285" stroke-linecap="null" stroke-linejoin="null" stroke="#000000" fill="none"/>
+                        <line id="svg_13" y2="253" x2="368.5" y1="111.5" x1="331.5" stroke-linecap="null" stroke-linejoin="null" stroke-width="2" stroke="#000000" fill="none"/>
+                        <line id="svg_14" y2="269" x2="535.5" y1="111" x1="385" stroke-linecap="null" stroke-linejoin="null" stroke-width="2" stroke="#000000" fill="none"/>
+                        <text xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" id="svg_15" y="292.5" x="537" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">...</text>
+  <text id="svg_16" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="146.75" x="403.50781" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000"/>
+  <text id="svg_17" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="106.75" x="456.50781" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">CA</text>
+  <text id="svg_18" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="373.875" x="115.25" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">us1</text>
+  <text id="svg_19" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="413.875" x="257.01563" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">us1</text>
+  <text id="svg_20" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="414.125" x="113.26563" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">CA</text>
+  <text id="svg_22" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="361.4375" x="336.51563" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">PVK</text>
+  <text id="svg_23" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="394.6875" x="432.01563" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">PVK     (us2, PBK      )</text>
+  <text id="svg_24" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="368.3125" x="378.26563" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">us2</text>
+  <text id="svg_25" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="406.3125" x="523.03125" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">us2</text>
+  <text id="svg_26" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="405.5625" x="379.28125" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">CA</text>
+                    </g>
+                </svg>
+            </p>
+        </section>
+        <section>
+            <h3>CA única</h3>
+            <p>si recibimos una conexión TLS, o recibimos un mensaje de correo firmado, o queremos enviar uno cifrado, sólo nos
+            hace falta recibir el certificado del interlocutor:</p>
+            <p><code>PVK<sub>CA</sub>(identidad_interlocutor, PBK<sub>interlocutor</sub>)</code></p>
+            <p>este certificado, que lo podremos encontrar en un repositorio cualquiera, y lo podremos validar a condición de que conozcamos
+            previamente la clave <code>PBK<sub>CA</sub></code>
+                <br/>(obtenida por medios alternativos fiables)</p>
+            <p class="fragment">la <code>PBK<sub>CA</sub></code> es el único elemento que hace falta distribuir de forma segura,
+            el resto los podremos obtener de forma no segura y validarlos</p>
+        </section>
+        <section>
+            <h3>CA única: limitaciones del modelo</h3>
+            <p>simple para los clientes, pero frágil:</p>
+            <ul>
+                <li>si la CA queda comprometida, todo el sistema falla</li>
+                <li>todos los usuarios deben estar de acuerdo en unas mismas prestaciones de seguridad
+                    <span class="fragment">(y el mismo coste)</span>
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h3>CA<span style="text-transform:none;">s</span> múltiples</h3>
+            <ul>
+                <li>los usuarios deben incorporar una lista de <code>PBK<sub>CA<sub>i</sub></sub></code>
+                    <ul><li>son las <u>CAs raíz</u> (<em>root CA</em>)</li></ul>
+                </li>
+                <br/>
+                <li>los usuarios pueden recibir certificados no de las CAs que conocen los usuarios finales, si no
+                    de entidades intermedias
+                    <ul><li>son las <u>CAs subordinadas</u></li></ul>
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h3>CA<span style="text-transform:none;">s</span> raíz</h3>
+            <p>las diferentes CAs pueden especializarse: niveles de seguridad, métodos de registro, legislación, costos,
+                o simplemente diferentes organizaciones</p>
+            <p>los usarios pueden escoger en qué CAs raíz confiar y en cuales no</p>
+            <p class="fragment">el usuario (&hellip;) debe <u>gestionar</u>
+                <br/>la lista de CAs (raíz) de confianza</p>
+        </section>
+        <section>
+            <h3>CA<span style="text-transform:none;">s</span> subordinadas</h3>
+            <p>las CAs subordinadas emiten certificados a los usuarios</p>
+            <p>$\Downarrow$</p>
+            <p>están en línea o como mínimo, están activas frecuentemente</p>
+            <p>$\Downarrow$</p>
+            <p>probabilidad "alta" de compromiso de la <code>PVK</code></p>
+            <p>$\Downarrow$</p>
+            <p>hemos de poderlas <a href="#revocation">revocar</a> en caso de compromiso de la <code>PVK</code></p>
+        </section>
+
+        <section>
+            <h3>Jerarquia de CA<span style="text-transform:none;">s</span>: Patrón habitual</h3>
+            <ul>
+                <li><strong>CA raíz</strong>: sólo emite certificados para CA subordinadas y "<a href="#revocation">revocaciones</a>"
+                    <ul>
+                        <li>esta activa en momentos puntuales (<em>off-line</em>)</li>
+                        <li>en caso de compromiso no hay protocolo definido</li>
+                    </ul>
+                </li>
+                <li><strong>CA subordinada</strong>: emite certificados finalistas (usuarios, servidores)
+                    <ul>
+                        <li>está en línea constantemente, ya sea por red pública o privada</li>
+                        <li>en caso de compromiso se sigue el procedimiento de revocación de CA</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Jerarquía de CA<span style="text-transform:none;">s</span>: Patrón habitual (ii)</h3>
+            <ul>
+                <li><strong>CA raíz</strong>: los usuarios (e.g. clientes y servidores TLS) tienen instaladas las CA
+                raíz en que confían</li>
+                <li><strong>CA subordinada</strong>: la reciben de su interlocutor</li>
+            </ul>
+            <p>e.g. cuando en una conexión TLS el servidor nos presenta su <code>PBK</code>, nos la aporta certificada
+            por una CA subordinada, juntamente con el certificado de la CA subordinada que la ha firmado:
+                <br/><code>PVK<sub>CAsub</sub>(id-servidor, PBK<sub>servidor</sub>)</code>
+                <br/>+ <code>PVK<sub>CAroot</sub>(id-CAsub, PBK<sub>CAsub</sub>)</code>
+            </p>
+            <p>la <code>PBK<sub>CAroot</sub></code> la debemos  tener previamente instalada</p>
+        </section>
+
+        <section id="ra">
+            <h3><span title="Registration Authority">RA</span>: Autoridad de Registro</h3>
+            <p>el procedimiento de registro gestiona la validación de credenciales
+                (<em>registro</em>) que demuestra que un titular posee
+                la clave privada correspondiente a la clave pública que presenta
+                <ul>
+                    <li>la <u>validación de posesión de la <code>PVK</code></u> ha de ser automática:
+                        <ul>
+                            <li>petición de certificación <code>PKCS #10</code></li>
+                            <li>certificado autofirmado <code>X.509</code></li>
+                        </ul>
+                    </li>
+                    <li>la <u>validación de la identidad del titular</u> puede ser:
+                        <ul>
+                            <li>presencial: para certificados
+                                personales, o con <em>políticas de certificación</em> restrictivas como los certificados
+                                <span title="Extended Validation Certificate">EVC</span></li>
+                            <li>en línea, basados en desafiaments sobre el control d'un:
+                                    <ul>
+                                        <li>cuenta de correo</li>
+                                        <li>nombre de dominio DNS</li>
+                                        <li>servicio web</li>
+                                    </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+        </section>
+<!--        també gestiona els procediments de revocació que es publicaran via <code>CRLA</code> o <code>VA</code> -->
+
+        <section>
+            <h1>Certificados X.509</h1>
+            <p>(previa)</p>
+            <p>Base64, DER, ASN.1</p>
+        </section>
+
+        <section id="x509">
+            <h3>Certificados X.509</h3>
+            <p>Estructura serializada <code>PVK<sub>CA</sub>(usuario, PBK<sub>usuario</sub>)</code></p>
+            <ul>
+                <li>estructura <span title="Abstract Syntax Notation #1">ASN.1</span> denominada <code>Certificate</code> (también X.509)</li>
+                <li>serialización <span title="Distinguished Encoding Rules">DER</span></li>
+                <li>conversión a carácteres Base64 (opcional)</li>
+                <li>encapsulado <span title="Privacy Enhanced Mail">PEM</span> (opcional)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Ejemplo Certificado Root</h3>
+            <pre>
+-----BEGIN CERTIFICATE-----
+MIIG6zCCBdOgAwIBAgIIBDLZr/F50H4wDQYJKoZIhvcNAQELBQAwSTELMAkGA1UE
+BhMCVVMxEzARBgNVBAoTCkdvb2dsZSBJbmMxJTAjBgNVBAMTHEdvb2dsZSBJbnRl
+cm5ldCBBdXRob3JpdHkgRzIwHhcNMTUxMjEwMTc1MjUxWhcNMTYwMzA5MDAwMDAw
+WjBmMQswCQYDVQQGEwJVUzETMBEGA1UECAwKQ2FsaWZvcm5pYTEWMBQGA1UEBwwN
+TW91bnRhaW4gVmlldzETMBEGA1UECgwKR29vZ2xlIEluYzEVMBMGA1UEAwwMKi5n
+b29nbGUuY29tMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEtWRb+kjtt/VXuiTU
+zLDYdF2jb5BqN+bf2G9GcWoJ6ONktigxILSdJH9rgQlLsX07mGi1SgIo/rdARmVb
+9p2gOKOCBIMwggR/MB0GA1UdJQQWMBQGCCsGAQUFBwMBBggrBgEFBQcDAjCCA0IG
+A1UdEQSCAzkwggM1ggwqLmdvb2dsZS5jb22CDSouYW5kcm9pZC5jb22CFiouYXBw
+      ...<!-- ZW5naW5lLmdvb2dsZS5jb22CEiouY2xvdWQuZ29vZ2xlLmNvbYIWKi5nb29nbGUt
+YW5hbHl0aWNzLmNvbYILKi5nb29nbGUuY2GCCyouZ29vZ2xlLmNsgg4qLmdvb2ds
+ZS5jby5pboIOKi5nb29nbGUuY28uanCCDiouZ29vZ2xlLmNvLnVrgg8qLmdvb2ds
+ZS5jb20uYXKCDyouZ29vZ2xlLmNvbS5hdYIPKi5nb29nbGUuY29tLmJygg8qLmdv
+b2dsZS5jb20uY2+CDyouZ29vZ2xlLmNvbS5teIIPKi5nb29nbGUuY29tLnRygg8q
+Lmdvb2dsZS5jb20udm6CCyouZ29vZ2xlLmRlggsqLmdvb2dsZS5lc4ILKi5nb29n
+bGUuZnKCCyouZ29vZ2xlLmh1ggsqLmdvb2dsZS5pdIILKi5nb29nbGUubmyCCyou
+Z29vZ2xlLnBsggsqLmdvb2dsZS5wdIISKi5nb29nbGVhZGFwaXMuY29tgg8qLmdv
+b2dsZWFwaXMuY26CFCouZ29vZ2xlY29tbWVyY2UuY29tghEqLmdvb2dsZXZpZGVv
+LmNvbYIMKi5nc3RhdGljLmNugg0qLmdzdGF0aWMuY29tggoqLmd2dDEuY29tggoq
+Lmd2dDIuY29tghQqLm1ldHJpYy5nc3RhdGljLmNvbYIMKi51cmNoaW4uY29tghAq
+LnVybC5nb29nbGUuY29tghYqLnlvdXR1YmUtbm9jb29raWUuY29tgg0qLnlvdXR1
+YmUuY29tghYqLnlvdXR1YmVlZHVjYXRpb24uY29tggsqLnl0aW1nLmNvbYIaYW5k
+cm9pZC5jbGllbnRzLmdvb2dsZS5jb22CC2FuZHJvaWQuY29tggRnLmNvggZnb28u
+Z2yCFGdvb2dsZS1hbmFseXRpY3MuY29tggpnb29nbGUuY29tghJnb29nbGVjb21t
+ZXJjZS5jb22CCnVyY2hpbi5jb22CCHlvdXR1LmJlggt5b3V0dWJlLmNvbYIUeW91
+dHViZWVkdWNhdGlvbi5jb20wCwYDVR0PBAQDAgeAMGgGCCsGAQUFBwEBBFwwWjAr
+BggrBgEFBQcwAoYfaHR0cDovL3BraS5nb29nbGUuY29tL0dJQUcyLmNydDArBggr
+BgEFBQcwAYYfaHR0cDovL2NsaWVudHMxLmdvb2dsZS5jb20vb2NzcDAdBgNVHQ4E
+FgQUnxWNIcxGZwuZf4GjBxw9/J8m6oQwDAYDVR0TAQH/BAIwADAfBgNVHSMEGDAW
+gBRK3QYWG7z2aLV29YG2u2IaulqBLzAhBgNVHSAEGjAYMAwGCisGAQQB1nkCBQEw
+CAYGZ4EMAQICMDAGA1UdHwQpMCcwJaAjoCGGH2h0dHA6Ly9wa2kuZ29vZ2xlLmNv
+bS9HSUFHMi5jcmwwDQYJKoZIhvcNAQELBQADggEBAIe2pffk8qwMV8Xzoas89UQy
+fY4ntfSqxfjzo/bZ+dkZHqiq1IvGn/f/zoRBeMzDXabP4rIcVMnL8PW5YQUq3c28
+a+SdC72x/YehA1AY0rgxLoKfEHe7qPyEvXEDskKfuWVgIDoWH4N+F/X9QDr0uJeX
+i7qkkIh2p/cocWgq10L2r9QTe4lM8NFf3iW6Hc9hvfFtqrQgqeIp8LBblxqo2i29 -->
+Lrb5fFz7UWlT6/2lwe7o1BB5A8sxfrhPpsl8xj5qolZX+0yp9z4no0/ro/3BDYXA
+0paEqOs/1ZavvT2sShY3naCSLGZ0L8Zbsg8TYVGNIIIv80omtq1ZOME04n8xdAk=
+-----END CERTIFICATE-----
+            </pre>
+            <small>(ejemplo de certificado de <a href="https://www.google.com">google.com</a>)</small>
+        </section>
+
+        <section>
+            <h3>Formato PEM</h3>
+            <p>PEM: <em>Privace Enhanced Mail</em></p>
+            <ul>
+                <li>principio/final comenzando por guiones y indicando el contenido</li>
+                <li>(opcional) cabecera detallando el contenido</li>
+                <li>contenido en base64 (segmentado en líneas cortas)</li>
+            </ul>
+        </section>
+
+        <section style="text-align: left;">
+            <h3>Codificación Base64</h3>
+            <p>Convertimos cada 3 bytes en 4 carácteres:</p>
+                <ul>
+                <li>26 letras mayúsculas</li>
+                <li>26 letras minúsculas</li>
+                <li>10 cifras</li>
+                <li><code>+</code> y <code>/</code></li>
+                </ul>
+            <p>total: 64 carácteres</p>
+            <p>y si la cadena no es múltiple de 3 bytes, añadimos <code>=</code> al final:
+                <ul>
+                    <li>sin <code>=</code> indica que el último bloque tiene todos tres bytes significativos</li>
+                    <li><code>=</code> indica que el último bloque tiene dos bytes significativos</li>
+                    <li><code>==</code> indica que el último bloque tiene un byte significativo</li>
+                </ul>
+            </p>
+        </section>
+
+        <section>
+            <h3>ASN.1: Serialización DER</h3>
+            <p>DER: <em>Distinguished Encoding Rules</em></p>
+            <p>funcionalmente equivalente a XML, JSON o la serialización nativa de Java
+                $\rightarrow$
+                tipo lógico convertido a secuencia de bits
+            </p>
+            <p>DER es independiente de la arquitectura del procesador
+                <br/>(<em>endianness</em>, tamaño de los registros de la CPU)</p>
+            <p>Codificación TLV: <code>Tipo + Longitud + Valor</code></p>
+        </section>
+
+        <section>
+            <h3>ASN.1: Serialización DER</h3>
+            <p><code>Tipo + Longitud + Valor</code></p>
+            <ul>
+                <li>TL + V: Valor no estructurado o final (cadena, entero&hellip;)</li>
+                <li>TL + (TL+&hellip;, TL+&hellip;, &hellip;): valor estructurado (<code>SEQUENCE</code>&hellip;)</li>
+            </ul>
+            <p>Experimento: Parser DER en línea: <a href="https://lapo.it/asn1js/">lapo.it</a></p>
+        </section>
+<!-- https://certlogik.com/decoder/ -->
+        <section>
+            <h3>ASN.1: Notación para definir tipos</h3>
+            <p>ASN.1: <em>Abstract Syntax Notation (One)</em></p>
+            <p>equivalente a los "esquemas" XML, a las "clases" de Java (que después podemos serializar), etc.</p>
+        </section>
+
+        <section>
+            <h3>ASN.1</h3>
+            <p>Tipos básicos</p>
+            <ul>
+                <li>Numéricos: <code>INTEGER</code>, <code>BOOLEAN</code>, <code>ENUMERATED</code>&hellip;</li>
+                <li>Cadenas: <code>OCTET STRING</code>, <code>BIT STRING</code>, <code>Utf8String</code>,  <code>GeneralizedTime</code>&hellip;</li>
+                <li>NULL</li>
+                <li>OBJECT IDENTIFIER&hellip;</li>
+            </ul>
+            <ul></ul>
+        </section>
+
+        <section>
+            <h3>ASN.1: OBJECT IDENTIFIER</h3>
+            <p>secuencia única que identifica un concepto, que se obtiene
+                <br/> de la
+                <a href="http://itu.int">ITU-T/CCITT</a> o la
+                <a href="http://iso.org">ISO</a>
+            </p>
+            <p>e.g. <code>AESAlgorithmIdentifier ::= 2.16.840.1.101.3.4.0.1</code></p>
+            <p><code>{ joint-iso-ccitt(2) country(16) us(840) organization(1) gov(101) csor(3)
+            nistalgorithm(4) modules (0) aes (1) }</code></p>
+        </section>
+
+        <section>
+            <h3>ASN.1: Tipos Constructores y Metatipos</h3>
+            <ul>
+                <li><code>SEQUENCE</code>: equivalente a un <code>struct</code> de C/C++</li>
+                <li><code>SEQUENCE OF</code>: equivalente a un vector <code>[]</code> de C/C++</li>
+                <li><code>SET</code>: como <code>SEQUENCE</code> pero sin orden (semántica)</li>
+                <li><code>SET OF</code>: como <code>SEQUENCE OF</code> pero sin orden (semántica)</li>
+                <li><code>SEQUENCE</code>: equivalente a un <code>struct</code> de C/C++</li>
+                <li><code>CHOICE</code>: alternativa de tipo; equivalente a <code>union</code> de C/C++</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>ASN.1: Certificados X.509 (<a href="https://tools.ietf.org/html/rfc5280">rfc5280</a>)</h3>
+            <p>ejemplo de estructura ASN.1:</p>
+<pre>
+Certificate  ::=  SEQUENCE  {
+        tbsCertificate       TBSCertificate,
+        signatureAlgorithm   AlgorithmIdentifier,
+        signatureValue       BIT STRING  }
+
+<span class="fragment">TBSCertificate  ::=  SEQUENCE  {
+        version         [0]  EXPLICIT Version DEFAULT v1,
+        serialNumber         CertificateSerialNumber,
+        signature            AlgorithmIdentifier,
+        issuer               Name,
+        validity             Validity,
+        subject              Name,
+        subjectPublicKeyInfo SubjectPublicKeyInfo,
+        issuerUniqueID  [1]  IMPLICIT UniqueIdentifier OPTIONAL,
+                             -- If present, version MUST be v2 or v3
+        subjectUniqueID [2]  IMPLICIT UniqueIdentifier OPTIONAL,
+                             -- If present, version MUST be v2 or v3
+        extensions      [3]  EXPLICIT Extensions OPTIONAL
+                             -- If present, version MUST be v3
+        }</span>
+</pre>
+        </section>
+
+        <section>
+            <h1>Certificados X.509</h1>
+            <p><code>Certificate</code></p>
+        </section>
+
+        <section>
+            <h3 style="text-transform:none;"><code>
+                <span style="color:red">PVK<sub>CA</sub></span>(<span style="color:green">usuario<sub>x</sub></span>,
+                <span style="color:blue">PBK<sub>usuario<sub>x</sub></sub></span>)
+            </code></h3>
+            <pre>
+Certificate  ::=  SEQUENCE  {
+        tbsCertificate       TBSCertificate,
+        signatureAlgorithm   AlgorithmIdentifier,
+        <span style="color:red">signatureValue       BIT STRING</span>  }
+
+TBSCertificate  ::=  SEQUENCE  {
+        version         [0]  EXPLICIT Version DEFAULT v1,
+        serialNumber         CertificateSerialNumber,
+        signature            AlgorithmIdentifier,
+        <span style="color:grey">issuer               Name,</span>
+        validity             Validity,
+        <span style="color:green">subject              Name,</span>
+        <span style="color:blue">subjectPublicKeyInfo SubjectPublicKeyInfo,</span>
+        issuerUniqueID  [1]  IMPLICIT UniqueIdentifier OPTIONAL,
+                             -- If present, version MUST be v2 or v3
+        subjectUniqueID [2]  IMPLICIT UniqueIdentifier OPTIONAL,
+                             -- If present, version MUST be v2 or v3
+        extensions      [3]  EXPLICIT Extensions OPTIONAL
+                             -- If present, version MUST be v3
+        }
+</pre>
+        </section>
+        <section>
+            <h3><code style="text-transform:none;">Name</code></h3>
+            <p>el <code>Name</code> define los <em>Distinguished Name</em> o DN</p>
+            <p>un DN es una secuencia de RDN (<em>Relative</em> DN)</p>
+            <p style="text-align: left;">RDNs habituales:</p>
+            <ul>
+                <li>CN: <em>Common Name</em> (Nommbre del usuari o DNS del servidor)</li>
+                <li>OU: <em>Organisational Unit</em> (Departamento)</li>
+                <li>O: <em>Organisation</em> (Empresa)</li>
+                <li>C: <em>Country</em> (Estado)</li>
+                <li>otros: (L) localidad, (ST) estado/provincia, (DC) domain component&hellip;</li>
+            </ul>
+            <p>corresponden a un estructura en árbol (LDAP, X.500)</p>
+        </section>
+
+        <section>
+            <h3>Otros campos</h3>
+            <ul>
+                <li><code>validity {notBefore, notAfter}</code></li>
+                <li><code>issuer Name</code></li>
+                <li><code>serialNumber INTEGER</code></li>
+                <li><code>extensions SEQUENCE OF {OID, Bool, OCTET STRING}</code></li>
+            </ul>
+        </section>
+
+        <section id="extensions">
+            <h3><code style="text-transform:none;">extensions<br/>SEQUENCE OF {OID, Bool, OCTET STRING}</code></h3>
+            <p>es una manera de añadir información adicional que no está especificada en el momento de definición de la estructura
+            X.509
+                <br/>(X.509 versión 3)
+            </p>
+            <p>hay extensiones que hace falta que sean procesadas:<br/>se marcan con <code>Critical True</code>: si un
+            sistema procesa el certificado y no entiende la extensión (no conoce el <code>OID</code>) debe dar el certificado por inválido</p>
+            <ul>
+                <li><code>BasicConstraints</code>: <code>cA, pathLenConstraint</code></li>
+                <li><code>KeyUsage</code></li>
+                <li><code>NameConstraints</code></li>
+                <li><code>AuthorityInformationAccess</code></li>
+                <li>&hellip;</li>
+            </ul>
+        </section>
+
+        <section id="recognised-ca" data-background="#FF8888">
+            <h3>Lista de CA<span style="text-transform:lowercase;">s</span> reconocidas</h3>
+            <p>las CAs reconocidas (raíz) deben obtener se de forma fiable</p>
+            <ul>
+                <li>dentro del S.O. y las actualizaciones del S.O.</li>
+                <li>dentro del software que utiliza las claves (navegador, validador de firmas) y sus
+                    actualizaciones</li>
+            </ul>
+            <p>el S.O. o el software actúan de "<span title="Trusted Third Party">TTP</span> raíz"</p>
+            <p>en algunos sistemas se pueden modificar estas listas (por parte del usuario, o el administrador de
+                sistemas)</p>
+        </section>
+
+        <section>
+            <h3>Certificados &ldquo;verdes&rdquo;</h3>
+            <p>¿Hay CAs raíz buenas? ¿cómo gestiono la lista de CAs raíz que usaré? </p>
+            <p>el hecho que la lista de certificados pueda ser manipulada (usuario, sysadmin) ha hecho que aparezcan
+            mecanismos "más seguros"</p>
+            <ul>
+	          <li><em>Certificate Transparency</em>: los certificados de los servidores (web) se publican en una lista
+	            descentralizada</li>
+              <li>EV, <em>Extended Validation</em>: las CAs que emiten estos certificados siguen unos procedimientos
+                específicos para la validación de los datos del titular (<a href="registration">registro</a>); la lista de certificados raíz normalmente está
+                grabada en el código fuente de los navegadores, etc.</li>
+              <li><em>PBK pinning</em>: en aplicaciones (no navegadores) podemos grabar la PBK<sub>interlocutor</sub> que
+              nos interese; en navegadores puedo decir: me creo este servidor web</li>
+            </ul>
+        </section>
+
+        <!-- <section id="registration">
+            <h3>Registre, procediment de</h3>
+            <ul>
+                <li>valida que el titular poseeix la clave (<code>PKCS #10</code>, Cert autosignat)</li>
+                <li>valida que el titular és qui diu ser (<code>DN</code>, <code>SubjectAltName</code>)</li>
+            </ul>
+            <p>...</p>
+        </section> -->
+
+        <section>
+            <h1>Revocaciones</h1>
+        </section>
+
+        <section id="revocation">
+            <h3>Revocación</h3>
+            <p>los certificados tienen una validez limitada en el tiempo, pero es posible
+            que su contenido deje de ser válido antes</p>
+            <p>si esto pasa, hace falta comunicarlo a la RA (Autoritat de Registre) siguiendo los procedimientos
+            que dictamine la <em>Política de Certificación</em> (o la <em>Declaración de Pràcticas de Certificación</em>
+                derivada)</p>
+            <p class="fragment">ejemplo <span title="DNI electrónico">DNIe</span>:
+                <a href="http://www.dnielectronico.es/PDFs/politicas_de_certificacion.pdf">
+                    Declaración de prácticas y políticas de certificación
+                </a>
+            </p>
+        </section>
+
+        <section id="revocation-reason">
+            <h3>Razones de revocación</h3>
+            <ul>
+                <li><code>keyCompromise</code>: quizás he perdido el control de mi PVK</li>
+                <li><code>affiliationChanged</code>: el <code>DN</code>/<code>SubjectAltName</code> ya no es correcto</li>
+                <li><code>superseded</code>: se ha emitido un certificado que lo sustituye</li>
+                <li><code>cessationOfOperation</code>: ya no hace falta (e.g. el servidor web ya no existe)</li>
+                <li><code>certificateHold</code>: suspendido (posteriormente se cancela la suspensión, o se revoca)</li>
+                <li><code>privilegeWithdrawn</code>: algún atributo ya no le corresponde al titular</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>¿Cómo sabemos si un certificado ha sido revocado?</h3>
+            <ul>
+                <li>se publica una CRL</li>
+                <li>se publica en un servidor OCSP</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>CRL</h3>
+            <p><em>Certificate Revocation List</em></p>
+            <p>es una lista firmada (<a href="https://tools.ietf.org/html/rfc5280">rfc5280</a>) que contiene los certicados
+                no caducados que han sido revocados por una CA (o varies: CRL indirectas), el momento en el que han dejado de ser válidos,
+                y la razón por la que han dejado de ser válidos</p>
+        </section>
+
+        <section>
+            <h3>CRL: observaciones</h3>
+            <ul>
+                <li>las CRL pueden crecer mucho: hace falta ajustar el período de validez de los certificados emitidos</li>
+                <li>se pueden emitir CRL incrementales (delta CRL)</li>
+                <li>se poden acumular las revocaciones de diferents CA en una CRL (CRL indirectas)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>ASN.1: <span style="text-transform:none;">CertificateList</span> (<a href="https://tools.ietf.org/html/rfc5280">rfc5280</a>)</h3>
+            <pre>
+CertificateList  ::=  SEQUENCE  {
+    tbsCertList          TBSCertList,
+    signatureAlgorithm   AlgorithmIdentifier,
+    signatureValue       BIT STRING  }
+
+TBSCertList  ::=  SEQUENCE  {
+    version                 Version OPTIONAL,
+                                 -- if present, MUST be v2
+    signature               AlgorithmIdentifier,
+    issuer                  Name,
+    thisUpdate              Time,
+    nextUpdate              Time OPTIONAL,
+    revokedCertificates     SEQUENCE OF SEQUENCE  {
+         userCertificate         CertificateSerialNumber,
+         revocationDate          Time,
+         crlEntryExtensions      Extensions OPTIONAL -- if present, version MUST be v2
+    }  OPTIONAL,
+    crlExtensions           [0]  EXPLICIT Extensions OPTIONAL -- if present, version MUST be v2
+}</pre>
+        </section>
+        <section>
+            <h3>Extensiones</h3>
+            <p>el mismo formato que los certificados, pero otros OID</p>
+            <ul>
+                <li><code><a href="#revocation-reason">reasonCode</a></code></li>
+                <li><code>invalidityDate</code></li>
+                <li><code>certificateIssuer</code> (sólo para CRLs indirectas)</li>
+            </ul>
+
+        </section>
+
+        <section>
+            <h3>OCSP: On-line Certificate Status Protocol</h3>
+            <p>en CAs de gran volumen las CRL son inaceptablemente grandes: OCSP</p>
+            <p>los servidores OCSP o VA (<em>Validation Authorities</em>) responden el estado de validez de un certificado
+                individual</p>
+            <p class="fragment">en servidores web de alto rendimiento,
+                <br/>la VA puede sufrir una carga similar $\rightarrow$ <em>OCSP stapling</em></p>
+        </section>
+
+        <section>
+            <h1>Miscelánea</h1>
+        </section>
+
+        <section>
+            <h3>Coste</h3>
+            <ul>
+                <li>gestión de la seguridad de las claves de las entidades finales (usuarios):
+                    <br/>procedimientos de registro, revocación y renovación, personalización <em>Smart Cards</em>,
+                    administración de las CA, CRLA, VA, RA&hellip;</li>
+                <li>renovación de claves de la CA (subordinadas, raíces): las migraciones de PKI hasta ahora han sido masivas
+                    por el paso de SHA-1 a SHA-2</li>
+                <li>compromíso de clave: hay cierta probabilidad (póliza de seguro) de que no se hayan aplicado los procedimientos
+                    y medidas técnicas para proteger las claves</li>
+                <li>certificados &ldquo;verdes&rdquo; (contraejemplo: CA
+                    <a
+                            title="Let's Encrypt del Internet Security Research Group"
+                            href="https://letsencrypt.org"
+                    >Let's Encrypt</a> de la fundación ISRG)</li>
+                <li>Administración de sistemas: distribución de CA propias de forma segura</li>
+                <li>Procedimiento de registro para certificación, revocación</li>
+                <li>complejidad: no/formación&hellip;</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Time-Stamp Protocol (<a href="http://tools.ietf.org/html/rfc3161">rfc3161</a>)</h3>
+            <p>las TSA (<a href="#tsa"><em>Time-Stamp Authorities</em></a>) emiten pruebas firmadas de que un conjunto de bytes (hash) ha
+                sido presentado a una hora determinada</p>
+            <p>es un formato de petición y uno de respuesta que contiene un token <code>TimeStampToken</code> (TST):
+                <br/>el token TST se puede presentar como prueba de que un documento
+                existia en un cierto momento</p>
+        </section>
+        <section id="tsa">
+            <h3>TSA: Time-Stamp Authority</h3>
+            <p>las TSA se parecen a las CA pero a parte de disposar de HSM, tienen una fuente fiable de tiempo:
+                <br/>reloj atómico, o un reloj estabilizado térmicamente, o conexión GPS, o connexión a un
+            servidor NTP (Stratum-2 o proper), o alguna combinación de las anteriores (habitualmente las CA utilizan exclusivamente NTP)</p>
+        </section>
+
+        <section>
+            <h1>Uso</h1>
+        </section>
+
+        <section>
+            <h3>Uso</h3>
+            <ul>
+                <li><a title="rfc5246 (TLS v1.2)" href="https://tools.ietf.org/html/rfc5246">TLS</a>:
+                    autenticación de los extremos de la conexión (e.g. HTTPS)</li>
+                <li><a title="rfc5652 (CMS)" href="https://tools.ietf.org/html/rfc5652">PKCS #7/CMS</a>:
+                    cifrado y sobretodo firma</li>
+            </ul>
+        </section>
+
+        <section id="pkcs7">
+            <h3>PKCS #7 / CMS</h3>
+            <p>CMS o <em>Cryptographic Message Standard</em> nos permite cifrar o firmar un conjunto de bytes:
+                correo, ficheros individuales, etc.</p>
+            <p>es una estructura ASN.1:</p>
+            <pre>
+ContentInfo ::= SEQUENCE {
+    contentType ContentType,
+    <a href="#pkcs7-content">content</a> [0] EXPLICIT ANY DEFINED BY contentType }
+
+ContentType ::= OBJECT IDENTIFIER
+</pre>
+        </section>
+
+
+        <section id="pkcs7-content">
+            <h3 style="text-transform:none;">PKCS #7 <code>content</code></h3>
+            <p>tipos disponibles:</p>
+            <ul>
+                <li><code>Data</code>: datos sin tratar</li>
+                <li><code>SignedData</code>: datos firmados por uno o más firmantes</li>
+                <li><code>EnvelopedData</code>: datos cifrados simétricamente, y claves cifradas con la PBK de uno o más receptores</li>
+                <li><code>DigestedData</code>: hash (almacenamiento local, o para posterior ensobrado)</li>
+                <li><code>EncryptedData</code>: cifrado en crudo (almacenamiento local, cifrado simétrico)</li>
+                <li><clode>AuthenticatedData</clode>: MAC (almacenamiento local, o en combinación con ensobrado)</li>
+            </ul>
+            <p>que se pueden combinar recursivamente: e.g.
+                <br/><code>SignedData(Data("datos"), [firmas])</code></p>
+        </section>
+
+        <section>
+            <h3 style="text-transform:none;">PKCS #7: <code>content</code>$\rightarrow$<code>SignedData</code></h3>
+            <p>firma asimétrica</p>
+            <pre>
+SignedData ::= SEQUENCE {
+    version CMSVersion,
+    digestAlgorithms DigestAlgorithmIdentifiers,
+    encapContentInfo EncapsulatedContentInfo,          -- datos firmados
+    certificates [0] IMPLICIT CertificateSet OPTIONAL, -- certificados necesarios (CAs sub.)
+    crls [1] IMPLICIT RevocationInfoChoices OPTIONAL,  -- CRL necesarias
+    signerInfos SignerInfos }                          -- firma(/as en paralelo)
+
+DigestAlgorithmIdentifiers ::= SET OF DigestAlgorithmIdentifier
+
+SignerInfos ::= SET OF SignerInfo
+            </pre>
+        </section>
+
+        <section>
+            <h3 style="text-transform:none;">PKCS #7: <code>content</code>$\rightarrow$<code>EnvelopedData</code></h3>
+            <p>cifrado, simétrio o asimétrico (ensobrado)</p>
+            <pre>
+EnvelopedData ::= SEQUENCE {
+    version CMSVersion,
+    originatorInfo [0] IMPLICIT OriginatorInfo OPTIONAL,
+    recipientInfos RecipientInfos,
+    encryptedContentInfo EncryptedContentInfo,
+    unprotectedAttrs [1] IMPLICIT UnprotectedAttributes OPTIONAL
+}
+            </pre>
+        </section>
+
+        <section>
+            <h3 style="text-transform:none;">PKCS #7: <code>content</code>$\rightarrow$<code>EnvelopedData + SignedData</code></h3>
+            <p>una combinación habitual (e.g. S/MIME) es firmar y cifrar</p>
+            <aside class="notes">
+                al contrario que en la parte simétrica de TLS, donde se cifraba y después se firmaba (MAC) para impedir que descifrasen
+                datos no íntegros/auténticos
+            </aside>
+        </section>
+
+        <section>
+            <h3>PKCS #7: como a archivo de certificados</h3>
+            <p>el PKCS #7 se usa a veces como formato para entregar certificados (y CRL)
+                <br/>(e.g. el meu certificat i la cadena de CA):</p>
+            <p>el PKCS #7 se le da con <code>content</code> <code>SignedData</code>&hellip; conteniendo los certificados
+                i/o las CRL, pero sin datos ni firmas</p>
+        </section>
+
+        <section id="pkcs" style="color:FF8888;">
+            <h3>Otros "formatos PKCS"</h3>
+            <ul>
+                <li><a href="#pkcs7">PKCS #7</a>: formato ASN.1 firma, cifrado, archivo de certificados y CRL</li>
+                <li><a href="hsm.html#pkcs11">PKCS #11</a>: plantilla C para librerías (<code>pkcs11.h</code>)
+                    de <span title="Hardware Secure Module">HSM</span></li>
+                <li><a href="rsa.html#pkcs1">PKCS #1</a>: (sólo RSA)
+                    formatos de firma y cifrado; algunas veces se usa como a manera de identificar el formato
+                    de clave privada RSA en claro; usado por servidores (TLS)</li>
+                <li>PKCS #5: procedimiento para cifrar bytes a partir de una contraseña</li>
+                <li>PKCS #8: formato de clave privada, habitualmente cifrado con
+                    <br/>el procedimiento PKCS #5</li>
+                <li><a href="pki.html#pkcs10">PKCS #10</a>: formato de petición de certificación, que contiene los datos de identificación
+                    (<span title="Distinguished Name">DN</span>), la clave pública, y la firma para poder validar
+                    la posesión (alternativo a un <a href="#x509">X.509</a> autofirmado)</li>
+                <li>PKCS #12: fichero cifrado de clave y certificados (usado por navegadores)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3><a style="text-transform:none" title="Advanced Electronic Signature" href="ades.html">(AdES) $\rightarrow$</a></h3>
+        </section>
+    </div>
+
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-72628059-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<!-- <script type="text/javascript" src="js/svg_mathjax.js"></script> -->
+<!-- <script type="text/javascript">new Svg_MathJax().install();</script> -->
+<script type="text/javascript" src="lib/js/head.min.js"></script>
+<script type="text/javascript" src="js/reveal.js"></script>
+
+<script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            slideNumber: 'c/t',
+            // history: false,
+            // fragments: true,
+            // help: true,
+            // previewLinks: false,
+            width: 1280,
+            height: 720,
+
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            math: {
+                mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+                config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+            },
+
+            // Optional reveal.js plugins
+            dependencies: [
+                { src: 'plugin/math/math.js', async: true },
+                { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true },
+                { src: 'plugin/notes/notes.js', async: true }
+            ]
+        });
+    </script>
+
+</body>
+</html>

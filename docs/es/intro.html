@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="es">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Introducción</title>
+
+        <meta name="description" content="Introducción">
+        <meta name="author" content="Jordi Íñigo Griera">
+        <!-- Implementat amb revealjs: https://github.com/hakimel/reveal.js -->
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+        <!-- Code syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+                    var link = document.createElement( 'link' );
+                    link.rel = 'stylesheet';
+                    link.type = 'text/css';
+                    link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+                    document.getElementsByTagName( 'head' )[0].appendChild( link );
+                </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+    <div class="reveal">
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+
+            <section>
+                <h1>Introducción, Historia</h1>
+
+                <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
+
+				<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">
+					&ldquo;Curso de Introducción a la Criptografía&rdquo;
+				</span>
+
+                    by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/jig" property="cc:attributionName" rel="cc:attributionURL">Jordi Íñigo Griera</a> is licensed under a<br/>
+
+                    <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+                    <br />Project hosted at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/jig/crypto" rel="dct:source">github.com/jig/crypto</a></em></small>
+            </section>
+
+            <section>
+                <h1>1976</h1>
+                <p>La NSA selecciona un algoritmo de cifrado de IBM para comunicaciones de la administración: DES (Data Encryption Standard)</p>
+                <p>Whitfield Diffie y Martin Hellman generan el primer algoritmo práctico de criptografía asimétrica</p>
+            </section>
+
+            <section>
+                <h1>Historia</h1>
+                <h2>(pre-1976)</h2>
+            </section>
+
+            <section>
+                <h3>Criptografía $\Rightarrow$ Cifrado</h3>
+                <p>Hasta los '70 la criptografía servía para dificultar que un tercero pudiera discernir lo que se envía</p>
+                <p>$c = e(k,m)$</p>
+                <p style="color:#888">
+                    un mensaje $m$ (<em>plain-text</em>) se cifra con la función de cifrado $e()$, que se
+                    le pasa junto a una clave $k$ para dar el mensaje <br/>cifrado $c$ (<em>cipher-text</em>)
+                </p>
+                <br/>
+                <p>$m = d(k,c)$</p>
+                <p style="color:#888">
+                    para descifrar hace falta la clave $k$ y el mensaje cifrado $c$ a la función de descifrado
+                    $m=d(k,c)$<br/>El resultado $m$ es el mensaje en claro de vuelta
+                </p>
+            </section>
+
+            <section>
+                <h3>pre-1976</h3>
+                <p>Hasta los '70 la criptografía o era "insegura" o no era "práctica"</p>
+                <p></p>
+            </section>
+
+            <section>
+                <h3>Cifrado del César</h3>
+                <p>Cambiamos cada letra de un mensaje, por una letra alternativa del alfabeto</p>
+                <p>Por ejemplo, para $k=3$<br/>la función de cifrado $e(3,m)$ genera la siguiente tabla:</p>
+                <table>
+                    <thead>
+                    <tr>
+                        <td>$m$</td>
+                        <td></td>
+                        <td>$c$</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>A</td>
+                        <td>$\rightarrow$</td>
+                        <td>X</td>
+                    </tr>
+                    <tr>
+                        <td>B</td>
+                        <td>$\rightarrow$</td>
+                        <td>Y</td>
+                    </tr>
+                    <tr>
+                        <td>C</td>
+                        <td>$\rightarrow$</td>
+                        <td>Z</td>
+                    </tr>
+                    <tr>
+                        <td>D</td>
+                        <td>$\rightarrow$</td>
+                        <td>A</td>
+                    </tr>
+                    <tr>
+                        <td>E</td>
+                        <td>$\rightarrow$</td>
+                        <td>B</td>
+                    </tr>
+                    <tr>
+                        <td>...</td>
+                        <td></td>
+                        <td>...</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h3>Descifrado del César</h3>
+                <p>Giremos la tabla</p>
+                <table>
+                    <thead>
+                    <tr>
+                        <td>$c$</td>
+                        <td></td>
+                        <td>$m$</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>A</td>
+                        <td>$\rightarrow$</td>
+                        <td>D</td>
+                    </tr>
+                    <tr>
+                        <td>B</td>
+                        <td>$\rightarrow$</td>
+                        <td>E</td>
+                    </tr>
+                    <tr>
+                        <td>C</td>
+                        <td>$\rightarrow$</td>
+                        <td>F</td>
+                    </tr>
+                    <tr>
+                        <td>D</td>
+                        <td>$\rightarrow$</td>
+                        <td>G</td>
+                    </tr>
+                    <tr>
+                        <td>E</td>
+                        <td>$\rightarrow$</td>
+                        <td>H</td>
+                    </tr>
+                    <tr>
+                        <td>...</td>
+                        <td></td>
+                        <td>...</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h3>Seguridad del cifrado del César</h3>
+                <code data-trim>
+                    HOLAMON<br/>
+                    ELIXJLK
+                </code>
+                <p class="fragment">¿qué podemos hacer si tenemos acceso al texto cifrado <code data-trim>ELIXJLK</code>?</p>
+                <br/>
+                <span style="color:#585">
+                    <p class="fragment">$0 < k < 26 \implies $ podemos hacer un ataque de <em>fuerza bruta</em></p>
+                    <p class="fragment">si el mensaje es suficientemente largo, podemos analizar la <em>frecuencia</em> de aparición dels carácteres</p>
+                </span>
+            </section>
+            <section>
+                <h3>Seguridad del cifrado del César</h3>
+                <p style="color:#585">$0 < k < 26 \implies $ podemos hacer un ataque de <em>fuerza bruta</em></p>
+                <p>Un ataque de <a href="#brute-force">fuerza bruta</a> implica probar sobre el mensaje cifrado $c$
+                    todas las posibles claves $k_i$ hasta que encontremos la "buena":</p>
+                <ul>
+                    <li>descifrar con la clave $\overset{?}{m} = d(c, k_i)$ ...</li>
+                    <li>...y validar si $\overset{?}{m}$ es válido (o sea, si $m=\overset{?}{m}$)</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Redundancia</h3>
+                <ul>
+                    <li style="color:#888">descifrar con la clave $\overset{?}{m} = d(c, k_i)$ ...</li>
+                    <li>...y validar si $\overset{?}{m}$ es válido (o sea, si $m=\overset{?}{m}$)</li>
+                </ul>
+                <br/>
+                <p>el segundo paso no siempre es posible</p>
+                <p>exige que el espacio de mensajes contenga mensages
+                    válidos (pocos) y mensajes inválidos (muchos)</p>
+                <p>hace falta <a href="https://en.wikipedia.org/wiki/Redundancy_(information_theory)">redundancia</a></p>
+                <p>que en el ejemplo anterior la redundancia la tenemos ya que <em>no</em> cualquier
+                combinación de carácteres genera "palabras" ininteligibles</p>
+                <p>una contramedida contra el ataque de fuerza bruta contra el cifrado del César es minimizar la redundancia
+                    de los mensajes (compresión, etc.)</p>
+            </section>
+            <section>
+                <h3>Descifrar</h3>
+                <ul>
+                    <li>descifrar con la clave $\overset{?}{m} = d(c, k_i)$ ...</li>
+                    <li style="color:#888">...y validar si $\overset{?}{m}$ es valido (o sea, si $m=\overset{?}{m}$)</li>
+                </ul>
+                <br/>
+                <p>el primer punto implica conocer el algoritmo de<br/>(des)cifrado $d(\circ,\circ)$</p>
+                <p>siempre supondremos que un atacante conoce $d(\circ,\circ)$</p>
+                <p>la única cosa que no debe conocer es la clave $k$</p>
+            </section>
+            <!-- <section data-background="#FF8888">
+                <h3>Seguretat del xifrat del César</h3>
+                <p>suposem que podem fer una <em>operació</em> de desxifrat i la validació en un "tic" de rellotge d'una
+                CPU actual<br/>(CLK = 1 GHz)</p>
+            <p>Això implica 1 op/ns</p>
+            <p class="fragment">El xifrat del César es trenca (en mitja) en 13 ns</p>
+            <p class="fragment">En una CPU genèrica (Intel, AMD, ARM) necessitarem<br/> 1 μs (1 Mops)</p>
+            <p class="fragment">El xifrat del César es trenca (en mitja) en una CPU estàndard en 13 μs</p>
+            </section> -->
+            <section id="brute-force">
+                <h3>Ataques de fuerza bruta</h3>
+                <p>Las contramedidas contra los ataques de fuerza bruta son:</p>
+                <ul>
+                    <li>que la operación de descifrado sea costosa</li>
+                    <li>que haga falta realizar muchas operaciones de descifrado</li>
+                </ul>
+                <p class="fragment">
+                    que la operación sea costosa tiene el problema que quien descifra lícitamente tiene un coste
+                    innecessario: actualmente esto no se recomienda
+                </p>
+                <p class="fragment">
+                    que el atacante esté obligado a probar muchas claves
+                </p>
+            </section>
+            <section id="key-space">
+                <h3>muchas claves</h3>
+                <p>en una CPU "estándar" se prueban $1.000.000$ clave/CPU/s</p>
+                <p class="fragment">es decir: $10^6$ clave/CPU/s</p>
+                <p class="fragment">es decir: se prueban $10^{9}$ clave/s en $1000$ CPU</p>
+                <p class="fragment">es decir: se prueban $3,6·10^{12}$ clave/h en $1000$ CPU</p>
+                <span class="fragment">
+                    <p>en AWS EC2 una <a href="https://aws.amazon.com/es/ec2/pricing/">c4.large</a> cuesta 10 céntimo/h</p>
+                    <p>es decir $3,6·10^{11}$ clave/€</p>
+                </span>
+                <span class="fragment">
+                    <p>si tenemos capacidad de diseñar/fabricar $d(\circ,\circ)$ en hardware
+                        (<a href="https://en.wikipedia.org/wiki/Application-specific_integrated_circuit">ASIC</a>)
+                        los costes bajan después de un periodo de amortización
+                    </p>
+                </span>
+            </section>
+            <section>
+                <h3>Muchas claves</h3>
+                <p>$10^{11}$ clave/€ en números redondos
+                <p>e.g. si nuestro "secreto" tiene un coste de 1000 €,<br/>nos hacen falta $2·10^{14}$ claves diferentes ($\approx2^{48}$)</p>
+            </section>
+            <section>
+                <h3>Seguridad del cifrat del César</h3>
+                <code data-trim>
+                    HOLAMON<br/>
+                    ELIXJLK
+                </code>
+                <p>¿qué podemos hacer si tenemos acceso al texto cifrado <code data-trim>ELIXJLK</code>?</p>
+                <br/>
+                <p>$0 < k < 26 \implies $ podemos hacer un ataque de <em>fuerza bruta</em></p>
+                <p style="color:#585">si el mensaje es suficientemente largo, podemos analizar la <em>frecuencia</em> de aparición de los carácteres</p>
+            </section>
+            <section>
+                <h3>Análisis de frecuencia</h3>
+                <img data-src="img/freq-catala.png"/>
+                <br/>
+                <small>(artículo de Catalunya en la Viquipèdia /
+                    <a href="http://www.counton.org/explorer/codebreaking/frequency-analysis.php">counton.org
+                    </a>)</small>
+                <br/>
+                <img data-src="img/freq-fcb.png"/>
+                <br/>
+                <small>(artículo del FCB en la Viquipèdia /
+                    <a href="http://www.counton.org/explorer/codebreaking/frequency-analysis.php">counton.org
+                    </a>)</small>
+            </section>
+            <section>
+                <h3>Análisis de frecuencia</h3>
+                <img data-src="img/freq-catala-gran.png"/>
+                <br/>
+                <p>la estadística se mantiene en textos diferentes</p>
+                <p class="fragment">¡la estadística se mantiene inalterada después del cifrado!</p>
+                <p class="fragment">podemos aprovechar que la estadística se mantiene<br/>para poder encontrar la clave $k$</p>
+            </section>
+
+            <section>
+                <h1>Mejoras al<br/>cifrat del César</h1>
+            </section>
+
+            <section id="vigenere">
+                <h3>Cifrado de Vigenère</h3>
+                <p>Similar al cifrado del César, pero $k$ ahora será una secuencia de números en lugar de un 
+                    sólo número (e.g. antes $k=3$):</p>
+                <p>e.g. &nbsp; $k = \{3,24,10\}$</p>
+                <p>Nota: habitualmente se escriben las letras corresponendientes a los números: $k = \{\text{D},\text{Y},\text{K}\}$
+                </p>
+                <p>ejemplo:</p>
+                <code data-trim>
+                    HOLAMON<br/>
+                    DYKDYKD<br/>
+                    KMVDKYQ
+                </code>
+            </section>
+
+            <section id="vigenere-key-space">
+                <h3>Vigenère: Espacio de claves</h3>
+                <p>Ahora el espacio de claves es (clave de $3$ carácteres):</p>
+                <p>
+                    $\begin{eqnarray}
+                    0 & < k & < {26}^{3} \\
+                    0 & < k & < 17576
+                    \end{eqnarray}$
+                </p>
+                <span class="fragment">
+                    <p>no cuesta mucho incrementar el espacio de claves utilizando
+                        <br/>"contraseñas" más largas</p>
+                    <p>en general, para $n$ carácteres:</p>
+                    <p>$0 < k < {26}^{n}$</p>
+                    <p>e.g. &nbsp; $n=8 \implies 2·10^{11}$ <span class="fragment">(0,50 €)</span></p>
+                    <p class="fragment">e.g. &nbsp; $n=12 \implies 10^{17}$ (200.000 €)</p>
+                    <p class="fragment">e.g. &nbsp; $n=16 \implies 4·10^{22}$ (deuda de Grecia)</p>
+                    <p class="fragment">e.g. &nbsp; $n=17 \implies$ (PIB mundial)</p>
+                </span>
+            </section>
+
+            <section id="vigenere-frequency-analysis">
+                <h3>Vigenère: Análisis frecuencial</h3>
+                <p>Si segmentamos el texto cifrado de acuerdo a la longitud de la contraseña, cada fragmento de texto
+                    mostrará las mismas estadísticas del idioma...</p>
+                <p>sólo hace falta saber la longitud de la "contraseña" o...</p>
+                <p>...como el espacio de longitudes será probablemente 
+                    limitado, podemos probarlos uno por uno hasta que tenemos una estadística reconocible</p>
+                <p class="fragment">
+                    <u>un espacio de claves grande no es suficiente</u>
+                </p>
+            </section>
+
+            <section id="perfect-secrecy">
+                <h2>Confidencialidad perfecta</h2>
+                <p>en general, <em>seguridad incondicional</em></p>
+            </section>
+
+            <section>
+                <h3>¿qué es la confidencialitad perfecta?</h3>
+                <p>a partir del texto cifrado, no se puede deducir
+                    <br/><u>ninguna propiedad</u><span class="fragment">*</span>
+                    <br/>del texto original en claro,
+                    <br/>aunque el atacante tenga capacidad computacional infinita
+                </p>
+                <br/>
+                <br/>
+                <p class="fragment">*) a parte de la longitud</p>
+                <p class="fragment">*) a parte del momento de enviarlo</p>
+                <p class="fragment">*) a parte del número de mensajes</p>
+                <p class="fragment">*) a parte de la latencia de la respuesta</p>
+            </section>
+
+            <section>
+                <h3>¿es factible la confidencialidad perfecta?</h3>
+                <p class="fragment">sí,
+                    <br/>y fue inventada y patentada por Vernam en 1917
+                    <br/>y fue demostrada su "perfección" por Shannon en 1945</p>
+                <p></p>
+            </section>
+
+            <section>
+                <h3>¿cómo la podemos implementar?</h3>
+                <p>el cifrado de Vigenère sufría un problema similar al del César:<br/>
+                manifestaba la estadística del mensaje en claro<br/> en el mensaje cifrado
+                </p>
+                <p>podemos evitar que se manifieste la estadística en el texto cifrado, si utilizamos 
+                    cada letra de la contraseña <u>una sola vez</u></p>
+                <p class="fragment">tenimos confidencialidad perfecta <em>sii</em> usamos Vigenére con una contraseña tan larga
+                como el mensaje<span class="fragment"> y no conocida por el atacante (aleatoria)</span></p>
+            </section>
+
+            <section id="one-time-pad">
+                <h3>Bloques de un solo uso: cifrado</h3>
+                <p>Vernam definió el <em>one-time-pad</em> de una manera similar (pero equivalente)</p>
+                <p>La función de cifrado $c = e(k, m)$ se implementa:</p>
+                <p>$e(k, m) = k \oplus m$</p>
+		<p>on $\|k\| = \|m\|$</p>
+		<p/>
+                <p>Nota:
+		    <br/>$\oplus$ es la <em>or-exclusiva</em> o <code>XOR</code>
+                    <br/>$\|\circ\|$ es la longitud en bits de $\circ$
+                </p>
+            </section>
+            <section>
+                <h3>Bloque de un solo uso: descifrado</h3>
+                <p>$d(k, c) = k \oplus c$</p>
+                <span class="fragment">
+                    <p>es fácil demostrar que funciona ya que:</p>
+                    <p>$\begin{aligned}
+                        m &= d(k, c) \\
+                        m &= d(k, e(k, m)) \\
+                        m &= k \oplus c \\
+                        m &= k \oplus (k \oplus m) \\
+                        m &= (k \oplus k) \oplus m \\
+                        m &= \{0\}^{\|k\|} \oplus m \\
+                        m &= m
+                    \end{aligned}$</p>
+                </span>
+            </section>
+            <section  style="text-align: left;">
+                <h3>Bloque de un solo uso: descifrado</h3>
+                <code data-trim>
+                    k = <em>...hace falta obtenerla o generarla</em><br/>
+                    assertEqual(len(m1), len(k))<br/>
+                    c = xor(k,m1)<br/>
+                    m2 = xor(k,c)<br/>
+                    assertEqual(m1,m2)
+                </code>
+            </section>
+
+            <section>
+                <h3>Experimento con Gimp</h3>
+                <small>(tienes que tener Gimp instalado para que te funcione el experimento)</small>
+                <br/>
+                <a href="gimp/hola-xor.xcf"><img data-src="gimp/hola-xor.png"/></a>
+                <p>clica sobre la imagen y abre el fichero con Gimp</p>
+                <p>mira que está compuesto por dos capas (<code>Ctrl+L</code>):
+                    <br/>la clave $k$ y el mensaje $m$ combinadas con <em>substract</em> (<code>XOR</code>)</p>
+            </section>
+
+            <section id="c" data-transition="none">
+                <h3>$c$</h3>
+                <a href="?transition=none/#k"><img data-src="gimp/bio-c.png"/></a>
+            </section>
+
+            <section id="k" data-transition="none">
+                <h3>$k$</h3>
+                <a href="?transition=none/#c"><img data-src="gimp/bio-k.png"/></a>
+            </section>
+
+            <section id="m" data-transition="none">
+                <h3>$m$</h3>
+                <img data-src="gimp/bio-m.png"/>
+            </section>
+
+            <section>
+                <h3>Bloque de un solo uso: ¿perfecto?</h3>
+                <p>Shannon demostró que los bloques de un solo uso son "perfectos", y además demostró que
+                    la longitud en bits de la clave $k$:</p>
+                <p>$\|k\| \geq \|m\|$</p>
+                <p>y por tanto, que los bloques de un solo uso hiciesen servir</p>
+                <p>$\|k\| = \|m\|$</p>
+                <p>era la manera más eficiente de obtener confidencialidad perfecta</p>
+            </section>
+
+            <section>
+                <h3>Bloque de un solo uso: &ldquo;perfecto&rdquo;</h3>
+                <p>todos los mensajes posibles se pueden obtener dada la clave apropiada a partir de un bloque cifrado $c_i$</p>
+                <p>$
+                    \begin{aligned}
+                    m_{ai} &= d(k_a, c_i) \\
+                    m_{bi} &= d(k_b, c_i) \\
+                    m_{ci} &= d(k_c, c_i) \\
+                    & \quad \vdots
+                    \end{aligned}
+                    $
+                <br/>cada clave aplicada a $c_i$ me dará todos los mensajes posibles de $\|m\|$ bits
+                    <br/>($\|m\| = \|k\|$ combinaciones)</p>
+                <span class="fragment">
+                    <p>un atacante no puede aprender nada a partir de $c_i$
+                      <br/>$\Downarrow$
+                      <br/>la confidencialidad es &ldquo;perfecta&rdquo;</p>
+                </span>
+            </section>
+
+            <section>
+                <h3>vulnerabilidades</h3>
+                <p>cero (incluso es invulnerable a los ataques de fuerza bruta)...</p>
+                <span class="fragment">
+                    <p>...mientras se cumplan las hipótesis de trabajo:</p>
+                    <ul>
+                    <li>clave $k$: sólo un solo uso</li>
+                    <li>clave $k$: aleatoria (i.e. uniformemente distribuida)</li>
+                    </ul>
+                </span>
+            </section>
+            <section>
+                <h3 style="color:#888">pre-1976</h3>
+                <p style="color:#888">Hasta los '70 la criptografía o era "insegura" o no era <span style="color:black">"práctica"</span></p>
+            </section>
+
+            <section>
+                <h3>Bloque de un solo uso: poco práctico</h3>
+                <p>$\|k\| = \|m\|$</p>
+                <p>cuesta tanto acordar $k$ de forma segura, como enviar directamente $m$ en claro
+                por el mismo canal seguro</p>
+            </section>
+            <section>
+                <p><em>El <u>teléfono rojo</u> entre Washington y Moscú era (en realitat) un teletipo
+                    que usaba cifrado de <u>bloque de un solo uso</u></em></p>
+                <p><em>La clave $k$ se intercambiaba vía por valija diplomática en cinta
+                    que se entregaba en ambos sentidos. Mientras tanto no hacía falta, se tenía que guardar protegida. Se destruía
+                    después de ser usada</em></p>
+                    <p><em>En este caso la clave se acordaba/se preparaba por adelantado para cuando 
+                    hiciera falta enviar algún mensaje poderlo hacer de forma inmediata</em></p>
+                <p><em>
+                    Además, el one-time-pad permitía trabajar de forma segura sin
+                    intercambiar ningún algoritmo secreto que permetiera dar ventaja técnica al enemigo</em></p>
+            </section>
+
+            <section>
+               <h3><a href="symmetric.html">(Criptografía Simétrica) $\rightarrow$</a></h3>
+            </section>
+        </div>
+
+    </div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-72628059-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+    <!-- <script type="text/javascript" src="js/svg_mathjax.js"></script> -->
+    <!-- <script type="text/javascript">new Svg_MathJax().install();</script> -->
+    <script type="text/javascript" src="lib/js/head.min.js"></script>
+    <script type="text/javascript" src="js/reveal.js"></script>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            slideNumber: 'c/t',
+            // history: false,
+            // fragments: true,
+            // help: true,
+            // previewLinks: false,
+            width: 1280,
+            height: 720,
+
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            // transition: 'none', // cal none
+            math: {
+                mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+                config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+            },
+
+            // Optional reveal.js plugins
+            dependencies: [
+                { src: 'plugin/math/math.js', async: true },
+                { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true },
+                { src: 'plugin/notes/notes.js', async: true }
+            ]
+        });
+    </script>
+
+    </body>
+</html>

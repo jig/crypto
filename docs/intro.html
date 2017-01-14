@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="es">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Introducció</title>
+
+        <meta name="description" content="Introducció">
+        <meta name="author" content="Jordi Íñigo Griera">
+        <!-- Implementat amb revealjs: https://github.com/hakimel/reveal.js -->
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+        <!-- Code syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+                    var link = document.createElement( 'link' );
+                    link.rel = 'stylesheet';
+                    link.type = 'text/css';
+                    link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+                    document.getElementsByTagName( 'head' )[0].appendChild( link );
+                </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+    <div class="reveal">
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+
+            <section>
+                <h1>Introducció, Història</h1>
+
+                <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
+
+				<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">
+					&ldquo;Curs d'Introducció a la criptografia&rdquo;
+				</span>
+
+                    by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/jig" property="cc:attributionName" rel="cc:attributionURL">Jordi Íñigo Griera</a> is licensed under a<br/>
+
+                    <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+                    <br />Project hosted at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/jig/crypto" rel="dct:source">github.com/jig/crypto</a></em></small>
+            </section>
+
+            <section>
+                <h1>1976</h1>
+                <p>L'NSA selecciona un algorisme de xifrat d'IBM per a comunicacions entre/amb l'administració: 
+                    DES (Data Encryption Standard)</p>
+                <p>Whitfield Diffie i Martin Hellman generen el primer algorisme pràctic de criptografia asimètrica</p>
+            </section>
+
+            <section>
+                <h1>Història</h1>
+                <h2>(pre-1976)</h2>
+            </section>
+
+            <section>
+                <h3>Criptografia $\Rightarrow$ Xifrat</h3>
+                <p>Fins els '70 la criptografia es fa servir per a dificultar que algú aliè pugui entendre el
+                que s'envia</p>
+                <p>$c = e(k,m)$</p>
+                <p style="color:#888">
+                    un missatge $m$ (<em>plain-text</em>) es xifra amb la funció de xifrat $e()$, que se
+                    li passa amb una clau $k$ per a donar el missatge<br/>xifrat $c$ (<em>cipher-text</em>)
+                </p>
+                <br/>
+                <p>$m = d(k,c)$</p>
+                <p style="color:#888">
+                    per desxifrar cal passar la clau $k$ i el missatge xifrat $c$ a la funció de desxifrat
+                    $m=d(k,c)$<br/>El resultat $m$ és el missatge en clar un altre cop
+                </p>
+            </section>
+
+            <section>
+                <h3>pre-1976</h3>
+                <p>Fins els '70 la criptografia o era "insegura" o no era "pràctica"</p>
+                <p></p>
+            </section>
+
+            <section>
+                <h3>Xifrat del Cèsar</h3>
+                <p>Canviem cada lletra del missatge, per una lletra alternativa de l'alfabet</p>
+                <p>Per exemple, per $k=3$<br/>la funció de xifrat $e(3,m)$ genera la següent taula:</p>
+                <table>
+                    <thead>
+                    <tr>
+                        <td>$m$</td>
+                        <td></td>
+                        <td>$c$</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>A</td>
+                        <td>$\rightarrow$</td>
+                        <td>X</td>
+                    </tr>
+                    <tr>
+                        <td>B</td>
+                        <td>$\rightarrow$</td>
+                        <td>Y</td>
+                    </tr>
+                    <tr>
+                        <td>C</td>
+                        <td>$\rightarrow$</td>
+                        <td>Z</td>
+                    </tr>
+                    <tr>
+                        <td>D</td>
+                        <td>$\rightarrow$</td>
+                        <td>A</td>
+                    </tr>
+                    <tr>
+                        <td>E</td>
+                        <td>$\rightarrow$</td>
+                        <td>B</td>
+                    </tr>
+                    <tr>
+                        <td>...</td>
+                        <td></td>
+                        <td>...</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h3>Desxifrat del Cèsar</h3>
+                <p>Girem la taula</p>
+                <table>
+                    <thead>
+                    <tr>
+                        <td>$c$</td>
+                        <td></td>
+                        <td>$m$</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>A</td>
+                        <td>$\rightarrow$</td>
+                        <td>D</td>
+                    </tr>
+                    <tr>
+                        <td>B</td>
+                        <td>$\rightarrow$</td>
+                        <td>E</td>
+                    </tr>
+                    <tr>
+                        <td>C</td>
+                        <td>$\rightarrow$</td>
+                        <td>F</td>
+                    </tr>
+                    <tr>
+                        <td>D</td>
+                        <td>$\rightarrow$</td>
+                        <td>G</td>
+                    </tr>
+                    <tr>
+                        <td>E</td>
+                        <td>$\rightarrow$</td>
+                        <td>H</td>
+                    </tr>
+                    <tr>
+                        <td>...</td>
+                        <td></td>
+                        <td>...</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h3>Seguretat del xifrat del César</h3>
+                <code data-trim>
+                    HOLAMON<br/>
+                    ELIXJLK
+                </code>
+                <p class="fragment">què podem fer si tenim accés al text xifrat <code data-trim>ELIXJLK</code>?</p>
+                <br/>
+                <span style="color:#585">
+                    <p class="fragment">$0 < k < 26 \implies $ podem fer un atac de <em>força bruta</em></p>
+                    <p class="fragment">si el missatge és prou llarg, podem analitzar la <em>freqüència</em> d'aparició dels caràcters</p>
+                </span>
+            </section>
+            <section>
+                <h3>Seguretat del xifrat del César</h3>
+                <p style="color:#585">$0 < k < 26 \implies $ podem fer un atac de <em>força bruta</em></p>
+                <p>Un atac de <a href="#brute-force">força bruta</a> implica provar sobre el missatge xifrat $c$
+                    totes les possibles claus $k_i$ fins que trobem "la bona":</p>
+                <ul>
+                    <li>desxifrar amb la clau $\overset{?}{m} = d(c, k_i)$ ...</li>
+                    <li>...i validar si $\overset{?}{m}$ és vàlid (o sigui, si $m=\overset{?}{m}$)</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Redundància</h3>
+                <ul>
+                    <li style="color:#888">desxifrar amb la clau $\overset{?}{m} = d(c, k_i)$ ...</li>
+                    <li>...i validar si $\overset{?}{m}$ és vàlid (o sigui, si $m=\overset{?}{m}$)</li>
+                </ul>
+                <br/>
+                <p>el segon punt no sempre és senzill</p>
+                <p>exigeix que l'espai de missatges contingui missatges
+                    vàlids (pocs) i missatges invàlids (molts)</p>
+                <p>cal <a href="https://en.wikipedia.org/wiki/Redundancy_(information_theory)">redundància</a></p>
+                <p>que en l'exemple anterior la redundància la tenim ja que <em>no</em> qualsevol
+                    combinació de caràcters genera "paraules" inintel·ligibles</p>
+                <p>una contramesura contra l'atac de força bruta contra el xifrat del Cèsar és minimitzar la redundància
+                    dels missatges (compressió, etc.)</p>                    
+            </section>
+            <section>
+                <h3>Desxifrar</h3>
+                <ul>
+                    <li>desxifrar amb la clau $\overset{?}{m} = d(c, k_i)$ ...</li>
+                    <li style="color:#888">...i validar si $\overset{?}{m}$ és vàlid (o sigui, si $m=\overset{?}{m}$)</li>
+                </ul>
+                <br/>
+                <p>el primer punt implica conèixer l'algorisme de<br/>(des)xifrat $d(\circ,\circ)$</p>
+                <p>sempre hem de suposar que un atacant coneix $d(\circ,\circ)$</p>
+                <p>la única cosa que no pot conèixer és la clau $k$</p>
+            </section>
+            <!-- <section data-background="#FF8888">
+                <h3>Seguretat del xifrat del César</h3>
+                <p>suposem que podem fer una <em>operació</em> de desxifrat i la validació en un "tic" de rellotge d'una
+                CPU actual<br/>(CLK = 1 GHz)</p>
+            <p>Això implica 1 op/ns</p>
+            <p class="fragment">El xifrat del César es trenca (en mitja) en 13 ns</p>
+            <p class="fragment">En una CPU genèrica (Intel, AMD, ARM) necessitarem<br/> 1 μs (1 Mops)</p>
+            <p class="fragment">El xifrat del César es trenca (en mitja) en una CPU estàndard en 13 μs</p>
+            </section> -->
+            <section id="brute-force">
+                <h3>Atac de força bruta</h3>
+                <p>Les contramesures contra els atacs de força bruta són:</p>
+                <ul>
+                    <li>que la operació de desxifrat sigui costosa</li>
+                    <li>que calgui fer moltes operacions de desxifrat</li>
+                </ul>
+                <p class="fragment">
+                    que la operació sigui costosa té el problema que qui desxifra lícitament tingui un cost
+                    innecessari: actualment això no es recomana
+                </p>
+                <p class="fragment">
+                    cal que l'atacant estigui obligat a provar moltes claus
+                </p>
+            </section>
+            <section id="key-space">
+                <h3>moltes claus</h3>
+                <p>en una CPU "estàndard" es proven $1.000.000$ clau/CPU/s</p>
+                <p class="fragment">és a dir: $10^6$ clau/CPU/s</p>
+                <p class="fragment">és a dir: es proven $10^{9}$ claus/s en $1000$ CPU</p>
+                <p class="fragment">és a dir: es proven $3,6·10^{12}$ claus/h en $1000$ CPU</p>
+                <span class="fragment">
+                    <p>en AWS EC2 una <a href="https://aws.amazon.com/es/ec2/pricing/">c4.large</a> costa 10 cèntim/h</p>
+                    <p>és a dir $3,6·10^{11}$ claus/€</p>
+                </span>
+                <span class="fragment">
+                    <p>si tenim capacitat de dissenyar/fabricar $d(\circ,\circ)$ en hardware
+                        (<a href="https://en.wikipedia.org/wiki/Application-specific_integrated_circuit">ASIC</a>)
+                        els costos baixen després d'un periode d'amortització
+                    </p>
+                </span>
+            </section>
+            <section>
+                <h3>Moltes claus</h3>
+                <p>$10^{11}$ claus/€ en números rodons
+                <p>e.g. si el nostre "secret" té un cost de 1000 €,<br/>ens calen $2·10^{14}$ claus diferents ($\approx2^{48}$)</p>
+            </section>
+            <section>
+                <h3>Seguretat del xifrat del César</h3>
+                <code data-trim>
+                    HOLAMON<br/>
+                    ELIXJLK
+                </code>
+                <p>què podem fer si tenim accés al text xifrat <code data-trim>ELIXJLK</code>?</p>
+                <br/>
+                <p>$0 < k < 26 \implies $ podem fer un atac de <em>força bruta</em></p>
+                <p style="color:#585">si el missatge és prou llarg, podem analitzar la <em>freqüència</em> d'aparició dels caràcters</p>
+            </section>
+            <section>
+                <h3>Anàlisi de freqüència</h3>
+                <img data-src="img/freq-catala.png"/>
+                <br/>
+                <small>(article de Catalunya a la Viquipèdia /
+                    <a href="http://www.counton.org/explorer/codebreaking/frequency-analysis.php">counton.org
+                    </a>)</small>
+                <br/>
+                <img data-src="img/freq-fcb.png"/>
+                <br/>
+                <small>(article del FCB a la Viquipèdia /
+                    <a href="http://www.counton.org/explorer/codebreaking/frequency-analysis.php">counton.org
+                    </a>)</small>
+            </section>
+            <section>
+                <h3>Anàlisi de freqüència</h3>
+                <img data-src="img/freq-catala-gran.png"/>
+                <br/>
+                <p>l'estadística es manté per diferents texts</p>
+                <p class="fragment">l'estadística es manté inalterada després del xifrat!</p>
+                <p class="fragment">podem aprofitar que l'estadistica es manté,<br/>per a trobar la clau $k$</p>
+            </section>
+
+            <section>
+                <h1>Millores al<br/>xifrat del Cèsar</h1>
+            </section>
+
+            <section id="vigenere">
+                <h3>Xifrat de Vigenère</h3>
+                <p>Similar al xifrat del Cèsar, però $k$ ara serà una seqüència de números en lloc d'un
+                    sòl número (e.g. abans $k=3$):</p>
+                <p>e.g. &nbsp; $k = \{3,24,10\}$</p>
+                <p>Nota: habitualment s'escriuen les lletres corresponents als números: $k = \{\text{D},\text{Y},\text{K}\}$
+                </p>
+                <p>exemple:</p>
+                <code data-trim>
+                    HOLAMON<br/>
+                    DYKDYKD<br/>
+                    KMVDKYQ
+                </code>
+            </section>
+
+            <section id="vigenere-key-space">
+                <h3>Vigenère: Espai de claus</h3>
+                <p>Ara l'espai de claus és (clau de $3$ caràcters):</p>
+                <p>
+                    $\begin{eqnarray}
+                    0 & < k & < {26}^{3} \\
+                    0 & < k & < 17576
+                    \end{eqnarray}$
+                </p>
+                <span class="fragment">
+                    <p>no costa gaire incrementar l'espai de claus fent
+                        <br/>servir "contrasenyes" més llargues</p>
+                    <p>en general, per a $n$ caràcters:</p>
+                    <p>$0 < k < {26}^{n}$</p>
+                    <p>e.g. &nbsp; $n=8 \implies 2·10^{11}$ <span class="fragment">(0,50 €)</span></p>
+                    <p class="fragment">e.g. &nbsp; $n=12 \implies 10^{17}$ (200.000 €)</p>
+                    <p class="fragment">e.g. &nbsp; $n=16 \implies 4·10^{22}$ (deute de Grècia)</p>
+                    <p class="fragment">e.g. &nbsp; $n=17 \implies$ (PIB mundial)</p>
+                </span>
+            </section>
+
+            <section id="vigenere-frequency-analysis">
+                <h3>Vigenère: Anàlisi freqüencial</h3>
+                <p>Si segmentem el text xifrat d'acord a la longitud de la contrasenya, cada fragment de text
+                mostrarà les mateixes estadístiques de l'idioma...</p>
+                <p>només cal saber la longitud de la "contrasenya" o...</p>
+                <p>...com que l'"espai de longituds" serà probablement
+                limitat, podem provar-los un per un fins que tenim una estadística reconeixible</p>
+                <p class="fragment">
+                    <u>amb un espai de claus gran no n'hi ha prou</u>
+                </p>
+            </section>
+
+            <section id="perfect-secrecy">
+                <h2>Confidencialitat perfecte</h2>
+                <p>en general, <em>seguretat incondicional</em></p>
+            </section>
+
+            <section>
+                <h3>què és la confidencialitat perfecte?</h3>
+                <p>a partir del text xifrat, no es pot deduir
+                    <br/><u>cap propietat</u><span class="fragment">*</span>
+                    <br/>del text original en clar,
+                    <br/>encara que l'atacant tingui capacitat computacional infinita
+                </p>
+                <br/>
+                <br/>
+                <p class="fragment">*) a part de la longitud</p>
+                <p class="fragment">*) a part del moment d'enviar-ho</p>
+                <p class="fragment">*) a part del nombre de missatges</p>
+                <p class="fragment">*) a part de la latència en respondre</p>
+            </section>
+
+            <section>
+                <h3>és factible la confidencialitat perfecte?</h3>
+                <p class="fragment">sí,
+                    <br/>i va ser inventada i patentada per Vernam el 1917
+                    <br/>i va ser demostrada la seva perfecció per Shannon el 1945</p>
+                <p></p>
+            </section>
+
+            <section>
+                <h3>com la podem implementar?</h3>
+                <p>el xifrat de Vigenère patia un problema similar al del César:<br/>
+                    manifestava l'estadística del missatge en clar<br/> en el missatge xifrat
+                </p>
+                <p>podem evitar que es manifesti l'estadística en el text xifrat, si utilitzem
+                cada lletra de la contrasenya <u>només un cop</u></p>
+                <p class="fragment">tenim confidencialitat perfecte <em>sii</em> fem servir Vigenére amb una contrasenya tan llarga
+                com el missatge<span class="fragment"> i no coneguda per l'atacant (aleatòria)</span></p>
+            </section>
+
+            <section id="one-time-pad">
+                <h3>Bloc d'un sol ús: xifrat</h3>
+                <p>Vernam va definir el <em>one-time-pad</em> d'una manera similar (però equivalent)</p>
+                <p>La funció de xifrat $c = e(k, m)$ s'implementa:</p>
+                <p>$e(k, m) = k \oplus m$</p>
+		<p>on $\|k\| = \|m\|$</p>
+		<p/>
+                <p>Nota:
+		    <br/>$\oplus$ és la <em>or-exclusiva</em> o <code>XOR</code>
+                    <br/>$\|\circ\|$ és la longitud en bits de $\circ$
+                </p>
+            </section>
+            <section>
+                <h3>Bloc d'un sol ús: desxifrat</h3>
+                <p>$d(k, c) = k \oplus c$</p>
+                <span class="fragment">
+                    <p>és fàcil demostrar que funciona ja que:</p>
+                    <p>$\begin{aligned}
+                        m &= d(k, c) \\
+                        m &= d(k, e(k, m)) \\
+                        m &= k \oplus c \\
+                        m &= k \oplus (k \oplus m) \\
+                        m &= (k \oplus k) \oplus m \\
+                        m &= \{0\}^{\|k\|} \oplus m \\
+                        m &= m
+                    \end{aligned}$</p>
+                </span>
+            </section>
+            <section  style="text-align: left;">
+                <h3>Bloc d'un sol ús: desxifrat</h3>
+                <code data-trim>
+                    k = <em>...cal obtenir-la o generar-la</em><br/>
+                    assertEqual(len(m1), len(k))<br/>
+                    c = xor(k,m1)<br/>
+                    m2 = xor(k,c)<br/>
+                    assertEqual(m1,m2)
+                </code>
+            </section>
+
+            <section>
+                <h3>Experiment amb el Gimp</h3>
+                <small>(has de tenir Gimp instal·lat per a que et funcioni l'experiment)</small>
+                <br/>
+                <a href="gimp/hola-xor.xcf"><img data-src="gimp/hola-xor.png"/></a>
+                <p>clica sobre la imatge i obre el fitxer amb Gimp</p>
+                <p>mira que està composat per dues capes (<code>Ctrl+L</code>):
+                    <br/>la clau $k$ i el missatge $m$ combinades amb <em>substract</em> (<code>XOR</code>)</p>
+            </section>
+
+            <section id="c" data-transition="none">
+                <h3>$c$</h3>
+                <a href="?transition=none/#k"><img data-src="gimp/bio-c.png"/></a>
+            </section>
+
+            <section id="k" data-transition="none">
+                <h3>$k$</h3>
+                <a href="?transition=none/#c"><img data-src="gimp/bio-k.png"/></a>
+            </section>
+
+            <section id="m" data-transition="none">
+                <h3>$m$</h3>
+                <img data-src="gimp/bio-m.png"/>
+            </section>
+
+            <section>
+                <h3>Bloc d'un sol ús: perfecte?</h3>
+                <p>Shannon va demostrar que el blocs d'un sòl ús és "perfecte", i a més a més va demostrar que
+                    la longitud en bits de la clau $k$:</p>
+                <p>$\|k\| \geq \|m\|$</p>
+                <p>i per tant, que els blocs d'un sol ús fessin servir</p>
+                <p>$\|k\| = \|m\|$</p>
+                <p>era la manera més eficient d'obtenir confidencialitat perfecte</p>
+            </section>
+
+            <section>
+                <h3>Bloc d'un sol ús: &ldquo;perfecte&rdquo;</h3>
+                <p>tots els missatges possibles és poden obtenir donada la clau apropiada a partir d'un bloc xifrat $c_i$</p>
+                <p>$
+                    \begin{aligned}
+                    m_{ai} &= d(k_a, c_i) \\
+                    m_{bi} &= d(k_b, c_i) \\
+                    m_{ci} &= d(k_c, c_i) \\
+                    & \quad \vdots
+                    \end{aligned}
+                    $
+                <br/>cada clau aplicada a $c_i$ em donarà tots els missatges possibles d'$\|m\|$ bits
+                    <br/>($\|m\| = \|k\|$ combinacions)</p>
+                <span class="fragment">
+                    <p>un atacant no pot aprendre res a partir de $c_i$
+                      <br/>$\Downarrow$
+                      <br/>la confidencialitat és &ldquo;perfecte&rdquo;</p>
+                </span>
+            </section>
+
+            <section>
+                <h3>vulnerabilitats</h3>
+                <p>cap (fins i tot és invulnerable als atacs de força bruta)...</p>
+                <span class="fragment">
+                    <p>...mentre es compleixin les hipòtesis de treball:</p>
+                    <ul>
+                    <li>clau $k$: només és un sol ús</li>
+                    <li>clau $k$: aleatòria (i.e. uniformement distribuïda)</li>
+                    </ul>
+                </span>
+            </section>
+            <section>
+                <h3 style="color:#888">pre-1976</h3>
+                <p style="color:#888">Fins els '70 la criptografia o era "insegura" o no era <span style="color:black">"pràctica"</span></p>
+            </section>
+
+            <section>
+                <h3>Bloc d'un sol ús: poc pràctic</h3>
+                <p>$\|k\| = \|m\|$</p>
+                <p>costa tant acordar $k$ de forma segura, com enviar directament $m$ en clar
+                pel mateix canal segur</p>
+            </section>
+            <section>
+                <p><em>El <u>telèfon vermell</u> entre Washington i Moscou era (en realitat) un teletip
+                    que usava xifrat de <u>bloc d'un sol ús</u></em></p>
+                <p><em>La clau $k$ s'intercanviava via diplomàtica en cinta
+                    que s'entregava en ambdós sentits. Mentre no calia, s'havia de guardar protegida. Es destruïa
+                    després de ser usada</em></p>
+                    <p><em>En aquest cas la clau s'acordava/es preparava per endavant per a quan
+                    calgués enviar algún missatge poguer-ho fer de forma immediata</em></p>
+                <p><em>
+                    A més a més, el one-time-pad permetia treballar de forma segura sense
+                    intercanviar cap algorisme secret que permetés donar una avantatge tècnic a l'enemic</em></p>
+            </section>
+
+            <section>
+               <h3><a href="symmetric.html">(Criptografia Simètrica) $\rightarrow$</a></h3>
+            </section>
+        </div>
+
+    </div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-72628059-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+    <!-- <script type="text/javascript" src="js/svg_mathjax.js"></script> -->
+    <!-- <script type="text/javascript">new Svg_MathJax().install();</script> -->
+    <script type="text/javascript" src="lib/js/head.min.js"></script>
+    <script type="text/javascript" src="js/reveal.js"></script>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            slideNumber: 'c/t',
+            // history: false,
+            // fragments: true,
+            // help: true,
+            // previewLinks: false,
+            width: 1280,
+            height: 720,
+
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            // transition: 'none', // cal none
+            math: {
+                mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+                config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+            },
+
+            // Optional reveal.js plugins
+            dependencies: [
+                { src: 'plugin/math/math.js', async: true },
+                { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true },
+                { src: 'plugin/notes/notes.js', async: true }
+            ]
+        });
+    </script>
+
+    </body>
+</html>

@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="es">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>HSM</title>
+
+        <meta name="description" content="Hardware Secure Module">
+        <meta name="author" content="Jordi Íñigo Griera">
+        <!-- Implementat amb revealjs: https://github.com/hakimel/reveal.js -->
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+        <!-- Code syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+                    var link = document.createElement( 'link' );
+                    link.rel = 'stylesheet';
+                    link.type = 'text/css';
+                    link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+                    document.getElementsByTagName( 'head' )[0].appendChild( link );
+                </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+    <div class="reveal">
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+
+            <section>
+                <h2>Generació de Nombres Aleatoris
+                    <br/><span style="text-transform:none;">i</span> HSM</h2>
+                <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
+
+				<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">
+					&ldquo;Curs d'Introducció a la criptografia&rdquo;
+				</span>
+
+                    by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/jig" property="cc:attributionName" rel="cc:attributionURL">Jordi Íñigo Griera</a> is licensed under a<br/>
+
+                    <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+                    <br />Project hosted at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/jig/crypto" rel="dct:source">github.com/jig/crypto</a></em></small>
+            </section>
+
+
+            <!-- TRNG TRNG TRNG TRNG TRNG TRNG TRNG TRNG TRNG TRNG TRNG -->
+
+
+            <section id="rng">
+                <h1>RNG</h1>
+                <p>o TRNG (<em>True Random Number Generation</em>)</p>
+                <p>parèntesi: RNG en ordinadors tradicionals (no HSM)</p>
+            </section>
+
+            <section>
+                <h3>RNG: generació</h3>
+                <p>Com implementem un RNG si no és algorísmic?</p>
+                <ul>
+                    <li>Recopilant events d'entrada (I/O) i acumulant els seus paràmetres (habitualment les xifres menys significatives de l'hora en ns ò μs)</li>
+                    <li>Mitjançant dispositius especialitzats (<a href="hsm.html">HSM</a>*)</p>
+                        <p><br/></p>
+                        <p>*) HSM: Hardware Secure Module</p>
+            </section>
+
+            <section>
+                <h3>RNG: acumulació d'aleatorietat</h3>
+                <p>les diverses fonts que farem servir per a generar la seqüència del RNG
+                    &mdash;ja sigui d'I/O, o de dispositius hardware especialitzats&mdash;
+                    les podem acumular de diferents fonts individuals mitjançant $\oplus$
+                </p>
+                <p>en el cas de que una de les fonts no sigui del tot uniforme, això no empitjora la qualitat final del RNG
+                    a condició de que al menys una de elles si que ho sigui</p>
+            </section>
+            <section>
+                <h3>RNG: acumulació d'aleatorietat</h3>
+                <p>s'ha de vigilar però que la acumulació garanteixi que:</p>
+                <ul>
+                    <li>RNG tingui una distribució uniforme</li>
+                    <li>després de $n$ no s'ha de poder predir el $n+1$ amb una probabilitat diferent de $1/2$</li>
+                </ul>
+            </section>
+            <section>
+                <h3>RNG: entropia</h3>
+                <p>el que podem fer és marcar cada font individual d'aleatorietat amb una <em>entropia</em></p>
+                <ul>
+                    <li>per a fonts perfectes tenim 1 bit d'entropia per a cada bit generat</li>
+                    <li>per a fonts menys perfectes podem necessitar diversos bits per a generar un bit d'aleatorietat</li>
+                </ul>
+            </section>
+            <section>
+                <h3>RNG: entropia</h3>
+                <ul>
+                    <li>és important "etiquetar" bé les nostres fonts (entropia)</li>
+                    <li>hem de reduir els bits rebuts a bits amb entropia 1</li>
+                    <li>els bps del RNG (abans i sobretot després de reduir) poden ser pocs (lentitut)</li>
+                </ul>
+            </section>
+            <section>
+                <h3>RNG: fonts</h3>
+                <p><span title="User Interface">UI</span> ($\ll 1$ kbps després de reducció)</p>
+                <p>latència disc dur ($\ll 1$ kbps després de reducció)</p>
+                <p>Xarxa ($\approx 1$ kbps després de reducció)</p>
+                <p>funcions de processador (Intel: $\gg$ Mbps)</p>
+            </section>
+            <section>
+                <h3>RNG: distribució uniforme</h3>
+                <p>Els RNG han de tenir unes propietats</p>
+                <p>aquestes propietats no aplican al nombre generat (o el bit) en sí, si no a les seqüències de nombres generats</p>
+                <p>la seqüència de nombres (o de bits) ha de tenir una <em>distribució uniforme</em></p>
+            </section>
+            <section>
+                <h3>RNG: distribució uniforme</h3>
+                <p>per a $n$ bits generats, la probabilitat d'una seqüència donada és la mateixa de la de cap altra ($2^{-n}$)</p>
+                <p>cap algorisme pot predir el següent bit coneguts els anteriors (y a més a més, la probabilitat d'encert ha de ser $p \aprox 1/2$)</p>
+            </section>
+            <section>
+                <h3>RNG: validació</h3>
+                <p>per seqüències prou llargues el nombre d'$1$'s i $0$'s tendeix a ser el mateix</p>
+                <p>per seqüències prou llargues el nombre de grups ${00, 01, 10, 11}$ tendeix a ser el mateix</p>
+                <p>etc.</p>
+                <p class="fragment">aquests tipus de tests permeten saber que la meva font no té problemes obvis, però no és suficient contra un
+                    atacant capaç de modificar convenient el sistema RNG</p>
+            </section>
+            <section>
+                <h3>RNG: validació?</h3>
+                <p>un RNG només es pot considerar segur si sabem com el generem, i el generem de forma segura</p>
+            </section>
+
+            <section>
+                <h3>RNG: vulnerabilitats</h3>
+                <p><a href="https://en.wikipedia.org/wiki/Random_number_generator_attack">Wikipedia: Random number generator attack</a></p>
+                <p class="fragment">Cloud: random... amb poca entropia per poca I/O</p>
+                <p class="fragment">Debian: random... amb poca entropia per errors de codi</p>
+                <p class="fragment">Intel: random... <a href="https://en.wikipedia.org/wiki/RdRand#Reception">implementació tancada</a>
+                    (<a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.473.8078&rep=rep1&type=pdf">...</a>)</p>
+                <p class="fragment">PlayStation 3: random...
+                    <a href="http://www.engadget.com/2010/12/29/hackers-obtain-ps3-private-cryptography-key-due-to-epic-programm/">constant</a></p>
+            </section>
+
+            <section>
+                <h3>RNG: vulnerabilitats</h3>
+                <p>la criptografia és segura sempre que les hipòtesis de funcionament es compleixin</p>
+                <p>l'aleatorietat suficient de la font RNG (o PRNG) és una d'elles</p>
+                <p class="fragment"><img data-src="img/random_number.png"/>
+                    <br/><small>(de <a href="https://xkcd.com/221/">xkcd.com/221</a>)</small></p>
+            </section>
+
+            <section>
+                <h3>RNG <span style="text-transform:none;">ò</span> PRNG</h3>
+                <p>per a generar claus hem de fer servir PRNG o RNG?</p>
+                <span class="fragment">
+                    <p>podem fer servir PRNG a condició que:</p>
+                    <ol>
+                        <li>el PRNG s'alimenti d'una llavor RNG</li>
+                        <li>que el PRNG sigui de qualitat criptogràfica (fer servir un
+                            <code>AES-CTR</code>
+                            xifrant una seqüència constant és una bona opció)
+                        </li>
+                        <li>que la llavor tingui prou entropia per a cobrir el nivell de seguretat
+                        requerit (i.e. $128$ b d'entropia per a claus de seguretat $128$ b equivalent
+                            com <code>AES-128</code> o <code>RSA-3072</code>)</li>
+                        <li>i que es mantinguin les hipòtesi de seguretat: no reutilitzar en cap cas cap seqüència de bits
+                        (ja sigui RNG ò PRNG) i que les fonts físiques de RNG tinguin una entropia ben estimada i condicionada,
+                        i que els generadors PRNG siguin de bona qualitat i cobreixin un espai de possibilitats suficient (i.e.
+                            cal fer servir <code>AES-256-CTR</code> si volem generar claus amb $256$ b de seguretat amb una mateixa
+                            seqüència)</li>
+                    </ol>
+                </span>
+            </section>
+
+            <section>
+                <h1>dispositius<br/> ad-hoc per a<br/> RNG</h1>
+                <p>(<em>usats en HSM, SmartCards, algunes CPUs, etc.</em>)</p>
+            </section>
+
+            <section>
+                <h3>RNG: soroll tèrmic</h3>
+                <p><img data-src="img/sorolltermic.png" width="480"/></p>
+                <p>una resistència a temperatura ambient, té electrons lliures que es mouen aleatòriament (càrrega negativa)
+                    i podem mesurar-ne el desequilibri momentani amb un conversor Analògic/Digital</p>
+                <p>el conversor donarà una seqüència indefinida de bits aleatoris</p>
+            </section>
+
+            <section>
+                <h3>RNG: soroll tèrmic</h3>
+                <p>el soroll tèrmic és el resultat d'un fenòmen caòtic (no estrictament aleatori)</p>
+                <p>(...)</p>
+            </section>
+
+            <section id="quantum-rng">
+                <h3>RNG: indeterminació quàntica</h3>
+                <p><img data-src="img/randomquantic.png" width="480"/></p>
+                <p>amb una font (tènue) apuntem a un mirall semireflectant; dos fotodetectors detecten un o l'altre el fotó
+                de forma totalment aleatòria</p>
+            </section>
+
+            <section>
+                <h3>generador random quàntic</h3>
+                <p><img data-src="img/idquantiquerng.png" width="480"/>
+                    <br/><small>(d'<a href="http://www.idquantique.com/random-number-generation/quantis-rng-oem-component/">idquantique.com</a>)</small></p>
+            </section>
+
+            <section>
+                <h3>RNG?</h3>
+                <p>les dues famílies de dispositius generen nombres aleatoris... però no uniformes</p>
+                <ul>
+                    <li>RNG tèrmic: limitat per l'amplada de banda (senyal)</li>
+                    <li>RNG quàntic: limitat per la precisió del mirall (semireflectància del 50,000...%)</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Reducció/condicionament</h3>
+                <p>el flux en cru es processa sempre, típicament:</p>
+                <ul>
+                    <li>es descarten les seqüències de '1' i de '0' i només es genera un random en els canvis</li>
+                    <p><img data-src="img/condicionatrng.png" width="480"/>
+                        <br/>això redueix els bps però "uniformitza" la seqüència
+                    </p>
+                    <li>s'aplica una PRF/PRP sobre el flux anterior (e.g. les CPU's Intel xifren la seqüència amb AES-128 i la clau 0..0)</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>RNG a Linux</h3>
+                <p>a Linux (Ubuntu) tenim dues fonts random:</p>
+                <ul>
+                    <li><code>/dev/random</code>: sortida RNG basada en I/O ($\approx$ bps)</li>
+                    <li><code>/dev/urandom</code>: <em>unblocking random</em>, sortida PRNG enriquida amb <code>/dev/random</code>; ($\approx$ Mbps)</li>
+                </ul>
+                <p>a altres Linux tenim diferents combinacions de <code>/dev/random</code> i amb aleatorietat obtinguda de fonts diferents</p>
+            </section>
+
+
+            <!-- HSM  HSM  HSM  HSM  HSM  HSM  HSM  HSM  HSM  HSM  HSM -->
+
+
+            <section>
+                <h1>HSM</h1>
+                <p><em>(Hardware Secure Module)</em></p>
+            </section>
+
+            <section>
+                <h3>HSM</h3>
+                <p><em>(Hardware Secure Module)</em></p>
+                <p>les funcions d'un HSM són:</p>
+                <ul>
+                    <li>generar claus de qualitat</li>
+                    <li>custodiar-les de forma segura</li>
+                    <li>protegir-les contra ús ilegítim</li>
+                    <li>assegurar-ne l'ús correcte</li>
+                    <li>secundàries: <ul>
+                        <li>velocitat (TPS, acceleració TLS)</li>
+                        <li>volum (quantitat de claus)</li>
+                        <li>portabilitat (mobilitat física)</li>
+                        <li>clau compartida (n/m)</li>
+                    </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="smartcard">
+                <h3>Exemples: portabilitat</h3>
+                <p>
+                    <img src="img/dni30xip.png"/>
+                    <br/><small>(font
+                        <a href="http://www.dnielectronico.es/PDFs/Guia_de_Referencia_DNIe_con_NFC.pdf">DGP</a>)
+                    </small>
+                </p>
+            </section>
+
+            <section id="usb">
+                <h3>Exemples: portabilitat</h3>
+                <img src="img/jig-yubikey4nano.png"/>
+            </section>
+
+            <section id="pci">
+                <h3>Exemples: servidors</h3>
+                <img src="img/ncipher-pci.png"/>
+            </section>
+
+            <section id="rack-thales">
+                <h3>Exemples: servei en xarxa</h3>
+                <img src="img/ncipher-xarxa.png"/>
+            </section>
+
+            <section id="rack-safenet">
+                <h3>Exemples: servei en xarxa</h3>
+                <img src="img/safenet.png"/>
+            </section>
+
+            <section>
+                <h3>subsistemes</h3>
+                <p>per a implementar les funcions anteriors cal:</p>
+                <ul>
+                    <li>generador de claus aleatòries (RNG)</li>
+                    <li>ús controlat verificable
+                        <ul>
+                            <li>protecció física (no es pot llegir el sistema de fitxers, o modificar el software
+                                sense fer malbé l'HSM)</li>
+                            <li>protecció software (API amb control d'accés)</li>
+                        </ul>
+                    </li>
+                    <li>àrea d'atac mínima (API "minimalista", fa més improbable els <em>bugs</em> o els <em>security flaws</em>)</li>
+                </ul>
+            </section>
+
+            <section>
+                <img src="img/esquemahsm.png"/>
+            </section>
+
+            <section>
+                <h3>FIPS 140-2</h3>
+                <p>els HSM poden ser certificats segons
+                    <a href="https://web.archive.org/web/20070817151620/http://csrc.nist.gov/publications/fips/fips140-2/fips1402.pdf">FIPS 140-2</a>
+                    <br/>en diferents nivells:
+                </p>
+                <p>aquest estàndar defineix els requeriments de seguretat que han de seguir els HSM (certificats):</p>
+                <p><em>
+                    The security requirements cover areas related to the secure design and implementation of a
+                    cryptographic module. These areas include cryptographic module specification; cryptographic module
+                    ports and interfaces; roles, services, and authentication; finite state model; physical security;
+                    operational environment; cryptographic key management; electromagnetic interference/electromagnetic
+                    compatibility (EMI/EMC); self-tests; design assurance; and mitigation of other attacks.
+                </em></p>
+            </section>
+            <section>
+               <h3>FIPS 140-2</h3>
+                <ul>
+                    <li>FIPS 140-2 <strong>nivell 1</strong>: sense contramesures físiques (són llibreries); anàlisi lògic i de algorismes</li>
+                    <li>FIPS 140-2 <strong>nivell 2</strong>: nivell 1, i ha de disposar de contramesures passives per a detectar l'accés físic (segells, evidències)</li>
+                    <li>FIPS 140-2 <strong>nivell 3</strong>: nivell 2, i ha de disposar de contramesures actives per a contrarestar l'accés físic (zeroització)
+                    i només permet exporta les claus xifrades</li>
+                    <li>FIPS 140-2 <strong>nivell 4</strong>: nivell 3, i ha de disposar de validació formal del funcionament</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>FIPS 140-2</h3>
+                <p>per a gestionar claus d'usuaris per a signatura avançada habitualment es requereix FIPS 140-2 <strong>nivell 2</strong></p>
+                <p>per a autoritats de validació o de segell de temps, habitualment es requereix FIPS 140-2 <strong>nivell 2</strong></p>
+                <p>per a autoritats de certificació habitualment es requereix FIPS 140-2 <strong>nivell 3</strong></p>
+            </section>
+
+            <section id="pkcs11">
+                <h3>PKCS #11</h3>
+                <p><a href="https://www.emc.com/emc-plus/rsa-labs/standards-initiatives/pkcs-11-cryptographic-token-interface-standard.htm">PKCS #11</a>
+                    és una especificació de la API dels HSM en llenguatge C (literalment un <code>.h</code>)</p>
+                <p><br/></p>
+                <p>PKCS: <em>Public Key Cryptographic Standard</em>. Estàndards de facto publicats per RSA Labs. Inc. (ara EMC<sup>2</sup> (ara Dell Technologies));
+                    <br/>actualment la gestió de l'estàndard ha passat a
+                    <a href="https://www.oasis-open.org/committees/documents.php?wg_abbrev=pkcs11">OASIS</a>
+                </p>
+            </section>
+
+            <section data-background="#FF8888">
+                <h3>PKCS#11: operacions</h3>
+                <ul>
+                    <li>login, gestió de sessió</li>
+                    <li>generació de claus simètriques/asimètriques</li>
+                    <li>xifrat/desxifrat simètric</li>
+                    <li>signat/verificat simètric</li>
+                    <li>desxifrat/signat asimètric</li>
+                    <li>operacions per a acord de claus (TLS)</li>
+                    <li>RNG</li>
+                    <li>des/ensobrat de claus (<em>key un/wrap</em>)</li>
+                    <li>gestió d'objectes</li>
+                </ul>
+            </section>
+
+            <!-- Shamir Shamir Shamir Shamir -->
+
+            <section>
+                <h3>Partició de Secrets</h3>
+                <p>en claus importants (e.g. d'una CA arrel) un HSM pot no ser suficient (i si el roben?)</p>
+                <p>en aquests casos podem dividir la clau en trossos:</p>
+                <ul>
+                    <li>dividir la cadena de bits en trossos $\Rightarrow$ disminueix la seguretat</li>
+                    <li>$\oplus$ entre les claus $\Rightarrow$
+                        <a href="intro.html#perfect-secrecy" title="confidencialitat perfecte">segur incondicionalment</a>,
+                        però fràgil</li>
+                    <li>algorisme de Shamir $\Rightarrow$
+                        <a href="intro.html#perfect-secrecy" title="confidencialitat perfecte">segur incondicionalment</a>,
+                        i robust</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Partició de secrets</h3>
+                <p>ho podem fer "per software"?</p>
+                <span class="fragment">
+                <p>sí, però el secret ha estat "en clar" en la RAM de l'ordinador per tant un cop recuperat
+                el secret la seva exposició ha augmentat notablement</p>
+                <p>però en HSM és una propietat habitual</p>
+                </span>
+            </section>
+
+            <section>
+                <h3>Algorisme de Shamir</h3>
+                <p><img src="img/shamir-secret-sharing.png"/>
+                <br/>permet dividir el secret en $M$ trossos, dels quals en calen $N$ per a recuperar-lo</p>
+            </section>
+
+            <section>
+                <h3>Algorisme de Shamir</h3>
+                <p>definit sobre $\mathbb{Z}_{p}^{*}$ (no sobre $\mathbb{R}$ com al dibuix anterior)</p>
+                <p>si en lloc de fer servir una recta (polinomi de grau $1$),
+                    fem servir un polinomi de grau $M-1$ podem ajustar quants trossos
+                    cal recuperar ($M$)</p>
+                <p>podem fer-ne tants trossos ($N$) com calgui ($N | N \geq M$)</p>
+            </section>
+            <section>
+                <h3>Algorisme de Shamir</h3>
+                <ul>
+                <li>és robust: mentre disposem d'$M$ dels $N$ fragments, podrem recuperar el secret</li>
+                <li>és segur: cal robar/extorquir/pressionar/... $M$ participants per a obtenir el secret</li>
+                <li class="fragment">és segur: sobre $\mathbb{Z}_p^*$
+                    és <a href="intro.html#perfect-secrecy">incondicionalment segura</a></li>
+                <li class="fragment">és segur: a condició que es compleixi la hipòtesi que l'HSM és impenetrable</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3><a href="tls.html">(TLS) $\rightarrow$</a></h3>
+            </section>
+        </div>
+
+    </div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-72628059-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+    <!-- <script type="text/javascript" src="js/svg_mathjax.js"></script> -->
+    <!-- <script type="text/javascript">new Svg_MathJax().install();</script> -->
+    <script type="text/javascript" src="lib/js/head.min.js"></script>
+    <script type="text/javascript" src="js/reveal.js"></script>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            slideNumber: 'c/t',
+            // history: false,
+            // fragments: true,
+            // help: true,
+            // previewLinks: false,
+            width: 1280,
+            height: 720,
+
+
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            math: {
+                mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+                config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+            },
+
+            // Optional reveal.js plugins
+            dependencies: [
+                { src: 'plugin/math/math.js', async: true },
+                { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true },
+                { src: 'plugin/notes/notes.js', async: true }
+            ]
+        });
+    </script>
+
+    </body>
+</html>

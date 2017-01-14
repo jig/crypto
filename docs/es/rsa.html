@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="es">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>RSA</title>
+
+        <meta name="description" content="Introducción al algoritmo RSA">
+        <meta name="author" content="Jordi Íñigo Griera">
+        <!-- Implementat amb revealjs: https://github.com/hakimel/reveal.js -->
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+        <!-- Code syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+    <div class="reveal">
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section>
+                <h1>RSA</h1>
+                <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
+
+				<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">
+					&ldquo;Curso de Introducción a la Criptografía&rdquo;
+				</span>
+
+                    by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/jig" property="cc:attributionName" rel="cc:attributionURL">Jordi Íñigo Griera</a> is licensed under a<br/>
+
+                    <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+                    <br />Project hosted at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/jig/crypto" rel="dct:source">github.com/jig/crypto</a></em></small>
+            </section>
+            <section>
+                <h1>RSA</h1>
+                <p>{Ron Rivest, &#1506;&#1491;&#1497; &#1513;&#1502;&#1497;&#1512; (Adi Shamir), Leonard Adleman; 1978}</p>
+                <p>Permite implementar el cifrado y la firma, mediante el <span title="RSA Problem">RSAP</span> (Problema RSA)</p>
+                <p>El RSAP es un <em>problema con trampa</em> que se basa en la dificultad del cálculo de
+                    la raíz $e$-ésima$\pmod{n}$ para valores de $n$ con ciertas propiedades
+                </p>
+            </section>
+
+
+            <section>
+                <h2>RSAP</h2>
+                <h3>(el problema RSA)</h3>
+                <p>Supongamos que tenemos un mensaje $m$ y que lo <a href="complexity.html#/function-permutation">permutamos</a> con la función:</p>
+                <p>$c = m^e \pmod n$</p>
+                <div class="fragment">
+                    <p>para recuperar (descifrar) el mensaje original a partir de $c$ hace falta invertir:</p>
+                    <p>$m = \sqrt[e]{c} \pmod n$</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>pero</h2>
+                <p>sii $n$ no es primo el cálculo de</p>
+                <p>$m \equiv \sqrt[e]{c} \pmod n$</p>
+                <p>es <a href="complexity.html">computacionalmente difícil</a>* para valores de $n$ con factores suficientmente grandes (y desconocidos)</p>
+            </section>
+
+            <section>
+                <p>hemos cifrado un mensaje $m$<br>
+                    pero no hay manera de descifrar el resultado $c$&hellip;</p>
+                <p class="fragment">&hellip;si no conocemos "la trampa"</p>
+            </section>
+
+            <section id="trapdoor">
+                <h2>la trampa</h2>
+                <p>según el <a href="x-teoria-de-nombres.html#euler">teorema de Euler</a>:</p>
+                <p>$m^{\phi(n)} \equiv 1 \pmod n$</p>
+                <br>
+                <div class="fragment"></p><p>$(m^{\phi(n)})^t \equiv 1 \pmod n$</p></div>
+                <div class="fragment"><p>$m^{t \phi(n)} \equiv 1 \pmod n$</p></div>
+                <div class="fragment"><p>$m^{t \phi(n)}m \equiv m \pmod n$</p></div>
+                <div class="fragment"><p>$m^{t \phi(n)+1} \equiv m \pmod n$</p></div>
+                <!-- <p>*) <em>trampa</em> és una traducció lliure de <em>trapdoor</em> (trapa, escapatòria)</p> -->
+                <!-- <div class="fragment"><p>$m^{r \pmod{\phi(n)}} \equiv m^{r} \pmod n$</p></div>-->
+            </section>
+
+
+            <section>
+                <p>$m^{t \phi(n)+1} \equiv m \pmod n$</p><hr/>
+                <div>
+                    <p>teniendo esto en cuenta para&hellip;</p>
+                    <p>\[
+                        \begin{aligned}
+                        c & \equiv m^{e} \pmod n \\
+                        m & \equiv \sqrt[e]{c} \pmod n \leftarrow \text{computacionalmente infactible}
+                        \end{aligned}
+                        \] </p>
+                </div>
+                <div class="fragment">
+                    <p>&hellip; tomamos un atajo dando la vuelta "por el otro lado",
+                        exponenciando suficientemente para llegar otra vez hasta $m$:</p>
+                    <p>\[
+                        \begin{aligned}
+                        c & \equiv m^{e} \pmod n \\
+                        m & \equiv c^{\color{red}d} \pmod n \qquad \rightarrow m \equiv m^{e\color{red}d} \pmod n
+                        \end{aligned}
+                    \]</p>
+                </div>
+            </section>
+
+            <section>
+                <p>$m^{t \phi(n)+1} \equiv m \pmod n$</p>
+                <p>\[
+                    \begin{aligned}
+                    c & \equiv m^{e} \pmod n \\
+                    m & \equiv c^{\color{red}d} \pmod n \qquad \rightarrow m \equiv m^{e\color{red}d} \pmod n
+                    \end{aligned}
+                    \] </p>
+                <hr>
+                <div class="fragment">
+                    <p>sólo hace falta encontrar un $\color{red}d$ que:</p>
+                    <p>$e\color{red}d = t \phi(n) + 1$</p>
+                </div>
+                <div class="fragment"><p>$e\color{red}d \equiv 1 \bmod{\phi(n)}$</p></div>
+                <div class="fragment"><p>$\color{red}d \equiv e^{-1} \bmod{\phi(n)}$</p></div>
+            </section>
+
+            <section>
+                <p>$\color{red}d \equiv e^{-1} \bmod{\phi(n)}$</p>
+                <p>&nbsp;</p>
+                <p>el cálculo de $\color{red}d$ es fácil a condición que conozcamos $\phi(n)$</p>
+                <div class="fragment">
+                    <p>y recordemos que:</p>
+                    <p>$\phi(pq) = (p-1)(q-1)$</p>
+                </div>
+                <div class="fragment">
+                    <p>&nbsp;</p>
+                    <p>para conocer $\phi(n)$ hace falta conocer los factores de $n$ (computacionalmente infactible
+                        para valores grandes de $p$ y $q$ y conociendo sólo $n$)</p>
+                </div>
+            </section>
+            <section>
+                <p>$\color{red}d \equiv e^{-1} \bmod{\phi(n)}$</p>
+                <p>&nbsp;</p>
+                <p>se debe tener en cuenta que $\phi(n)$ no es primo
+                    </br>($\phi(pq) = (p-1)(q-1)$ producto de números pares)</p>
+                <p>por tanto:</p>
+                <p>hace falta vigilar que $e$ sea invertible $\pmod{\phi{(n)}}$
+                    <br/>(es decir, que $e$ y $\phi{(n)}$ sean coprimos)
+                    <br/>(es decir, que $\text{mcd}(e, \phi{(n)}) = 1$)
+                    <!-- <br/>per a poder invertir $e$ cal que $\text{mcd}(e,d) = 1$ -->
+                </p>
+            </section>
+            <section>
+                <p>$\color{red}d \equiv e^{-1} \bmod{\phi(n)}$</p>
+                <p>para minimizar la posibilidad que $\text{mcd}(e,\phi{(n)}) \neq 1$, escogemos un exponente $e$ primo, y vigilamos simplemente que $e$ no divida $d$</p>
+                <p>habitualmente $e = 65537$ que, a parte de ser primo, sólo tiene dos $1$ en base $2$
+                    y, por tanto, permite una <a href="complexity.html#basic-op">ejecución rápida</a> de $m^e \pmod n$</p>
+                <p>y la probabilidad de que generemos una clave privada $d$ que implique que $e|\phi{(n)}$ <br/>es $1:65537$</p>
+            </section>
+
+            <section>
+                <h2>resumen de operación</h2>
+            </section>
+
+            <section>
+                <h3>Algoritmo de generación</h3>
+                <ol>
+                <li>el usuario $\text{u}$ escoge un exponente $e$<br/>(habitualmente $e = 65537$)</li>
+                <li>escoge aleatoriamente dos primos $p_\text{u}$ y $q_\text{u}$ suficientemente
+                    grandes<a title="dificuldad para factorizar" href="#threats">*</a>
+                    y suficientemente diferentes<a title="Si p y q son iguals o incluso similares la factoritzación es factible" href="#threats">**</a>
+                </li>
+                <li>calcula $\phi(n_\text{u}) = (p_\text{u}-1)(q_\text{u}-1)$ </li>
+                <li>calcula $d_\text{u} = e^{-1} \bmod{\phi(n_\text{u})}$ </li>
+                </ol>
+
+                <br>
+                <p>La Clave pública del usuario $\text{u}$ es $(e, n_\text{u})$</p>
+                <p>La Clave privada del usuario $\text{u}$ es $(d_\text{u}, (e, n_\text{u}))$</p>
+            </section>
+            <section>
+                <h3>Algoritmos de cifrado y descifrado</h3>
+                <p>para cifrar hacia el usuario $\text{u}$, nos hace falta saber<br>su clave pública $(e, n_\text{u})$:</p>
+                <p>$c = m^{e} \pmod{n_\text{u}}$</p>
+                <br>
+                <p>para descifrar, el usuario puede revertir el cifrado<br>ya que conoce $d_\text{u}$:</p>
+                <p>$m = c^{d_\text{u}} \pmod{n_\text{u}}$</p>
+            </section>
+            <section>
+                <h3>Algoritmos de firma y verificación</h3>
+                <p>para firmar, el usuario $\text{u}$ usa su clave $(e, n_\text{u})$:</p>
+                <p>$c = m^{d_\text{u}} \pmod{n_\text{u}}$</p>
+                <br>
+                <p>cualquiera puede verificar la firma conociendo $n_\text{u}$:</p>
+                <p>$m = c^{e} \pmod{n_\text{u}}$</p>
+            </section>
+            <section id="threats">
+				<h3>debilidades $\rightarrow$ contramedidas</h3>
+                <p>sobre el algoritmo:</p>
+                <ul>
+                    <li>Propiedades de la exponenciación $\rightarrow$ <a href="#pkcs1">PKCS #1</a></li>
+                    <li>Casos especiales sobre $\pmod{n}$ $\rightarrow$ PKCS #1</li>
+					<li>Factoritzación de $n$ $\rightarrow$ <a href="#keysize">longitud</a> suficiente de $n$</li>
+                </ul>
+                <p>sobre la implementación:</p>
+                <ul>
+                    <li>Ataques de tiempo $\rightarrow$ randomitzación en la ejecución</li>
+                    <li>Ataques sobre el consumo, la radiación, etc.</li>
+                    <li>compromiso de clave: acceso software o físico al sistema</li>
+                    <li>calidad de los números aleatorios (e.g. $\text{gcd}$ sobre servidores web)</li>
+                    <li>a futuro: <a href="threats.html#/asymmetric-crypto" style="color:grey;">computación cuántica</a></li>
+                    <li>&hellip;</li>
+                </ul>
+            </section>
+
+            <section id="pkcs1">
+                <h3>PKCS #1</h3>
+                <p>Para <strong>cifrado</strong>: <em>Optimal asymmetric encryption padding</em>
+                    (<a href="">OAEP</a>)
+                    <br/>mezcla un número aleatorio con el valor a cifrar,
+                    de manera que dos cifrados del mismo valor son diferentes
+                    <br/>(algoritmo determinista $\rightarrow$ algoritmo probabilístico)</p>
+                <p>Para  <strong>firma</strong>: <em>Probabilistic Signature Scheme</em>
+                    (<a href="http://www.emc.com/emc-plus/rsa-labs/historical/raising-standard-rsa-signatures-rsa-pss.htm">PSS</a>)
+                    <br/>no firmamos directamente el mensaje si no que firmamos su hash, al cual añadimos un valor aleatorio
+                    (<em>salt</em>) i un relleno (<em>padding</em>) hasta la longitud $n$
+                    <br/>(algoritmo determinista $\rightarrow$ algoritmo probabilístico)</p>
+            </section>
+
+            <section id="keysize">
+                <h3>Longitud de clave</h3>
+                <p>la dificultad del <a href="complexity.html" title="RSA Problem">RSAP</a> $n$ es equivalente realizar la raíz cuadrada modular
+                módulo un $n$ no primo, y es equivalente a factorizar $n$</p>
+				<p>el mayor $n$ factorizado es de $768$ bit $\Rightarrow$ <a href="https://en.wikipedia.org/wiki/RSA_numbers#RSA-768">Desafio RSA-768</a> (2000 anys/CPU)
+				<p>
+				<p>el NIST 
+					<a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf">recomienda</a> 
+					$\|n\| \geq 2048$ bit hasta el 2030
+                    <thead>
+				</p>
+				<table>
+                        <tr>
+                            <td style="text-align: right;">RSA</td>
+							<td></td>
+                            <td>AES</td>
+							<td>(bits de seguridad)</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="">
+                            <td style="text-align: right;">$1024$</td>
+							<td>$\leftrightarrow$</td>
+                            <td>$80$</td>
+                            <td>$80$</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;">$2048$</td>
+							<td>$\leftrightarrow$</td>
+                            <td>$112$</td>
+                            <td>$112$</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;">$3072$</td>
+							<td>$\leftrightarrow$</td>
+                            <td>$128$</td>
+                            <td>$128$</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: right;">$15360$</td>
+							<td>$\leftrightarrow$</td>
+                            <td>$256$</td>
+                            <td>$256$</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="practice">
+                <h3>práctica: openssl</h3>
+                <p>generamos y mostramos (PKCS #1) una clave RSA-2048 con $e=65537$</p>
+                <p  style="text-align: left;">
+                <code>
+                    <br/><span>$</span>
+                        <a href="https://www.openssl.org/docs/manmaster/apps/genrsa.html">openssl genrsa</a>
+                        <span title="exponente e = 4rt número de Fermat = 65537">-F4</span>
+                        <span title="longitud de clave n = 2048 bits">2048</span>
+                        |
+                        <a href="https://www.openssl.org/docs/manmaster/apps/rsa.html">openssl rsa</a>
+                        <span title="muestra los campos de la PVK">-text</span>
+                        <span title="no muestres el base64 codificado de la clave">-noout</span>
+                    <br/>modulus: ... $\rightarrow \color{red}{n}$
+                    <br/>publicExponent: 65537 (0x10001) $\rightarrow \color{red}{e}$
+                    <br/>privateExponent: ... $\rightarrow \color{red}{d}$
+                    <br/>prime1: ... $\rightarrow \color{red}{p}$
+                    <br/>prime2: ... $\rightarrow \color{red}{q}$
+                    <br/>exponent1: ... $\rightarrow$ <span style="color:red;">??</span>
+                    <br/>exponent2: ... $\rightarrow$ <span style="color:red;">??</span>
+                    <br/>coefficient: ... $\rightarrow$ <span style="color:red;">??</span>
+                    <br/><span>$</span> _
+                </code></p>
+                <!-- <p class="fragment">hi ha una manera més eficient de calcular $m^d \pmod n$ quan $n$ no
+                és primer</p> -->
+            </section>
+
+            <section id="chinese-remainder-theorem">
+                <h3>Teorema de los restos chinos</h3>
+                <p>$
+                    \begin{aligned}
+                    x &\equiv a_1 \pmod{n_1} \\
+                    x &\equiv a_2 \pmod{n_2} \\
+                    &\vdots \\
+                    x &\equiv a_i \pmod{n_i}
+                    \end{aligned}$</p>
+                <p>tiene una solución única para:</p>
+                <p>$
+                    \begin{aligned}
+                    x &\equiv a \pmod{n_1 n_2 \cdots n_i}
+                    \end{aligned}$</p>
+                <span class="fragment">
+                    <hr/>
+                <p>$
+                    \begin{aligned}
+                    x &\equiv a_p \pmod{p} \\
+                    x &\equiv a_q \pmod{q} \\
+                    &\Downarrow \\
+                    x &\equiv a \pmod{pq}
+                    \end{aligned}$</p>
+                </span>
+            </section>
+
+            <section>
+                <h3>ejemplo simple del <span title="Chinese Remainder Theorem">CRT</span></h3>
+                <p>$
+                    \begin{aligned}
+                    x &\equiv 0 \pmod{2} \rightarrow \text{x és parell}\\
+                    x &\equiv 3 \pmod{5} \rightarrow \text{x en decimal, acaba en 3 o en 8}\\
+                    &\Downarrow \\
+                    x &\equiv 8 \pmod{10} \rightarrow \text{x en decimal acaba en 8}
+                    \end{aligned}$</p>
+            </section>
+
+            <section>
+                <h3>Teorema de los restos chinos</h3>
+                <p>aplicación en RSA (algoritmo de Garner)</p>
+                <ol>
+                <li>precalculamos y guardamos en secreto (como parte de la <code>PVK</code>):
+                    <p>$\begin{aligned}
+                    d_p &= e^{-1} \bmod{(p-1)} \\
+                    d_q &= e^{-1} \bmod{(q-1)} \\
+                    q_\text{inv} &= q^{-1} \bmod{(p-1)} \\
+                \end{aligned}$
+                    </p>
+                </li>
+
+                <li>mantenemos $c = m^e \bmod{n}$; pero en lugar de hacer $m = c^d \bmod{n}$ hacemos:
+                    <p>$\begin{aligned}
+                    m_1 &= c^{d_p} \bmod{p} \\
+                    m_2 &= c^{d_q} \bmod{q} \\
+                    m &= m_2 + \bigg(q_\text{inv} (m_1 - m_2) \bmod p\bigg)
+                \end{aligned}$</p>
+                </li>
+                </ol>
+                <p>para que nos sirve este teorema?
+                    <br/>porqué 2. es más rápido que $m = c^d \bmod{n}$</p>
+            </section>
+
+            <section>
+                <h3><a href="dsa.html">(Elgamal, DSA) $\rightarrow$</a></h3>
+            </section>
+        </div>
+
+    </div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-72628059-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <!-- <script type="text/javascript" src="js/svg_mathjax.js"></script> -->
+    <!-- <script type="text/javascript">new Svg_MathJax().install();</script> -->
+    <script type="text/javascript" src="lib/js/head.min.js"></script>
+    <script type="text/javascript" src="js/reveal.js"></script>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            slideNumber: 'c/t',
+            // history: false,
+            // fragments: true,
+            // help: true,
+            // previewLinks: false,
+            width: 1280,
+            height: 720,
+
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            math: {
+                mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+                config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+            },
+
+            // Optional reveal.js plugins
+            dependencies: [
+                { src: 'plugin/math/math.js', async: true },
+                { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true },
+                { src: 'plugin/notes/notes.js', async: true }
+            ]
+        });
+    </script>
+</html>

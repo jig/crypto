@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="es">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Amenaces</title>
+
+        <meta name="description" content="Amenaces">
+        <meta name="author" content="Jordi Íñigo Griera">
+        <!-- Implementat amb revealjs: https://github.com/hakimel/reveal.js -->
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+        <!-- Code syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+                    var link = document.createElement( 'link' );
+                    link.rel = 'stylesheet';
+                    link.type = 'text/css';
+                    link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+                    document.getElementsByTagName( 'head' )[0].appendChild( link );
+                </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+    <div class="reveal">
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+
+            <section>
+                <h1>Amenaces a la criptografia</h2>
+                <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
+
+                <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">
+                &ldquo;Curs d'Introducció a la criptografia&rdquo;
+                </span>
+
+                    by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/jig" property="cc:attributionName" rel="cc:attributionURL">Jordi Íñigo Griera</a> is licensed under a<br/>
+
+                    <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+
+                    <br />Project hosted at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/jig/crypto" rel="dct:source">github.com/jig/crypto</a></em></small>
+            </section>
+
+            <section>
+                <h1>Física quàntica</h1>
+            </section>
+
+            <section>
+                <p>no confondre tres conceptes que semblen relacionats però no ho estan:</p>
+                <ul>
+                    <li><a href="hsm.html#quantum-rng">aleatorietat quàntica</a></li>
+                    <li>computació quàntica</li>
+                    <li>criptografia quàntica</li>
+                </ul>
+            </section>
+
+            <section id="asymmetric-crypto">
+                <h3>computació quàntica: cripto asimètrica</h3>
+                <p>els computadors quàntics fan servir algorismes quàntics; certs problemes exponencials o
+                    subexponencials en computadors tradicionals es converteixen en polinòmics:</p>
+                <p>DH, DSA, RSA i les variants ECC quedaran obsoletes:
+                    <br/>l'algorisme de
+                    <a href="http://arxiv.org/abs/quant-ph/9508027">Shor, 1994</a>
+                    és polinòmic per a factoritzar $pq$
+                    (<a href="rsa.html#rsap" title="RSA Problem" href="">RSAP</a>)
+                    o per a resoldre el
+                    <a href="dh.html#dlp" title="Discrete Logarithm Problem" href="">DLP</a>
+                    o l'
+                    <a href="ecc.html#ecdlp" title="Elliptic Curve Discrete Logarithm Problem">ECDLP</a>
+                </p>
+                <p class="fragment">Computació quàntica <a href="http://dilbert.com/strip/2012-04-17">segons Dilbert</a>; bits i <em>qubits</em></p>
+            </section>
+
+            <section>
+                <h3>computació quàntica: cripto asimètrica</h3>
+                <p>canviar la mida de clau no resol el problema (el pot allunyar en el temps ja que força a
+                    treballar amb computadors quàntics majors ($\times 4$ <u>qubits</u>))</p>
+                <p>fins ara (2014) s'ha factoritzat nombres de fins a $16$ bit
+                    (<a href="http://arxiv.org/abs/1411.6758">$pq=56153$</a>)
+                <p class="fragment">el 2001 IBM va factoritzar el
+                    <a href="https://www-03.ibm.com/press/us/en/pressrelease/965.wss">$pq=15$</a>
+                </p>
+            </section>
+
+            <section>
+                <h3>computació quàntica: cripto asimètrica</h3>
+                <p>no se sap quan hi haurà computadors quàntics utilitzables</p>
+                <span class="fragment">
+                    <p>no se sap quan hi haurà <u>un</u> computador quàntic utilitzable, ni qui
+                        el tindrà
+                        <br/> (però es pot suposar que probablement no ho faci públic)
+                    </p>
+                </span>
+                <p>s'ha d'estar preparat per a tenir un backup per a la criptografia asimètrica probable cap el 2030</p>
+                <p style="color:grey;" class="fragment">s'ha de ser conscient que no tothom tindrà un computador quàntic durant un temps (llarg),
+                    depenent de quin sigui l'objectiu de la nostra criptografia això serà rellevant anys més tard</p>
+            </section>
+
+            <section>
+                <h3>computació quàntica i
+                    <br/>criptografia simètrica</h3>
+            </section>
+            <section>
+                    <h3>computació quàntica: cripto simètrica</h3>
+                <p>l'algorisme de <a href="http://arxiv.org/abs/quant-ph/9605043">Grover, 1996</a> permet trobar
+                    les claus AES-128 en $2^{64}$ operacions (quàntiques) coneixent una petita quantitat de
+                    text en clar</p>
+                <p>si passem a AES-256 tindrem una seguretat equivalent de $128$ bit (ara tenim $256$ bit de seguretat
+                equivalent)</p>
+            </section>
+
+            <section>
+                <h3>computació quàntica: cripto simètrica</h3>
+                <p>no es coneix cap atac sobre els hashos ni els HMAC</p>
+            </section>
+
+            <section>
+                <h3>contramesures, resum</h3>
+                <ul>
+                    <li>fer servir claus de $256$ bit o superiors per <u>criptografia simètrica</u></li>
+                    <li><u>cripto asimètrica</u>: en els casos que es pugui fer servir cripto simètrica...
+                        <br/>...fer-les servir:
+                        <ul>
+                            <li>en VPNs intercanviar claus simètriques</li>
+                            <li>en TLS fer servir claus molt grans (calen $n$ <em>qubits</em> per trencar claus d'$n$ bits; això retarda
+                                uns anys la factibilitat de l'atac)</li>
+                            <li>a llarg termini cal trobar problemes matemàtics que tinguin complexitat sub/exponencial en un ordinador quàntic
+                                <ul><li>esperança factible: <a href="#sidh">SIDH</a></li></ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="sidh">
+                <h3><a href="https://en.wikipedia.org/wiki/Supersingular_isogeny_key_exchange">SIDH</a>:
+                    Supersingular Isogeny
+                    <br/>Diffie-Hellman Key Exchange</h3>
+                <p>SIDH està basat en corbes el·líptiques</p>
+                <p>té complexitat clàssica de $O(\sqrt[4]{2^b})$ i complexitat quàntica de $O(\sqrt[6]{2^b})$ per
+                    tant té complexitat exponencial en els dos tipus de computadors
+                </p>
+                <p>la longitud recomanada contra un ordenador clàssic (deduït de les $O()$ anteriors), és:
+                    <ul>
+                        <li>$512$ b per a $128$ b de seguretat equivalent ara (lleugerament pitjor a ECDSA)</li>
+                        <li>$768$ b per a $128$ b de seguretat equivalent en era post-quàntica</li>
+                    </ul>
+                </p>
+            </section>
+
+            <section>
+                <h3><em>Criptografia</em> Quàntica</h3>
+                <p>(no confondre amb <em>computació</em>)</p>
+                <p>acord de clau, a partir del qual es defineix una clau simètrica tradicional</p>
+                <br/>
+                <p>els dos extrems s'envien fotons individuals (fibra òptica habitualment) amb polaritzacions aleatories y sumes de control:</p>
+                <p>si un atacant "observa" l'intercanvi modifica les fotons, destruint l'intercanvi de la clau i essent detectat</p>
+            </section>
+            <section>
+                <h1>2013,
+                    <br/>Edward Snowden</h1>
+            </section>
+
+            <section id="snowden">
+                <h3>Revelacions Snowden</h3>
+                <p>el 2013 Edward Snowden filtra quantitat de documents que mostren les activitats de certes
+                    agències dels EUA (en particular de l'NSA)</p>
+                <ul>
+                    <li>inversió en computació quàntica</li>
+                    <li>captura de comunicacions (xifrades o no): Echelon (pre-Snowden), emmagatzematge de dades per a
+                        possibilitar-ne el posterior desxifrat</li>
+                    <li>milers d'enginyers i doctors dedicats a criptoanàlisi (coneixen la info publicada, i no
+                        publiquen les seves descobertes): <code>DH-1024</code>, corbes el·líptiques, <code>RC4</code>, <code>MD5</code>; per a cada dissenyador
+                        d'algorismes, l'NSA té 100 criptoanalistes (segons la pròpia NSA)</li>
+                    <li>a banda de una (suposada) capacitat de computació enorme, l'NSA dedica esforços a modificar
+                    el codi font tant de programari lliure, com de codi propietari (ja sigui "amistosament",
+                        com trobant-hi vulnerabilitats sense comunicar-les o injectant-les de forma encoberta). Programa Bullrun</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>Revelacions Snowden</h3>
+                <ul>
+                    <li>si poden evitar la criptografia ho fan:
+                        <ul>
+                            <li>és més fàcil infectar que desencriptar</li>
+                            <li>manipulació de codi (propietari i obert): coneixement d'exploits, troians</li>
+                            <li>manipulació del hardware (RNG, APIs)</li>
+                            <li>accés al núvol per la porta del darrera</li>
+                            <li>publicació d'algorismes (a través del NIST), intoxicació (<code>Dual_EC_DRGB</code>)</li>
+                            <li>extracció de dades de les metadades: eines d'inferència sobre Big-Data (tenen
+                                punxada Internet: proveïdors de núvol, d'Internet)</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>contramesures a l'NSA</h3>
+                <ul>
+                    <li>TLS amb ECDH $\Rightarrow$ (<en>Perfect Forward Secrecy</en>, PFS): el més probable es que
+                        llegeixin les teves claus del disc del teu servidor
+                        (estan en clar) $\rightarrow$ si han guardat tot el tràfic anterior tindran accés a ell amb les teves claus
+                    si el teu TLS no complia amb PFS</li>
+                    <li>gestió segura de software,
+                        restricció de la "secció" presentada,
+                        gestió d'actualitzacions fiable...</li>
+                    <li>els algorismes amb paràmetres (ECC) han d'estar validats</li>
+                    <li>no fer servir algorismes obsolets: es creu que són capaços de desxifrar RC4 sistemàticament,
+                    trobar col·lisions d'MD5, potser resoldre DLP fins a $p=1024$...</li>
+                    <li>...</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>papers d'Snowden: el què no surt</h3>
+                <p>els papers filtrats no parlen de què hi ha a la Suite-A</p>
+                <p>els papers filtrats parlen d'aliats dels EUA (<code>Five Eyes</code>), però no d'altres com Xina, Rússia, etc:
+                    se sap per altres revelacions que tenen programes equivalents</p>
+            </section>
+
+            <section data-background="#FF8888" style="text-align: left;">
+                <h3>Altres Consells</h3>
+                <p>$\rightarrow$ som a un curs de gestió de la seguretat!</p>
+                <p>$\rightarrow$ <em>formació</em>, minimització de complexitat
+                    <br/>(no sobrevalorar la nostra capacitat intel·lectual)</p>
+                <p>$\rightarrow$ <em>disciplina</em>, test/eines automàtiques, gestió d'actualitzacions procedimentada...
+                    procedimenta la teva activitat
+                    <br/>(no sobrevalorar la nostra memòria)</p>
+                <p>$\rightarrow$ <em>comunicació</em>, tots els actors rellevants de l'Organització han de entendre i compartir uns mateixos objectius
+                    de seguretat, i per tant, unes mateixes restriccions
+                    <br/>(no sobrevalorar la nostra capacitat de fer entendre a tothom que
+                    1234 en un post-it no és una $k$ <code>AES-128</code> segura...)</p>
+            </section>
+
+            <section>
+                <h3><a href="hsm.html">(RNG i HSM) $\rightarrow$</a></h3>
+            </section>
+
+<!-- <section>
+<aside class="notes">
+<pre>
+- els atacs més probables són, per ordre probablement:
+    - error humà:
+        - sistema mal configurat
+        - sistema amb software innecessari (oblidat)
+    - software vulnerable
+    - protocol vulnerable -> e.g. TLS
+    - algorismes insegurs
+    - algorisme amb paràmetres insuficients
+</pre>
+</aside>
+</section> -->
+        </div>
+
+    </div>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-72628059-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
+    <!-- <script type="text/javascript" src="js/svg_mathjax.js"></script> -->
+    <!-- <script type="text/javascript">new Svg_MathJax().install();</script> -->
+    <script type="text/javascript" src="lib/js/head.min.js"></script>
+    <script type="text/javascript" src="js/reveal.js"></script>
+
+    <script>
+        // Full list of configuration options available at:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            slideNumber: 'c/t',
+            // history: false,
+            // fragments: true,
+            // help: true,
+            // previewLinks: false,
+            width: 1280,
+            height: 720,
+
+            transition: 'slide', // none/fade/slide/convex/concave/zoom
+            math: {
+                mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+                config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+            },
+
+            // Optional reveal.js plugins
+            dependencies: [
+                { src: 'plugin/math/math.js', async: true },
+                { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true },
+                { src: 'plugin/notes/notes.js', async: true }
+            ]
+        });
+    </script>
+
+    </body>
+</html>
