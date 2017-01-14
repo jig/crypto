@@ -59,7 +59,7 @@
 
         <section>
             <h1 style="text-transform:none;">AdES</h1>
-            <p>hi ha diferents codificacions:</p>
+            <p>hay distintas codificaciones:</p>
             <ul>
                 <li>CAdES: CMS AdES,
                     <a href="http://www.etsi.org/deliver/etsi_ts/101700_101799/101733/02.02.01_60/ts_101733v020201p.pdf">
@@ -71,29 +71,29 @@
                     <a href="http://www.etsi.org/deliver/etsi_ts/102700_102799/10277801/01.01.01_60/ts_10277801v010101p.pdf">
                         ETSI TS 102 778</a></li>
             </ul>
-            <p>des del punt de vista de la signatura: equivalents</p>
-            <p>des del punt de vista de l'objecte signat: CAdES i XAdES són contenidors de fitxer genèrics,
-                i PAdES modifica un PDF per incrustar-hi la signatura</p>
+            <p>desde el punto de vista de funcional: equivalentes</p>
+            <p>desde el punto de vista del objeto firmado: CAdES y XAdES son contenedores de ficheros genéricos,
+                y PAdES modifica un PDF para incrustarle una firma</p>
         </section>
 
         <section>
                 <img src="img/AdES comparison.png"/><br/>
-                <small>(font <a href="http://blogs.adobe.com/security/91014620_eusig_wp_ue.pdf">Adobe</a>)</small>
+                <small>(fuente <a href="http://blogs.adobe.com/security/91014620_eusig_wp_ue.pdf">Adobe</a>)</small>
         </section>
 
         <section>
             <h3><span style="text-transform:none">CAdES</span>: format</h3>
-            <p>el format CAdES és el <a href="https://tools.ietf.org/html/rfc5652">CMS</a> (PKCS #7) restringit a
-                signatura, i les diferents variants són CMS amb més o menys atributs,
-                certificats, etc.</p>
-            <p>el format XAdES és l'<a href="http://www.w3.org/TR/xmldsig-core/">XMLDSig</a>,
-                afegint-hi elements específics</p>
-            <p>el format PAdES és el PDF (Adobe, ISO 32000) que ja suporta signatura insertant-hi un CMS
-                (a diferència dels anteriors suporta les múltiples signatures d'un flux de treball)</p>
+            <p>el formato CAdES es el <a href="https://tools.ietf.org/html/rfc5652">CMS</a> (PKCS #7) restringido a
+                firma, y las diferentes variantes son CMS con más o menos atributos,
+                certificados, etc.</p>
+            <p>el formato XAdES es el <a href="http://www.w3.org/TR/xmldsig-core/">XMLDSig</a>,
+                añadiendo elementos específicos</p>
+            <p>el formato PAdES es el PDF (Adobe, ISO 32000) que ya soporta firma insertando un CMS
+                (a diferencia de los anteriores soporta las múltiples firmas de un flujo de trabajo)</p>
         </section>
 
         <section>
-            <h3>Variants</h3>
+            <h3>Variantes</h3>
             <ul>
                 <li>CAdES-<strong>BES</strong>: Basic Electronic Signature</li>
                 <li>CAdES-<strong>EPES</strong>: Explicit Policy-based Electronic Signatures</li>
@@ -112,80 +112,73 @@
 
         <section>
             <h3 style="text-transform:none;">CAdES-BES: Basic Electronic Signature</h3>
-            <p>bàsicament el mateix que CMS amb certes restriccions (bàsicament restringit a signatura)</p>
+            <p>básicamente el mismo que CMS con ciertas restricciones (sólo firma)</p>
         </section>
         <section>
             <h3 style="text-transform:none;">CAdES-EPES: Explicit Policy-based Electronic Signatures</h3>
-            <p>quan es signa un document no sempre és clar el propòsit (<em>commitment</em>) pel qual es signa</p>
-            <p>en certs procediments, els signataris poden signar el document per diferents raons: "l'he llegit", "estic
-            d'acord", "accepto", "aprovo"...</p>
+            <p>cuando se firma un documento no siempre queda claro el propósito (<em>commitment</em>) por el cual se firma</p>
+            <p>en ciertos procedimientos, los firmantes pueden firmar el documento por diferentes razones: "lo he leído", "estoy
+            de acuerdo", "acepto", "apruebo"&hellip;</p>
         </section>
         <section>
             <h3 style="text-transform:none;">CAdES-EPES: Explicit Policy-based Electronic Signatures</h3>
-            <p>CAdES-EPES permet afegir a la signatura la <em>Política de signatura</em> que explica des de quines
-                condicions han de tenir els dispositius de signatura, fins quins són els propòsits dels signants,
-                els seus rols en el flux de treball, el flux de treball, etc.</p>
-            <p>l'atribut <code>signature-policy-identifier</code> permet indicar (mitjançant URL, OID, etc.) aquest
-                text</p>
+            <p>CAdES-EPES permite añadir a la firma la <em>Política de firma</em> que explica desde cuáles son las
+                condiciones que han de tener los dispositivos de firma, hasta cuáles son los propósitos de los firmantes,
+                cuáles son sus roles en el flujo de trabajo, el flujo de trabajo, etc.</p>
+            <p>el atributo <code>signature-policy-identifier</code> permite indicar (mediante URL, OID, etc.) este
+                texto</p>
         </section>
         <section>
             <h3 style="text-transform:none;">CAdES-EPES: Explicit Policy-based Electronic Signatures</h3>
-            <p>CAdES-EPES permet afegir a la signatura la <em>Política de signatura</em> que explica des de quines
-                condicions han de tenir els dispositius de signatura, fins quins són els propòsits dels signants, etc.</p>
-            <p>l'atribut <code>signature-policy-identifier</code> permet indicar aquest
-                text (mitjançant URL, OID, etc.)</p>
-        </section>
-        <section>
-            <h3 style="text-transform:none;">CAdES-EPES: Explicit Policy-based Electronic Signatures</h3>
-            <p>la política pot detallar (text) quins propòsits pot tenir la signatura, i quan es signa dóna la possibilitat
-                d'escollir-ne un (atribut <code>commitment-type-indication</code>)</p>
-            <p>la política pot distingir entre diferents rols, i es poden incorporar certificats d'atribut que
-                aportin informació validable del rol del signant (e.g. auditor, emissor, verificador...) i quins
-            propòsits per a signar pot tenir</p>
+            <p>la política puede detallar (texto) qué propósitos puede tener la firma, y cuando se firma da la posibilidad
+                de escoger uno (atributo <code>commitment-type-indication</code>)</p>
+            <p>la política puede distingir entre diferentes roles, y se pueden incorporar certificados de atributo que
+                aporten información validable del rol del firmante (e.g. auditor, emisor, verificador&hellip;) y qué
+            propósitos para firmar puede tener</p>
         </section>
 
         <section>
             <h3 style="text-transform:none;">CAdES-T: Timestamped</h3>
-            <p>és un atribut (no signat) que conté un TST
+            <p>es un atributo (no firmado) que contiene un TST
                 (<em><a href="http://tools.ietf.org/html/rfc3161.html">Time Stamp Token</a></em>)
             </p>
-            <p>aquest atribut signa el contingut original, on una tercera part demostra que el document
-            existia en un moment donat</p>
-            <p>el TST pot ser afegit a posteriori (pel receptor, o per qualsevol intermediari) sobre un
+            <p>este atributo firma el contenido original, donde una tercera parte demuestra que el documento
+            existía en un momento dado</p>
+            <p>el TST puede añadirse a posteriori (por el receptor, o por cualquier intermediario) sobre un
             CAdES-BES/EPES</p>
         </section>
         <section>
             <h3 style="text-transform:none;">CAdES-T: Timestamped</h3>
-            <p>en cas de no fer-ho el signatari, cal afegir el TST el més aviat possible per a evitar el repudi</p>
+            <p>en caso de no hacerlo el firmante, hace falta añadir el TST lo más pronto posible para evitar el repudio</p>
         </section>
 
         <section>
             <h3 style="text-transform:none;">CAdES-C: Complete validation data refs</h3>
-            <p>la validació de CAdES-T requereix d'obtenir els certificats de les CAs subordinades i de les
-            proves de (no) revocació, ja sigui OCSPs o CRLs</p>
-            <p>CAdES-C és un CAdES-T amb els Certificats, proves OCSP i CRLs adjunts (atributs no signats) en una llista
-            de hashos que referencien cadascun d'ells (no inclou per tant el valor)</p>
-            <p>el material addicional pot ser afegit a posteriori (pel receptor, o per qualsevol intermediari)</p>
+            <p>la validación de CAdES-T requiere de l obtención de los certificados de las CAs subordinadas y de las
+            pruebas de (no) revocación, ya sean OCSPs o CRLs</p>
+            <p>CAdES-C es un CAdES-T con los Certificados, pruebas OCSP y CRLs adjuntos (atributos no firmados) en una lista
+            de hashes que referencian cada uno de ellos (no incluye por tanto el valor)</p>
+            <p>el material adicional puede ser añadido a posteriori (por el receptor, o por cualquier intermediario)</p>
         </section>
         <section>
             <h3 style="text-transform:none;">CAdES-C: Complete validation data refs</h3>
-            <p>el material addicional s'ha de revisat passat un <em>periode de gràcia</em>, i actualitzat</p>
-            <p>aquest periode de gràcia està definit a les CSP i inclou el temps en el qual es permet revocar un
-            certificat un cop coneguda la seva invalidació (per pèrdua de secret, etc.)</p>
+            <p>el material adicional se ha de revisar pasado un <em>periodo de gracia</em>, y actualizado</p>
+            <p>este periodo de gracia está definido en las CSP y incluye el tiempo en el cual se permite revocar un
+            certificado una vez conocida su invalidación (por pérdida de secreto, etc.)</p>
         </section>
 
         <section>
             <h3 style="text-transform:none;">CAdES-X: EXtended Electronic Signature with Time</h3>
-            <p>a partir del CAdES-C inclou el valor del material referenciat (Certificats i proves OCSP)</p>
-            <p>hi ha diferents variants (tipus) que poden incloure segells de temps sobre les referencies i/o el
-            material de validació inclòs</p>
+            <p>a partir del CAdES-C incluye el valor del material referenciado (Certificados y pruebas OCSP)</p>
+            <p>hay diferentes variantes (tipos) que pueden incluir sellos de tiempo sobre las referencias y/o el
+            material de validación incluido</p>
         </section>
 
         <section>
             <h3 style="text-transform:none;">CAdES-A: Archival</h3>
-            <p>permet afegir TST (i certificats i proves OCSP necesàries) que permeten superar la vida del material
-            original (certificats, OCSP), ja sia per caducitat propera, o per vulnerabilitat prevista d'algun algorisme</p>
-            <p>recursivament es pot anar "encapsulant" dins nous CAdES-A per a perllongar indefinidament la integritat</p>
+            <p>permite añadir TST (y certificados y pruebas OCSP necesarias) que permiten superar la vida del material
+            original (certificados, OCSP), ya sea por caducidad próxima, o por vulnerabilidad prevista de algún algoritmo</p>
+            <p>recursivamente se puede ir "encapsulando" dentro de nuevos CAdES-A para alargar indefinidamente la integridad</p>
         </section>
 
         <!-- <section data-background="#FF8888">

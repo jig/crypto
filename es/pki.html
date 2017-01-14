@@ -77,7 +77,7 @@
             <p><em>&ldquo;compartir claves públicas (asimétricas)&rdquo;</em></p>
             <p class="fragment">hemos simplificado el problema, pero sigue siendo demasiado complejo como para que lo solventen los usuarios</p>
             <!-- claus diferents per a cada -->
-            <p class="fragment">¿cómo intercambian las claves públicas (<code>PBK</code>) de forma segura?</p>
+            <p class="fragment">¿cómo intercambiamos las claves públicas (<code>PBK</code>) de forma segura?</p>
         </section>
 
         <section>
@@ -602,7 +602,7 @@ TBSCertificate  ::=  SEQUENCE  {
             X.509
                 <br/>(X.509 versión 3)
             </p>
-            <p>hay extensiones que hace falta que sean procesadas: se marcan con el <code>Critical Bool</code>: si un
+            <p>hay extensiones que hace falta que sean procesadas:<br/>se marcan con <code>Critical True</code>: si un
             sistema procesa el certificado y no entiende la extensión (no conoce el <code>OID</code>) debe dar el certificado por inválido</p>
             <ul>
                 <li><code>BasicConstraints</code>: <code>cA, pathLenConstraint</code></li>

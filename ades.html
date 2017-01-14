@@ -71,7 +71,7 @@
                     <a href="http://www.etsi.org/deliver/etsi_ts/102700_102799/10277801/01.01.01_60/ts_10277801v010101p.pdf">
                         ETSI TS 102 778</a></li>
             </ul>
-            <p>des del punt de vista de la signatura: equivalents</p>
+            <p>des del punt de vista de funcional: equivalents</p>
             <p>des del punt de vista de l'objecte signat: CAdES i XAdES són contenidors de fitxer genèrics,
                 i PAdES modifica un PDF per incrustar-hi la signatura</p>
         </section>
@@ -130,13 +130,6 @@
         </section>
         <section>
             <h3 style="text-transform:none;">CAdES-EPES: Explicit Policy-based Electronic Signatures</h3>
-            <p>CAdES-EPES permet afegir a la signatura la <em>Política de signatura</em> que explica des de quines
-                condicions han de tenir els dispositius de signatura, fins quins són els propòsits dels signants, etc.</p>
-            <p>l'atribut <code>signature-policy-identifier</code> permet indicar aquest
-                text (mitjançant URL, OID, etc.)</p>
-        </section>
-        <section>
-            <h3 style="text-transform:none;">CAdES-EPES: Explicit Policy-based Electronic Signatures</h3>
             <p>la política pot detallar (text) quins propòsits pot tenir la signatura, i quan es signa dóna la possibilitat
                 d'escollir-ne un (atribut <code>commitment-type-indication</code>)</p>
             <p>la política pot distingir entre diferents rols, i es poden incorporar certificats d'atribut que
@@ -169,7 +162,7 @@
         </section>
         <section>
             <h3 style="text-transform:none;">CAdES-C: Complete validation data refs</h3>
-            <p>el material addicional s'ha de revisat passat un <em>periode de gràcia</em>, i actualitzat</p>
+            <p>el material addicional s'ha de revisar passat un <em>periode de gràcia</em>, i actualitzat</p>
             <p>aquest periode de gràcia està definit a les CSP i inclou el temps en el qual es permet revocar un
             certificat un cop coneguda la seva invalidació (per pèrdua de secret, etc.)</p>
         </section>
