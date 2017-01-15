@@ -615,7 +615,7 @@ TBSCertificate  ::=  SEQUENCE  {
 
         <section id="recognised-ca" data-background="#FF8888">
             <h3>Lista de CA<span style="text-transform:lowercase;">s</span> reconocidas</h3>
-            <p>las CAs reconocidas (raíz) deben obtener se de forma fiable</p>
+            <p>las CAs reconocidas (raíz) deben obtenerse de forma fiable</p>
             <ul>
                 <li>dentro del S.O. y las actualizaciones del S.O.</li>
                 <li>dentro del software que utiliza las claves (navegador, validador de firmas) y sus
@@ -761,7 +761,7 @@ TBSCertList  ::=  SEQUENCE  {
                     administración de las CA, CRLA, VA, RA&hellip;</li>
                 <li>renovación de claves de la CA (subordinadas, raíces): las migraciones de PKI hasta ahora han sido masivas
                     por el paso de SHA-1 a SHA-2</li>
-                <li>compromíso de clave: hay cierta probabilidad (póliza de seguro) de que no se hayan aplicado los procedimientos
+                <li>compromiso de clave: hay cierta probabilidad (póliza de seguro) de que no se hayan aplicado los procedimientos
                     y medidas técnicas para proteger las claves</li>
                 <li>certificados &ldquo;verdes&rdquo; (contraejemplo: CA
                     <a
@@ -875,11 +875,11 @@ EnvelopedData ::= SEQUENCE {
         </section>
 
         <section>
-            <h3>PKCS #7: como a archivo de certificados</h3>
+            <h3>PKCS #7: como archivo de certificados</h3>
             <p>el PKCS #7 se usa a veces como formato para entregar certificados (y CRL)
-                <br/>(e.g. el meu certificat i la cadena de CA):</p>
+                <br/>(e.g. mi certificado y la cadena de CA):</p>
             <p>el PKCS #7 se le da con <code>content</code> <code>SignedData</code>&hellip; conteniendo los certificados
-                i/o las CRL, pero sin datos ni firmas</p>
+                y/o las CRL, pero sin datos ni firmas</p>
         </section>
 
         <section id="pkcs" style="color:FF8888;">
