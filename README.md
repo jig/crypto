@@ -35,8 +35,6 @@ _Transparències en català a [jig.github.io/crypto](https://jig.github.io/crypt
           - hash (amb `openssl dgst`)
           - mac (amb `openssl dgst -hmac`)
     
-  - `ssh` y `sshd`: 
-
   - Criptografía asimétrica:
     - generar claves RSA (con `openssl genrsa`) y ECDSA (con `openssl ecparam` y `openssl ec`)
         - parsear, convertir (con `openssl rsa`, con `openssl ec`)
@@ -63,13 +61,13 @@ _Transparències en català a [jig.github.io/crypto](https://jig.github.io/crypt
           - certificación con la CA [PKI tutorial](https://pki-tutorial.readthedocs.io/en/latest/) (variante) para servidores corporativos/privados
           - CA, TLS Server preconfigurados a:
 
-              ```
-              $ docker run --name CAROOT -ti jordi/caroot
-              $ docker run --name CASUBOR -p 443:443 -ti jordi/casubor
-              $ docker run --name NGINX -p 443:443 -ti jordi/nginx
-              $ docker run --name CLIENT -p 443:443 -ti jordi/client
-              ```        
-              
+```
+$ docker run --name CAROOT -ti jordi/caroot
+$ docker run --name CASUBOR -p 443:443 -ti jordi/casubor
+$ docker run --name NGINX -p 443:443 -ti jordi/nginx
+$ docker run --name CLIENT -p 443:443 -ti jordi/client
+```        
+
           - Código fuente de las imágenes de estos contenedores en el proyecto [github.com/jig/docker-openssl](https://github.com/jig/docker-openssl)
 
 
@@ -85,14 +83,14 @@ _Transparències en català a [jig.github.io/crypto](https://jig.github.io/crypt
  symmetric | Teoría de Números
            |                
 
- 30        | 2         |
+ 30        | 2-febrero |
 -----------|-----------|  
 DH         |ECC        | 
 RSA        |Complejidad|  
 Elgamal    |Amenazas   |  
 DSA        |HSM        |
 
- 25        | 26               
+ 6         | 9
 ---------- | ---------------- 
  HSM       | (exercicis → PKI/servidor HTTPS/Client)
  TLS       | 
