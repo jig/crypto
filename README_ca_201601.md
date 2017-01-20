@@ -141,4 +141,4 @@ Aquesta obra està subjecta a una llicència de [Reconeixement 4.0 Internacional
 
 [![Llicència de Creative Commons](https://i.creativecommons.org/l/by/4.0/88x31.png)](http://creativecommons.org/licenses/by/4.0/)
 
-Copyright © 2016 [Jordi Íñigo Griera](https://github.com/jig)
+Copyright © Copyright © 2016-2017 [Jordi Íñigo Griera](https://github.com/jig)
