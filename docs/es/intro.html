@@ -193,7 +193,7 @@
                 <br/>
                 <span style="color:#585">
                     <p class="fragment">$0 < k < 26 \implies $ podemos hacer un ataque de <em>fuerza bruta</em></p>
-                    <p class="fragment">si el mensaje es suficientemente largo, podemos analizar la <em>frecuencia</em> de aparición dels carácteres</p>
+                    <p class="fragment">si el mensaje es suficientemente largo, podemos analizar la <em>frecuencia</em> de aparición de los carácteres</p>
                 </span>
             </section>
             <section>
@@ -214,7 +214,7 @@
                 </ul>
                 <br/>
                 <p>el segundo paso no siempre es posible</p>
-                <p>exige que el espacio de mensajes contenga mensages
+                <p>exige que el espacio de mensajes contenga mensajes
                     válidos (pocos) y mensajes inválidos (muchos)</p>
                 <p>hace falta <a href="https://en.wikipedia.org/wiki/Redundancy_(information_theory)">redundancia</a></p>
                 <p>que en el ejemplo anterior la redundancia la tenemos ya que <em>no</em> cualquier
@@ -226,11 +226,11 @@
                 <h3>Descifrar</h3>
                 <ul>
                     <li>descifrar con la clave $\overset{?}{m} = d(c, k_i)$ ...</li>
-                    <li style="color:#888">...y validar si $\overset{?}{m}$ es valido (o sea, si $m=\overset{?}{m}$)</li>
+                    <li style="color:#888">...y validar si $\overset{?}{m}$ es válido (o sea, si $m=\overset{?}{m}$)</li>
                 </ul>
                 <br/>
                 <p>el primer punto implica conocer el algoritmo de<br/>(des)cifrado $d(\circ,\circ)$</p>
-                <p>siempre supondremos que un atacante conoce $d(\circ,\circ)$</p>
+                <p>Principio de Kerckhoffs: siempre supondremos que un atacante conoce $d(\circ,\circ)$</p>
                 <p>la única cosa que no debe conocer es la clave $k$</p>
             </section>
             <!-- <section data-background="#FF8888">
@@ -251,7 +251,7 @@
                 </ul>
                 <p class="fragment">
                     que la operación sea costosa tiene el problema que quien descifra lícitamente tiene un coste
-                    innecessario: actualmente esto no se recomienda
+                    innecesario: actualmente esto no se recomienda
                 </p>
                 <p class="fragment">
                     que el atacante esté obligado a probar muchas claves
@@ -280,7 +280,7 @@
                 <p>e.g. si nuestro "secreto" tiene un coste de 1000 €,<br/>nos hacen falta $2·10^{14}$ claves diferentes ($\approx2^{48}$)</p>
             </section>
             <section>
-                <h3>Seguridad del cifrat del César</h3>
+                <h3>Seguridad del cifrado del César</h3>
                 <code data-trim>
                     HOLAMON<br/>
                     ELIXJLK
