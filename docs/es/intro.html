@@ -184,7 +184,9 @@
             </section>
 
             <section>
-                <h3>Seguridad del cifrado del César</h3>
+                <h3>Seguridad del cifrado del César 
+                    <a title="Pruébalo en counton.org" href="http://www.counton.org/explorer/codebreaking/caesar-cipher.php">*</a>
+                </h3>
                 <code data-trim>
                     HOLAMON<br/>
                     ELIXJLK
@@ -318,7 +320,9 @@
             </section>
 
             <section id="vigenere">
-                <h3>Cifrado de Vigenère</h3>
+                <h3>Cifrado de Vigenère
+                    <a title="Pruébalo en counton.org" href="http://www.counton.org/explorer/codebreaking/vigenere-cipher.php">*</a>
+                </h3>
                 <p>Similar al cifrado del César, pero $k$ ahora será una secuencia de números en lugar de un 
                     sólo número (e.g. antes $k=3$):</p>
                 <p>e.g. &nbsp; $k = \{3,24,10\}$</p>
@@ -346,9 +350,9 @@
                         <br/>"contraseñas" más largas</p>
                     <p>en general, para $n$ carácteres:</p>
                     <p>$0 < k < {26}^{n}$</p>
-                    <p>e.g. &nbsp; $n=8 \implies 2·10^{11}$ <span class="fragment">(0,50 €)</span></p>
-                    <p class="fragment">e.g. &nbsp; $n=12 \implies 10^{17}$ (200.000 €)</p>
-                    <p class="fragment">e.g. &nbsp; $n=16 \implies 4·10^{22}$ (deuda de Grecia)</p>
+                    <p>e.g. &nbsp; $n=8 \implies 26^{8} = 2·10^{11}$ <span class="fragment">(0,50 €)</span></p>
+                    <p class="fragment">e.g. &nbsp; $n=12 \implies 26^{12} = 10^{17}$ (200.000 €)</p>
+                    <p class="fragment">e.g. &nbsp; $n=16 \implies 26^{16} = 4·10^{22}$ (deuda de Grecia)</p>
                     <p class="fragment">e.g. &nbsp; $n=17 \implies$ (PIB mundial)</p>
                 </span>
             </section>
@@ -375,7 +379,7 @@
                 <p>a partir del texto cifrado, no se puede deducir
                     <br/><u>ninguna propiedad</u><span class="fragment">*</span>
                     <br/>del texto original en claro,
-                    <br/>aunque el atacante tenga capacidad computacional infinita
+                    <br/>aunque el atacante tenga capacidad computacional <u>infinita</u>
                 </p>
                 <br/>
                 <br/>
@@ -398,9 +402,9 @@
                 <p>el cifrado de Vigenère sufría un problema similar al del César:<br/>
                 manifestaba la estadística del mensaje en claro<br/> en el mensaje cifrado
                 </p>
-                <p>podemos evitar que se manifieste la estadística en el texto cifrado, si utilizamos 
+                <p class="fragment">podemos evitar que se manifieste la estadística en el texto cifrado, si utilizamos 
                     cada letra de la contraseña <u>una sola vez</u></p>
-                <p class="fragment">tenimos confidencialidad perfecta <em>sii</em> usamos Vigenére con una contraseña tan larga
+                <p class="fragment">tenemos confidencialidad perfecta <em>sii</em> usamos Vigenére con una contraseña tan larga
                 como el mensaje<span class="fragment"> y no conocida por el atacante (aleatoria)</span></p>
             </section>
 

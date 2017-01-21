@@ -186,7 +186,9 @@
             </section>
 
             <section>
-                <h3>Seguretat del xifrat del César</h3>
+                <h3>Seguretat del xifrat del César
+                    <a title="Prova-ho a counton.org" href="http://www.counton.org/explorer/codebreaking/vigenere-cipher.php">*</a>                    
+                </h3>
                 <code data-trim>
                     HOLAMON<br/>
                     ELIXJLK
@@ -320,7 +322,9 @@
             </section>
 
             <section id="vigenere">
-                <h3>Xifrat de Vigenère</h3>
+                <h3>Xifrat de Vigenère
+                    <a title="Prova-ho a counton.org" href="http://www.counton.org/explorer/codebreaking/vigenere-cipher.php">*</a>
+                </h3>
                 <p>Similar al xifrat del Cèsar, però $k$ ara serà una seqüència de números en lloc d'un
                     sòl número (e.g. abans $k=3$):</p>
                 <p>e.g. &nbsp; $k = \{3,24,10\}$</p>
@@ -348,9 +352,9 @@
                         <br/>servir "contrasenyes" més llargues</p>
                     <p>en general, per a $n$ caràcters:</p>
                     <p>$0 < k < {26}^{n}$</p>
-                    <p>e.g. &nbsp; $n=8 \implies 2·10^{11}$ <span class="fragment">(0,50 €)</span></p>
-                    <p class="fragment">e.g. &nbsp; $n=12 \implies 10^{17}$ (200.000 €)</p>
-                    <p class="fragment">e.g. &nbsp; $n=16 \implies 4·10^{22}$ (deute de Grècia)</p>
+                    <p>e.g. &nbsp; $n=8 \implies 26^{8} = 2·10^{11}$ <span class="fragment">(0,50 €)</span></p>
+                    <p class="fragment">e.g. &nbsp; $n=12 \implies 26^{12} = 10^{17}$ (200.000 €)</p>
+                    <p class="fragment">e.g. &nbsp; $n=16 \implies 26^{16} = 4·10^{22}$ (deute de Grècia)</p>
                     <p class="fragment">e.g. &nbsp; $n=17 \implies$ (PIB mundial)</p>
                 </span>
             </section>
@@ -377,7 +381,7 @@
                 <p>a partir del text xifrat, no es pot deduir
                     <br/><u>cap propietat</u><span class="fragment">*</span>
                     <br/>del text original en clar,
-                    <br/>encara que l'atacant tingui capacitat computacional infinita
+                    <br/>encara que l'atacant tingui capacitat computacional <u>infinita</u>
                 </p>
                 <br/>
                 <br/>
@@ -400,7 +404,7 @@
                 <p>el xifrat de Vigenère patia un problema similar al del César:<br/>
                     manifestava l'estadística del missatge en clar<br/> en el missatge xifrat
                 </p>
-                <p>podem evitar que es manifesti l'estadística en el text xifrat, si utilitzem
+                <p class="fragment">podem evitar que es manifesti l'estadística en el text xifrat, si utilitzem
                 cada lletra de la contrasenya <u>només un cop</u></p>
                 <p class="fragment">tenim confidencialitat perfecte <em>sii</em> fem servir Vigenére amb una contrasenya tan llarga
                 com el missatge<span class="fragment"> i no coneguda per l'atacant (aleatòria)</span></p>
