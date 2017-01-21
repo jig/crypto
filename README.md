@@ -23,10 +23,33 @@ _Transparències en català a [jig.github.io/crypto](https://jig.github.io/crypt
   - [Infraestructura de Clave Pública (PKI)](http://jig.github.io/crypto/pki.html) `59`
   - [Advanced Electronic Signatures (AdES)](http://jig.github.io/crypto/ades.html) `17` → `87`
 
-## Resumen
+### Resumen
   
   - [Resumen](http://jig.github.io/crypto/es/abstract.html) de los objetivos de las funciones criptográficas y de las responsabilidades de las autoridades PKI `8`
   
+## Calendario, Enero 2017
+
+ 24           | 26               
+----------    | ---------------- 
+ Introducción | MAC              
+ Simétrica    | HMAC             
+              | Teoría de Números
+              |                
+
+ 30        | 2-febrero |
+-----------|-----------|  
+DH         |ECC        | 
+RSA        |Complejidad|  
+Elgamal    |Amenazas   |  
+DSA        |HSM        |
+
+ 6         | 9
+---------- | ---------------- 
+ HSM       | (ejercicios → PKI/servidor-https/cliente-https)
+ TLS       | 
+ PKI       | 
+ AdES      |
+
 ## Ejercicios (a realizar en clase en función del tiempo)
   - Criptografía simétrica:
       - bloques de un sólo uso [Gimp](https://www.gimp.org) (_one-time-pad_ para uso pedagógico exclusivamente)
@@ -70,40 +93,13 @@ $ docker run --name CLIENT -p 443:443 -ti jordi/client
 
           - Código fuente de las imágenes de estos contenedores en el proyecto [github.com/jig/docker-openssl](https://github.com/jig/docker-openssl)
 
+# Software utilizado para realizar las transparencias
 
-## Calendario, Enero 2017
-
- 24        | 26               
----------- | ---------------- 
- intro     | MAC              
-           | HMAC             
-           |                  
-           |                  
-           |                  
- symmetric | Teoría de Números
-           |                
-
- 30        | 2-febrero |
------------|-----------|  
-DH         |ECC        | 
-RSA        |Complejidad|  
-Elgamal    |Amenazas   |  
-DSA        |HSM        |
-
- 6         | 9
----------- | ---------------- 
- HSM       | (exercicis → PKI/servidor HTTPS/Client)
- TLS       | 
- PKI       | 
- AdES      |
-
-# Software utilizado
-
-  - [Reveal.js](https://github.com/hakimel/reveal.js): para realizar las transparencies
+  - [Reveal.js](https://github.com/hakimel/reveal.js): formateo, paginación
   - [MathJax](https://www.mathjax.org) ([LaTeX](http://latex-project.org)): para presentar las ecuaciones
   - [SVG-edit](https://github.com/SVG-Edit/svgedit): para mostrar gráficos vectoriales
   
-## Impresión de las transparencias
+## Impresión
   
 Si quieres imprimir las transparencias no hagas `Ctrl+P` directamente. Mejor utilizada un "template" específico para impresión añadiendo `?print-pdf` a la URL antes de imprimir. para más información consulta las 
 [instrucciones de exportación a PDF de Revealjs](https://github.com/hakimel/reveal.js/#pdf-export)
@@ -124,7 +120,7 @@ O también, puedes clonar el proyecto en tu disco duro local (necesitas un clien
 $ git clone git@github.com:jig/crypto.git
 ```
 
-de esta manera tienes una còpia local que siempre puedes mantener al día con:
+de esta manera tienes una copia local que siempre puedes mantener al día con:
 
 ```
 $ git pull
@@ -132,7 +128,7 @@ $ git pull
 
 # Licencia
 
-Esta obra esta sujeta a una licéncia de [Atribución 4.0 Internacional de Creative Commons](http://creativecommons.org/licenses/by/4.0/)
+Esta obra esta sujeta a una licencia de [Atribución 4.0 Internacional de Creative Commons](http://creativecommons.org/licenses/by/4.0/)
 
 [![Licencia de Creative Commons](https://i.creativecommons.org/l/by/4.0/88x31.png)](http://creativecommons.org/licenses/by/4.0/)
 
