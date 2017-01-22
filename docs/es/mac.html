@@ -63,7 +63,7 @@
                 <p>pruebas de integridad:
                 <br/>impiden que un atacante pueda modificar el mensaje<br/>sin que el receptor lo detecte</br>
                 <p>esta funcionalidad es ortogonal con el cifrado:
-                    <br/>cifrado y MAC se utilizan combinadas para obtener<br/>confidencialidad y integridad</p>
+                    <br/><u>cifrado y MAC</u> se utilizan combinadas para obtener<br/><u>confidencialidad y integridad</u></p>
                 <p class="fragment">Nota sobre el cifrado: un atacante puede modificar el mensaje, aunque no lo pueda
                 leer
                     <br/>(incluso hay algoritmos que le permiten realizar operaciones:<br/>e.g. $\oplus$ en cifrado de flujo)</p>
@@ -72,7 +72,7 @@
             <section>
                 <h3>MAC: casos de uso</h3>
                 <ul>
-                <li>en una transmisión, queremos validar que lo que nos envían no ha sido modificado per un atacante
+                <li>en una transmisión, queremos validar que lo que nos envían no ha sido modificado por un atacante
                     <br/>(hace falta acordar una clave $k$ previamente)</li>
                 <li>en una sistema de ficheros, queremos saber que los ficheros que hemos guardardado no han sido
                     alterados por un atacante, virus, etc. cuando volvamos a leerlos
@@ -168,6 +168,7 @@
 
             <section>
                 <h3><a href="hash.html">(Hash) $\rightarrow$</a></h3>
+                <h3><a href="hash.html#hmac">(HMAC) $\rightarrow$</a></h3>                                
             </section>
         </div>
 

@@ -625,7 +625,7 @@
                 <h3>Cifrado de bloque: modelo</h3>
                 <p>por ejemplo, para <a href="#des">DES</a> que tiene un tamaño de bloque de $n=64\text{ b}$ hacen falta:</p>
                 <p>$64·2^{64} \text{ b} = 2^{70} \text{ b} = 2^{67}\text{ B} = 2^{27}\text{ TB} = 128\text{ EB}$</p>
-                <p>... <span class="fragment">para cada una de les claves $k$</span></p>
+                <p>... <span class="fragment">para cada una de las claves $k$</span></p>
                 <p class="fragment">obviamente no es factible implementar los cifrados modernos directamente con una tabla indexada</p>
             </section>
 
@@ -967,7 +967,7 @@
                 <ul>
                     <li>AES-128/192/256: recuperación de clave en una quarta parte del tiempo que fuerza bruta $\Rightarrow$ se pierden 2 bits</li>
                     <li>AES-192/256: sii claves relacionadas, complejidad $2^{119}$ (contramedida: claves aleatorias)</li>
-                    <li>el bloque de $128$ <span title="bit">b</span> limita el uso del cifrado hasta $2^{64}$ blocs ($2^{68}$ <span title="byte">B</span>) a causa de
+                    <li>el bloque de $128$ <span title="bit">b</span> limita el uso del cifrado hasta $2^{64}$ bloques ($2^{68}$ <span title="byte">B</span>) a causa de
                         la <a href="hash.html#/birthday-attack">paradoja del cumpleaños</a> (contramedida: canviar la clave cuando
                         se haya usado para cifrar $2^{68}$ <span title="byte">B</span>)</li>
                 </ul>
@@ -990,7 +990,7 @@
                     <a title="Notación O(·) y complejidad de los diferentes algoritmos criptográficos" href="complexity.html#big-o">
                         complejidad
                     </a>
-                    $O({\sqrt{2^b}})$</p>
+                    $O(2^{b/2})$</p>
                 <p>(<em>obviamente</em>, en computación clásica tiene complejidad $O({2^b})$)</p>
                 <p/>
                 <p>Nota: $b$ son los bits de longitud de la clave AES: $128$, $192$ ó $256$</p>
@@ -1019,10 +1019,10 @@
             <section>
                 <h3>DES</h3>
                 <ul>
-                    <li>bloc: $64$ bit ($8$ Byte)</li>
+                    <li>bloque: $64$ bit ($8$ Byte)</li>
                     <li>clave: $56$ bit ($7$ Byte)</li>
                 </ul>
-                <p>16 etapes</p>
+                <p>16 etapas</p>
                 <p class="fragment">inseguro, vulnerable a ataques de
                     <a href="https://en.wikipedia.org/wiki/EFF_DES_cracker">fuerza bruta</a>
                 </p>
@@ -1030,7 +1030,7 @@
 
             <section id="triple-des">
                 <h3>3DES / <span style="text-transform:none;">Triple</span>-DES / TDES</h3>
-                <p>El xifrat es $c = e(k_1, d(k_2, e(k_1, m)))$</p>
+                <p>El cifrado es $c = e(k_1, d(k_2, e(k_1, m)))$</p>
                 <ul>
                     <li>bloque: $64$ bit ($8$ Byte)</li>
                     <li>clave: $112$ bit ($14$ Byte, i.e. $k=k_1|k_2$)</li>
@@ -1068,6 +1068,7 @@
 
             <section>
               <h3><a href="mac.html">(MAC) $\rightarrow$</a></h3>
+              <h3><a href="hash.html">(Hash) $\rightarrow$</a></h3>
             </section>
 	    
         </div>
