@@ -305,9 +305,10 @@
                 <p>suposem que tenim una funció</p>
                 <p>$\begin{aligned}
                     k' &= f(k, r) \\
-                    c &= k' \oplus m
+                    {k'}_{\text{generat}} &= \text{PRNG}(k')  \\
+                    c &= {k'}_{generat} \oplus m
                     \end{aligned}$</p>
-                <p>i enviem cada $r$ juntament amb cada $m$</p>
+                <p>i enviem cada $r$ juntament amb cada $c$</p>
                 <p class="fragment">correcte i pràctic</p>
             </section>
             <section>

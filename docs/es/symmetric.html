@@ -307,9 +307,10 @@
                 <p>supongamos que tenemos una función</p>
                 <p>$\begin{aligned}
                     k' &= f(k, r) \\
-                    c &= k' \oplus m
+                    {k'}_{\text{generada}} &= \text{PRNG}(k')  \\
+                    c &= {k'}_{generada} \oplus m
                     \end{aligned}$</p>
-                <p>y enviamos cada $r$ juntamente con cada $m$</p>
+                <p>y enviamos cada $r$ juntamente con cada $c$</p>
                 <p class="fragment">correcto y práctico</p>
             </section>
             <section>
