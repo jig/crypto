@@ -127,7 +127,7 @@
                     es $10^{-5}$ ($2^{-17}$)</p>
                 <p>la probabilidad de que te toque comprando sólo un número, $5$ sorteos consecutivos,
                     es $10^{-25}$ ($2^{-83}$)...</p>
-                <p>...esta es la probabilidad de que encuentres la clave por fuerza bruta en un tiempo negligible
+                <p>...esta es la probabilidad de que encuentres la clave por fuerza bruta en un tiempo "insignificante"
                     <br/>("sólo" en 1 millón de años con 1 millón de CPU's...)</p>
             </section>
             
@@ -148,13 +148,13 @@
             <section>
                 <h3>NIST</h3>
                 <p>el <a href="http://csrc.nist.gov/publications/nistpubs/800-57/sp800-57_part1_rev3_general.pdf">NIST</a> recomienda (2015)
-                    claves en las que un atacante<br/>haya de hacer $\frac{1}{2} 2^{113}$ pruebas</p>
+                    claves en las que un atacante<br/>tenga que hacer $2^{112}$ pruebas</p>
                 <p>Más exactamente, dice que las claves han de tener una longitud
 		  <br/>$\|k\| = 112$ b, mínimo</p>
                 <p class="fragment">A partir del 2030 prevé recomendar
 		  $\|k\| = 128$ b, mínimo</p>
+                <p class="fragment"><em>Security Strength</em>: bits de seguridad o seguridad equivalente</p>
                 <p>NIST: <em>National Institute of Standards and Technology</em> (EE.UU.)</p>
-                <p><em>Security Strength</em>: bits de seguridad o seguridad equivalente</p>
             </section>
 
             <section>
@@ -219,7 +219,7 @@
             <section>
                 <h3>PRNG: velocidad</h3>
                 <p>el cifrado irá tan rápido como seamos capaces de generar bits de $k_{\text{generada}}$</p>
-                <p>(ya que la función <code>XOR</code> tiene un coste negligible en<br/>comparación a &ldquo;$\xrightarrow{\text{PRNG}}$&rdquo;)</p>
+                <p>(ya que la función <code>XOR</code> tiene un coste insignificante en<br/>comparación a &ldquo;$\xrightarrow{\text{PRNG}}$&rdquo;)</p>
             </section>
             <section  style="text-align: left;">
                 <h3><span title="Pseudo Random Number Generation">PRNG</span>: seguridad</h3>
