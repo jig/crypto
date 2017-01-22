@@ -1,6 +1,6 @@
 # Introducción a la criptografía
 
-Transparencies en [jig.github.io/crypto/es](https://jig.github.io/crypto/es)
+Transparencias en [jig.github.io/crypto/es](https://jig.github.io/crypto/es)
 
 _Transparències en català a [jig.github.io/crypto](https://jig.github.io/crypto)_
 
