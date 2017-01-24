@@ -89,9 +89,9 @@ $ docker run --name CAROOT -ti jordi/caroot
 $ docker run --name CASUBOR -p 443:443 -ti jordi/casubor
 $ docker run --name NGINX -p 443:443 -ti jordi/nginx
 $ docker run --name CLIENT -p 443:443 -ti jordi/client
-```        
+```
 
-          - Código fuente de las imágenes de estos contenedores en el proyecto [github.com/jig/docker-openssl](https://github.com/jig/docker-openssl)
+Código fuente de las imágenes de estos contenedores en el proyecto [github.com/jig/docker-openssl](https://github.com/jig/docker-openssl)
 
 # Software utilizado para realizar las transparencias
 
