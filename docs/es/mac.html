@@ -99,7 +99,7 @@
 
             <section>
                 <h3>MAC: primera implementación</h3>
-                <p>podemos utilizar directamente una función de cifrado de <u>bloc</u>, así:
+                <p>podemos utilizar directamente una función de cifrado de <u>bloque</u>, así:
                 <br/>$t = e(k, m)$</p>
 
 		<svg width="360" height="120" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
@@ -152,7 +152,7 @@
             <section>
                 <h3>ECBC-MAC: seguridad</h3>
                 <p>ECBC-MAC es seguro mientras sea improbable encontrar una <a href="hash.html#collision">colisión</a></p>
-                <p>la probabilidad de colisión es cercana a $0.5$ para una cantidad de bloques generados de aproximadamente $\sqrt{|\text{bloc}|}$</p>
+                <p>la probabilidad de colisión es cercana a $0.5$ para una cantidad de bloques generados de aproximadamente $\sqrt{|\text{bloque}|}$</p>
                 <p>e.g. en el caso de AES el bloque es de $128$ b, por tanto, no podremos usar la misma clave:
                 <br/>$\text{ops} \ll \sqrt{2^{128}} = 2^{64}$</p>
                 <p>(valores aceptados para una clave AES-128/192/256:
