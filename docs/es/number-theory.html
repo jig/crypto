@@ -88,7 +88,7 @@
                 <h3>Operaciones sobre $\mathbb{Z}$</h3>
                 <p>$+$, $-$, $\times$, $\text{div}$</p>
                 <br/>
-                <p>$a, b \in \mathbb{Z}$ i $b \neq 0$ entonces:</p>
+                <p>$a, b \in \mathbb{Z}$ y $b \neq 0$ entonces:</p>
                 <p>$\begin{aligned}
                     a \text{ div } b &= \lfloor a/b\rfloor \leftarrow \text{cociente }q\text{, dividendo }a\text{, divisor }b\\
                     a \bmod b &= a - b\lfloor a/b\rfloor \leftarrow \text{resto } r\;(0 \leq r < b)
@@ -116,7 +116,7 @@
             <section id="fundamental">
                 <h3>Hecho: Teorema fundamental de la aritmética</h3>
                 <p>Todo entero $n$ se puede <em>factorizar</em> (descomponerse) en el producto de potencias de números <em>primos</em>:</p>
-                <p>$n = p_1^{e_1}p_2^{e_2}p_3^{e_3}\cdots p_k^{e_k}$ amb $(e_i \geq 0)$</p>
+                <p>$n = p_1^{e_1}p_2^{e_2}p_3^{e_3}\cdots p_k^{e_k}$ con $(e_i \geq 0)$</p>
                 <p>y esta descomposición es única</p>
             </section>
 
@@ -321,7 +321,7 @@
                     <p>Casos particulers:</p>
                     <p>Sii $p$ primo: $\phi(p)=p-1$</p>
                 </span>
-                <p class="fragment">Sii $p$ i $q$ primos: $\phi(pq)=(p-1)(q-1)$</p>
+                <p class="fragment">Sii $p$ y $q$ primos: $\phi(pq)=(p-1)(q-1)$</p>
             </section>
 
             <section>
@@ -484,7 +484,7 @@
                 <h3>Para $\mathbb{Z}_{n}^*$ cíclico con generador $\alpha$</h3>
                 <p>se cumple que:
                    <br/>
-                    $\mathbb{Z}_{n}^* = \{\alpha^i \pmod n \; | \; 0 \leq i < \phi(n)\}$</p>
+                    $\mathbb{Z}_{n}^* = \{\alpha^i \pmod n \; | \; 0 \leq y < \phi(n)\}$</p>
                 <p class="fragment">tenemos el conjunto original (simplemente ordenado de forma diferente)</p>
                 <!-- fer un dibuix: <p class="fragment">és una <a href="symmetric.html#permutation">permutació</a></p> -->
             </section>
@@ -543,7 +543,7 @@
                 </section>
                 <section>
                     <h3>(Contra)Ejemplo: $\mathbb{Z}_{11}^*$</h3>
-                    <p>No son generadores $1$, $3$, $4$, $5$ i $9$ i $10$</p>
+                    <p>No son generadores $1$, $3$, $4$, $5$, $9$ y $10$</p>
                     <p>$\mathbb{Z}_{11}^* = \{1,2,3,4,5,6,7,8,9,10\}$</p>
                     <!-- <p>$\phi(11)=10$</p> -->
                     <p>$1^i \pmod{11} = \{1,1,1,1,1,1,1,1,1,1\} \; | \; 1 \leq i \leq 10$</p>
