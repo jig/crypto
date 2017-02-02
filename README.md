@@ -31,7 +31,7 @@ _Transparències en català a [jig.github.io/crypto](https://jig.github.io/crypt
 
  24           | 26               
 ----------    | ---------------- 
- Introducción | MAC              
+ Introducción | ~~MAC~~           
  Simétrica    | HMAC             
               | Teoría de Números
               |                
@@ -48,7 +48,7 @@ DSA        |HSM        |
  HSM       | (ejercicios → PKI/servidor-https/cliente-https)
  TLS       | 
  PKI       | 
- AdES      |
+ ~~AdES~~  |
 
 ## Ejercicios (a realizar en clase en función del tiempo)
   - Criptografía simétrica:
