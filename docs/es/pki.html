@@ -84,7 +84,7 @@
             <h3>Confianza: Claves públicas</h3>
             <p>nos hace falta un mapeo <u>seguro</u>:</p>
             <p><br/></p>
-            <p>PBK<sub>usuario</sub> &nbsp; <span style="color:violet;">$\rightarrow$</span> &nbsp; identidad usuario</p>
+            <p>PBK<sub>interlocutor</sub> &nbsp; <span style="color:violet;">$\rightarrow$</span> &nbsp; identidad interlocutor</p>
         </section>
         <section>
             <p>los datos se protegen con <code><span style="color:red;">CIPHER</span>_<span style="color:orange;">HASH</span></code></p>
@@ -95,11 +95,11 @@
             <p>$\downarrow$</p>
             <p>Claves públicas de servidor y cliente (opcionalmente)
             <p style="color:violet;">$\downarrow$</p>
-            <p>identidad usuario</p>
+            <p>identidad interlocutor</p>
         </section>
         <section>
             <h3>Confianza: Claves públicas</h3>
-            <p>PBK<sub>usuario</sub> &nbsp; <span style="color:violet;">$\leftrightarrow$</span> &nbsp; identidad usuario</p>
+            <p>PBK<sub>interlocutor</sub> &nbsp; <span style="color:violet;">$\leftrightarrow$</span> &nbsp; identidad interlocutor</p>
             <ul>
             <li>sistema central de distribución: lista de PBKs compartida
                 <ul>
@@ -147,12 +147,12 @@
         <section>
             <h3>Gestión con Certificados</h3>
             <p>un certificado contiene la tupla:</p>
-            <p><code>(identidad usuario, PBK<sub>usuario</sub>)</code></p>
+            <p><code>(identidad interlocutor, PBK<sub>interlocutor</sub>)</code></p>
             <p><br/></p>
             <p>y para poder verificar la integridad (y la autenticidad) una
                 <em>tercera parte de confianza</em> (TTP)
                 firma esta tupla:</p>
-            <p><code>PVK<sub>TTP</sub>(identidad usuario, PBK<sub>usuario</sub>)</code></p>
+            <p><code>PVK<sub>TTP</sub>(identidad interlocutor, PBK<sub>interlocutor</sub>)</code></p>
             <p><br/></p>
             <p>Nota: <code>PVK<sub>TTP</sub>(</code>&hellip;<code>)</code> significa firma RSA o ECDSA sobre la cadena "&hellip;"</p>
         </section>
@@ -218,9 +218,9 @@
                         <rect id="svg_4" height="82" width="123" y="253" x="46.5" stroke-width="2" stroke="#000000" fill="none"/>
                         <text xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" id="svg_5" y="364" x="71.5" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">PVK</text>
   <text xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" id="svg_6" y="403.25" x="166" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">PVK     (us1, PBK      )</text>
-  <text xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" id="svg_7" y="301" x="107.5" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">usuari 1</text>
+  <text xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" id="svg_7" y="301" x="107.5" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">usuario 1</text>
                         <rect id="svg_8" height="82" width="123" y="253.5" x="300.73438" stroke-width="2" stroke="#000000" fill="none"/>
-                        <text id="svg_11" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="303.5" x="363.73438" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">usuari 2</text>
+                        <text id="svg_11" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="303.5" x="363.73438" stroke-linecap="null" stroke-linejoin="null" stroke-width="0" stroke="#000000" fill="#000000">usuario 2</text>
                         <line stroke-width="2" id="svg_12" y2="252" x2="111" y1="110.75" x1="285" stroke-linecap="null" stroke-linejoin="null" stroke="#000000" fill="none"/>
                         <line id="svg_13" y2="253" x2="368.5" y1="111.5" x1="331.5" stroke-linecap="null" stroke-linejoin="null" stroke-width="2" stroke="#000000" fill="none"/>
                         <line id="svg_14" y2="269" x2="535.5" y1="111" x1="385" stroke-linecap="null" stroke-linejoin="null" stroke-width="2" stroke="#000000" fill="none"/>
@@ -363,7 +363,7 @@
 
         <section id="x509">
             <h3>Certificados X.509</h3>
-            <p>Estructura serializada <code>PVK<sub>CA</sub>(usuario, PBK<sub>usuario</sub>)</code></p>
+            <p>Estructura serializada <code>PVK<sub>CA</sub>(interlocutor, PBK<sub>interlocutor</sub>)</code></p>
             <ul>
                 <li>estructura <span title="Abstract Syntax Notation #1">ASN.1</span> denominada <code>Certificate</code> (también X.509)</li>
                 <li>serialización <span title="Distinguished Encoding Rules">DER</span></li>
@@ -545,8 +545,8 @@ Certificate  ::=  SEQUENCE  {
 
         <section>
             <h3 style="text-transform:none;"><code>
-                <span style="color:red">PVK<sub>CA</sub></span>(<span style="color:green">usuario<sub>x</sub></span>,
-                <span style="color:blue">PBK<sub>usuario<sub>x</sub></sub></span>)
+                <span style="color:red">PVK<sub>CA</sub></span>(<span style="color:green">interlocutor<sub>x</sub></span>,
+                <span style="color:blue">PBK<sub>interlocutor<sub>x</sub></sub></span>)
             </code></h3>
             <pre>
 Certificate  ::=  SEQUENCE  {

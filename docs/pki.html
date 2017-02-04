@@ -84,7 +84,7 @@
             <h3>Confiança: Claus públiques</h3>
             <p>ens cal un mapeig <u>segur</u>:</p>
             <p><br/></p>
-            <p>PBK<sub>usuari</sub> &nbsp; <span style="color:violet;">$\rightarrow$</span> &nbsp; identitat usuari</p>
+            <p>PBK<sub>interlocutor</sub> &nbsp; <span style="color:violet;">$\rightarrow$</span> &nbsp; identitat interlocutor</p>
         </section>
         <section>
             <p>les dades es protegeixen amb <code><span style="color:red;">CIPHER</span>_<span style="color:orange;">HASH</span></code></p>
@@ -95,11 +95,11 @@
             <p>$\downarrow$</p>
             <p>Claus públiques de servidor i client</p>
             <p style="color:violet;">$\downarrow$</p>
-            <p>identitat usuari</p>
+            <p>identitat interlocutor</p>
         </section>
         <section>
             <h3>Confiança: Claus públiques</h3>
-            <p>PBK<sub>usuari</sub> &nbsp; <span style="color:violet;">$\leftrightarrow$</span> &nbsp; identitat usuari</p>
+            <p>PBK<sub>interlocutor</sub> &nbsp; <span style="color:violet;">$\leftrightarrow$</span> &nbsp; identitat interlocutor</p>
             <ul>
             <li>sistema central de distribució: llista de PBKs compartida
                 <ul>
@@ -137,7 +137,7 @@
                         <code>servidor<span style="color:red">#</span>  <strong>/etc/ssh/ssh_host_rsa_key</strong></code> (...)
                     </ul>
                 </li>
-                <li>el servidor guarda la clau pública vàlida per a cada usuari
+                <li>el servidor guarda la clau pública vàlida per a cada interlocutor
                     <ul>
                         <code>servidor|<span style="color:orange">pep$</span>  <strong>~/.ssh/authorized_keys</strong></code> (...)
                     </ul>
@@ -147,12 +147,12 @@
         <section>
             <h3>Gestió amb Certificats</h3>
             <p>un certificat conté la tupla:</p>
-            <p><code>(identitat usuari, PBK<sub>usuari</sub>)</code></p>
+            <p><code>(identitat interlocutor, PBK<sub>interlocutor</sub>)</code></p>
             <p><br/></p>
             <p>i per a poder-ne verificar la integritat (i l'autenticitat) una
                 <em>tercera part de confiança</em> (TTP)
                 signa aquesta tupla:</p>
-            <p><code>PVK<sub>TTP</sub>(identitat usuari, PBK<sub>usuari</sub>)</code></p>
+            <p><code>PVK<sub>TTP</sub>(identitat interlocutor, PBK<sub>interlocutor</sub>)</code></p>
             <p><br/></p>
             <p>Nota: <code>PVK<sub>TTP</sub>(</code>...<code>)</code> significa signatura RSA o ECDSA sobre la cadena "..."</p>
         </section>
@@ -363,7 +363,7 @@
 
         <section id="x509">
             <h3>Certificats X.509</h3>
-            <p>Estructura serialitzada <code>PVK<sub>CA</sub>(usuari, PBK<sub>usuari</sub>)</code></p>
+            <p>Estructura serialitzada <code>PVK<sub>CA</sub>(interlocutor, PBK<sub>interlocutor</sub>)</code></p>
             <ul>
                 <li>estructura <span title="Abstract Syntax Notation #1">ASN.1</span> anomenada <code>Certificate</code> (també X.509)</li>
                 <li>serialització <span title="Distinguished Encoding Rules">DER</span></li>
@@ -545,8 +545,8 @@ Certificate  ::=  SEQUENCE  {
 
         <section>
             <h3 style="text-transform:none;"><code>
-                <span style="color:red">PVK<sub>CA</sub></span>(<span style="color:green">usuari<sub>x</sub></span>,
-                <span style="color:blue">PBK<sub>usuari<sub>x</sub></sub></span>)
+                <span style="color:red">PVK<sub>CA</sub></span>(<span style="color:green">interlocutor<sub>x</sub></span>,
+                <span style="color:blue">PBK<sub>interlocutor<sub>x</sub></sub></span>)
             </code></h3>
             <pre>
 Certificate  ::=  SEQUENCE  {
