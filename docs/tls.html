@@ -163,7 +163,7 @@
         </section> -->
         <section>
             <small>
-            <h3>inicialització (resum; suposant caché TLS buida)</h3>
+            <h3>inicialització (resum; suposant caché TLS buida) <a title="vegeu [draft IETF TLS-1.3 #18]" href="https://tools.ietf.org/html/draft-ietf-tls-tls13-18">*</a></h3>
             <p style="text-align: left;"><code>ClientHello</code> $\longrightarrow$<br/>conté un random, cipher-suites suportats, versió</p>
                 <p/>
             <p style="text-align: right;">$\longleftarrow$ <code>ServerHello</code><br/>conté un random, session-ID, i la versió de TLS i el cipher-suite usat<!-- extensions --></p>
@@ -172,6 +172,7 @@
             <p style="text-align: right;">$\longleftarrow$ <span title="Cas que el servidor vulgui autenticació de client"><code>CertificateRequest</code>$\dagger$</span>
                 <br/>(si el servidor requereix autenticació de client) DN's de les CA acceptades</p>
             <p/>
+            <p style="text-align: right;">$\longleftarrow$ <code>CertificateVerify</code><br/>signatura dels missatges anteriors</p>           
             <p style="text-align: left;"><code>Certificate</code> $\longrightarrow$
                 <br/>(si el servidor requereix autenticació de client) cadena de certificats incloent la del client
             </p>

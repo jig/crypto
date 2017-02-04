@@ -132,7 +132,7 @@
 
         <section>
             <h3>TLS: historia</h3>
-            <p>TLS es el succesor del SSL y ha ido evolucionando por diferentes versiones en respuesta a los direntes ataques
+            <p>TLS es el succesor del SSL y ha ido evolucionando por diferentes versiones en respuesta a los diferentes ataques
                 teóricos y prácticos que han ido surgiendo</p>
             <p>los clientes cuando se conectan acuerdan utilizar la versión más moderna que soporten ambos extremos:</p> 
             <ul>
@@ -163,7 +163,7 @@
         </section> -->
         <section>
             <small>
-            <h3>inicialización (resumen; suponiendo caché TLS vacía)</h3>
+            <h3>inicialización (resumen; suponiendo caché TLS vacía) <a title="ver [draft IETF TLS-1.3 #18]" href="https://tools.ietf.org/html/draft-ietf-tls-tls13-18">*</a></h3>
             <p style="text-align: left;"><code>ClientHello</code> $\longrightarrow$<br/>contiene un random, cipher-suites soportados, versión</p>
                 <p/>
             <p style="text-align: right;">$\longleftarrow$ <code>ServerHello</code><br/>contiene un random, session-ID, y la versión de TLS y el cipher-suite usado<!-- extensions --></p>
@@ -171,7 +171,8 @@
             <p style="text-align: right;">$\longleftarrow$ <code>ServerKeyExchange</code><br/>(si DHE) parámetros DH y su clave pública (efímera: <u>preMasterSecret</u>)</p>
             <p style="text-align: right;">$\longleftarrow$ <span title="Caso que el servidor requiera autenticación de cliente"><code>CertificateRequest</code>$\dagger$</span>
                 <br/>(si el servidor requiere autenticación de cliente) DN's de las CA aceptadas</p>
-            <p/>
+            <p style="text-align: right;">$\longleftarrow$ <code>CertificateVerify</code><br/>firma de los mensajes anteriores</p>
+
             <p style="text-align: left;"><code>Certificate</code> $\longrightarrow$
                 <br/>(si el servidor requiere autenticación de cliente) cadena de certificados incluyendo la del cliente
             </p>
