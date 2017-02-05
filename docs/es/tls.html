@@ -168,7 +168,7 @@
                 <p/>
             <p style="text-align: right;">$\longleftarrow$ <code>ServerHello</code><br/>contiene un random, session-ID, y la versión de TLS y el cipher-suite usado<!-- extensions --></p>
             <p style="text-align: right;">$\longleftarrow$ <code>Certificate</code><br/>cadena de certificados incluyendo el del servidor</p>
-            <p style="text-align: right;">$\longleftarrow$ <code>ServerKeyExchange</code><br/>(si DHE) parámetros DH y su clave pública (efímera: <u>preMasterSecret</u>)</p>
+            <p style="text-align: right;">$\longleftarrow$ <code>ServerKeyExchange</code><br/>(si DHE) parámetros DH y su clave pública (efímera: <u>InputSecret</u>)</p>
             <p style="text-align: right;">$\longleftarrow$ <span title="Caso que el servidor requiera autenticación de cliente"><code>CertificateRequest</code>$\dagger$</span>
                 <br/>(si el servidor requiere autenticación de cliente) DN's de las CA aceptadas</p>
             <p style="text-align: right;">$\longleftarrow$ <code>CertificateVerify</code><br/>firma de los mensajes anteriores</p>
@@ -176,7 +176,7 @@
             <p style="text-align: left;"><code>Certificate</code> $\longrightarrow$
                 <br/>(si el servidor requiere autenticación de cliente) cadena de certificados incluyendo la del cliente
             </p>
-            <p style="text-align: left;"><code>ClientKeyExchange</code> $\longrightarrow$<br/>(si DHE) clave pública DH (efímera: <u>preMasterSecret</u>)</p>
+            <p style="text-align: left;"><code>ClientKeyExchange</code> $\longrightarrow$<br/>(si DHE) clave pública DH (efímera: <u>InputSecret</u>)</p>
             <p style="text-align: left;"><span title="Caso que el servidor requiera autenticación de cliente"><code>CertificateVerify</code>$\dagger$</span>
                 $\longrightarrow$<br/>(si el servidor requiere autenticación de cliente) firma de los mensajes anteriores</p>
             </small>
@@ -184,7 +184,7 @@
 
         <section>
             <h3>Protocol: inicialización</h3>
-            <p>a partir de los dos <code>PreMasterSecret</code> se genera el <code>MasterSecret</code></p>
+            <p>a partir de los dos <code>InputSecret</code> se genera el <code>MasterSecret</code></p>
             <p>del <code>MasterSecret</code> se derivan 4 claves y 2 IV:</p>
             <ul>
                 <li>clave de cifrado de cliente a servidor (y viceversa)</li>

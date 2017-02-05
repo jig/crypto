@@ -168,7 +168,7 @@
                 <p/>
             <p style="text-align: right;">$\longleftarrow$ <code>ServerHello</code><br/>conté un random, session-ID, i la versió de TLS i el cipher-suite usat<!-- extensions --></p>
             <p style="text-align: right;">$\longleftarrow$ <code>Certificate</code><br/>cadena de certificats incloent el del servidor</p>
-            <p style="text-align: right;">$\longleftarrow$ <code>ServerKeyExchange</code><br/>(si DHE) paràmetres DH i la seva clau pública (efímera: <u>preMasterSecret</u>)</p>
+            <p style="text-align: right;">$\longleftarrow$ <code>ServerKeyExchange</code><br/>(si DHE) paràmetres DH i la seva clau pública (efímera: <u>InputSecret</u>)</p>
             <p style="text-align: right;">$\longleftarrow$ <span title="Cas que el servidor vulgui autenticació de client"><code>CertificateRequest</code>$\dagger$</span>
                 <br/>(si el servidor requereix autenticació de client) DN's de les CA acceptades</p>
             <p/>
@@ -176,7 +176,7 @@
             <p style="text-align: left;"><code>Certificate</code> $\longrightarrow$
                 <br/>(si el servidor requereix autenticació de client) cadena de certificats incloent la del client
             </p>
-            <p style="text-align: left;"><code>ClientKeyExchange</code> $\longrightarrow$<br/>(si DHE) clau pública DH (efímera: <u>preMasterSecret</u>)</p>
+            <p style="text-align: left;"><code>ClientKeyExchange</code> $\longrightarrow$<br/>(si DHE) clau pública DH (efímera: <u>InputSecret</u>)</p>
             <p style="text-align: left;"><span title="Cas que el servidor demani autenticació de client"><code>CertificateVerify</code>$\dagger$</span>
                 $\longrightarrow$<br/>(si el servidor requereix autenticació de client) signatura dels missatges anteriors</p>
             </small>
@@ -184,7 +184,7 @@
 
         <section>
             <h3>Protocol: inicialització</h3>
-            <p>a partir dels dos <code>PreMasterSecret</code> es genera el <code>MasterSecret</code></p>
+            <p>a partir dels dos <code>InputSecret</code> es genera el <code>MasterSecret</code></p>
             <p>del <code>MasterSecret</code> se'n deriven 4 claus i 2 IV:</p>
             <ul>
                 <li>clau de xifrat de client a servidor (i viceversa)</li>
