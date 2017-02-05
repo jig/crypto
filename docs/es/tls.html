@@ -202,7 +202,7 @@
         </section>
         <section>
             <h3><em>Cipher suites</em></h3>
-            <p>Se identifican con la cadena <code>TLS_<span style="color:blue;">KEA</span>_<span style="color:green;">SIGN</span>_WITH_<span style="color:red;">CIPHER</span>_<span style="color:orange;">HASH</span></code></p>
+            <p>Se identifican (aprox) con la cadena <code><span style="color:blue;">KEA</span>_<span style="color:green;">SIGN</span>_WITH_<span style="color:red;">CIPHER</span>_<span style="color:orange;">HASH</span></code></p>
             <table>
                 <thead>
                 <tr>
@@ -229,31 +229,30 @@
                     href="https://github.com/tlswg/tls13-spec"
                 >git</a
                 >)</span></h3>
-            <p>los siguientes <em>cipher-suites</em> son de obligada implementación (<a href="https://tools.ietf.org/html/rfc2119">MUST</a>):
+            <p>los siguientes <em>cipher-suites</em> son de obligada implementación (<a title="MUST ⇒ OBLIGATORIO" href="https://tools.ietf.org/html/rfc2119">MUST</a>):
             <br/><code>
-                TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
-                <br/>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+                {DHE|ECDHE}_ECDSA_WITH_AES_128_GCM_SHA256
+                <br/>{DHE|ECDHE}_RSA_WITH_AES_128_GCM_SHA256
             </code></p>
-            <p>y se recomienda la implementación de estos (<a href="https://tools.ietf.org/html/rfc2119">SHOULD</a>):
+            <p>y se recomienda la implementación de estos (<a title="SHOULD ⇒ OPCIONAL RECOMENDADO" href="https://tools.ietf.org/html/rfc2119">SHOULD</a>):
             <br/><code>
-                TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
-                <br/>TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256
-                <br/>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-                <br/>TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256
+                {DHE|ECDHE}_ECDSA_WITH_AES_256_GCM_SHA384
+                <br/>{DHE|ECDHE}_ECDSA_WITH_CHACHA20_POLY1305_SHA256
+                <br/>{DHE|ECDHE}_RSA_WITH_AES_256_GCM_SHA384
+                <br/>{DHE|ECDHE}_RSA_WITH_CHACHA20_POLY1305_SHA256
             </code></p>
-            <p><small>Notas:
+            <p>Notas:
                 <ul>
                     <li>eliminación de acuerdos de claves no efímeros</li>
                     <li><code>RSA-2048</code>, <code>ECDSA-224</code>, <code>ECDH-224</code>: longitudes mínimas;</li>
-                    <li>se soporta opcionalmente <code title="Diffie-Hellman Ephemeral">DHE</code> (como alternativa a <code>ECDHE</code>)</li>
                     <li>desaparecen <code>DSA</code>, <code>SHA-1</code>, <code>SHA-224</code>, <code>3DES</code></li>
                 </ul>
-            </small></p>
+            </p>
         </section>
 
         <section>
             <h3><em>Cipher suites</em></h3>
-            <p>Valores previstos para cada campo de <code>TLS_<span style="color:blue;">KEA</span>_<span style="color:green;">SIGN</span>_WITH_<span style="color:red;">CIPHER</span>_<span style="color:orange;">HASH</span></code>
+            <p>Valores previstos para cada campo de <code><span style="color:blue;">KEA</span>_<span style="color:green;">SIGN</span>_WITH_<span style="color:red;">CIPHER</span>_<span style="color:orange;">HASH</span></code>
             <br/>aunque pueden cambiar</p>
             <table>
                 <thead>
