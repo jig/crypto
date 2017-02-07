@@ -201,15 +201,15 @@
                 <p>per a xifrar cap a l'usuari $\text{u}$, ens cal saber<br>la seva clau pública $(e, n_\text{u})$:</p>
                 <p>$c = m^{e} \pmod{n_\text{u}}$</p>
                 <br>
-                <p>per a desxifrar, l'usuari pot revertir el xifrat<br>ja que coneix $d_\text{u}$:</p>
+                <p>per a desxifrar, l'usuari pot revertir el xifrat<br>ja que coneix la seva clau privada $(d_\text{u}, (e, n_\text{u}))$:</p>
                 <p>$m = c^{d_\text{u}} \pmod{n_\text{u}}$</p>
             </section>
             <section>
                 <h3>Alg/ de signatura i verificació</h3>
-                <p>per a signar, l'usuari $\text{u}$ usa la seva clau $(e, n_\text{u})$:</p>
+                <p>per a signar, l'usuari $\text{u}$ fa servir la seva clau privada $(d_\text{u}, (e, n_\text{u}))$:</p>
                 <p>$c = m^{d_\text{u}} \pmod{n_\text{u}}$</p>
                 <br>
-                <p>qualsevol pot verificar la signatura coneixent $n_\text{u}$:</p>
+                <p>qualsevol pot verificar la signatura coneixent la seva clau pública $(e, n_\text{u})$:</p>
                 <p>$m = c^{e} \pmod{n_\text{u}}$</p>
             </section>
             <section id="threats">

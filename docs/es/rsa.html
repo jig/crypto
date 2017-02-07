@@ -201,15 +201,15 @@
                 <p>para cifrar hacia el usuario $\text{u}$, nos hace falta saber<br>su clave pública $(e, n_\text{u})$:</p>
                 <p>$c = m^{e} \pmod{n_\text{u}}$</p>
                 <br>
-                <p>para descifrar, el usuario puede revertir el cifrado<br>ya que conoce $d_\text{u}$:</p>
+                <p>para descifrar, el usuario puede revertir el cifrado<br>ya que conoce su clave privada $(d_\text{u}, (e, n_\text{u}))$:</p>
                 <p>$m = c^{d_\text{u}} \pmod{n_\text{u}}$</p>
             </section>
             <section>
                 <h3>Algoritmos de firma y verificación</h3>
-                <p>para firmar, el usuario $\text{u}$ usa su clave $(e, n_\text{u})$:</p>
+                <p>para firmar, el usuario $\text{u}$ usa su clave privada $(d_\text{u}, (e, n_\text{u}))$:</p>
                 <p>$c = m^{d_\text{u}} \pmod{n_\text{u}}$</p>
                 <br>
-                <p>cualquiera puede verificar la firma conociendo $n_\text{u}$:</p>
+                <p>cualquiera puede verificar la firma conociendo su clave pública $(e, n_\text{u})$:</p>
                 <p>$m = c^{e} \pmod{n_\text{u}}$</p>
             </section>
             <section id="threats">
