@@ -179,8 +179,86 @@
                 </tbody>
             </table>
         </section>
+        <section>
+            <h2>objetivos $\rightarrow$ función</h2>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>confidencialidad</td>
+                        <td>cifrado simétrico, cifrado asimétrico</td>
+                    </tr>
+                    <tr>
+                        <td>integridad</td>
+                        <td>hash, firma simétrica, firma asimétrica</td>
+                    </tr>
+                    <tr>
+                        <td>autenticidad</td>
+                        <td>firma asimétrica</td>
+                    </tr>
+                    <tr>
+                        <td>no repudio</td>
+                        <td>firma asimétrica</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h2>Composición</h2>
+            <p>Habitualmente no usamos una única función criptográfica:</p>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>para cumplir varios objetivos</td>
+                        <td>en comunicaciones me interesa confidencialidad, integridad y autenticidad simultáneamente</td>
+                    </tr>
+                    <tr>
+                        <td>por eficiencia</td>
+                        <td>los algoritmos simétricos son varios órdenes de magnitud más rápidos que los asimétricos</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h2>Composición: firma práctica</h2>
+            <p>En caso de que queramos que un documento firmado lo pueda verificar cualquiera, usaremos firma asimétrica. Pero es muy ineficiente en comparación a componer:</p>
+            <p>firma asimétrica $+$ hash</p>
+            <p>Así: $\begin{aligned}
+                r &=  \text{hash}(m) \\
+                f &= e(k_{\text{privada}}, r)
+            \end{aligned}$</p>
+            <p class="fragment">Nota: con $e(·)$ sólo tratamos $r$, que mide unos pocos bytes</p>
+            <p class="fragment">Ahora debemos enviar la firma $f$ junto con el mensaje $m$ para que el destinatario pueda realizar la validación (no basta con $d(·)$ ya que sólo nos devolvería el resumen/hash $r$, no el mensaje original $m$) </p>
+        </section>
+        <section>
+            <h2>Composición: cifrado práctico</h2>
+            <p>En caso de queramos cifrar un documento, para que sólo lo pueda lo pueda descifrar el legítimo destinatario, lo podemos hacer de forma eficiente:</p>
+            <p>cifrado asimétrico $+$ cifrado simétrico</p>
+            <p>Así: $\begin{aligned}
+                k_c &= e(k_{\text{pública}}, k) \\
+                c &=  \text{e}(k, m)
+            \end{aligned}$</p>
+            <p class="fragment">Nota: con $e(k_{\text{pública}},·)$ sólo tratamos $k$, que mide unos pocos bytes</p>
+            <p class="fragment">Ahora debemos enviar la clave cifrada asimétricamente $k_c$ junto con el mensaje cifrado $c$; el destinatario debe primero descifrar la clave simétrica (mediante $d(k_{\text{privada}},k_c)$) y luego puede descifrar simétricamente el mensaje cifrado $c$ (mediante $d(k, c)$)</p>
+        </section>
+        <section>
+            <h2>*Aplicación</h2>
+            <p>Transmisión</p>
+            <p>Almacenamiento</p>
+            <p>Transacciones</p>
+        </section>
+        <section>
+            <h2>*Protocolos</h2>
+            <p>TLS/SSL, VPN</p>
+            <p>PKCS #7, workflow</p>
+            <p>Git, Docker</p>
+            <p>JWT tokens</p>
+            <p>download, ISO</p>
+        </section>
+        <section>
+            <h2>Composición... de composición: PKI</h2>
+            <p>PKI: <em>Public Key Infrastructure</em></p>
+        </section>
     </div>
-
 </div>
 
 <script>
