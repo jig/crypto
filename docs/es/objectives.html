@@ -79,7 +79,7 @@
                     </tr>
                     <tr>
                         <td>No repudio</td>
-                        <td>el emisor no debe ser capaz de <u>negar que es el autor</u> de un mensaje del cual es el autor</td>
+                        <td>el emisor no debe ser capaz de <u>negar que es el autor</u> del mensaje</td>
                     </tr>
                 </tbody>
             </table>
@@ -99,7 +99,7 @@
                     <tr>
                         <td>Clave asimétrica</td>
                         <td>el emisor usa el mensaje $m$ y una clave $k'$ como argumento de la función criptográfica; el destinatario debe conocer la <u>contraparte</u> de esa clave $k''$ para invertir la función<br/>
-                        una contraparte de la clave (llamada ${k}_{\text{\text{privada}}}$) permite calcular la otra contraparte (llamada ${k}_{\text{\text{pública}}}$) pero la operación inversa és infactible (por ello se conoce también a la criptografía de clave asimétrica como criptografía de <u>clave pública</u>)</td>
+                        una contraparte de la clave (llamada ${k}_{\text{privada}}$) permite calcular la otra contraparte (llamada ${k}_{\text{pública}}$) pero la operación inversa és infactible (por ello se conoce también a la criptografía de clave asimétrica como criptografía de <u>clave pública</u>)</td>
                     </tr>                    
                 </tbody>
             </table>
@@ -130,7 +130,7 @@
                 <tr>
                     <td>Hash</td>
                     <td>$r=h(m)$</td>
-                    <td>calcula un resumen $r$ para cada mensaje $m$</td>
+                    <td>calcula un resumen $r$ (<strike>o firma</strike>) para cada mensaje $m$</td>
                 </tr>
                 </tbody>
             </table>
@@ -141,15 +141,15 @@
                 <tbody>
                 <tr>
                     <td>Cifrado simétrico</td>
-                    <td>$\begin{aligned}c &= e(k,m) \\ m &= d(k,c)\end{aligned}$</td>
-                    <td>$e(·)$ convierte un mensaje $m$ (text en claro) en su versión cifrada $c$ (texto cifrado); 
+                    <td>$\begin{aligned}c &= e_{\text{sim}}(k,m) \\ m &= d_{\text{sim}}(k,c)\end{aligned}$</td>
+                    <td>$e_{\text{sim}}(\circ)$ convierte un mensaje $m$ (text en claro) en su versión cifrada $c$ (texto cifrado); 
                     <br/>
-                    $d(·)$ devuelve el mensaje $m$ a partir de $c$ si se conoce $k$</td>
+                    $d_{\text{sim}}(\circ)$ devuelve el mensaje $m$ a partir de $c$ (sii se conoce la $k$ que se usó para generar $c$)</td>
                 </tr>
                 <tr>
                     <td>Firma simétrica</td>
                     <td>$t = \text{HMAC}(k, m)$</td>
-                    <td>devuelve un resumen $t$ (etiqueta o firma) para el mensaje $m$;
+                    <td>devuelve un resumen $t$ (o etiqueta o firma) para el mensaje $m$;
                     <br/>
                     para validarse, debemos conocer $k$ (y el mensaje $m$) y aplicar la misma función
                     </td>
@@ -163,17 +163,17 @@
                 <tbody>
                 <tr>
                     <td>Cifrado asimétrico</td>
-                    <td>$\begin{aligned}c &= e(k_{\text{pública}},m) \\ m &= d(k_{\text{privada}},c)\end{aligned}$</td>
-                    <td>$e(·)$ convierte un mensaje $m$ (text en claro) en su versión cifrada $c$ (texto cifrado); 
+                    <td>$\begin{aligned}c &= e_{\text{asim}}(k_{\text{pública}},m) \\ m &= d_{\text{asim}}(k_{\text{privada}},c)\end{aligned}$</td>
+                    <td>$e_{\text{asim}}(\circ)$ convierte un mensaje $m$ (text en claro) en su versión cifrada $c$ (texto cifrado); 
                     <br/>
-                    $d(·)$ devuelve el mensaje $m$ a partir de $c$ <em>sii</em> se conoce $k_{\text{privada}}$</td>
+                    $d_{\text{asim}}(\circ)$ devuelve el mensaje $m$ a partir de $c$ <em>sii</em> se conoce $k_{\text{privada}}$</td>
                 </tr>
                 <tr>
                     <td>Firma asimétrica</td>
-                    <td>$\begin{aligned}f &= e(k_{\text{privada}},m) \\ m &= d(k_{\text{pública}},c)\end{aligned}$</td>
-                    <td>$e(·)$ devuelve el mensaje "cifrado" $f$ (firma) para el mensaje $m$;
+                    <td>$\begin{aligned}f &= e_{\text{asim}}(k_{\text{privada}},m) \\ m &= d_{\text{asim}}(k_{\text{pública}},c)\end{aligned}$</td>
+                    <td>$e_{\text{asim}}(\circ)$ devuelve el mensaje "cifrado" $f$ (firma) para el mensaje $m$;
                     <br/>
-                    para validarse, debemos conocer $k_{\text{pública}}$ y la firma $f$, y aplicar $d(·)$
+                    para validarse, debemos conocer $k_{\text{pública}}$ y la firma $f$, y aplicar $d_{\text{asim}}(\circ)$
                     </td>
                 </tr>
                 </tbody>
@@ -193,7 +193,7 @@
                     </tr>
                     <tr>
                         <td>autenticidad</td>
-                        <td>firma asimétrica</td>
+                        <td>firma simétrica, firma asimétrica</td>
                     </tr>
                     <tr>
                         <td>no repudio</td>
@@ -209,37 +209,92 @@
                 <tbody>
                     <tr>
                         <td>para cumplir varios objetivos</td>
-                        <td>en comunicaciones me interesa confidencialidad, integridad y autenticidad simultáneamente</td>
+                        <td>me interesa confidencialidad, integridad y autenticidad simultáneamente para la transmisión del mensaje $m$</td>
                     </tr>
                     <tr>
                         <td>por eficiencia</td>
                         <td>los algoritmos simétricos son varios órdenes de magnitud más rápidos que los asimétricos</td>
                     </tr>
+                    <tr>
+                        <td>para proteger secuencias de mensajes</td>
+                        <td>nos interesa proteger no sólo los mensajes individuales si no secuencias de mensajes $\{m_1, m_2 \dots m_n \}$ o diálogos $\{m_{a_1}, m_{b_1}, m_{a_2}, m_{b_2} \dots \}$ u otros tipos de combinaciones de mensajes</td>
+                    </tr>
                 </tbody>
             </table>
         </section>
         <section>
-            <h2>Composición: firma práctica</h2>
-            <p>En caso de que queramos que un documento firmado lo pueda verificar cualquiera, usaremos firma asimétrica. Pero es muy ineficiente en comparación a componer:</p>
+            <h2>Ejemplo de Composición 1/4: firma práctica</h2>
+            <p>En caso de que queramos que un documento firmado lo pueda verificar cualquiera, usaremos <u>firma asimétrica</u> .</p> 
+            <p>Pero es muy ineficiente (muy lenta) en comparación a componer:</p>
             <p>firma asimétrica $+$ hash</p>
             <p>Así: $\begin{aligned}
                 r &=  \text{hash}(m) \\
-                f &= e(k_{\text{privada}}, r)
+                f &= e_{\text{asim}}(k_{\text{privada}}, r)
             \end{aligned}$</p>
-            <p class="fragment">Nota: con $e(·)$ sólo tratamos $r$, que mide unos pocos bytes</p>
-            <p class="fragment">Ahora debemos enviar la firma $f$ junto con el mensaje $m$ para que el destinatario pueda realizar la validación (no basta con $d(·)$ ya que sólo nos devolvería el resumen/hash $r$, no el mensaje original $m$) </p>
+            <p class="fragment">Nota 1: con $e_{\text{asim}}(\circ)$ sólo tratamos $r$, que mide unos pocos bytes</p>
+            <p class="fragment">Nota 2: Ahora debemos enviar la firma $f$ <u>junto con el mensaje</u> $m$ (usaremos la notación $m\|f$ para concatenar) para que el destinatario pueda realizar la validación (no basta con $d_{\text{asim}}(\circ)$ ya que sólo nos devolvería el resumen/hash $r$, no el mensaje original $m$) </p>
         </section>
         <section>
-            <h2>Composición: cifrado práctico</h2>
-            <p>En caso de queramos cifrar un documento, para que sólo lo pueda lo pueda descifrar el legítimo destinatario, lo podemos hacer de forma eficiente:</p>
+            <h2>Ejemplo de Composición 2/4: cifrado práctico</h2>
+            <p>En caso de queramos cifrar un documento, para que sólo lo pueda descifrar el legítimo destinatario, lo podemos hacer de forma eficiente:</p>
             <p>cifrado asimétrico $+$ cifrado simétrico</p>
             <p>Así: $\begin{aligned}
-                k_c &= e(k_{\text{pública}}, k) \\
-                c &=  \text{e}(k, m)
+                k_c &= e_{\text{asim}}(k_{\text{pública}}, k) \\
+                c &=  e_{\text{sim}}(k, m)
             \end{aligned}$</p>
-            <p class="fragment">Nota: con $e(k_{\text{pública}},·)$ sólo tratamos $k$, que mide unos pocos bytes</p>
-            <p class="fragment">Ahora debemos enviar la clave cifrada asimétricamente $k_c$ junto con el mensaje cifrado $c$; el destinatario debe primero descifrar la clave simétrica (mediante $d(k_{\text{privada}},k_c)$) y luego puede descifrar simétricamente el mensaje cifrado $c$ (mediante $d(k, c)$)</p>
+            <p class="fragment">Nota: con $e_{\text{asim}}(k_{\text{pública}},\circ)$ sólo tratamos $k$, que mide unos pocos bytes</p>
+            <p class="fragment">Ahora debemos enviar la clave cifrada asimétricamente $k_c$ <u>junto con el mensaje cifrado</u> $c$ ($c\|k_c$); el destinatario debe primero descifrar la clave simétrica (mediante $d_{\text{sim}}(k_{\text{privada}},k_c)$) y luego puede descifrar simétricamente el mensaje cifrado $c$ (mediante $d_{\text{asim}}(k, c)$)</p>
         </section>
+        <section>
+            <h2>Ejemplo de Composición 3/4: cifrado y firmado</h2>
+            <p>En el caso de queramos cifrar y firmar asimétricamente combinaremos las dos combinaciones de primitivas anteriores</p>
+            <div style="text-align: left;">
+            <p>Atención: se debe tener en cuanta que:</p>
+                <ul>
+                    <li>la clave privada del emisor se usa para firmar</li>
+                    <li>la clave privada del receptor se usa para descifrar</li>
+                </ul>
+            </div>
+            <p>firma asimétrica $+$ hash &amp; cifrado asimétrico $+$ cifrado simétrico  </p>
+        </section>
+        <section>
+            <h2></h2>
+            <p>El mensaje enviado es el resultado de:</p>
+            <p>
+                $\begin{aligned}
+                    r &=  \text{hash}(m) \\
+                    f &= e_{\text{asim}}(k_{\text{privada-autor}}, r) \\
+                    k_c &= e_{\text{asim}}(k_{\text{pública-destinatario}}, k) \\
+                    c &=  e_{\text{sim}}(k, m\|f) 
+                \end{aligned}$
+            </p>
+            <p>y enviamos: $c \| k_c$</p>
+        </section>
+        <section>
+            <h2>Ejemplo de Composición 4/4: secuencia de mensajes</h2>
+            <p>Nos centramos en integridad (autenticidad, confidencialidad y no repudio se consiguen individualmente)</p>
+            <p>
+            <p>se usa el concepto de <strong>secuencia de mensajes</strong> o <strong>sesión</strong></p>
+            <p>la sesión protege de que los mensajes (integridad de sesión):</p>
+            <ul>
+                <li>no se pierdan</li>
+                <li>no se dupliquen</li>
+                <li>y no se desordenen</li>
+            </ul>
+            <p>las primitivas criptográficas anteriores no cumplen con estos objetivos (e.g. un atacante borrando un mensaje no tiene contramedida); puede considerarse la sesión como una primitiva criptográfica adicional</p>
+        </section>
+        <section>
+            <p>se puede solucionar con:</p>
+            <ul>
+                <li>añadiendo un identificador de secuencia $\{1\|m_1, 2\|m_2 \dots \}$</li>
+                <li>añadiendo el hash del mensaje anterior $\{m_1, \text{hash}(m_1)\|m_2, \text{hash}(m_2)\|m_3 \dots \}$</li>
+            </ul>
+        </section>
+        <section>
+            <p>no es posible perder mensajes, duplicarlos o desordenarlos sin detectarlo&hellip; a excepción de un caso:</p>
+            <p>si eliminamos mensajes del final, no lo detectamos</p>
+            <p class="fragment">podemos corregir el problema añadiendo una señal de final. Si no la recibimos, es que se han perdido uno (o más) mensajes</p>
+            </section>
         <section>
             <h2>*Aplicación</h2>
             <p>Transmisión</p>
