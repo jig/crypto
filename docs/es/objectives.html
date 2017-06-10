@@ -293,21 +293,66 @@
         <section>
             <p>no es posible perder mensajes, duplicarlos o desordenarlos sin detectarlo&hellip; a excepción de un caso:</p>
             <p>si eliminamos mensajes del final, no lo detectamos</p>
-            <p class="fragment">podemos corregir el problema añadiendo una señal de final. Si no la recibimos, es que se han perdido uno (o más) mensajes</p>
-            </section>
-        <section>
-            <h2>*Aplicación</h2>
-            <p>Transmisión</p>
-            <p>Almacenamiento</p>
-            <p>Transacciones</p>
+            <p class="fragment">podemos corregir el problema añadiendo una señal de final. Si no la recibimos, es que se han perdido uno (o más) mensajes del final (bit <em>more</em> o mensaje de final)</p>
         </section>
         <section>
-            <h2>*Protocolos</h2>
-            <p>TLS/SSL, VPN</p>
-            <p>PKCS #7, workflow</p>
-            <p>Git, Docker</p>
-            <p>JWT tokens</p>
-            <p>download, ISO</p>
+            <h2 class="fragment">Protocolo</h2>
+            <p>La secuenciación de mensajes forma parte del "protocolo"</p>
+            <div class="fragment">
+                <p>El protocolo (el lenguaje) se define a partir de:</p>
+                <ul>
+                    <li>Formatos/estructuras de los mensajes o "sintaxis" (funciones/algoritmos, secuenciación)</li>
+                    <li>"Máquina de estados" (que tipos de mensajes son posibles después de otros)</li>
+                    <li>Especificación del significado de mensajes y/o estado, "semántica"</li>
+                </ul>
+            </div>
+        </section>
+        <section>
+            <h2>Protocolos: ejemplos</h2>
+            <table>
+                <tr>
+                    <td>
+                        <div  style="text-align: right;">
+                            <p>TLS (SSL), VPN</p>
+                            <p>PKCS #7, AdES, w'flow</p>
+                            <p>Git, Docker</p>
+                            <p>JWT tokens</p>
+                            <p>download, ISO</p>
+                            <p>&hellip;</p>
+                        </div>  
+                    </td>
+                    <td>
+                        <div  style="text-align: left;" class="fragment">
+                            <p>firma y cifrado, secuenciación</p>
+                            <p>firma y cifrado, semántica (razón de firma)</p>
+                            <p>resumen encadenado (integridad de BB.DD., append)</p>
+                            <p>firma simétrica o asimétrica</p>
+                            <p>resumen</p>
+                            <p></p>
+                        </div>  
+                    </td>
+                </tr>
+            </table>
+        </section>
+        <section>
+            <h2>Protocolos: tipos</h2>
+            <p>Transmisión interactiva: TLS, VPN, SSH, etc. autentican los extremos, cifran el tráfico y impiden alteración del encadenamiento de mensajes</p>
+            <p>Transmisión no interactiva: S/MIME (correo)</p>
+            <p>Almacenamiento: disco, BB.DD., BB.DD. documentales (Git, etc.), etc. dan integridad mediante encadenamiento de hashes (Git, Docker) o integridad y confidencialidad con firma y cifrado simétricos</p>
+            <p>Transacciones o (transmisión no interactiva): *</p>
+        </section>
+        <section>
+            seguridad:
+            - algoritmos (diseño de las primitivas, longitud (bit strength))
+            - Protocolos ()
+            - implementación (software, cumplimiento condiciones de uso)
+        </section>
+        <section>
+            otras primitivas:
+            - operaciones:
+                - DH
+                - votació
+                - cerques al núvol
         </section>
         <section>
             <h2>Composición... de composición: PKI</h2>
