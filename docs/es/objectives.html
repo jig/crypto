@@ -81,6 +81,10 @@
                         <td>No repudio</td>
                         <td>el emisor no debe ser capaz de <u>negar que es el autor</u> del mensaje</td>
                     </tr>
+                    <tr>
+                        <td><em>Otros</em></td>
+                        <td><em>acuerdo de claves, partición de secretos, PRNG&hellip;</em></td>
+                    </tr>
                 </tbody>
             </table>
         </section>
@@ -296,6 +300,10 @@
             <p class="fragment">podemos corregir el problema añadiendo una señal de final. Si no la recibimos, es que se han perdido uno (o más) mensajes del final (bit <em>more</em> o mensaje de final)</p>
         </section>
         <section>
+            <h2>Composición... de composición: PKI</h2>
+            <p>PKI: <em>Public Key Infrastructure</em></p>
+        </section>
+        <section>
             <h2 class="fragment">Protocolo</h2>
             <p>La secuenciación de mensajes forma parte del "protocolo"</p>
             <div class="fragment">
@@ -336,27 +344,71 @@
         </section>
         <section>
             <h2>Protocolos: tipos</h2>
-            <p>Transmisión interactiva: TLS, VPN, SSH, etc. autentican los extremos, cifran el tráfico y impiden alteración del encadenamiento de mensajes</p>
-            <p>Transmisión no interactiva: S/MIME (correo)</p>
-            <p>Almacenamiento: disco, BB.DD., BB.DD. documentales (Git, etc.), etc. dan integridad mediante encadenamiento de hashes (Git, Docker) o integridad y confidencialidad con firma y cifrado simétricos</p>
-            <p>Transacciones o (transmisión no interactiva): *</p>
+            <ul>
+            <li>Transmisión interactiva: TLS, VPN, SSH, etc. autentican los extremos, cifran el tráfico y impiden alteración del encadenamiento de mensajes</li>
+            <li>Transmisión no interactiva: S/MIME (correo)</li>
+            <li>Almacenamiento: disco, BB.DD., BB.DD. documentales (Git, etc.), etc. dan integridad mediante encadenamiento de hashes (Git, Docker) o integridad y confidencialidad con firma y cifrado simétricos</li>
+            </ul>
         </section>
         <section>
-            seguridad:
-            - algoritmos (diseño de las primitivas, longitud (bit strength))
-            - Protocolos ()
-            - implementación (software, cumplimiento condiciones de uso)
+            <h2>Seguridad</h2>
+            <p>la fortaleza (o debilidad) de la criptografía depende de todos los eslabones de la cadena</p>
+            <ul>
+            <li>algoritmos (diseño, criptoanálisis)</li>
+            <li>algoritmos (dimensionado, longitud de claves, <em>security strength</em>)
+            <li>protocolos (estructura, secuenciación)</li>
+            <li>implementación (condiciones de uso, abuso de buffers, abuso de la máquina de estados)</li>
+            </ul>
         </section>
         <section>
-            otras primitivas:
-            - operaciones:
-                - DH
-                - votació
-                - cerques al núvol
+            <h2>Objectivos: "otros"</h2>
+            <ul>
+                <li>Acuerdo de claves: permite que un grupo de actores generen un número (pseudo) aleatorio sin que nadie externo al grupo pueda conocerlo</li>
+                <li>Partición de secretos: permite repartir un secreto entre un grupo de actores, exigiendo un mínimo de actores para recomponerlas</li>
+                <li>PRNG (Pseudo Random Number Generation): permite generar una secuencia aparentemente aleatoria para cualquiera que no conozca la <strong>semilla</strong></li>
+                <li>etcétera</li>
+            </ul>
         </section>
         <section>
-            <h2>Composición... de composición: PKI</h2>
-            <p>PKI: <em>Public Key Infrastructure</em></p>
+            <h2>Algoritmos: ejemplos</h2>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>hash</td>
+                        <td>SHA-2; SHA-3</td>
+                    </tr>
+                    <tr>
+                        <td><a href="symmetric.html">cifrado simétrico</a></td>
+                        <td>
+                            <a href="symmetric.html#/block-cipher"  title="Cifrados de bloque">AES</a>; 
+                            <a href="symmetric.html#/stream-cipher" title="Cifrados de flujo">ChaCha20</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="mac.html">firma simétrica</a></td>
+                        <td><a href="hash.html#/hmac">HMAC (SHA-2/3)</a>; <a href="mac.html#/raw-cbc">ECBC-MAC (AES)</a>; Poly1305</td>
+                    </tr>
+                    <tr>
+                        <td>cifrado asimétrico</td>
+                        <td><a href="rsa.html">RSA</a></td>
+                    </tr>
+                    <tr>
+                        <td>firma asimétrica</td>
+                        <td>RSA; <a href="ecdsa.html">ECDSA</a></td>
+                    </tr>
+                    <tr>
+                        <td>acuerdo de claves</td>
+                        <td><a href="dh.html">Diffie-Hellman</a></td>
+                    </tr>
+                    <tr>
+                        <td>partición de secretos</td>
+                        <td><a href="hsm.html#/shamir-split">Shamir split</a></td>
+                    </tr>
+                    <tr>
+                        <td>PRNG</td>
+                        <td>AES; ChaCha20; SHA-2; SHA-3</td>
+                    </tr>
+                </tbody>
+            </table>
         </section>
     </div>
 </div>

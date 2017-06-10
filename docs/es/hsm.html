@@ -385,7 +385,7 @@
 
             <!-- Shamir Shamir Shamir Shamir -->
 
-            <section>
+            <section id="secret-split">
                 <h3>Partición de Secretos</h3>
                 <p>en claves importantes (e.g. la de una CA raíz) un HSM puede no ser suficiente (¿y si lo roban?)</p>
                 <p>en estos casos podemos dividir la clave en trozos:</p>
@@ -410,7 +410,7 @@
                 </span>
             </section>
 
-            <section>
+            <section id="shamir-split">
                 <h3>Algoritmo de Shamir</h3>
                 <p><img src="img/shamir-secret-sharing.png"/>
                 <br/>permite dividir el secreto en $M$ trozos, de los cuales nos hacen falta $N$ para recuperarlos</p>
