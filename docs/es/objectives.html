@@ -102,8 +102,8 @@
                     </tr>                    
                     <tr>
                         <td>Clave asimétrica</td>
-                        <td>el emisor usa el mensaje $m$ y una clave $k'$ como argumento de la función criptográfica; el destinatario debe conocer la <u>contraparte</u> de esa clave $k''$ para invertir la función<br/>
-                        una contraparte de la clave (llamada ${k}_{\text{privada}}$) permite calcular la otra contraparte (llamada ${k}_{\text{pública}}$) pero la operación inversa és infactible (por ello se conoce también a la criptografía de clave asimétrica como criptografía de <u>clave pública</u>)</td>
+                        <td>el emisor usa el mensaje $m$ y una clave $k'$ como argumento de la función criptográfica; el destinatario debe conocer la <u>pareja</u> de esa clave $k''$ para invertir la función<br/>
+                        una paraje de la clave (llamada ${k}_{\text{privada}}$) permite calcular la otra pareja (llamada ${k}_{\text{pública}}$) pero la operación inversa és infactible (por ello se conoce también a la criptografía de clave asimétrica como <u>criptografía de clave pública</u>)</td>
                     </tr>                    
                 </tbody>
             </table>
@@ -114,7 +114,7 @@
                 <tbody>
                     <tr>
                         <td>Sin clave</td>
-                        <td>Hash</td>
+                        <td>Hash, <span style="color:lightgray">Partición de secretos</span></td>
                     </tr>                    
                     <tr>
                         <td>Clave simétrica</td>
@@ -122,7 +122,7 @@
                     </tr>                    
                     <tr>
                         <td>Clave asimétrica</td>
-                        <td>Cifrado asimétrico, firma asimétrica</td>
+                        <td>Cifrado asimétrico, firma asimétrica, <span style="color:lightgray">acuerdo de claves</span></td>
                     </tr>                    
                 </tbody>
             </table>
@@ -134,7 +134,10 @@
                 <tr>
                     <td>Hash</td>
                     <td>$r=h(m)$</td>
-                    <td>calcula un resumen $r$ (<strike>o firma</strike>) para cada mensaje $m$</td>
+                    <td><p>calcula un resumen $r$ único${}^{\dagger}$ para cada mensaje $m$</p>
+                        <p>para validarlo, debemos aplicar $h(\circ)$ sobre el mensaje $m$ y compararlo con el resumen $r$ </p>
+                        <p class="fragment">$\dagger$) muy probablemente</p> 
+                        </td>
                 </tr>
                 </tbody>
             </table>
@@ -146,7 +149,7 @@
                 <tr>
                     <td>Cifrado simétrico</td>
                     <td>$\begin{aligned}c &= e_{\text{sim}}(k,m) \\ m &= d_{\text{sim}}(k,c)\end{aligned}$</td>
-                    <td>$e_{\text{sim}}(\circ)$ convierte un mensaje $m$ (text en claro) en su versión cifrada $c$ (texto cifrado); 
+                    <td>$e_{\text{sim}}(\circ)$ convierte un mensaje $m$ (texto en claro) en su versión cifrada $c$ (texto cifrado); 
                     <br/>
                     $d_{\text{sim}}(\circ)$ devuelve el mensaje $m$ a partir de $c$ (sii se conoce la $k$ que se usó para generar $c$)</td>
                 </tr>
@@ -203,24 +206,32 @@
                         <td>no repudio</td>
                         <td>firma asimétrica</td>
                     </tr>
+                    <tr style="color:lightgray">
+                        <td>compartir clave simétrica</td>
+                        <td>acuerdo de clave</td>
+                    </tr>
                 </tbody>
             </table>
         </section>
         <section>
             <h2>Composición</h2>
-            <p>Habitualmente no usamos una única función criptográfica:</p>
+            <p>Habitualmente no usamos una única primitiva/función criptográfica por/para:</p>
             <table>
                 <tbody>
                     <tr>
-                        <td>para cumplir varios objetivos</td>
+                        <td>objetivos múltiples</td>
                         <td>me interesa confidencialidad, integridad y autenticidad simultáneamente para la transmisión del mensaje $m$</td>
                     </tr>
                     <tr>
-                        <td>por eficiencia</td>
+                        <td>eficiencia</td>
                         <td>los algoritmos simétricos son varios órdenes de magnitud más rápidos que los asimétricos</td>
                     </tr>
                     <tr>
-                        <td>para proteger secuencias de mensajes</td>
+                        <td>robustez</td>
+                        <td title="contraejemplo: H/MAC devuelve error si se ha modificado el mensaje firmado o la firma (falla la comparación)">muchas primitivas (individuales) no devuelven error en caso de que algo vaya mal (una firma asimétrica simplemente devuelve un mensaje firmado distinto)</td>
+                    </tr>
+                    <tr>
+                        <td>secuencias de mensajes</td>
                         <td>nos interesa proteger no sólo los mensajes individuales si no secuencias de mensajes $\{m_1, m_2 \dots m_n \}$ o diálogos $\{m_{a_1}, m_{b_1}, m_{a_2}, m_{b_2} \dots \}$ u otros tipos de combinaciones de mensajes</td>
                     </tr>
                 </tbody>
@@ -243,6 +254,7 @@
             <p>En caso de queramos cifrar un documento, para que sólo lo pueda descifrar el legítimo destinatario, lo podemos hacer de forma eficiente:</p>
             <p>cifrado asimétrico $+$ cifrado simétrico</p>
             <p>Así: $\begin{aligned}
+                k &= \text{\{nueva clave generada por el emisor\}} \\
                 k_c &= e_{\text{asim}}(k_{\text{pública}}, k) \\
                 c &=  e_{\text{sim}}(k, m)
             \end{aligned}$</p>
@@ -300,12 +312,8 @@
             <p class="fragment">podemos corregir el problema añadiendo una señal de final. Si no la recibimos, es que se han perdido uno (o más) mensajes del final (bit <em>more</em> o mensaje de final)</p>
         </section>
         <section>
-            <h2>Composición... de composición: PKI</h2>
-            <p>PKI: <em>Public Key Infrastructure</em></p>
-        </section>
-        <section>
             <h2 class="fragment">Protocolo</h2>
-            <p>La secuenciación de mensajes forma parte del "protocolo"</p>
+            <p>La secuenciación de mensajes y la composición de primitivas se materializa en un "protocolo"</p>
             <div class="fragment">
                 <p>El protocolo (el lenguaje) se define a partir de:</p>
                 <ul>
@@ -314,6 +322,7 @@
                     <li>Especificación del significado de mensajes y/o estado, "semántica"</li>
                 </ul>
             </div>
+            <p class="fragment">el protocolo es un eslabón de la cadena de seguridad, tan importante como puede ser las primitivas (o sea , los algoritmos criptográficos)</p>
         </section>
         <section>
             <h2>Protocolos: ejemplos</h2>
@@ -321,12 +330,12 @@
                 <tr>
                     <td>
                         <div  style="text-align: right;">
-                            <p>TLS (SSL), VPN</p>
+                            <p>TLS (SSL), SSH, VPN</p>
                             <p>PKCS #7, AdES, w'flow</p>
                             <p>Git, Docker</p>
                             <p>JWT tokens</p>
                             <p>download, ISO</p>
-                            <p>&hellip;</p>
+                            <p>$\vdots$</p>
                         </div>  
                     </td>
                     <td>
@@ -336,7 +345,7 @@
                             <p>resumen encadenado (integridad de BB.DD., append)</p>
                             <p>firma simétrica o asimétrica</p>
                             <p>resumen</p>
-                            <p></p>
+                            <p>$\vdots$</p>
                         </div>  
                     </td>
                 </tr>
@@ -346,7 +355,7 @@
             <h2>Protocolos: tipos</h2>
             <ul>
             <li>Transmisión interactiva: TLS, VPN, SSH, etc. autentican los extremos, cifran el tráfico y impiden alteración del encadenamiento de mensajes</li>
-            <li>Transmisión no interactiva: S/MIME (correo)</li>
+            <li>Transmisión no interactiva: PKCS #7, S/MIME (correo), autentica el origen, cifrado de tráfico</li>
             <li>Almacenamiento: disco, BB.DD., BB.DD. documentales (Git, etc.), etc. dan integridad mediante encadenamiento de hashes (Git, Docker) o integridad y confidencialidad con firma y cifrado simétricos</li>
             </ul>
         </section>
@@ -361,11 +370,11 @@
             </ul>
         </section>
         <section>
-            <h2>Objectivos: "otros"</h2>
+            <h2>Objetivos: "otros"</h2>
             <ul>
-                <li>Acuerdo de claves: permite que un grupo de actores generen un número (pseudo) aleatorio sin que nadie externo al grupo pueda conocerlo</li>
-                <li>Partición de secretos: permite repartir un secreto entre un grupo de actores, exigiendo un mínimo de actores para recomponerlas</li>
-                <li>PRNG (Pseudo Random Number Generation): permite generar una secuencia aparentemente aleatoria para cualquiera que no conozca la <strong>semilla</strong></li>
+                <li><strong>Acuerdo de claves</strong>: permite que un grupo de actores generen un número (pseudo) aleatorio sin que nadie externo al grupo pueda conocerlo</li>
+                <li><strong>Partición de secretos</strong>: permite repartir un secreto entre un grupo de actores, exigiendo un mínimo de actores para recomponerlas</li>
+                <li><strong>PRNG</strong> (Pseudo Random Number Generation): permite generar una secuencia aparentemente aleatoria para cualquiera que no conozca la <strong>semilla</strong></li>
                 <li>etcétera</li>
             </ul>
         </section>
@@ -409,6 +418,11 @@
                     </tr>
                 </tbody>
             </table>
+        </section>
+        <section>
+            <h2>Composición... de composición: PKI</h2>
+            <p>PKI: <em>Public Key Infrastructure</em></p>
+            <p>¿la clave pública $k_{\text{pública}}$ de quién es?</p>
         </section>
         <section>
             <h3><a href="intro.html">(Introducción/Historia) $\rightarrow$</a></h3>
