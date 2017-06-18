@@ -409,32 +409,80 @@
             </section>
 
             <section id="one-time-pad">
-                <h3>Bloques de un solo uso: cifrado</h3>
-                <p>Vernam definió el <em>one-time-pad</em> de una manera similar (pero equivalente)</p>
-                <p>La función de cifrado $c = e(k, m)$ se implementa:</p>
-                <p>$e(k, m) = k \oplus m$</p>
-		<p>on $\|k\| = \|m\|$</p>
-		<p/>
-                <p>Nota:
-		    <br/>$\oplus$ es la <em>or-exclusiva</em> o <code>XOR</code>
-                    <br/>$\|\circ\|$ es la longitud en bits de $\circ$
-                </p>
+                <section>
+                    <h3>Bloques de un solo uso: cifrado</h3>
+                    <p>Vernam definió el <em>one-time-pad</em> de una manera similar (pero equivalente)</p>
+                    <p>La función de cifrado $c = e(k, m)$ se implementa:</p>
+                    <p>$e(k, m) = k \oplus m$</p>
+                    <p>donde $\|k\| = \|m\|$</p>
+                    <p>Nota:
+                        <br/>$\oplus$ es la <em>or-exclusiva</em> o <code>XOR</code>
+                        <br/>$\|\circ\|$ es la longitud en bits de $\circ$
+                    </p>
+                </section>
+                <section id="xor">
+                    <h2><code>XOR</code></h2>
+                    <p>$0 \oplus 0 = 0$</p>
+                    <p>$0 \oplus 1 = 1$</p>
+                    <p>$1 \oplus 0 = 1$</p>
+                    <p>$1 \oplus 1 = 0$</p>
+                </section>
+                <section>
+                    <h2><code>XOR</code></h2>
+                    <p>$\cdots00000\cdots \oplus \cdots00000\cdots = \cdots00000\cdots$</p>
+                    <p>$\cdots10010\cdots \oplus \cdots11000\cdots = \cdots01010\cdots$</p>
+                    <p>$\cdots11111\cdots \oplus \cdots11000\cdots = \cdots00111\cdots$</p>
+                    <p>$\cdots00011\cdots \oplus \cdots11100\cdots = \cdots11111\cdots$</p>
+                    <p>$\cdots10101\cdots \oplus \cdots01010\cdots = \cdots11111\cdots$</p>
+                    <p>etc.</p>
+                </section> 
+                <section>
+                    <p>"$e(k, m) = k \oplus m$</p>
+                    <p>donde $\|k\| = \|m\|$"</p>
+                    <p>se traduce en, por ejemplo:</p>
+                    <p>
+                        $\begin{aligned}
+                        m &= 10011001 \\
+                        k &= 01010101 \\
+                        c &= 11001100 
+                        \end{aligned}$
+                    </p>
+                </section>
+                <!-- <section>
+                    <h3>Ejercicio</h3>
+                    <p>Todos los mensajes de $2$ bit cifrados con todas las claves posibles:</p>
+                    <p><img data-src="img/onetimepad-2bits-message.jpg" width="809"/></p>
+                </section>             -->
             </section>
             <section>
-                <h3>Bloque de un solo uso: descifrado</h3>
-                <p>$d(k, c) = k \oplus c$</p>
-                <span class="fragment">
-                    <p>es fácil demostrar que funciona ya que:</p>
-                    <p>$\begin{aligned}
-                        m &= d(k, c) \\
-                        m &= d(k, e(k, m)) \\
-                        m &= k \oplus c \\
-                        m &= k \oplus (k \oplus m) \\
-                        m &= (k \oplus k) \oplus m \\
-                        m &= \{0\}^{\|k\|} \oplus m \\
-                        m &= m
-                    \end{aligned}$</p>
-                </span>
+                <section>
+                    <h3>Bloque de un solo uso: descifrado</h3>
+                    <p>$d(k, c) = k \oplus c$</p>
+                    <span class="fragment">
+                        <p>es fácil demostrar que funciona ya que:</p>
+                        <p>$\begin{aligned}
+                            m &= d(k, c) \\
+                            m &= d(k, e(k, m)) \\
+                            m &= k \oplus c \\
+                            m &= k \oplus (k \oplus m) \\
+                            m &= (k \oplus k) \oplus m \\
+                            m &= \{0\}^{\|k\|} \oplus m \\
+                            m &= m
+                        \end{aligned}$</p>
+                    </span>
+                </section>
+                <section>
+                    <p>"$e(k, m) = k \oplus m$</p>
+                    <p>donde $\|k\| = \|m\|$"</p>
+                    <p>se traduce en, por ejemplo:</p>
+                    <p>
+                        $\begin{aligned}
+                        m &= 10011001 \\
+                        k &= 01010101 \\
+                        c &= 11001100 
+                        \end{aligned}$
+                    </p>
+                </section>
             </section>
             <section  style="text-align: left;">
                 <h3>Bloque de un solo uso: descifrado</h3>
@@ -514,11 +562,6 @@
                 </span>
             </section>
             <section>
-                <h3>Ejercicio</h3>
-                <p>Todos los mensajes de $2$ bit cifrados con todas las claves posibles:</p>
-                <p><img data-src="img/onetimepad-2bits-message.jpg" width="809"/></p>
-            </section>            
-            <section>
                 <h3 style="color:#888">pre-1976</h3>
                 <p style="color:#888">Hasta los '70 la criptografía o era "insegura" o no era <span style="color:black">"práctica"</span></p>
             </section>
@@ -529,16 +572,17 @@
                 por el mismo canal seguro</p>
             </section>
             <section>
-                <p><em>El <u>teléfono rojo</u> entre Washington y Moscú era (en realitat) un teletipo
+                <p><em>El <u>teléfono rojo</u> entre Washington y Moscú fue en realidad un teletipo
                     que usaba cifrado de <u>bloque de un solo uso</u></em></p>
-                <p><em>La clave $k$ se intercambiaba vía por valija diplomática en cinta
-                    que se entregaba en ambos sentidos. Mientras tanto no hacía falta, se tenía que guardar protegida. Se destruía
-                    después de ser usada</em></p>
-                    <p><em>En este caso la clave se acordaba/se preparaba por adelantado para cuando 
+                <p><em>La clave $k$ se intercambiaba por valija diplomática en cinta
+                    que se entregaba en ambos sentidos. 
+                    Mientras no hacía falta, se guardaba protegida. 
+                    Y se destruía después de ser usada</em></p>
+                <p><em>En este caso la clave se acordaba/se preparaba por adelantado para cuando 
                     hiciera falta enviar algún mensaje poderlo hacer de forma inmediata</em></p>
                 <p><em>
                     Además, el one-time-pad permitía trabajar de forma segura sin
-                    intercambiar ningún algoritmo secreto que permetiera dar ventaja técnica al enemigo</em></p>
+                    intercambiar ningún algoritmo secreto que diera ventaja técnica al enemigo</em></p>
             </section>
 
             <section>
