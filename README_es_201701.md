@@ -7,7 +7,6 @@ _Transparències en català a [jig.github.io/crypto](https://jig.github.io/crypt
 ## Contenido
 
   - [Índice](https://jig.github.io/crypto/es) `8`
-  - [Objetivos](https://jig.github.io/crypto/es/objectives.html) `25`
   - [Introducción, historia](https://jig.github.io/crypto/es/intro.html) `40`
   - [Criptografía simétrica](https://jig.github.io/crypto/es/symmetric.html) `91`
   - [MAC](https://jig.github.io/crypto/es/mac.html) `11`
@@ -28,24 +27,28 @@ _Transparències en català a [jig.github.io/crypto](https://jig.github.io/crypt
   
   - [Resumen](http://jig.github.io/crypto/es/abstract.html) de los objetivos de las funciones criptográficas y de las responsabilidades de las autoridades PKI `8`
   
-## Calendario, Junio 2017
+## Calendario, Enero 2017
 
- 20           | 22                |
+ 24           | 26                |
 --------------|-------------------|
- Objetivos    | Simétrica         | 
- Introducción | MAC/HMAC          |
+ Objetivos    | ~~MAC~~           | 
+ Introducción | HMAC              |
  Simétrica    | Teoría de Números |
+         
 
-  26                | 27        | 29        |
---------------------|-----------|---------- |  
- Teoría de Números  |ECC        | HSM       | 
- DH                 |Complejidad| TLS       |  
- RSA                |Amenazas   | PKI       |  
- ElGamal, DSA       |HSM        | ~~AdES~~  |
+ 30        | 2-febrero |
+-----------|-----------|  
+DH         |ECC        | 
+RSA        |Complejidad|  
+Elgamal    |Amenazas   |  
+DSA        |HSM        |
 
- 6-Julio                                         |
--------------------------------------------------|              
- (ejercicios → PKI/servidor-https/cliente-https) |             
+ 6         | 9
+---------- | ---------------- 
+ HSM       | (ejercicios → PKI/servidor-https/cliente-https)
+ TLS       | 
+ PKI       | 
+ ~~AdES~~  |
 
 ## Ejercicios (a realizar en clase en función del tiempo)
   - Criptografía simétrica:
