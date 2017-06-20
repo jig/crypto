@@ -147,15 +147,23 @@
                 claves hasta encontrar la buena</p>
             </section>
             <section>
-                <h3>NIST</h3>
-                <p>el <a href="http://csrc.nist.gov/publications/nistpubs/800-57/sp800-57_part1_rev3_general.pdf">NIST</a> recomienda (2015)
-                    claves en las que un atacante<br/>tenga que hacer $2^{112}$ pruebas</p>
-                <p>Más exactamente, dice que las claves han de tener una longitud
-		  <br/>$\|k\| = 112$ b, mínimo</p>
-                <p class="fragment">A partir del 2030 prevé recomendar
-		  $\|k\| = 128$ b, mínimo</p>
-                <p class="fragment"><em>Security Strength</em>: bits de seguridad o seguridad equivalente</p>
-                <p>NIST: <em>National Institute of Standards and Technology</em> (EE.UU.)</p>
+                <section>
+                    <h3>NIST</h3>
+                    <p>el <a href="http://csrc.nist.gov/publications/nistpubs/800-57/sp800-57_part1_rev3_general.pdf">NIST</a> recomienda (2015)
+                        claves en las que un atacante<br/>tenga que hacer $2^{112}$ pruebas</p>
+                    <p>Más exactamente, dice que las claves han de tener una longitud
+            <br/>$\|k\| = 112$ b, mínimo</p>
+                    <p class="fragment">A partir del 2030 prevé recomendar
+            $\|k\| = 128$ b, mínimo</p>
+                    <p class="fragment"><em><u>Security Strength</u></em> son los bits de seguridad o seguridad equivalente<br/>Son necesarias $2^{\text{security strength}}$ operaciones para "romper" un algoritmo</p>
+                    <p>NIST: <em>National Institute of Standards and Technology</em> (EE.UU.)</p>
+                </section>
+                <section>
+                    <h2>Security Strength</h2>
+                    <p>Si la <em>Security Strength</em> implica los mismos bits que un ataque de fuerza bruta (o no muchos menos), diremos que ese algoritmo es "seguro"</p>
+                    <p></p>
+                    <p>la criptografia simétrica (segura) ofrece una security strength igual a la longitud de la clave. En otras primitivas, la security strength es menor a la longitud de la clave.</p>
+                </section>
             </section>
 
             <section>
@@ -871,7 +879,7 @@
                     en el bloque actual</p>
                 <p>este encadenamiento se denomina <a href="#mode-of-operation">modo de operación</a>
                     <br/>(y no es opcional)</p>
-                <p class="fragment">los modos de operación se deben aplicar a todos los cifrados de bloque</p>
+                <p class="fragment"><u>los modos de operación se deben aplicar a todos los cifrados de bloque</u></p>
             </section>
 
             <section id="mode-of-operation">
