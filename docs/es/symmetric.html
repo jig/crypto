@@ -613,12 +613,12 @@
                 <p><img data-src="img/random-permutation.jpg" width="640"/></p>
             </section>
             <section>
-                <h3>Xifrat de bloc: blocs</h3>
+                <h3>Cifrado de bloque: bloques</h3>
                 <p>si tenemos mensajes más largos que $n$ deberemos de segmentarlos en
                     <br/><u>bloques</u> de tamaño $n$</p>
             </section>
             <section id="random-permutation">
-                <h3>Cifrado de bloque: permutació aleatoria</h3>
+                <h3>Cifrado de bloque: permutación aleatoria</h3>
                 <p>estas $2^{n}$ entradas (de longitud $n$) las deberemos escoger de forma aleatoria</p>
                 <p>de forma que no podremos conocer $f(x)$ sin conocer la tabla</p>
                 <p>$\downarrow$</p>
@@ -665,7 +665,7 @@
             <section>
                 <h3>Cifrado de bloque:
                     <br/>permutación pseudoaleatoria</h3>
-                <p>como en el cas de PRNG, por seguridad hace falta que las PRP sean indistinguibles de las RP</p>
+                <p>como en el caso de PRNG, por seguridad hace falta que las PRP sean indistinguibles de las RP</p>
                 <span class="fragment">
                     <p>además hace falta que tanto $f_k$ como $f_k^{-1}$ se puedan calcular de forma eficiente</p>
                 </span>
@@ -813,7 +813,7 @@
                         <li><code>ShiftRows</code>: transposición de bytes fija</li>
                         <li><code>MixColumns</code>: 4
 			  <a href="https://en.wikipedia.org/wiki/Finite_field_arithmetic#Rijndael.27s_finite_field">multiplicaciones modulares</a> de 4 Byte, valores fijos</li>
-                        <li><code>AddRoundKey</code>: $\text{bloc} \oplus k_{i}$ (subclave $k_{i}$)</li>
+                        <li><code>AddRoundKey</code>: $\text{bloque} \oplus k_{i}$ (subclave $k_{i}$)</li>
                     </ul>
                     <p>esto cifra el bloque, y se pasa al siguiente donde se hace lo mismo pero cambiando la subclave</p>
                 </section>
@@ -852,7 +852,7 @@
                 <span class="fragment">
                     <p>...la estadística del mensaje en claro aparece a al text cifrado igual que en el cifrado del César (!)</p>
                     <p>ahora los bloques son de $16$ B, no d'$1$ B por tanto la estadística es menos importante
-                        <br/>($|\text{bloc}|=2^{128}$), pero en secuencias constantes
+                        <br/>($|\text{bloque}|=2^{128}$), pero en secuencias constantes
                     (por ejemplo, como las de un gráfico) se pueden dar bloques enteros idénticos
                     </p>
                 </span>
