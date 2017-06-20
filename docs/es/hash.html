@@ -169,7 +169,11 @@
             </section>
 
             <section>
-                <h3>seguredad en conjuntos de mensajes</h3>
+                <h1>Protocolos basados en hash</h1>
+            </section>
+
+            <section data-background="#FFFFDD">
+                <h3>seguridad en conjuntos de mensajes</h3>
                 <p>hace falta vigilar que la seguridad con la que protegemos los mensajes individuales, debe extrapolarse a
                     secuencias de mensajes (la sesión)</p>
                 <p>si no hacemos nada más que lo comentado hasta ahora, seriemos vulnerables a ataques:</p>
@@ -178,6 +182,50 @@
                 <li>de reordenado</li>
                 <li>de reflexión</li>
                 </ul>
+            </section>
+
+            <section data-background="#FFFFDD">
+                <h2>Protocolos: Sesión</h2>
+                <ul>
+                    <li>añadiendo un identificador de secuencia
+                        <br/>$\{1\|m_1, 2\|m_2 \dots \}$</li>
+                    <li>añadiendo el hash del mensaje anterior
+                        <br/>$\{m_1, \text{hash}(m_1)\|m_2, \text{hash}(m_2)\|m_3 \dots \}$</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Protocolos: Merkle Hash tree</h2>
+                <p>permite firmar bases de datos, discos, de forma eficiente</p>
+                <img src="img/Hash_Tree.svg" width="800"/>
+            </section>
+
+            <section>
+                <h3>Protocolos: almacenamiento de contraseñas</h3>
+                <p>el sistema operativo no debe guardar las contraseñas de los usuarios,
+                    <br/>no hace falta.</p>
+                <p><u>podemos guardar simplemente su hash</u>: $\text{hash}(\text{contraseña})$</p>
+                <p class="fragment">pero esto tiene un problema: muchos usuarios usan palabras, nombres, etc. limitados. Las palabras, nombres conocidos són del orden de $\approx 100.000$</p>
+                <p class="fragment">un atacante realizar un "diccionario" con el hash de todas las palabras, nombres, etc. (ataque de diccionario)</p>
+            </section>
+            
+            <section>
+                <h3>Contramedidas ataque de diccionario</h3>
+                <p>añadir un valor aleatorio o <em><u>salt</u></em>:
+                    <br/>$\text{hash}(\text{salt} \| \text{contraseña})$</p>
+                <p>esto fuerza al atacante a calcular el diccionario para cada contraseña</p>
+                <p>pero sigue siendo factible realizar $\approx 100.000$ operaciones para encontrar una contraseña</p>
+                <p class="fragment">contramedida adicional: realizar <u>iteraciones</u>
+                    <br/>implementar un hash "costoso":
+                    <br/>$\text{hash}(\text{hash}(\text{hash}(\cdots \text{hash}(\text{salt} \| \text{contraseña}))))$
+                </p>
+            </section>
+
+            <section>
+                <h2>Protocolos: Blockchain/BitCoin</h2>
+                <p>Desafío (aka "minería"): firmar "escogiendo" un hash "costoso"</p>
+                <p>$\text{hash}(\text{bloque}) = 000000000000000001\dots \text{ y 238 bits más}$</p>
+                <p>para poder escoger el hash, se debe añadir una secuencia de bits adecuada a la estructura a firmar (el bloque de transacciones de los últimos minutos)</p>
             </section>
 
 	    <section>
