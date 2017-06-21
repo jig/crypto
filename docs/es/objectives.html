@@ -294,11 +294,11 @@
                         k &= \text{\{nueva clave generada por el emisor\}} \\                    
                         k_c &= e_{\text{asim}}(k_{\text{pública-destinatario}}, k) \\
                         c &=  e_{\text{sim}}(k, m) \\
-                        r &=  \text{hash}(c \| k_c) \\
+                        r &=  \text{hash}(k_c \| c) \\
                         f &= e_{\text{asim}}(k_{\text{privada-autor}}, r) 
                     \end{aligned}$
                 </p>
-                <p>y enviamos: $k_c \| r \| c$</p>
+                <p>y enviamos: $k_c \| c \| r$</p>
             </section>
         </section>
         <section>
