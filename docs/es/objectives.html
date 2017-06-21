@@ -259,7 +259,7 @@
                 c &=  e_{\text{sim}}(k, m)
             \end{aligned}$</p>
             <p class="fragment">Nota: con $e_{\text{asim}}(k_{\text{pública}},\circ)$ sólo tratamos $k$, que mide unos pocos bytes</p>
-            <p class="fragment">Ahora debemos enviar la clave cifrada asimétricamente $k_c$ <u>junto con el mensaje cifrado</u> $c$ ($c\|k_c$); el destinatario debe primero descifrar la clave simétrica (mediante $d_{\text{sim}}(k_{\text{privada}},k_c)$) y luego puede descifrar simétricamente el mensaje cifrado $c$ (mediante $d_{\text{asim}}(k, c)$)</p>
+            <p class="fragment">Ahora debemos enviar la clave cifrada asimétricamente $k_c$ <u>junto con el mensaje cifrado</u> $c$ ($k_c \| c$); el destinatario debe primero descifrar la clave simétrica (mediante $d_{\text{asim}}(k_{\text{privada}},k_c)$) y luego puede descifrar simétricamente el mensaje cifrado $c$ (mediante $d_{\text{sim}}(k, c)$)</p>
         </section>
         <section>
             <h2>Ejemplo de Composición 3/4: cifrado y firmado</h2>
@@ -274,17 +274,32 @@
             <p>firma asimétrica $+$ hash &amp; cifrado asimétrico $+$ cifrado simétrico  </p>
         </section>
         <section>
-            <h2></h2>
-            <p>El mensaje enviado es el resultado de:</p>
-            <p>
-                $\begin{aligned}
-                    r &=  \text{hash}(m) \\
-                    f &= e_{\text{asim}}(k_{\text{privada-autor}}, r) \\
-                    k_c &= e_{\text{asim}}(k_{\text{pública-destinatario}}, k) \\
-                    c &=  e_{\text{sim}}(k, m\|f) 
-                \end{aligned}$
-            </p>
-            <p>y enviamos: $c \| k_c$</p>
+            <section>
+                <p>El mensaje enviado es el resultado de:</p>
+                <p>
+                    $\begin{aligned}
+                        r &=  \text{hash}(m) \\
+                        f &= e_{\text{asim}}(k_{\text{privada-autor}}, r) \\
+                        k &= \text{\{nueva clave generada por el emisor\}} \\                    
+                        k_c &= e_{\text{asim}}(k_{\text{pública-destinatario}}, k) \\
+                        c &=  e_{\text{sim}}(k, m\|f) 
+                    \end{aligned}$
+                </p>
+                <p>y enviamos: $k_c \| c$</p>
+            </section>
+            <section>
+                <p>Alternativamente se puede cifrar y luego firmar:</p>
+                <p>
+                    $\begin{aligned}
+                        k &= \text{\{nueva clave generada por el emisor\}} \\                    
+                        k_c &= e_{\text{asim}}(k_{\text{pública-destinatario}}, k) \\
+                        c &=  e_{\text{sim}}(k, m) \\
+                        r &=  \text{hash}(c \| k_c) \\
+                        f &= e_{\text{asim}}(k_{\text{privada-autor}}, r) 
+                    \end{aligned}$
+                </p>
+                <p>y enviamos: $k_c \| r \| c$</p>
+            </section>
         </section>
         <section>
             <h2>Ejemplo de Composición 4/4: secuencia de mensajes</h2>
