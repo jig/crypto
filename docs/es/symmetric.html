@@ -105,17 +105,17 @@
                     <br/><small>(<a href="intro.html#key-space">Muchas claves</a>
                     y <a href="intro.html#vigenere-key-space">Vigenère: espacio de claves</a>)</small>
                 </p>
-                <p>podemos probar $10^6$ k/CPU/s $\approx 2^{20}$ k/CPU/s</p>
-                <p>ó $10^{13}$ k/CPU/año $\approx 2^{43}$ k/CPU/año</p>
-                <p>ó $10^{16}$ k/año con $1000$ CPU $\approx 2^{53}$ k/año</p>
+                <p>podemos probar $10^6$ k/CPU/s $\approx 2^{20}$ clave/CPU/s</p>
+                <p>ó $10^{13}$ k/CPU/año $\approx 2^{43}$ clave/CPU/año</p>
+                <p>ó $10^{16}$ k/año con $1000$ CPU $\approx 2^{53}$ clave/año</p>
                 <p class="fragment"><small><a href="https://shattered.io">Google's SHA1tered experiment: $6500$ CPU·año</a></small></p>
-                <p>ó $10^{19}$ k/año con $10^6$ CPU $\approx 2^{63}$ k/año
+                <p>ó $10^{19}$ k/año con $10^6$ CPU $\approx 2^{63}$ clave/año
                 <br/>$\vdots$</p>
             </section>
             <section>
 	      <p>$\vdots$
-                <br/>ó $10^{25}$ claves con $10^6$ CPU un millón de años $\approx 2^{83}$ k</p>
-                <p>ó $10^{29}$ claves con $10^6$ CPU desde el Big Bang $\approx 2^{96}$ k
+                <br/>ó $10^{25}$ claves con $10^6$ CPU un millón de años $\approx 2^{83}$ clave</p>
+                <p>ó $10^{29}$ claves con $10^6$ CPU desde el Big Bang $\approx 2^{96}$ clave
                   <br/>$\vdots$</p>
                 <p>si tengo una "suerte media" sólo nos hará falta la mitad de las pruebas (e.g. en el
                     último escenario necesitaremos "sólo" la mitad de la edad del Universo para encontrar la clave)
@@ -293,17 +293,37 @@
                 </ul>
             </section>
             <section>
-                <h3>Cifrado de flujo: primer intento</h3>
-                <p>Supongamos que tenemos una función PRNG, y usamos una clave $k$ para cifrar un flujo de datos
-                    en una conexión (e.g. TLS)</p>
-                <p>hemos de vigilar de no reutilitzar $k \xrightarrow{\text{PRNG}} k_{\text{g}}$, si no:</p>
-                <p>$\begin{aligned}
-                    c_1 &= k_{\text{g}} \oplus m_1 \\
-                    c_2 &= k_{\text{g}} \oplus m_2 \\
-                    c_1 \oplus c_2 &= m_1 \oplus m_2
-                    \end{aligned}$
-                </p>
-                <p>¡hemos eliminado las claves de la ecuación!</p>
+                <section>
+                    <h3>Cifrado de flujo: primer intento</h3>
+                    <p>Supongamos que tenemos una función PRNG, y usamos una clave $k$ para cifrar un flujo de datos
+                        en una conexión (e.g. TLS)</p>
+                    <p>hemos de vigilar de no reutilitzar $k \xrightarrow{\text{PRNG}} k_{\text{g}}$, si no:</p>
+                    <p>$\begin{aligned}
+                        c_1 &= k_{\text{g}} \oplus m_1 \\
+                        c_2 &= k_{\text{g}} \oplus m_2 \\
+                        c_1 \oplus c_2 &= m_1 \oplus m_2
+                        \end{aligned}$
+                    </p>
+                    <p>¡hemos eliminado las claves de la ecuación!</p>
+                    <a class="fragment" href="#first-tey-detail">(detalle)</a>
+                </section>
+                <section id="first-tey-detail" data-background="#FFFFDD">
+                        <h3>(detalle)</h3>
+                    <p style="color:lightgray">$\begin{aligned}
+                        c_1 &= k_{\text{g}} \oplus m_1 \\
+                        c_2 &= k_{\text{g}} \oplus m_2
+                        \end{aligned}$
+                    </p>
+                    <p>$\begin{aligned}
+                        c_1 \oplus c_2  &= (k_{\text{g}} \oplus m_1) \oplus (k_{\text{g}} \oplus m_2) \\
+                                        &= k_{\text{g}} \oplus m_1 \oplus k_{\text{g}} \oplus m_2 \\
+                                        &= k_{\text{g}} \oplus k_{\text{g}} \oplus m_1 \oplus m_2 \\
+                                        &= (k_{\text{g}} \oplus k_{\text{g}}) \oplus (m_1 \oplus m_2) \\
+                                        &= (\{000\cdots000\}) \oplus (m_1 \oplus m_2) \\
+                                        &= m_1 \oplus m_2
+                        \end{aligned}$
+                    </p>
+                </section>
             </section>
             <section>
                 <h3>Cifrado de flujo: segundo intento</h3>
@@ -313,7 +333,7 @@
             <section>
                 <h3>Cifrado de flujo: tercer intento</h3>
                 <p>generar variaciones de las claves en cada transmisión</p>
-                <p>supongamos que tenemos una función</p>
+                <p>supongamos que tenemos una función $f$</p>
                 <p>$\begin{aligned}
                     k' &= f(k, r) \\
                     {k'}_{\text{generada}} &= \text{PRNG}(k')  \\
@@ -324,7 +344,7 @@
             </section>
             <section>
                 <h3>Cifrado de flujo: consideraciones</h3>
-                <p>en resumen: hemos de generar un $r$ diferente para cada mensaje
+                <p>en resumen: debemos generar un $r$ diferente para cada mensaje
 		  <br/>(llamado <em>nonce</em>)</p>
                 <p>si tenemos una comunicación bidireccional como<br/>HTTPS (TLS) hace falta:</p>
                 <ul>
