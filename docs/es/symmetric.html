@@ -149,13 +149,17 @@
             <section>
                 <section>
                     <h3>NIST</h3>
-                    <p>el <a href="http://csrc.nist.gov/publications/nistpubs/800-57/sp800-57_part1_rev3_general.pdf">NIST</a> recomienda (2015)
+                    <p>el <a 
+                            href="http://csrc.nist.gov/publications/nistpubs/800-57/sp800-57_part1_rev3_general.pdf"
+                            title="The National Institute of Standards and Technology is a measurement standards laboratory, and a non-regulatory agency of the United States Department of Commerce. Its mission is to promote innovation and industrial competitiveness (source Wikipedia)"
+                        >NIST</a> recomienda (2015)
                         claves en las que un atacante<br/>tenga que hacer $2^{112}$ pruebas</p>
                     <p>Más exactamente, dice que las claves han de tener una longitud
             <br/>$\|k\| = 112$ b, mínimo</p>
                     <p class="fragment">A partir del 2030 prevé recomendar
             $\|k\| = 128$ b, mínimo</p>
-                    <p class="fragment"><em><u>Security Strength</u></em> son los bits de seguridad o seguridad equivalente<br/>Son necesarias $2^{\text{security strength}}$ operaciones para "romper" un algoritmo</p>
+                    <p class="fragment"><em><u>Security Strength</u></em> son los bits de seguridad o seguridad equivalente<br/>Son necesarias como mucho $2^{\text{security strength}}$ operaciones 
+                    <br/>para "romper" un algoritmo</p>
                     <p>NIST: <em>National Institute of Standards and Technology</em> (EE.UU.)</p>
                 </section>
                 <section>
@@ -619,9 +623,9 @@
 
             <section>
                 <h3>Cifrado de bloque: modelo</h3>
-                <p>podemos representar el cifrado con una permutación $f$</p>
+                <p><u>podemos representar el cifrado de bloque con una permutación</u> $f$</p>
                 <p>$f : X\rightarrow X$</p>
-                <p>donde $X$ es el conjunto de posibles bloques (tanto de texto en claro como cifrado)</p>
+                <p>donde $X$ es el conjunto de posibles bloques (tanto de texto en claro como de texto cifrado)</p>
                 <p>y podemos representar la función de descifrado como su inversa $f^{-1}$
                 </p>
                 <p>$f^{-1} : X\rightarrow X$</p>		
@@ -632,7 +636,7 @@
                     \end{aligned}$</p>
             </section>
             <section>
-                <h3>Cifrado de bloque: tamaño</h3>
+                <h3>Cifrado de bloque: tamaño de bloque</h3>
                 <p>$\begin{aligned}
                     f &: X \rightarrow X \\
                     f &: \{0,1\}^n \rightarrow \{0,1\}^n
@@ -648,7 +652,7 @@
             <section id="random-permutation">
                 <h3>Cifrado de bloque: permutación aleatoria</h3>
                 <p>estas $2^{n}$ entradas (de longitud $n$) las deberemos escoger de forma aleatoria</p>
-                <p>de forma que no podremos conocer $f(x)$ sin conocer la tabla</p>
+                <p>de forma que no podremos conocer $f$ sin conocer la tabla</p>
                 <p>$\downarrow$</p>
                 <p>RP: <em>Random Permutation</em></p>
             </section>
@@ -661,20 +665,37 @@
             </section>
 
             <section>
-                <h3>Cifrado de bloque: $f_k$</h3>
-                <p>en realidad para que el cifrado sea seguro necesitaremos una "familia" de funciones equivalentes pero
-                    diferentes. Las indexaremos en función de la clave, $k$:</p>
-                <p>$\begin{aligned}
-                    f_k &: X \rightarrow X \\
-                    f_k &: \{0,1\}^n \rightarrow \{0,1\}^n
-                    \end{aligned}$</p>
-                <p>o también, podemos redefinir $f$ y añadirle $k$ como parámetro:</p>
-                <p>$\begin{aligned}
-                    f &: K \times X \rightarrow X \\
-                    f &: \{0,1\}^{\|k\|} \times \{0,1\}^n \rightarrow \{0,1\}^n
-                    \end{aligned}$</p>
-                </p>
-                <p>donde $K$ es el <em>espacio</em> de claves $k$ (o <em>conjunto</em> de claves)</p>
+                <section>
+                    <h3>Cifrado de bloque: $f_k$</h3>
+                    <p>en realidad para que el cifrado sea seguro necesitaremos una "familia" de funciones equivalentes pero
+                        diferentes. Las indexaremos en función de la clave, $k$:</p>
+                    <p>$\begin{aligned}
+                        f_k &: X \rightarrow X \\
+                        f_k &: \{0,1\}^n \rightarrow \{0,1\}^n
+                        \end{aligned}$</p>
+                    <p>o también, podemos redefinir $f$ y añadirle $k$ como parámetro:</p>
+                    <p>$\begin{aligned}
+                        f &: K \times X \rightarrow X \\
+                        f &: \{0,1\}^{\|k\|} \times \{0,1\}^n \rightarrow \{0,1\}^n
+                        \end{aligned}$</p>
+                    </p>
+                    <p>donde $K$ es el <em>espacio</em> de claves $k$ (o <em>conjunto</em> de claves)</p>
+                </section>
+                <section data-background="#FFFFDD">
+                    <h3>Nota: equivalencia de notación</h3>                    
+                    <table>
+                        <tr>
+                            <td align="right">$f_k : X \color{gray}{\rightarrow X}$</td>
+                            <td align="center">$\longleftrightarrow$</td>
+                            <td>$\color{gray}{y =} f_k(x)$</td>
+                        </tr>
+                        <tr>
+                            <td align="right">$f : K \times X \color{gray}{\rightarrow X}$</td>
+                            <td align="center">$\longleftrightarrow$</td>
+                            <td>$\color{gray}{y =} f(k, x)$</td>
+                        </tr>
+                    </table>
+                </section>
             </section>
 
             <section id="pseudo-random-permutation">
@@ -715,9 +736,9 @@
                             <li><u>polialfabéticos</u> (Vigenère)</li>
                         </ul>
                     </li>
-                    <li>Cifrados de <u>transposición</u></li>
+                    <li>cifrados de <u>transposición</u></li>
                 </ul>
-                <p class="fragment">a partir de ahora utilizaremos $e()$ y $d()$ en lugar<br/>de las $f()$ y $f^{-1}()$ utilizadas hasta ahora</p>
+                <p class="fragment">a partir de ahora utilizaremos $e()$ y $d()$ en lugar<br/>de las $f$ y $f^{-1}$ utilizadas hasta ahora</p>
             </section>
             <section>
                 <h3>Cifrados de bloque: composición</h3>
@@ -849,21 +870,25 @@
                     <p><code>SubBytes</code></p>
                     <img src="img/AES-SubBytes.svg"/>
                     <p><small>(fuente <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">Wikipedia</a>)</small></p>
+                    <p>"sustitución de bytes en función de una tabla fija de 256 entradas"</p>
                 </section>
                 <section>
                     <p><code>ShiftRows</code></p>
                     <img src="img/AES-ShiftRows.svg"/>
                     <p><small>(fuente <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">Wikipedia</a>)</small></p>
+                    <p>"transposición de bytes fija"</p>
                 </section>
                 <section>
                     <p><code>MixColumns</code></p>
                     <img src="img/AES-MixColumns.svg"/>
                     <p><small>(fuente <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">Wikipedia</a>)</small></p>
+                    <p>"4 <a href="https://en.wikipedia.org/wiki/Finite_field_arithmetic#Rijndael.27s_finite_field">multiplicaciones modulares</a> de 4 Byte, valores fijos"</p>
                 </section>
                 <section>
                     <p><code>AddRoundKey</code></p>
                     <img src="img/AES-AddRoundKey.svg"/>
                     <p><small>(fuente <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">Wikipedia</a>)</small></p>
+                    <p>"$\text{bloque} \oplus k_{i}$ (subclave $k_{i}$)"</p>
                 </section>
             </section>
             <section>
