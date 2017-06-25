@@ -276,10 +276,12 @@
 
         <section data-background="#FFFFDD">
             <h2>Seguridad</h2>
-            <p><strong>Algoritmos</strong>: TLS hasta (v1.2) permite configurar algoritmos (<em>cipher suites</em>) obsoletos</p>
-            <p><strong>Protocolo</strong>: versiones antiguas, mecanismos de renegoaciación (para bajar a versiones antiguas)&hellip;</p>
-            <p><strong>Implementaciones</strong>: limitación de parámetros, uso de PRNG de baja calidad</p>
-            <p><strong>Condiciones de uso</strong>: gestión del servidor (o el cliente)</p>
+            <ul>
+            <li><strong>Algoritmos</strong>: TLS hasta (v1.2) permite configurar algoritmos (<em>cipher suites</em>) que actualmente son obsoletos</li>
+            <li><strong>Protocolo</strong>: versiones antiguas, mecanismos de renegoaciación (para bajar a versiones antiguas)&hellip;</li>
+            <li><strong>Implementaciones</strong>: limitación de parámetros, uso de PRNG de baja calidad</li>
+            <li><strong>Condiciones de uso</strong>: gestión del servidor (o el cliente)</li>
+            </ul>
         </section>
 
         <section data-background="#FFFFDD">
@@ -423,18 +425,26 @@ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
                     </td>
                 </tr>
             </table>       
-            <p>se debe vigilar que RSA y DHE sean de 2048 bit o más, y que ECDSA y ECDH usen P-256, P-384 o P-521</p>  
+            <p>se debe vigilar que RSA y <a href="threats.html#countermeasures">DHE</a> sean de 2048 bit o más, y que ECDSA y ECDH usen P-256, P-384 o P-521</p>  
             <p class="fragment">problema: S.O. antiguos no podrán conectarse</p> 
         </section>
+
+        <section data-background="#FFFFDD">
+            <h2>Seguridad: <em><a href="threats.html#countermeasures">Forward Secrecy</a></em></h2>       
+            <p>un ataque que revele una clave privada implica que se debe cambiar la clave privada</p>
+            <p>pero si no se usa <code>_DHE_</code> ó <code>_ECDHE_</code> el revelado de la clave privada permite el descifrado de tráfico pasado</p>
+        </section>
+
 
         <section data-background="#FFFFDD">
             <h2>Seguridad: Protocolo</h2>
             <ul>
                 <li>versiones antiguas</li>
-                <li>versiones nuevas pero con soporte de mecanismos de renegoaciación (para bajar a versiones antiguas)</li>
-                <li>versiones nuevas pero con soporte de mecanismos de renegoaciación (para bajar a <em>export grade</em>)</li>
+                <li>versiones nuevas pero con soporte de mecanismos de renegoaciación de <u>versión TLS</u> (para bajar a versiones antiguas);
+                    <br/>TLS 1.0 debe ser la versión mínima soportada
+                    <br/>(las anteriores (SSL v3) están rotas)</li>
+                <li>versiones nuevas pero con soporte de mecanismos de renegoaciación de <u>algoritmos antiguos</u> (algoritmos <em>export grade</em>)</li>
             </ul>
-            <p>TLS 1.0 debe ser la versión mínima soportada</p>
             <p class="fragment">problema: S.O. antiguos no podrán conectarse</p> 
         </section>
 

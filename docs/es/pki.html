@@ -613,7 +613,7 @@ TBSCertificate  ::=  SEQUENCE  {
             </ul>
         </section>
 
-        <section id="recognised-ca" data-background="#FF8888">
+        <section id="recognised-ca">
             <h3>Lista de CA<span style="text-transform:lowercase;">s</span> reconocidas</h3>
             <p>las CAs reconocidas (raíz) deben obtenerse de forma fiable</p>
             <ul>
@@ -624,9 +624,14 @@ TBSCertificate  ::=  SEQUENCE  {
             <p>el S.O. o el software actúan de "<span title="Trusted Third Party">TTP</span> raíz"</p>
             <p>en algunos sistemas se pueden modificar estas listas (por parte del usuario, o el administrador de
                 sistemas)</p>
+            <!--
+                Windows i MacOS gestionen els certificats root dels navegadors
+                Linux te diferents repositoris (GNome keyring, /usr/shared/ca-certificates... i cada navegador té 
+                el seu repositori)
+             -->
         </section>
 
-        <section>
+        <section data-background="#FF8888">
             <h3>Certificados &ldquo;verdes&rdquo;</h3>
             <p>¿Hay CAs raíz buenas? ¿cómo gestiono la lista de CAs raíz que usaré? </p>
             <p>el hecho que la lista de certificados pueda ser manipulada (usuario, sysadmin) ha hecho que aparezcan
@@ -639,6 +644,19 @@ TBSCertificate  ::=  SEQUENCE  {
                 grabada en el código fuente de los navegadores, etc.</li>
               <li><em>PBK pinning</em>: en aplicaciones (no navegadores) podemos grabar la PBK<sub>interlocutor</sub> que
               nos interese; en navegadores puedo decir: me creo este servidor web</li>
+            </ul>
+        </section>
+
+        <section data-background="#FF8888">
+            <h2>CA no fiables</h2>
+            <ul>
+                <li>Digisign Server ID – (Enrich) (Malasia, subordinada de Entrust.net Certification Authority (2048)): erróneamente emitió certificados con claves de titular de 512 bit. Se revocó la CA.</li>
+                <li>Digisign Server ID (Enrich) (Malasia,  subordinada de GTE CyberTrust Global Root): erróneamente emitió certificados con claves de titular de 512 bit. Se revocó la CA.</li>
+                <li>DigiNotar (Holanda, varias CA raíz): fueron hackeadas y se emitieron certificados fraudulentos</li>
+                <li>MCS Holding (test): la CA no estaba conectada (directamente?) a un HSM. Se emitieron certificados de forma fraudulenta para <code>*.google.com</code> entre otros</li>
+                <li>MD5 Collisions Inc.: una prueba de concepto que se "coló" en Firefox y Chromre al menos</li>
+                <li>UserTrust "<a href="https://www.eff.org/deeplinks/2011/03/iranian-hackers-obtain-fraudulent-https">UTN-USERFirst-Hardware</a>" (Comodo): compromiso de una RA (de un usuario+contraseña) que permitió emitir 9 certificados fraudulentos HTTPS</li>
+                <li></li>
             </ul>
         </section>
 
