@@ -205,10 +205,68 @@
                 </section>
             </section>
 
-            <section id="hmac">
+            <section data-background="#FFFFDD">
+                <h2>PRNG basado en hash</h2>
+                <p>también (como con cifradores de bloque) se puede generar una función PRNG basada en hash:</p>
+                <ul>
+                    <li>Hash <span title="Deterministic Random Bit Generator">DRBG</span></li>
+                    <li>HMAC <span title="Deterministic Random Bit Generator">DRBG</span></li>
+                </ul>
+                <!-- cal revisar 
+                    https://www.schneier.com/academic/paperfiles/paper-prngs.pdf 
+                    http://csrc.nist.gov/publications/nistpubs/800-90A/SP800-90A.pdf
+                -->
+            </section>
+
+            <section>
                 <h1>HMAC</h1>
-                <p>MACs basados en funciones de hash</p>
-                <h3><a href="mac.html">(MAC) $\rightarrow$</a></h3>
+                <h2>MAC basado en funciones Hash</h2>
+            </section>
+
+            <section>
+                <h3>MAC: objetivo</h3>
+                <p>pruebas de integridad:
+                <br/>impiden que un atacante pueda modificar el mensaje<br/>sin que el receptor lo detecte</br>
+                <p>esta funcionalidad es ortogonal con el cifrado:
+                    <br/><u>cifrado y MAC</u> se utilizan combinadas para obtener<br/><u>confidencialidad y integridad</u></p>
+                <p class="fragment">Nota sobre el cifrado: un atacante puede modificar el mensaje, aunque no lo pueda
+                leer
+                    <br/>(incluso hay algoritmos que le permiten realizar operaciones:<br/>e.g. $\oplus$ en cifrado de flujo)</p>
+            </section>
+
+            <section>
+                <h3>MAC: casos de uso</h3>
+                <ul>
+                <li>en una transmisión, queremos validar que lo que nos envían no ha sido modificado por un atacante
+                    <br/>(hace falta acordar una clave $k$ previamente)</li>
+                <li>en una sistema de ficheros, queremos saber que los ficheros que hemos guardardado no han sido
+                    alterados por un atacante, virus, etc. cuando volvamos a leerlos
+                    <br/>(hemos de recordar la clave $k$)</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>MAC: funcionamiento</h3>
+                <p>nos hará falta una clave secreta que aplicaremos al mensaje con la función $\text{MAC}$:</p>
+                <p><!-- tag -->$t = \text{MAC}(k, m)$</p>
+
+                <svg width="480" height="120" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+                    <g>
+                        <title>Layer 1</title>
+                        <rect fill="#f7cfcf" stroke="#000000" stroke-width="5" stroke-linejoin="null" stroke-linecap="null" x="324" y="31.5" width="137.75" height="37.25" id="svg_3"/>
+                        <rect fill="#f7cfcf" stroke="#000000" stroke-width="5" x="29" y="32" width="282.99999" height="37" id="svg_1"/>
+                        <text font-style="italic" fill="#000000" stroke="#000000" stroke-width="0" x="391.75" y="38.4708" id="svg_2" font-size="24" font-family="Sans-serif" text-anchor="middle" xml:space="preserve" transform="matrix(1,0,0,0.953496220250237,-0.25,22.196207110658804) ">t</text>
+  <text font-style="italic" fill="#000000" stroke="#000000" stroke-width="0" x="188.5" y="37.94641" font-size="24" font-family="Sans-serif" text-anchor="middle" xml:space="preserve" transform="matrix(1,0,0,0.953496220250237,-0.25,22.196207110658804) " id="svg_4">m</text>
+                    </g>
+                </svg>
+            </section>
+
+            <section data-background="#FFFFDD">
+                <h3>SHA2-HMAC: primer intento</h3>
+                <p>$t = h(k \| m)$</p>
+                <p>concatenamos una clave $k$ (o simplemente una contraseña de longitud suficiente) al propio mensaje</p>
+                <p class="fragment">Nota: esta implementación es insegura <a href="http://cacr.uwaterloo.ca/hac/about/chap9.pdf">[9.64][9.65]</a></p>
             </section>
 
             <section>
@@ -217,12 +275,16 @@
                     el propio hash y $\oplus$</p>
                 <p>
                     $\begin{aligned}
-                    k_\text{o} = k \oplus \text{opad} \; &| \; \text{opad} = \text{5C5C}\cdots \\
-                    k_\text{i} = k \oplus \text{ipad} \; &| \; \text{ipad} = \text{3636}\cdots \\
+                    k_1 = k \oplus \text{opad} \\
+                    k_2 = k \oplus \text{ipad} \\
                     \end{aligned}$</p>
-                <p>$t = \color{red}{h}( k_\text{o} \, \| \, \color{red}{h}( k_\text{i} \| m ) )$</p>
-                <p>Nota: $\|$ denota concatenación</p>
-                <p class="fragment">Nota: variantes obvias como $t = h(k \| m)$ son inseguras <a href="http://cacr.uwaterloo.ca/hac/about/chap9.pdf">[9.64][9.65]</a></p>
+                <p>$t = \color{red}{h}( k_1 \, \| \, \color{red}{h}( k_2 \| m ) )$</p>
+                <p>Donde:</p> 
+                <p>$\begin{aligned}
+                            \text{opad} &= \text{5C5C}\cdots \\
+                            \text{ipad} &= \text{3636}\cdots
+                        \end{aligned}$
+                   </p>
                 <!-- SHA-3 HMAC encara no està definit -->
             </section>
 
@@ -239,10 +301,10 @@
                 ningún de detalle de $m$ (en realidad sí lo hace: si dos mensajes son iguales, un atacante lo sabrá simplemente inspeccionando $t$ y $t'$</p>
             </section>
 
-	    <section>
-            <h3><a href="mac.html">(MAC) $\rightarrow$</a></h3>
-	        <h3><a href="number-theory.html">(Teoría de Números) $\rightarrow$</a></h3>
-	    </section>
+            <section>
+                <h3><a href="ecbc-mac.html">(ECBC-MAC) $\rightarrow$</a></h3>
+                <!-- <h3><a href="number-theory.html">(Teoría de Números) $\rightarrow$</a></h3> -->
+            </section>
         </div>
 
     </div>

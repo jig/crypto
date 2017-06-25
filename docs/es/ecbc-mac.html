@@ -6,7 +6,7 @@
 
         <title>MAC</title>
 
-        <meta name="description" content="Codi d'Autenticació de Missatge">
+        <meta name="description" content="Códigos de autenticación de mensaje">
         <meta name="author" content="Jordi Íñigo Griera">
         <!-- Implementat amb revealjs: https://github.com/hakimel/reveal.js -->
 
@@ -41,14 +41,14 @@
         <!-- Any section element inside of this container is displayed as a slide -->
         <div class="slides">
             <section>
-                <h1>MAC</h1>
-                <p>Codi d'Autenticació de missatge<br/>
-                    <em>Message Authentication Code</em>
+                <h1>ECBC-MAC</h1>
+                <p>Códigos de autenticación de mensaje basados en cipfradores de bloque<br/>
+                    <em><!-- Encrypted --> Cipher Block Chaining Message Authentication Code</em>
                 </p>
                 <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/4.0/88x31.png" /></a><br />
 
 				<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/InteractiveResource" property="dct:title" rel="dct:type">
-					&ldquo;Curs d'Introducció a la criptografia&rdquo;
+					&ldquo;Curso de Introducción a la Criptografía&rdquo;
 				</span>
 
                     by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/jig" property="cc:attributionName" rel="cc:attributionURL">Jordi Íñigo Griera</a> is licensed under a<br/>
@@ -58,48 +58,17 @@
                     <br />Project hosted at <a xmlns:dct="http://purl.org/dc/terms/" href="https://github.com/jig/crypto" rel="dct:source">github.com/jig/crypto</a></em></small>
             </section>
 
-            <section>
-                <h3>MAC: objectiu</h3>
-                <p>prova d'integritat:
-                <br/>impedeix que un atacant pugui modificar el missatge sense que el receptor se n'adoni</br>
-                <p>aquesta funcionalitat és ortogonal amb el xifrat:
-                    <br/>xifrat i MAC es fan servir juntes per a obtenir confidencialitat i integritat</p>
-                <p class="fragment">Nota sobre el xifrat: un atacant pot modificar el missatge, encara que no el pugui
-                llegir
-                    <br/>(fins hi tot en alguns casos pot realitzar operacions: e.g. $\oplus$ en xifrat de flux)</p>
-            </section>
+
+
+
+
+
+
+
 
             <section>
-                <h3>MAC: casos d'ús </h3>
-                <ul>
-                <li>en una transmissió, volem validar que el que ens envien no ha estat modificat per un atacant
-                    <br/>(cal acordar una clau $k$ prèviament)</li>
-                <li>en una sistema de fitxers, volem saber que els fitxers que varem guardar-hi no han estat
-                    alterats per un atacant, virus, etc. quan hi tornem a accedir
-                    <br/>(cal recordar la clau $k$)</li>
-                </ul>
-            </section>
-
-            <section>
-                <h3>MAC: funcionament</h3>
-                <p>ens caldrà una clau secreta que aplicarem al missatge amb la funció $\text{MAC}$:</p>
-                <p><!-- tag -->$t = \text{MAC}(k, m)$</p>
-
-                <svg width="480" height="120" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
-                    <g>
-                        <title>Layer 1</title>
-                        <rect fill="#f7cfcf" stroke="#000000" stroke-width="5" stroke-linejoin="null" stroke-linecap="null" x="324" y="31.5" width="137.75" height="37.25" id="svg_3"/>
-                        <rect fill="#f7cfcf" stroke="#000000" stroke-width="5" x="29" y="32" width="282.99999" height="37" id="svg_1"/>
-                        <text font-style="italic" fill="#000000" stroke="#000000" stroke-width="0" x="391.75" y="38.4708" id="svg_2" font-size="24" font-family="Sans-serif" text-anchor="middle" xml:space="preserve" transform="matrix(1,0,0,0.953496220250237,-0.25,22.196207110658804) ">t</text>
-  <text font-style="italic" fill="#000000" stroke="#000000" stroke-width="0" x="188.5" y="37.94641" font-size="24" font-family="Sans-serif" text-anchor="middle" xml:space="preserve" transform="matrix(1,0,0,0.953496220250237,-0.25,22.196207110658804) " id="svg_4">m</text>
-                    </g>
-                </svg>
-            </section>
-
-            <section>
-                <h3>MAC: primera implementació</h3>
-                <p>podem fer servir directament una funció de xifrat de <u>bloc</u>, d'aquesta manera:
+                <h3>MAC: primera implementación</h3>
+                <p>podemos utilizar directamente una función de cifrado de <u>bloque</u>, así:
                 <br/>$t = e(k, m)$</p>
 
 		<svg width="360" height="120" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
@@ -112,63 +81,62 @@
 		    <text id="svg_4" transform="matrix(1,0,0,0.953496220250237,-0.25,22.196207110658804) " xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="34.80009" x="101.5" stroke-width="0" stroke="#000000" fill="#000000" font-style="italic">m</text>
 		  </g>
 		  </svg>
-                <p>Nota: no podem fer servir xifrat de flux (directament), ja que el càlcul de $k$ seria trivial; però sí que podem fer servir <code>AES-128-ECB</code></p>
+                <p>Nota: no podemos utilizar cifrado de flujo (directamente), ya que el cálculo de $k$ sería trivial; pero sí que podemos usar <code>AES-128-ECB</code></p>
             </section>
 
             <section id="fixed-mac">
-                <h3>MAC: primera implementació</h3>
+                <h3>MAC: primera implementación</h3>
                 <p>$t = e(k, m)$</p>
-                <p>aquesta construcció té una limitació:
-                <br/>només podem autenticar <u>missatges de la longitud de bloc</u></p>
+                <p>esta construcción tiene una limitación:
+                <br/>sólo podemos autenticar <u>mensajes de la longitud del bloque</u></p>
                 <span class="fragment">
-                    <p>Alternatives: ECBC i <a href="hash.html#hmac">HMAC</a></p>
+                    <p>Alternativas: ECBC y <a href="hash.html#hmac">HMAC</a></p>
                 </span>
             </section>
 
             <section id="raw-cbc">
                 <h3 style="text-transform:none;">rawCBC-MAC</h3>
-                <p>derivat del <a href="symmetric.html#mode-of-operation">mode d'operació</a> CBC (<em>Cipher Block Chaining</em>)</p>
+                <p>derivado del <a href="symmetric.html#mode-of-operation">modo de operación</a> CBC (<em>Cipher Block Chaining</em>)</p>
                 <p><img border="9" src="img/CBC-MAC_structure_(en).svg"/>
-                    <br/><small>(basat en <a href="https://en.wikipedia.org/wiki/CBC-MAC">Wikipedia</a>)</small></p>
-                <p>però en lloc de fer servir un $\text{IV}$, iniciarem la cadena amb $0$ (equivalent a $\text{IV}=0$)</p>
-                <p class="fragment">rawCBC-MAC és insegur però...</p>
+                    <br/><small>(basado en <a href="https://en.wikipedia.org/wiki/CBC-MAC">Wikipedia</a>)</small></p>
+                <p>pero en lugar de utilizar un $\text{IV}$, iniciaremos la cadena con $0$ (equivalente a $\text{IV}=0$)</p>
+                <p class="fragment">pero rawCBC-MAC es inseguro...</p>
             </section>
 
             <section>
                 <h3>ECBC-MAC</h3>
-                <p>...rawCBC-MAC és insegur ja que un atacant pot combinar missatges bons per generar-ne de <em title="aparentment">"bons"</em></p>
-                <p>per a evitar el problema podem canviar l'$\text{IV}=0$ per la longitud del missatge $\text{IV}=\ell$</p>
+                <p>...rawCBC-MAC es inseguro ya que un atacante puede combinar mensajes buenos para generar otros aparentemente <em title="aparentment">"buenos"</em></p>
+                <p>para evitar el problema podemos cambiar el $\text{IV}=0$ por la longitud del mensaje $\text{IV}=\ell$</p>
             </section>
 
             <section id="cbc">
                 <h3>ECBC-MAC</h3>
-                <p>...o habitualment el que es fa és fer servir una segona clau per a tancar el càlcul i impedir el
-                    concatenat
+                <p>...o habitualmente lo que se hace es utilizar una segunda clave para cerrar el cálculo y impedir el
+                    concatenado
                     <br/>(ECBC: <em>Encrypted CBC</em>)</p>
                 <p><img border="9" src="img/CBC-MAC_(encrypt_last_block)_structure.svg"/>
                     <br/><small>(basat en <a href="https://en.wikipedia.org/wiki/CBC-MAC">Wikipedia</a>)</small></p>
             </section>
 
             <section>
-                <h3>ECBC-MAC: seguretat</h3>
-                <p>ECBC-MAC és segur mentre sigui improbable trobar una <a href="hash.html#collision">col·lisió</a></p>
-                <p>la probabilitat de col·lisió és propera a $0.5$ per a un nombre de blocs d'aproximadament $\sqrt{|\text{bloc}|}$</p>
-                <p>e.g. en el cas de l'AES el bloc és de $128$ b, per tant, no podrem fer servir la mateixa clau:
+                <h3>ECBC-MAC: seguridad</h3>
+                <p>ECBC-MAC es seguro mientras sea improbable encontrar una <a href="hash.html#collision">colisión</a></p>
+                <p>la probabilidad de colisión es cercana a $0.5$ para una cantidad de bloques generados de aproximadamente $\sqrt{|\text{bloque}|}$</p>
+                <p>e.g. en el caso de AES el bloque es de $128$ b, por tanto, no podremos usar la misma clave:
                 <br/>$\text{ops} \ll \sqrt{2^{128}} = 2^{64}$</p>
-                <p>(valors acceptats per una clau AES-128/192/256:
-                    <br/> $2^{48}$ missatges autenticats)</p>
+                <p>(valores aceptados para una clave AES-128/192/256:
+                    <br/> $2^{48}$ mensajes autenticados)</p>
             </section>
 
             <section>
-                <h3>Altres MACs usats</h3>
+                <h3>Otros MACs usados</h3>
                 <p>Poly1305-AES: longitud $\|t\| = 128 \text{b}$</p>
                 <p>Poly1305-ChaCha20: longitud $\|t\| = 128 \text{b}$</p>   <!-- https://tools.ietf.org/html/draft-ietf-cose-msg-08#page-36 -->
                 <p>HMAC (<em><a href="hash.html">Hash</a> MAC</em>): longitud = longitud hash base</p>
             </section>
 
             <section>
-                <h3><a href="hash.html">(Hash) $\rightarrow$</a></h3>
-                <h3><a href="hash.html#hmac">(HMAC) $\rightarrow$</a></h3>                
+                <h3><a href="number-theory.html">(Teoría de números) $\rightarrow$</a></h3>
             </section>
         </div>
 

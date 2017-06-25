@@ -134,11 +134,49 @@
                     al SHA-3</p>
             </section>
 
-            <section id="hmac">
+            <section>
                 <h1>HMAC</h1>
-                <p>MACs basats en funcions de hash</p>
-                <h3><a href="mac.html">(MAC) $\rightarrow$</a></h3>
+                <h2>MAC basat en funcions Hash</h2>
             </section>
+
+            <section>
+                <h3>MAC: objectiu</h3>
+                <p>prova d'integritat:
+                <br/>impedeix que un atacant pugui modificar el missatge sense que el receptor se n'adoni</br>
+                <p>aquesta funcionalitat és ortogonal amb el xifrat:
+                    <br/>xifrat i MAC es fan servir juntes per a obtenir confidencialitat i integritat</p>
+                <p class="fragment">Nota sobre el xifrat: un atacant pot modificar el missatge, encara que no el pugui
+                llegir
+                    <br/>(fins hi tot en alguns casos pot realitzar operacions: e.g. $\oplus$ en xifrat de flux)</p>
+            </section>
+
+            <section>
+                <h3>MAC: casos d'ús </h3>
+                <ul>
+                <li>en una transmissió, volem validar que el que ens envien no ha estat modificat per un atacant
+                    <br/>(cal acordar una clau $k$ prèviament)</li>
+                <li>en una sistema de fitxers, volem saber que els fitxers que varem guardar-hi no han estat
+                    alterats per un atacant, virus, etc. quan hi tornem a accedir
+                    <br/>(cal recordar la clau $k$)</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>MAC: funcionament</h3>
+                <p>ens caldrà una clau secreta que aplicarem al missatge amb la funció $\text{MAC}$:</p>
+                <p><!-- tag -->$t = \text{MAC}(k, m)$</p>
+
+                <svg width="480" height="120" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+                    <g>
+                        <title>Layer 1</title>
+                        <rect fill="#f7cfcf" stroke="#000000" stroke-width="5" stroke-linejoin="null" stroke-linecap="null" x="324" y="31.5" width="137.75" height="37.25" id="svg_3"/>
+                        <rect fill="#f7cfcf" stroke="#000000" stroke-width="5" x="29" y="32" width="282.99999" height="37" id="svg_1"/>
+                        <text font-style="italic" fill="#000000" stroke="#000000" stroke-width="0" x="391.75" y="38.4708" id="svg_2" font-size="24" font-family="Sans-serif" text-anchor="middle" xml:space="preserve" transform="matrix(1,0,0,0.953496220250237,-0.25,22.196207110658804) ">t</text>
+  <text font-style="italic" fill="#000000" stroke="#000000" stroke-width="0" x="188.5" y="37.94641" font-size="24" font-family="Sans-serif" text-anchor="middle" xml:space="preserve" transform="matrix(1,0,0,0.953496220250237,-0.25,22.196207110658804) " id="svg_4">m</text>
+                    </g>
+                </svg>
+            </section>            
 
             <section>
                 <h3>HMAC basat en Hash+MAC</h3>
@@ -188,8 +226,8 @@
             </section>
 
 	    <section>
-            <h3><a href="mac.html">(MAC) $\rightarrow$</a></h3>
-            <h3><a href="number-theory.html">(Teoria de Nombres) $\rightarrow$</a></h3>
+            <h3><a href="ecbc-mac.html">(ECBC-MAC) $\rightarrow$</a></h3>
+            <!-- <h3><a href="number-theory.html">(Teoria de Nombres) $\rightarrow$</a></h3> -->
 	    </section>
         </div>
 
