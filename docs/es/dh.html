@@ -226,6 +226,26 @@
                 </table>
             </section>
 
+            <section data-background="#FFFFDD">
+                <h2>Clave asimétrica</h2>
+                <p>Clave pública: ($\alpha^i$, Parámetros públicos)</p>
+                <p>Clave privada: ($i$, Parámetros públicos)</p>
+                <p>Parámetros públicos: primo $p$ grande ($\ge 2048 \text{ bit}$) de la forma $p=2q+1$; <br/>generador $\alpha$ ($2$ ò $5$)</p>
+            </section>
+
+            <section data-background="#FFFFDD">
+                <h2>Diffie-Hellman efímero</h2>
+                <p>las claves simétricas són siempre las mismas si $i$ y $j$ (claves privadas son las mismas)</p>
+                <p>Dado que el coste de generación de claves DH es <u>muy bajo</u> (random grande + exponenciación) podemos generarla a cada uso</p>
+                <p class="fragment">En pro: cada interacción genera una clave distinta (DHE; <u>DH Ephemeral</u>)</p>
+                <p class="fragment">Por contra: no podemos autenticar al interlocutor (<span title="Man In The Middle">MITM</span>) (DH; DH non-ephemeral)</p>
+            </section>
+
+            <section data-background="#FFFFDD">
+                <h2>Aplicación</h2>
+                <p>TLS: es <u>del todo</u> recomendable el uso de DH <u>efímero</u> (DHE ó <span title="Elliptic Curve DH Ephemeral">ECDHE</span>)</p>
+                <p>WhatsApp: uso de DH <u>no efímero</u> para comunicación peer-to-peer o entre grupos (<a href="https://www.whatsapp.com/security/WhatsApp-Security-Whitepaper.pdf">paper</a>)</p>
+            </section >
             <section>
                 <h3><a href="rsa.html">(RSA) $\rightarrow$</a></h3>
             </section>
