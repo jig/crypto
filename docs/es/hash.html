@@ -191,7 +191,12 @@
                 <section>
                     <h2>Protocolos: BitCoin (Blockchain)</h2>
                     <p><u><span title="challenge">Desafío</span> (aka "minería")</u>: resumen "escogiendo" un hash "costoso"</p>
-                    <p>$\text{hash}(\text{bloque}) = 000000000000000001\dots \text{ y 238 bits más}$</p>
+                    <p title="prefijo 71 bits 0: fuente: blockchain.info">$\begin{aligned}
+                        \text{SHA2-256}(\text{bloque}) = 
+                                                    & 00000000000000000000000000000000 \\
+                                                    & 00000000000000000000000000000000 \\
+                                                    & 00000001\dots \text{ y 185 bits más}
+                        \end{aligned}$</p>
                     <p>para poder escoger el hash, se debe añadir una secuencia de bits adecuada a la estructura a firmar (el bloque de transacciones de los últimos minutos):</p>
                     <p>$\text{hash}(\text{prefijo_adecuado} \| \text{bloque})$</p>
                     <div class="fragment"><p>Nota: este hash (la "minería") se realiza sobre el libro de transacciones de bitcoin (<em>ledger</em>)</p> 
