@@ -392,10 +392,10 @@
                 <ul>
                     <li>dividir la cadena de bits en trozos $\Rightarrow$ disminuye la seguridad</li>
                     <li>$\oplus$ entre las claves $\Rightarrow$
-                        <a href="intro.html#perfect-secrecy" title="confidencialitat perfecte">seguro incondicionalmente</a>,
+                        <a href="intro.html#perfect-secrecy" title="confidencialidad perfecta">seguro incondicionalmente</a>,
                         pero frágil</li>
                     <li>algoritmo de Shamir $\Rightarrow$
-                        <a href="intro.html#perfect-secrecy" title="confidencialitat perfecte">seguro incondicionalmente</a>,
+                        <a href="intro.html#perfect-secrecy" title="confidencialidad perfecta">seguro incondicionalmente</a>,
                         y robusto</li>
                 </ul>
             </section>
@@ -410,6 +410,19 @@
                 </span>
             </section>
 
+            <section id="xor-split" data-background="#FFFFDD">
+	      <h3>$\oplus$ (<code><a href="intro.html#/xor">XOR</a></code>) entre los trozos de clave</h3>
+	      <p>$n$ custodios se reparten la clave = $\{0,1\}^{\|n\|}$</p>
+	      <div class="fragment">
+		<p>partición${}_1$ = secuencia aleatoria de $n$ bits</p>
+		<p>partición${}_2$ = secuencia aleatoria de $n$ bits</p>
+		<p>&hellip;</p>
+		<p>partición${}_{n-1}$ = secuencia aleatoria de $n$ bits</p>
+		<p>partición${}_n$ = partición${}_1 \oplus \cdots \oplus$ partición${}_{n-1} \oplus$ clave</p>
+	      </div>
+	      <p class="fragment">Es incondicionalmente seguro (criptográficamente hablando) pero "muy inseguro" desde el punto de vista de robustez funcional:<br/> si se pierde un trozo/partición se pierde la clave sin remedio</p>
+	    </section>
+	    
             <section id="shamir-split">
                 <h3>Algoritmo de Shamir</h3>
                 <p><img src="img/shamir-secret-sharing.png"/>
@@ -418,7 +431,7 @@
 
             <section>
                 <h3>Algoritmo de Shamir</h3>
-                <p>definido sobre $\mathbb{Z}_{p}^{*}$ (no sobre $\mathbb{R}$ como en el dibujo anterior)</p>
+                <p>definido sobre $(x \in \mathbb{Z}_{p}^{*}, y \in \mathbb{Z}_{p}^{*})$ (no sobre $(x \in \mathbb{R}, y \in \mathbb{R})$ como en el dibujo anterior)</p>
                 <p>si en lugar de utilizar una recta (polinomio de grado $1$),
                     usamos un polinomio de grado $M-1$ podemos ajustar cuantos trozos
                     se deben recuperar ($M$)</p>
