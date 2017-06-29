@@ -328,7 +328,7 @@
         <section id="ra">
             <h3><span title="Registration Authority">RA</span>: Autoridad de Registro</h3>
             <p>el procedimiento de registro gestiona la validación de credenciales
-                (<em>registro</em>) que demuestra que un titular posee
+	        (<em>registro</em>) que demuestra que un titular posee
                 la clave privada correspondiente a la clave pública que presenta
                 <ul>
                     <li>la <u>validación de posesión de la <code>PVK</code></u> ha de ser automática:
@@ -631,23 +631,13 @@ TBSCertificate  ::=  SEQUENCE  {
              -->
         </section>
 
-        <section data-background="#FF8888">
+        <section data-background="#FFFFDD">
             <h3>Certificados &ldquo;verdes&rdquo;</h3>
             <p>¿Hay CAs raíz buenas? ¿cómo gestiono la lista de CAs raíz que usaré? </p>
-            <p>el hecho que la lista de certificados pueda ser manipulada (usuario, sysadmin) ha hecho que aparezcan
-            mecanismos "más seguros"</p>
-            <ul>
-	          <li><em>Certificate Transparency</em>: los certificados de los servidores (web) se publican en una lista
-	            descentralizada</li>
-              <li>EV, <em>Extended Validation</em>: las CAs que emiten estos certificados siguen unos procedimientos
-                específicos para la validación de los datos del titular (<a href="registration">registro</a>); la lista de certificados raíz normalmente está
-                grabada en el código fuente de los navegadores, etc.</li>
-              <li><em>PBK pinning</em>: en aplicaciones (no navegadores) podemos grabar la PBK<sub>interlocutor</sub> que
-              nos interese; en navegadores puedo decir: me creo este servidor web</li>
-            </ul>
+	    <p>Si el certificado del servidor HTTPS al que nos conectamos está bajo una de estas CA raíz: se muestra en verde</p>
         </section>
 
-        <section data-background="#FF8888">
+        <section data-background="#FFFFDD">
             <h2>CA no fiables</h2>
             <ul>
                 <li>Digisign Server ID – (Enrich) (Malasia, subordinada de Entrust.net Certification Authority (2048)): erróneamente emitió certificados con claves de titular de 512 bit. Se revocó la CA.</li>
@@ -656,10 +646,49 @@ TBSCertificate  ::=  SEQUENCE  {
                 <li>MCS Holding (test): la CA no estaba conectada (directamente?) a un HSM. Se emitieron certificados de forma fraudulenta para <code>*.google.com</code> entre otros</li>
                 <li>MD5 Collisions Inc.: una prueba de concepto que se "coló" en Firefox y Chromre al menos</li>
                 <li>UserTrust "<a href="https://www.eff.org/deeplinks/2011/03/iranian-hackers-obtain-fraudulent-https">UTN-USERFirst-Hardware</a>" (Comodo): compromiso de una RA (de un usuario+contraseña) que permitió emitir 9 certificados fraudulentos HTTPS</li>
-                <li></li>
+                <li>Symantec: miles de certificados emitidos sin una correcta validación del
+		  titular<sup><a href="https://techcrunch.com/2017/03/27/google-is-fighting-with-symantec-over-encrypting-the-internet/">*</a></sup></li>
+                <li>&hellip;</li>
             </ul>
         </section>
 
+	<section data-background="#FFFFDD">
+	  <h3></h3>
+            <p>El hecho que la lista de certificados pueda ser manipulada (usuario, sysadmin) ha hecho que aparezcan
+              mecanismos "más seguros"</p>
+	    <p>Por ejemplo: los navegadores han separado en de dos listas las CA root confiables: una modificable por el usuario/administrador y otra no (<a href="https://cabforum.org/" title="CA|Browser Forum">CABforum</a>)</p>
+	  </section>
+	
+	<section data-background="#FFFFDD">
+	    <h3>verdes y verdes</h3>
+              <p>Certificados EV, <em>Extended Validation</em>: las CAs que emiten estos certificados siguen unos procedimientos
+                específicos para la validación de los datos del titular (<a href="registration">registro</a>); la lista de certificados raíz normalmente está grabada en el código fuente de los navegadores, etc. Los certificados EV exigen que el propietario del dominio siga procedimientos que se auditan (presencialmente)</p>
+	      <p>Los certificados no-EV no tienen porqué pasar ninguna auditoria, habitualmente se valida simplemente la posesión del servidor Web (HTTP challenge) o del DNS (DNS Challenge)</p>
+	      <ul class="fragment">
+		<li>Ejemplo EV: <a href="https://github.com">GitHub.com</a></li>
+		<li>Ejemplo no-EV: <a href="https://google.com">Google.com</a></li>
+ 	      </ul>
+	     
+        </section>
+
+	<section data-background="#FFFFDD">
+	  <h3>Contramedidas adicionales: HPKP</h3>
+	  <p>HPKP, <em>HTTPS PBK Pinning</em>: el servidor HTTP envía una cabecera en la que indica que la clave del servidor (hash) y durante cuanto tiempo será válida</p>
+	  <p>el navegador almacena ese valor y comprueba en cada acceso que la PBK del servidor no ha variado</p>
+        </section>
+
+	<section data-background="#FFFFDD">
+	  <h3>Contramedidas adicionales: DNS CAA, DANE</h3>
+	  <p>DNS CAA, <em>DNS CA Authorization</em>: la CA comprueba que el DNS (CAA record) del nombre del servidor debe ser firmado por ella</p>
+	  <p>DANE, <em>DNS based Authentication of Named Entities</em>: los clientes validan que la clave pública del servidor es la misma que la que se publica en el DNS</p>
+	  <!-- DNSSEC per a signar les dades -->
+         </section>
+
+	<section data-background="#FFFFDD">
+	  <h3>Certificate Transparency</h3>
+	  <p>las CA bajo Certificate Transparency publican los certificados que emiten en una base de datos distribuida</p>
+	  <p>los propietarios legítimos (y cualquier usuario) puede consultar si alguna otra CA ha certificado nuestro dominio</p>
+	  </section>
         <!-- <section id="registration">
             <h3>Registre, procediment de</h3>
             <ul>
@@ -785,7 +814,7 @@ TBSCertList  ::=  SEQUENCE  {
                     <a
                             title="Let's Encrypt del Internet Security Research Group"
                             href="https://letsencrypt.org"
-                    >Let's Encrypt</a> de la fundación ISRG)</li>
+                    >Let's Encrypt</a> de la fundación <span title="Internet Security Research Group">ISRG</span>)</li>
                 <li>Administración de sistemas: distribución de CA propias de forma segura</li>
                 <li>Procedimiento de registro para certificación, revocación</li>
                 <li>complejidad: no/formación&hellip;</li>
