@@ -34,61 +34,19 @@ _Transparències en català a [jig.github.io/crypto](https://jig.github.io/crypt
 --------------|-------------------|
  Objetivos    | Simétrica         | 
  Introducción | MAC/HMAC          |
- Simétrica    | Teoría de Números |
 
-  26                | 27        | 29        |
---------------------|-----------|---------- |  
- Teoría de Números  |ECC        | HSM       | 
- DH                 |Complejidad| TLS       |  
- RSA                |Amenazas   | PKI       |  
- ElGamal, DSA       |HSM        | ~~AdES~~  |
+  26                | 27               | 29        |
+--------------------|------------------|---------- |  
+ Teoría de Números  |RSA               | HSM       | 
+ DH                 |ElGamal, DSA, ECC | TLS       |  
+ RSA                |Amenazas          | -         |  
 
  6-Julio                                         |
 -------------------------------------------------|              
+ PKI                                             | 
+ ~AdES~                                          |
  (ejercicios → PKI/servidor-https/cliente-https) |             
 
-## Ejercicios (a realizar en clase en función del tiempo)
-  - Criptografía simétrica:
-      - bloques de un sólo uso [Gimp](https://www.gimp.org) (_one-time-pad_ para uso pedagógico exclusivamente)
-      - criptografía simétrica con OpenSSL:
-          - xifrat (amb `openssl enc`)
-          - hash (amb `openssl dgst`)
-          - mac (amb `openssl dgst -hmac`)
-    
-  - Criptografía asimétrica:
-    - generar claves RSA (con `openssl genrsa`) y ECDSA (con `openssl ecparam` y `openssl ec`)
-        - parsear, convertir (con `openssl rsa`, con `openssl ec`)
-    - firmar y validar RSA (con `openssl rsautil`)
-    - cifrar y descifrar (con `openssl rsautil`)
-        
-  - PKI      
-    - decodificación DER en [lapo.it](https://lapo.it/asn1js/)
-    - decodificación X.509 en [Cert Logik](https://certlogik.com/decoder/)
-    - decodificación X.509 con OpenSSL Tools
-    - criptografía formateada en PKCS #7 con OpenSSL:
-    
-  - PKI TLS
-      - conexiones ssh (con `ssh`/`sshd`; contraejemplo no-PKI) 
-        - gestión de claves, protección y confianza
-      - validar tls/https (con [`cipherscan`](https://github.com/jig/docker-cipherscan))
-      - validar tls/https (con [SSL labs](https://www.ssllabs.com/ssltest/))
-      - conexiones tls/https (chrome → google.com)
-      - conexiones tls/https (chrome → servidor propio certificado con [Let's Encrypt CA](https://letsencrypt.org))
-        - certificación con [Let's Encrypt CA](https://letsencrypt.org) para servidores HTTPS públicos
-      - conexiones tls/https (chrome → servidor propio)
-        - servidor (con `nginx`)
-        - cliente (con `openssl s_client` y/o Chrome)
-          - certificación con la CA [PKI tutorial](https://pki-tutorial.readthedocs.io/en/latest/) (variante) para servidores corporativos/privados
-          - CA, TLS Server preconfigurados a:
-
-```
-$ docker run --name CAROOT -ti jordi/caroot
-$ docker run --name CASUBOR -p 443:443 -ti jordi/casubor
-$ docker run --name NGINX -p 443:443 -ti jordi/nginx
-$ docker run --name CLIENT -p 443:443 -ti jordi/client
-```
-
-Código fuente de las imágenes de estos contenedores en el proyecto [github.com/jig/docker-openssl](https://github.com/jig/docker-openssl)
 
 # Software utilizado para realizar las transparencias
 
