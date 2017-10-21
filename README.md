@@ -22,7 +22,7 @@ Transparencias en [jig.github.io/crypto/es](https://jig.github.io/crypto/es), pe
   - [Infraestructura de Clave Pública (PKI)](http://jig.github.io/crypto/pki.html) `59`
   - [Advanced Electronic Signatures (AdES)](http://jig.github.io/crypto/ades.html) `17` (&Sigma; → `87`)
 
-Nota: el número a la derecha de cada entrada indic el número (aproximado) de transparencias.  
+(Nota: el número a la derecha de cada entrada indica el número de transparencias aproximado)
 
 ### Resumen
   
