@@ -1,6 +1,8 @@
 # Introducción a la criptografía
 
-Transparencias en [jig.github.io/crypto/es](https://jig.github.io/crypto/es), pero puedes acceder directamente a cada capítulo seleccionando los enlaces en el apartado "Contenido".
+Transparencias en [jig.github.io/crypto/es](https://jig.github.io/crypto/es)
+
+_Transparències en català a [jig.github.io/crypto](https://jig.github.io/crypto)_
 
 ## Contenido
 
@@ -22,12 +24,43 @@ Transparencias en [jig.github.io/crypto/es](https://jig.github.io/crypto/es), pe
   - [Infraestructura de Clave Pública (PKI)](http://jig.github.io/crypto/pki.html) `59`
   - [Advanced Electronic Signatures (AdES)](http://jig.github.io/crypto/ades.html) `17` (&Sigma; → `87`)
 
-Nota: el número a la derecha de cada entrada indic el número (aproximado) de transparencias.  
-
 ### Resumen
   
   - [Resumen](http://jig.github.io/crypto/es/abstract.html) de los objetivos de las funciones criptográficas y de las responsabilidades de las autoridades PKI `8`
   
+## Calendario, Junio 2017
+
+ 20           | 22                |
+--------------|-------------------|
+ Objetivos    | Simétrica         | 
+ Introducción | MAC/HMAC          |
+
+  26                | 27               | 29        |
+--------------------|------------------|---------- |  
+ Teoría de Números  |RSA               | HSM       | 
+ DH                 |ElGamal, DSA, ECC | TLS       |  
+ RSA                |Amenazas          | -         |  
+
+ 6-Julio                                         |
+-------------------------------------------------|              
+ PKI                                             | 
+ ~AdES~                                          |
+ (ejercicios → PKI/servidor-https/cliente-https) |             
+
+
+# Software utilizado para realizar las transparencias
+
+  - [Reveal.js](https://github.com/hakimel/reveal.js): formateo, paginación
+  - [MathJax](https://www.mathjax.org) ([LaTeX](http://latex-project.org)): para presentar las ecuaciones
+  - [SVG-edit](https://github.com/SVG-Edit/svgedit): para mostrar gráficos vectoriales
+  
+## Impresión
+  
+Si quieres imprimir las transparencias no hagas `Ctrl+P` directamente. Mejor utilizada un "template" específico para impresión añadiendo `?print-pdf` a la URL antes de imprimir. para más información consulta las 
+[instrucciones de exportación a PDF de Revealjs](https://github.com/hakimel/reveal.js/#pdf-export)
+
+Piensa en el medio ambiente.
+
 ## Descarga local
 
 Aunque lo más recomendable es acceder a la versión en línea para ver siempre la versión actualizada, si quieres puedes descargarte las transparencias para visualizarlas fuera de línea.
@@ -46,27 +79,7 @@ de esta manera tienes una copia local que siempre puedes mantener al día con:
 
 ```
 $ git pull
-```            
-
-# Software utilizado para realizar las transparencias
-
-  - [Reveal.js](https://github.com/hakimel/reveal.js): formateo, paginación
-  - [MathJax](https://www.mathjax.org) ([LaTeX](http://latex-project.org)): para presentar las ecuaciones
-  - [SVG-edit](https://github.com/SVG-Edit/svgedit): para mostrar gráficos vectoriales
-  
-## Impresión
-  
-Si quieres imprimir las transparencias no hagas `Ctrl+P` directamente. Mejor utilizada un "template" específico para impresión añadiendo 
-
 ```
-?print-pdf 
-``` 
-a la URL antes de imprimir. 
-
-Para más información consulta las 
-[instrucciones de exportación a PDF de Revealjs](https://github.com/hakimel/reveal.js/#pdf-export).
-
-Piensa en el medio ambiente.
 
 # Licencia
 
