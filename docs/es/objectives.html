@@ -177,7 +177,7 @@
                 </tr>
                 <tr>
                     <td>Firma asimétrica</td>
-                    <td>$\begin{aligned}f &= e_{\text{asim}}(k_{\text{privada}},m) \\ m &= d_{\text{asim}}(k_{\text{pública}},c)\end{aligned}$</td>
+                    <td>$\begin{aligned}f &= e_{\text{asim}}(k_{\text{privada}},m) \\ m &= d_{\text{asim}}(k_{\text{pública}},f)\end{aligned}$</td>
                     <td>$e_{\text{asim}}(\circ)$ devuelve el mensaje "cifrado" $f$ (firma) para el mensaje $m$;
                     <br/>
                     para validarse, debemos conocer $k_{\text{pública}}$ y la firma $f$, y aplicar $d_{\text{asim}}(\circ)$
@@ -370,7 +370,7 @@
             <h2>Protocolos: tipos</h2>
             <ul>
             <li>Transmisión interactiva: TLS, VPN, SSH, etc. autentican los extremos, cifran el tráfico y impiden alteración del encadenamiento de mensajes</li>
-            <li>Transmisión no interactiva: PKCS #7, S/MIME (correo), autentica el origen, cifrado de tráfico</li>
+            <li>Transmisión no interactiva: PKCS #7, S/MIME (correo), autentica el origen, cifrado de contenido</li>
             <li>Almacenamiento: disco, BB.DD., BB.DD. documentales (Git, etc.), etc. dan integridad mediante encadenamiento de hashes (Git, Docker) o integridad y confidencialidad con firma y cifrado simétricos</li>
             </ul>
         </section>
