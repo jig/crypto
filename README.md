@@ -8,8 +8,8 @@ Transparencias en [jig.github.io/crypto/es](https://jig.github.io/crypto/es), pe
   - [Objetivos](https://jig.github.io/crypto/es/objectives.html) `25`
   - [Introducción, historia](https://jig.github.io/crypto/es/intro.html) `40`
   - [Criptografía simétrica](https://jig.github.io/crypto/es/symmetric.html) `91`
-  - [MAC](https://jig.github.io/crypto/es/mac.html) `11`
-  - [Hash, HMAC, cifrado autenticado](https://jig.github.io/crypto/es/hash.html) `13` (&Sigma; → `150`)
+  - [Hash, HMAC, cifrado autenticado](https://jig.github.io/crypto/es/hash.html) `13` 
+  - [MAC](https://jig.github.io/crypto/es/mac.html) `11` (&Sigma; → `150`)
   - [Teoría de números](https://jig.github.io/crypto/es/number-theory.html) `33`
   - [Acuerdo de claves Diffie-Hellman](https://jig.github.io/crypto/es/dh.html) `9`
   - [RSA](https://jig.github.io/crypto/es/rsa.html) `23`
@@ -21,7 +21,7 @@ Transparencias en [jig.github.io/crypto/es](https://jig.github.io/crypto/es), pe
   - [Conexiones (TLS)](http://jig.github.io/crypto/tls.html) `11`
   - [Infraestructura de Clave Pública (PKI)](http://jig.github.io/crypto/pki.html) `59` (&Sigma; → `111`)
 
-Nota: el número a la derecha de cada entrada indic el número (aproximado) de transparencias.  
+(Nota: el número a la derecha de cada entrada indica el número de transparencias aproximado)
 
 ### Resumen
   
