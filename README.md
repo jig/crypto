@@ -16,11 +16,10 @@ Transparencias en [jig.github.io/crypto/es](https://jig.github.io/crypto/es), pe
   - [DSA](https://jig.github.io/crypto/es/dsa.html) `15`
   - [Criptografía de curva elíptica](https://jig.github.io/crypto/es/ecc.html) `18`  
   - [Complejidad algorítmica](http://jig.github.io/crypto/complexity.html) `5`
-  - [Amenazas](http://jig.github.io/crypto/threats.html) `15`
-  - [HSM](https://jig.github.io/crypto/es/hsm.html) `41` (&Sigma; → `159`)
+  - [Amenazas](http://jig.github.io/crypto/threats.html) `15` (&Sigma; → `118`)
+  - [HSM](https://jig.github.io/crypto/es/hsm.html) `41` 
   - [Conexiones (TLS)](http://jig.github.io/crypto/tls.html) `11`
-  - [Infraestructura de Clave Pública (PKI)](http://jig.github.io/crypto/pki.html) `59`
-  - [Advanced Electronic Signatures (AdES)](http://jig.github.io/crypto/ades.html) `17` (&Sigma; → `87`)
+  - [Infraestructura de Clave Pública (PKI)](http://jig.github.io/crypto/pki.html) `59` (&Sigma; → `111`)
 
 Nota: el número a la derecha de cada entrada indic el número (aproximado) de transparencias.  
 
