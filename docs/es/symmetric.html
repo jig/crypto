@@ -230,11 +230,13 @@
                 <p><br/></p>
                 <p>*) PRNG: <em>Pseudo Random Number Generator</em></p>
             </section>
-            <section>
-                <h3>PRNG: velocidad</h3>
-                <p>el cifrado irá tan rápido como seamos capaces de generar bits de $k_{\text{generada}}$</p>
-                <p>(ya que la función <code>XOR</code> tiene un coste insignificante en<br/>comparación a &ldquo;$\xrightarrow{\text{PRNG}}$&rdquo;)</p>
-            </section>
+            <!--
+                <section>
+                    <h3>PRNG: velocidad</h3>
+                    <p>el cifrado irá tan rápido como seamos capaces de generar bits de $k_{\text{generada}}$</p>
+                    <p>(ya que la función <code>XOR</code> tiene un coste insignificante en<br/>comparación a &ldquo;$\xrightarrow{\text{PRNG}}$&rdquo;)</p>
+                </section>
+            -->
             <section  style="text-align: left;">
                 <h3><span title="Pseudo Random Number Generation">PRNG</span>: seguridad</h3>
                 <p>una hipotética función PRNG es realmente PRNG sii ningún atacante puede distingir entre las dos secuencias:</p>
@@ -247,27 +249,28 @@
                 <p>*) RNG: <em>Random Number Generator</em> (o <span title="True Random Number Generation">TRNG</span>) es un sistema que genera una secuencia de bits no predecible
                 sin necesidad de una semilla; <u>no puede implementarse mediante un algoritmo</u></p>
             </section>
+            <!--
+                <section>
+                    <h1>(RNG)</h1>
+                </section>
+                <section>
+                    <h3>RNG: generación</h3>
+                    <p>¿Cómo implementamos un RNG si no es algorítmico?</p>
+                    <ul>
+                    <li>Recopilando eventos de entrada (I/O) y acumulando sus parámatres (habitualmente les cifras menos significativas de la hora en ns ó μs)</li>
+                    <li>Mediante dispositivos especializados (<a href="hsm.html">HSM</a>*)</p>
+                    <p><br/></p>
+                    <p>*) HSM: <em>Hardware Secure Module</em></p>
+                </section>
+                <section>
+                    <h3>RNG</h3>
+                    <p>dedicaremos un tiempo a <a href="hsm.html#rng">RNG</a> cuando veamos HSM</p>
+                </section>
             <section>
-                <h1>(RNG)</h1>
-            </section>
-            <section>
-                <h3>RNG: generación</h3>
-                <p>¿Cómo implementamos un RNG si no es algorítmico?</p>
-                <ul>
-                <li>Recopilando eventos de entrada (I/O) y acumulando sus parámatres (habitualmente les cifras menos significativas de la hora en ns ó μs)</li>
-                <li>Mediante dispositivos especializados (<a href="hsm.html">HSM</a>*)</p>
-                <p><br/></p>
-                <p>*) HSM: <em>Hardware Secure Module</em></p>
-            </section>
-            <section>
-                <h3>RNG</h3>
-                <p>dedicaremos un tiempo a <a href="hsm.html#rng">RNG</a> cuando veamos HSM</p>
-            </section>
-            <section>
-                <h3>RNG: propiedades</h3>
+                <h3>PRNG: propiedades</h3>
                 <ul>
                     <li class="fragment">debe tener una <em>distribución uniforme</em> (es decir, debe tender a tener el mismo número de 1's que de 0's,
-                    tender al mismo número de 00's, que de 01's, 10's...</li>
+                    tender al mismo número de 00's, que de 01's, 10's...)</li>
                     <li class="fragment">después de $n$ bits no se debe poder predecir el $n+1$ con una probabilidad diferente de $\frac{1}{2}$</li>
                 </ul>
             </section>
@@ -275,20 +278,24 @@
             <section>
                 <h1>(Volvamos al PRNG)</h1>
             </section>
+        --> 
             <section>
                 <h3>PRNG: propiedades</h3>
                 <p>equivalentes als RNG:</p>
                 <ul>
-                    <li>distribución uniforme</li>
+                    <li>distribución uniforme (es decir, debe tender a tener el mismo número de 1's que de 0's,
+                        tender al mismo número de 00's, que de 01's, 10's...)</li>
                     <li>despúes de $n$ no se debe poder predecir el $n+1$ con una probabilidad diferente de $\frac{1}{2}$</li>
                 </ul>
                 <p>Obviamente la segunda suponiendo que no se conozca la
                     <br/>semilla del PRNG (la clave de cifrado)</p>
                     <p>semilla$|k \xrightarrow{\text{PRNG}}$ secuencia pseudo-aleatoria$|k_{\text{generada}}$</p>
             </section>
+            <!--
             <section>
                 <h1>Cifrado de flujo</h1>
             </section>
+        -->
             <section>
                 <h3>Cifrado de flujo: algoritmo</h3>
                 <ul>
