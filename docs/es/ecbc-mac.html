@@ -89,9 +89,6 @@
                 <p>$t = e(k, m)$</p>
                 <p>esta construcción tiene una limitación:
                 <br/>sólo podemos autenticar <u>mensajes de la longitud del bloque</u></p>
-                <span class="fragment">
-                    <p>Alternativas: ECBC y <a href="hash.html#hmac">HMAC</a></p>
-                </span>
             </section>
 
             <section id="raw-cbc">
@@ -132,8 +129,39 @@
                 <h3>Otros MACs usados</h3>
                 <p>Poly1305-AES: longitud $\|t\| = 128 \text{b}$</p>
                 <p>Poly1305-ChaCha20: longitud $\|t\| = 128 \text{b}$</p>   <!-- https://tools.ietf.org/html/draft-ietf-cose-msg-08#page-36 -->
-                <p>HMAC (<em><a href="hash.html">Hash</a> MAC</em>): longitud = longitud hash base</p>
             </section>
+
+            <section>
+                <h3>cifrar y autenticar</h3>
+                <p>estas dos funciones se utilizan juntas frecuentemente</p>
+                <p>enviaremos la concatenación $(c, t)$ donde:<br/>
+                    $\begin{aligned}
+                    c &= e(k_e, m) \\
+                    t &= \text{MAC}(k_t, c)
+                    \end{aligned}$</p>
+                <p class="fragment">Nota: hacer $t = \text{MAC}(k_t, \color{red}{m})$ no garantiza que la función MAC no revele
+                ningún de detalle de $m$ (en realidad sí lo hace: si dos mensajes son iguales, un atacante lo sabrá simplemente inspeccionando $t$ y $t'$</p>
+            </section>
+
+            <section>
+                <h1>AEAD</h1>
+                <p>Authenticated Encryption with Associated Data</p>
+            </section>                
+
+            <section>
+                <h3>cifrar y autenticar en un sólo paso</h3>
+                <p><em>(Authenticated Encryption o <span title="Authenticated Encryption with Associated Data">AEAD</span>)</em></p>
+                <p>Históricamente ha habido errores concatenando el cifrado y la firma</p>
+                <p></p>Con los algoritmos AEAD se trata de ofrecer primitivas combinadas que dan 
+                    <u>confidencialidad, integridad y autenticidad</u> en un único <u>algoritmo simétrico</u></p>
+                <p>Adicionalmente, la implementación combinada permite mayor rendimiento</p>
+                <ul>
+                    <li>CCM ó <em>Counter with <a href="#cbc">CBC-MAC</a></em>, es la combinación de AES-CTR con un CBC-MAC: con una misma clave, se calcula el MAC sobre los datos en claro, y después se cifra esos mismos datos en claro.</li>
+                    <li>ChaCha20/Poly1305 combina ambos algoritmos</li>
+                    <li>GCM ó <em>Galois Counter Mode</em>, también una combinación de AES-CTR pero ahora con una multiplicación modular sobre los datos cifrados que se usan como MAC; permite velocidades superiores a CCM</li>
+                </ul>
+            </section>
+            
 
             <section>
                 <h3><a href="number-theory.html">(Teoría de números) $\rightarrow$</a></h3>

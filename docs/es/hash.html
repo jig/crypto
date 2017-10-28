@@ -107,8 +107,8 @@
                 <p>(<em>Birthday attack</em>)</p>
                 <p>si tenemos un hash de tamaño $\|r\|$ la probabilidad de colisión será muy alta a medida que nos acercamos
                     a las $\sqrt{|r|}$ operaciones</p>
-                <p>e.g para $\|r\| = 256\text{ b}$ esto son unas $2^{128}$ operaciones</p>
-                <p class="fragment">esto implica que para un hash hacen falta resumenes el doble de largos de lo que hacía falta para las
+                <p>e.g para $\|r\| = 256\text{ b}$ esto son unas $2^\frac{256}{2} = 2^{128}$ operaciones</p>
+                <p class="fragment">esto implica que para un hash hacen falta resúmenes el doble de largos de lo que hacía falta para las
                     claves para obtener el mismo nivel de seguridad</p>
                 <p class="fragment"><u>la <em>security strength</em> de una función de hash de longitud $b$ bits es $b/2$</u></p>
             </section>
@@ -134,15 +134,15 @@
                     análisis muy superior al SHA-3</p>
             </section>
 
-            <section data-background="#FFFFDD">
+            <section>
                 <h1>Protocolos basados en hash</h1>
             </section>
 
-            <section data-background="#FFFFDD">
+            <section>
                 <h3>seguridad en conjuntos de mensajes</h3>
                 <p>hace falta vigilar que la seguridad con la que protegemos los mensajes individuales, debe extrapolarse a
                     secuencias de mensajes (la sesión)</p>
-                <p>si no hacemos nada más que lo comentado hasta ahora, seriemos vulnerables a ataques:</p>
+                <p>si no hacemos nada más que lo comentado hasta ahora, seríamos vulnerables a ataques:</p>
                 <ul>
                 <li>de réplica (<em>replay attacks</em>)</li>
                 <li>de reordenado</li>
@@ -150,7 +150,7 @@
                 </ul>
             </section>
 
-            <section data-background="#FFFFDD">
+            <section>
                 <h2>Protocolos: Sesión</h2>
                 <ul>
                     <li>añadiendo un identificador de secuencia
@@ -160,13 +160,13 @@
                 </ul>
             </section>
 
-            <section data-background="#FFFFDD">
+            <section>
                 <h2>Protocolos: Merkle Hash tree</h2>
                 <p>permite firmar bases de datos, discos, de forma eficiente</p>
                 <img src="img/Hash_Tree.svg" width="800"/>
             </section>
 
-            <section data-background="#FFFFDD">
+            <section>
                 <h3>Protocolos: almacenamiento de contraseñas</h3>
                 <p>el sistema operativo no debe guardar las contraseñas de los usuarios,
                     <br/>no hace falta.</p>
@@ -175,7 +175,7 @@
                 <p class="fragment">un atacante realizar un "diccionario" con el hash de todas las palabras, nombres, etc. (ataque de diccionario)</p>
             </section>
             
-            <section data-background="#FFFFDD">
+            <section>
                 <h3>Contramedidas ataque de diccionario</h3>
                 <p>añadir un valor aleatorio o <em><u>salt</u></em> y lo guardamos:
                     <br/>$\text{salt}  \| \text{hash}(\text{salt} \| \text{contraseña})$</p>
@@ -187,7 +187,7 @@
                 </p>
             </section>
 
-            <section data-background="#FFFFDD">
+            <section>
                 <section>
                     <h2>Protocolos: BitCoin (Blockchain)</h2>
                     <p><u><span title="challenge">Desafío</span> (aka "minería")</u>: resumen "escogiendo" un hash "costoso"</p>
@@ -210,7 +210,7 @@
                 </section>
             </section>
 
-            <section data-background="#FFFFDD">
+            <section>
                 <h2>PRNG basado en hash</h2>
                 <p>también (como con cifradores de bloque) se puede generar una función PRNG basada en hash:</p>
                 <ul>
@@ -225,20 +225,17 @@
 
             <section>
                 <h1>HMAC</h1>
-                <h2>MAC basado en funciones Hash</h2>
+                <p><em>Hash-based Message Authentication Digest</em></p>
             </section>
 
             <section>
                 <h3>MAC: objetivo</h3>
-                <p>pruebas de integridad:
-                <br/>impiden que un atacante pueda modificar el mensaje<br/>sin que el receptor lo detecte</br>
-                <p>esta funcionalidad es ortogonal con el cifrado:
-                    <br/><u>cifrado y MAC</u> se utilizan combinadas para obtener<br/><u>confidencialidad y integridad</u></p>
-                <p class="fragment">Nota sobre el cifrado: un atacante puede modificar el mensaje, aunque no lo pueda
-                leer
-                    <br/>(incluso hay algoritmos que le permiten realizar operaciones:<br/>e.g. $\oplus$ en cifrado de flujo)</p>
+                <p>MAC es la implementación de la <u>firma símetrica</u></p>
+                <p>impide que un atacante pueda modificar el mensaje<br/>sin que el receptor lo detecte</br>
+                </p>
             </section>
 
+<!--
             <section>
                 <h3>MAC: casos de uso</h3>
                 <ul>
@@ -249,7 +246,7 @@
                     <br/>(hemos de recordar la clave $k$)</li>
                 </ul>
             </section>
-
+        -->
             <section>
                 <h3>MAC: funcionamiento</h3>
                 <p>nos hará falta una clave secreta que aplicaremos al mensaje con la función $\text{MAC}$:</p>
@@ -266,8 +263,18 @@
                     </g>
                 </svg>
             </section>
+                        
+            <section>                 
+                    <h3>(Nota sobre el cifrado)</h3>
+                    <p>sólo usando un algoritmo de cifrado, un atacante puede modificar el mensaje, aunque no lo pueda leer
+                        <br/>(incluso hay algoritmos que le permiten realizar operaciones:<br/>e.g. $\oplus$ en cifrado de flujo)
+                    </p>
+                    <p class="fragment">esta funcionalidad es ortogonal con el cifrado:
+                            <br/><u>cifrado y MAC</u> se utilizan combinadas para obtener<br/><u>confidencialidad y integridad</u>
+                    </p>
+            </section>
 
-            <section data-background="#FFFFDD">
+            <section>
                 <h3>SHA2-HMAC: primer intento</h3>
                 <p>$t = h(k \| m)$</p>
                 <p>concatenamos una clave $k$ (o simplemente una contraseña de longitud suficiente) al propio mensaje</p>
@@ -291,19 +298,6 @@
                         \end{aligned}$
                    </p>
                 <!-- SHA-3 HMAC encara no està definit -->
-            </section>
-
-            <section>
-                <h3>cifrar y autenticar</h3>
-                <p><em>(Authenticated Encryption)</em></p>
-                <p>estas dos funciones se utilizan juntas frecuentemente</p>
-                <p>enviaremos la concatenación $(c, t)$ donde:<br/>
-                    $\begin{aligned}
-                    c &= e(k_e, m) \\
-                    t &= \text{MAC}(k_t, c)
-                    \end{aligned}$</p>
-                <p class="fragment">Nota: hacer $t = \text{MAC}(k_t, \color{red}{m})$ no garantiza que la función MAC no revele
-                ningún de detalle de $m$ (en realidad sí lo hace: si dos mensajes son iguales, un atacante lo sabrá simplemente inspeccionando $t$ y $t'$</p>
             </section>
 
             <section>
