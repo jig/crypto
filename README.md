@@ -8,18 +8,18 @@ Transparencias en [jig.github.io/crypto/es](https://jig.github.io/crypto/es), pe
   - [Objetivos](https://jig.github.io/crypto/es/objectives.html) `25`
   - [Introducción, historia](https://jig.github.io/crypto/es/intro.html) `40`
   - [Criptografía simétrica](https://jig.github.io/crypto/es/symmetric.html) `91`
-  - [Hash, HMAC, cifrado autenticado](https://jig.github.io/crypto/es/hash.html) `13` 
-  - [MAC](https://jig.github.io/crypto/es/ecbc-mac.html) `11` (&Sigma; → `150`)
+  - [Hash, HMAC, cifrado autenticado](https://jig.github.io/crypto/es/hash.html) `13`  (&Sigma; → `139`)
+  - [MAC](https://jig.github.io/crypto/es/ecbc-mac.html) `11` 
   - [Teoría de números](https://jig.github.io/crypto/es/number-theory.html) `33`
   - [Acuerdo de claves Diffie-Hellman](https://jig.github.io/crypto/es/dh.html) `9`
   - [RSA](https://jig.github.io/crypto/es/rsa.html) `23`
   - [DSA](https://jig.github.io/crypto/es/dsa.html) `15`
   - [Criptografía de curva elíptica](https://jig.github.io/crypto/es/ecc.html) `18`  
-  - [Complejidad algorítmica](http://jig.github.io/crypto/complexity.html) `5`
-  - [Amenazas](http://jig.github.io/crypto/threats.html) `15` (&Sigma; → `118`)
+  - [Complejidad algorítmica](http://jig.github.io/crypto/complexity.html) `5` (&Sigma; → `114`)
+  - [Amenazas](http://jig.github.io/crypto/threats.html) `15` 
   - [HSM](https://jig.github.io/crypto/es/hsm.html) `41` 
   - [Conexiones (TLS)](http://jig.github.io/crypto/tls.html) `11`
-  - [Infraestructura de Clave Pública (PKI)](http://jig.github.io/crypto/pki.html) `59` (&Sigma; → `111`)
+  - [Infraestructura de Clave Pública (PKI)](http://jig.github.io/crypto/pki.html) `59` (&Sigma; → `126`)
 
 (Nota: el número a la derecha de cada entrada indica el número de transparencias aproximado)
 
