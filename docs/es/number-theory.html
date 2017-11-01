@@ -91,7 +91,7 @@
                 <p>$a, b \in \mathbb{Z}$ y $b \neq 0$ entonces:</p>
                 <p>$\begin{aligned}
                     a \text{ div } b &= \lfloor a/b\rfloor = q \leftarrow \text{cociente }q\text{, dividendo }a\text{, divisor }b\\
-                    a \bmod b &= a - b\lfloor a/b\rfloor = a - q = r \leftarrow \text{resto } r\;(0 \leq r < b)
+                    a \bmod b &= a - b\lfloor a/b\rfloor = a - qb = r \leftarrow \text{resto } r\;(0 \leq r < b)
                     \end{aligned}$
                 </p>
                 <p>o sea:</p>
@@ -140,15 +140,21 @@
                 <p>$+$, $-$, $\times$, $\text{div}$</p>
                 <br/>
                 <p>$+$, $-$, $\times$ equivalentes a las definidas/conocidas en $\mathbb{Z}$</p>
-                <p>Para la división, lo que haremos es primero invertir el divisor, y después multiplicar</p>
-                <p>$\begin{aligned}
-                    a \text{ div } b &\equiv a{b}^{-1} \pmod n
-                    \end{aligned}$
-                </p>
-                <p class="fragment">$b$ no siempre tendrá inversa: en caso de que no tenga, la división no estará definida para $b$</p>
+                <p>$\text{suma: } (a+b) \bmod n$</p>
+                <p>$\text{resta: } (a-b) \bmod n$</p>
+                <p>$\text{mult: } (a\times b) \bmod n$</p>
+                <p>$\text{div: } (a \text{ div } b) \bmod n$</p>
+                <p class="fragment">la división no estará bien definda para todo $b$: hace falta que $b$ tenga "inverso $\pmod n$"</p>
+                <p class="fragment">$\text{inverso: } b^{-1} \bmod n$</p>
                 <!-- <p>o sigui:</p>
                 <p>$a+b=b+a$ i $ab = ba$</p>
                 <p>$(a+b)+c=a+(b+c)$ i $(ab)c = a(bc)$</p>-->
+            </section>
+
+            <section>
+                <h3>$b$ tiene inverso $\pmod n$</h3>
+                <p><em>sii</em> $b$ y $n$ son comprimos</p>
+                <p class="fragment">el cálculo del inverso módulo $n$ es eficiente mediante el algoritmo de Euclides (para $\text{mcd}$) ampliado</p>
             </section>
 
             <section id="congruent">
@@ -486,7 +492,7 @@
                 <h3>Para $\mathbb{Z}_{n}^*$ cíclico con generador $\alpha$</h3>
                 <p>se cumple que:
                    <br/>
-                    $\mathbb{Z}_{n}^* = \{\alpha^i \pmod n \; | \; 0 \leq y < \phi(n)\}$</p>
+                    $\mathbb{Z}_{n}^* = \{\alpha^i \pmod n \; | \; 0 \leq i < \phi(n)\}$</p>
                 <p class="fragment">tenemos el conjunto original (simplemente ordenado de forma diferente)</p>
                 <!-- fer un dibuix: <p class="fragment">és una <a href="symmetric.html#permutation">permutació</a></p> -->
             </section>
