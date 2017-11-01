@@ -90,8 +90,8 @@
                 <br/>
                 <p>$a, b \in \mathbb{Z}$ y $b \neq 0$ entonces:</p>
                 <p>$\begin{aligned}
-                    a \text{ div } b &= \lfloor a/b\rfloor \leftarrow \text{cociente }q\text{, dividendo }a\text{, divisor }b\\
-                    a \bmod b &= a - b\lfloor a/b\rfloor \leftarrow \text{resto } r\;(0 \leq r < b)
+                    a \text{ div } b &= \lfloor a/b\rfloor = q \leftarrow \text{cociente }q\text{, dividendo }a\text{, divisor }b\\
+                    a \bmod b &= a - b\lfloor a/b\rfloor = a - q = r \leftarrow \text{resto } r\;(0 \leq r < b)
                     \end{aligned}$
                 </p>
                 <p>o sea:</p>
@@ -244,7 +244,7 @@
                 </p>
                 <p>Aunque la probabilitat de topar con un número "mentiroso" de Fermat es baja
                     (muy baja), para obtener números primos de forma fiable hay algoritmos
-                    que los refinan y son más robustos com el<br/>
+                    que los refinan y son más robustos, como el<br/>
                     <em>test de primalidad de Rabin-Miller</em>
                 </p>
             </section>
@@ -306,10 +306,9 @@
             <section id="totient">
                 <h3>Definición: $\; \phi(n)$</h3>
                 <p>Función "phi" de Euler o función <em>Totient</em> de Euler</p>
-                <p>$\phi(n)$ es el número de valores<br/><a href="#coprimer">coprimos</a> con $n$</p>
+                <p>$\phi(n)$ es la cantidad de valores<br/><a href="#coprimer">coprimos</a> con $n$</p>
                 <p class="fragment">Por tanto: $\phi(n) = |\mathbb{Z}_n^*|$
-                    <br/>(traducido: <em>$\phi(n)$ es el número de elementos de $\mathbb{Z}_n^*$</em>; su tamaño u 
-                    <a href="#order">orden</a>)</p>
+                    <br/>(traducido: <em>$\phi(n)$ es el número de elementos de $\mathbb{Z}_n^*$</em>)</p>
             </section>
 
             <section>
@@ -318,7 +317,7 @@
                 <p>$\phi(n) = n (1 - \frac{1}{p_1}) (1 - \frac{1}{p_2}) \cdots (1 - \frac{1}{p_k})$</p>
                 <p>Para calcular $\phi(n)$ hace falta la factorización de $n$</p>
                 <span class="fragment">
-                    <p>Casos particulers:</p>
+                    <p>Casos particulares:</p>
                     <p>Sii $p$ primo: $\phi(p)=p-1$</p>
                 </span>
                 <p class="fragment">Sii $p$ y $q$ primos: $\phi(pq)=(p-1)(q-1)$</p>
@@ -390,12 +389,14 @@
                     <p>y por tanto:</p>
                     <p>$t|\phi(n)$</p>
                 </span>
+                <!--
                 <div class="fragment">
                     <hr/>
                     <p>Nota: no confundir el <u>orden de un elemento de $\mathbb{Z}_n^*$</u> con
                         el <u>orden de $\mathbb{Z}_n^*$</u>:</p>
                     <p>$|\mathbb{Z}_n^*| = \phi(n)$</p>
                 </div>
+            -->
             </section>
 
             <section>
@@ -573,11 +574,11 @@
             </section>
 
             <section id="generator-selection">
-                <h3>Selección del generador $\alpha$...</h3>
-                <p>...para el caso $\mathbb{Z}_{p}^*$ que es el que aplica a DH y DSA se
+                <h3>Selección del generador $\alpha$ &hellip;</h3>
+                <p>&hellip;para el caso $\mathbb{Z}_{p}^*$ que es el que aplica a DH y DSA se
                     <br/>usa $p = 2q+1$ con $q$ también primo</p>
                 <p>entonces, coge un $2 \leq \alpha < p-1$ aleatorio:</p>
-                <p>$\alpha^{{p-1}/q} \not\equiv 1 \pmod p$</p>
+                <p>$\alpha^{{p-1}/2} \not\equiv 1 \pmod p$</p>
                 <p>si es congruente $1$ hace falta buscar otro $\alpha$</p>
                 <p>(en uno o dos intentos encontraremos un generador)</p>
                 <!-- Menezes 4.80 + http://crypto.stackexchange.com/questions/9006/how-to-find-generator-g-in-a-cyclic-group -->
