@@ -186,7 +186,7 @@
                 <li>el usuario $\text{u}$ escoge un exponente $e$<br/>(habitualmente $e = 65537$)</li>
                 <li>escoge aleatoriamente dos primos $p_\text{u}$ y $q_\text{u}$ suficientemente
                     grandes<a title="dificuldad para factorizar" href="#threats">*</a>
-                    y suficientemente diferentes<a title="Si p y q son iguals o incluso similares la factoritzación es factible" href="#threats">**</a>
+                    y suficientemente diferentes<a title="Si p y q son iguales o simplemente similares la factoritzación es factible" href="#threats">**</a>
                 </li>
                 <li>calcula $\phi(n_\text{u}) = (p_\text{u}-1)(q_\text{u}-1)$ </li>
                 <li>calcula $d_\text{u} = e^{-1} \bmod{\phi(n_\text{u})}$ </li>
@@ -216,9 +216,9 @@
 				<h3>debilidades $\rightarrow$ contramedidas</h3>
                 <p>sobre el algoritmo:</p>
                 <ul>
-                    <li>Propiedades de la exponenciación $\rightarrow$ <a href="#pkcs1">PKCS #1</a></li>
-                    <li>Casos especiales sobre $\pmod{n}$ $\rightarrow$ PKCS #1</li>
-					<li>Factoritzación de $n$ $\rightarrow$ <a href="#keysize">longitud</a> suficiente de $n$</li>
+                    <li>Propiedades multiplicativas de la exponenciación $\rightarrow$ <a href="#pkcs1">PKCS #1</a></li>
+                    <li>$e=3$ con $m$ pequeño $\rightarrow$ PKCS #1</li>
+					<li>Factoritzación de $n$ $\rightarrow$ <a href="#keysize">longitud</a> suficiente de $n$, factores $p$ y $q$ distanciados</li>
                 </ul>
                 <p>sobre la implementación:</p>
                 <ul>
@@ -226,7 +226,7 @@
                     <li>Ataques sobre el consumo, la radiación, etc.</li>
                     <li>compromiso de clave: acceso software o físico al sistema</li>
                     <li>calidad de los números aleatorios (e.g. $\text{gcd}$ sobre servidores web)</li>
-                    <li>a futuro: <a href="threats.html#/asymmetric-crypto" style="color:grey;">computación cuántica</a></li>
+                    <li>a futuro: <a href="threats.html#/asymmetric-crypto">computación cuántica</a></li>
                     <li>&hellip;</li>
                 </ul>
             </section>
@@ -249,7 +249,7 @@
                 <h3>Longitud de clave</h3>
                 <p>la dificultad del <a href="complexity.html" title="RSA Problem">RSAP</a> $n$ es equivalente realizar la raíz cuadrada modular
                 módulo un $n$ no primo, y es equivalente a factorizar $n$</p>
-				<p>el mayor $n$ factorizado es de $768$ bit $\Rightarrow$ <a href="https://en.wikipedia.org/wiki/RSA_numbers#RSA-768">Desafio RSA-768</a> (2000 anys/CPU)
+				<p>el mayor $n$ factorizado es de $768$ bit $\Rightarrow$ <a href="https://en.wikipedia.org/wiki/RSA_numbers#RSA-768">Desafio RSA-768</a> (2000 años/CPU)
 				<p>
 				<p>el NIST 
 					<a href="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-131Ar1.pdf">recomienda</a> 
@@ -294,7 +294,7 @@
             </section>
 
             <section id="practice">
-                <h3>práctica: openssl</h3>
+                <h3><strike>práctica:</strike> openssl</h3>
                 <p>generamos y mostramos (PKCS #1) una clave RSA-2048 con $e=65537$</p>
                 <p  style="text-align: left;">
                 <code>
@@ -350,18 +350,18 @@
                 <h3>ejemplo simple del <span title="Chinese Remainder Theorem">CRT</span></h3>
                 <p>$
                     \begin{aligned}
-                    x &\equiv 0 \pmod{2} \rightarrow \text{x és parell}\\
+                    x &\equiv 0 \pmod{2} \rightarrow \text{x es par}\\
                     x &\equiv 3 \pmod{5} \rightarrow \text{x en decimal, acaba en 3 o en 8}\\
                     &\Downarrow \\
                     x &\equiv 8 \pmod{10} \rightarrow \text{x en decimal acaba en 8}
                     \end{aligned}$</p>
             </section>
 
-            <section>
+            <section style="text-align: left;">
                 <h3>Teorema de los restos chinos</h3>
-                <p>aplicación en RSA (algoritmo de Garner)</p>
+                <p>Se aplica en RSA mediante algoritmo de Garner</p>
                 <ol>
-                <li>precalculamos y guardamos en secreto (como parte de la <code>PVK</code>):
+                <li>precalculamos y guardamos en secreto (como parte de la clave privada):
                     <p>$\begin{aligned}
                     d_p &= e^{-1} \bmod{(p-1)} \\
                     d_q &= e^{-1} \bmod{(q-1)} \\
@@ -369,8 +369,13 @@
                 \end{aligned}$
                     </p>
                 </li>
-
-                <li>mantenemos $c = m^e \bmod{n}$; pero en lugar de hacer $m = c^d \bmod{n}$ hacemos:
+                </ol>
+                <p>OpenSSL: $d_p$ es el <code>exponent1</code>, $d_q$ es el <code>exponent2</code> y $q_\text{inv}$ es el <code>coefficient</code></p>
+            </section>
+            
+            <section style="text-align: left;">
+                <ol start="2">
+                <li>mantenemos el cifrado mediante $c = m^e \bmod{n}$ &hellip;<br/>&hellip;pero en lugar de descifrar con $m = c^d \bmod{n}$, lo hacemos así:
                     <p>$\begin{aligned}
                     m_1 &= c^{d_p} \bmod{p} \\
                     m_2 &= c^{d_q} \bmod{q} \\
@@ -378,8 +383,8 @@
                 \end{aligned}$</p>
                 </li>
                 </ol>
-                <p>para que nos sirve este teorema?
-                    <br/>porqué 2. es más rápido que $m = c^d \bmod{n}$</p>
+                <p>¿para que nos sirve este teorema y estos tres nuevos parámetros en la clave privada?</p>
+                <p class="fragment">porqué 2. es más rápido ($\approx \times 4$) que $m = c^d \bmod{n}$</p>
             </section>
 
             <section>
