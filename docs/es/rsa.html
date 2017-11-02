@@ -79,7 +79,7 @@
                 <h2>pero</h2>
                 <p>sii $n$ no es primo el cálculo de</p>
                 <p>$m \equiv \sqrt[e]{c} \pmod n$</p>
-                <p>es <a href="complexity.html">computacionalmente difícil</a>* para valores de $n$ con factores suficientmente grandes (y desconocidos)</p>
+                <p>es <a href="complexity.html">computacionalmente difícil</a> para valores de $n$ con factores desconocidos</p>
             </section>
 
             <section>
@@ -170,7 +170,7 @@
             </section>
             <section>
                 <p>$\color{red}d \equiv e^{-1} \bmod{\phi(n)}$</p>
-                <p>para minimizar la posibilidad que $\text{mcd}(e,\phi{(n)}) \neq 1$, escogemos un exponente $e$ primo, y vigilamos simplemente que $e$ no divida $d$</p>
+                <p>para minimizar la posibilidad que $\text{mcd}(e,\phi{(n)}) \neq 1$, escogemos un exponente $e$ primo, y vigilamos simplemente que $e$ no divida $\phi(n)$</p>
                 <p>habitualmente $e = 65537$ que, a parte de ser primo, sólo tiene dos $1$ en base $2$
                     y, por tanto, permite una <a href="complexity.html#basic-op">ejecución rápida</a> de $m^e \pmod n$</p>
                 <p>y la probabilidad de que generemos una clave privada $d$ que implique que $e|\phi{(n)}$ <br/>es $1:65537$</p>
