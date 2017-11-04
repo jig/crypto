@@ -70,38 +70,38 @@
                 </p>
                 <table>
                     <tr>
-                        <td style="text-align: right;">ECDSA $n$</td>
-                        <td style="text-align: right; color: grey;">DSA $p$; $q$</td>
-                        <td style="text-align: right; color: grey;">RSA $n$</td>
+                        <td style="text-align: center;">ECDH $n$ / ECDSA $n$</td>
+                        <td style="text-align: center; color: grey;">DSA $p$; $q$</td>
+                        <td style="text-align: center; color: grey;">DH $n$ / RSA $n$</td>
                         <td></td>
                         <td>(bits de seguridad)</td>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <td style="text-align: right;">$224$</td>
-                        <td style="text-align: right; color: grey;">$2048$; $224$</td>
-                        <td style="text-align: right; color: grey;">$2048$</td>
+                        <td style="text-align: center;">$224$</td>
+                        <td style="text-align: center; color: grey;">$2048$; $224$</td>
+                        <td style="text-align: center; color: grey;">$2048$</td>
                         <td>$\leftrightarrow$</td>
                         <td>$112$</td>
                     </tr>
                     <tr>
-                        <td style="text-align: right;">$256$</td>
-                        <td style="text-align: right; color: grey;">$3072$; $256$</td>
-                        <td style="text-align: right; color: grey;">$3072$</td>
+                        <td style="text-align: center;">$256$</td>
+                        <td style="text-align: center; color: grey;">$3072$; $256$</td>
+                        <td style="text-align: center; color: grey;">$3072$</td>
                         <td>$\leftrightarrow$</td>
                         <td>$128$</td>
                     </tr>
                     <tr>
-                        <td style="text-align: right;">$512$</td>
-                        <td style="text-align: right; color: grey;">n/d</td>
-                        <td style="text-align: right; color: grey;">$15360$</td>
+                        <td style="text-align: center;">$512$</td>
+                        <td style="text-align: center; color: grey;">n/d</td>
+                        <td style="text-align: center; color: grey;">$15360$</td>
                         <td>$\leftrightarrow$</td>
                         <td>$256$</td>
                     </tr>
                     </tbody>
                 </table>
-                <p class="fragment">ECDSA y ECDH sustituye DSA y DH respectivamente ya que son más eficientes,
+                <p class="fragment">ECDSA y ECDH sustituye DSA y DH respectivamente ya que son más eficientes
                     y aguantarán mejor el paso del tiempo (hay implementaciones con $\|n\| = 512$ pero
                     nadie está usando DSA, DH o RSA con longitudes de clave equivalentes (según el NIST) de $15360$ b)</p>
             </section>
