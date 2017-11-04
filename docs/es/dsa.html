@@ -99,7 +99,7 @@
                 <h2>Generación de claves</h2>
                 <p>Cada usuario $\text{u}$ debe generar:</p>
                 <ul>
-                    <li>$a_\text{u}$: seleccionamos un valor aleatorio $0 < a_\text{u} < p-1$</li>
+                    <li>$a_\text{u}$: seleccionamos un valor aleatorio $1 \leq a_\text{u} \leq p-1$</li>
                     <li>$y_\text{u}$: calculamos $y_\text{u} = \alpha^{a_\text{u}} \pmod p$</li>
                 </ul>
                 <p>Gestión:</p>
@@ -119,7 +119,7 @@
                 <h2>Firma</h2>
                 <ol>
                     <li>calcula el hash del mensaje $h(m)$</li>
-                    <li>generamos un random $k$, tal que $0 < k < p-1$ con $\text{mcd}(k, p-1)=1$; $\,k$ debe ser privado y único</li>
+                    <li>generamos un random $k$, tal que $1 \leq k \leq p-1$ con $\text{mcd}(k, p-1)=1$; $\,k$ debe ser privado y único</li>
                     <br/>
                     <li>$r = \alpha^k \bmod p$</li>
                     <br/>
@@ -135,7 +135,7 @@
                     <p>A partir de la recepción del mensaje $m$ y la firma $(r,s)$</p>
                     <ol>
                         <li>(previo: calculamos el hash $h(m)$)</li>
-                        <li>(previo: verificamos que $0 < r < p-1$)</li>
+                        <li>(previo: verificamos que $1 \leq r \leq p-1$)</li>
                         <li>$v_2 = \alpha^{h(m)} \bmod p$</li>
                         <li>$v_1 = (y_\text{u})^{r} r^s \bmod p$</li>
                         <li>$v_1 \overset{?}{=} v_2 \implies$ firma válida</li>
@@ -227,14 +227,14 @@
             <section id="elgamal-vs-dsa">
                 <p>Elgamal $\rightarrow$ DSA: reducimos $r$ y $s$ módulo $\color{red}{q}$, donde $\color{red}{q | (p-1)}$:</p>
                 <p>\[\begin{eqnarray}
-                    \text{random }k &\rightarrow& 0 < k < p-1 \\
+                    \text{random }k &\rightarrow& 1 \leq k \leq p-1 \\
                     r &=& \alpha^k \bmod p \\
                     s &=& \dfrac{h(m)-a_\text{u}r}{k} \bmod{(p-1)}\quad \\
                     \end{eqnarray}\]</p>
                 <p>$\downarrow$</p>
                 <p>\[\begin{eqnarray}
                     &&\color{red}{q | (p-1)} \\
-                    \text{random }k &\rightarrow& 0 < k < \color{red}{q} \\
+                    \text{random }k &\rightarrow& 1 \leq k \leq \color{red}{q} \\
                     r &=& (\alpha^k \bmod p) \color{red}{\bmod q} \qquad\\
                     s &=& \dfrac{h(m)+a_\text{u}r}{k} \color{grey}{\bmod{(p-1)}} \color{red}{\bmod{q}}\quad
                     \end{eqnarray}\]</p>
@@ -249,7 +249,7 @@
             <section id="dsa-domain-parameters" style="text-align: left;">
                 <h2>DSA</h2>
                 <p>&nbsp;&nbsp;&nbsp;Parámetros: $p$, $q$, $\alpha$</p>
-                <p>&nbsp;&nbsp;&nbsp;Clave privada: $a$ (un número aleatorio $0 < a < q-2$)
+                <p>&nbsp;&nbsp;&nbsp;Clave privada: $a$ (un número aleatorio $1 \leq a \leq q-1$)
                 <p>&nbsp;&nbsp;&nbsp;Clave pública: $\alpha^a \bmod p$</p>
                 <span class="fragment" style="text-align: center;">
                 <hr/>
