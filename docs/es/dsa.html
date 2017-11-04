@@ -218,8 +218,19 @@
                     </ul>
             </section>
             <section>
+                <h3>Ataque sobre sobre $k$ conocido</h3>
+                <p>Es <u>fundamental</u> mantener $k$ secreto, ya que si conocemos $k$&hellip;<br/> 
+                    conoceremos la clave privada $a_\text{u}$, así:</p>
+                <p>$\begin{aligned}
+                    s &= \dfrac{h(m)-a_\text{u}r}{k} \bmod {(p-1)} \\
+                    s k &= (h(m)-a_\text{u}r) \bmod {(p-1)} \\
+                    a_\text{u}r &= (h(m)-sk) \bmod {(p-1)} \\
+                    a_\text{u} &= \dfrac{h(m)-sk}{r} \bmod {(p-1)} \\
+                    \end{aligned}$</p>
+            </section>
+            <section>
                 <h3>Ataque sobre el reúso de $k$</h3>
-                <p>Si reusamos $k$, y por tanto $r$:</p>
+                <p>Es <u>fundamental</u> no reutilizar $k$, ya que un atacante que viera dos firmas:</p>
                 <p>
                     $s_1 = \dfrac{h(m_1)-a_\text{u}\color{red}{r}}{\color{red}{k}} \bmod {(p-1)} \text{ y } s_2 = \dfrac{h(m_2)-a_\text{u}\color{red}{r}}{\color{red}{k}} \bmod {(p-1)}$
                     </p>
@@ -229,9 +240,39 @@
                     \color{red}{k} &= \dfrac{h(m_2)-h(m_1)}{s_2-s_1} \bmod {(p-1)}
                     \end{aligned}$
                 </p>
-                <p>En general, $k$ debe ser disinto en cada firma, y no relacionados entre ellos (aleatorios)</p>
+                <p>Descubriría $k$&hellip; y por tanto nuestra clave privada $a_\text{u}$ (página anterior)</p>
+                <p class="fragment">En general los distintos $k$ no deben tener ninguna relación entre ellos (deben ser aleatorios)</p>
             </section>
 
+            <section id="keysize">
+                    <h3>Longitud de clave</h3>
+                    <p>los ataques sobre Elgamal son los algoritmos para calcular el logaritmo discreto</p>
+                    <table>
+                            <tr>
+                                <td style="text-align: right;">$p$</td>
+                                <td></td>
+                                <td>(bits de seguridad)</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>$1024$</td>
+                                <td>$\leftrightarrow$</td>
+                                <td>$80$</td>
+                            </tr>
+                            <tr>
+                                <td>$2048$</td>
+                                <td>$\leftrightarrow$</td>
+                                <td>$112$</td>
+                            </tr>
+                            <tr>
+                                <td>$3072$</td>
+                                <td>$\leftrightarrow$</td>
+                                <td>$128$</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
             <!--
             <section data-background="#FF8888">
                 <h2>debilitats $\rightarrow$ contramesures</h2>
@@ -326,7 +367,7 @@
                 </table>
             </section>
 
-            <section id="threats">
+            <section>
                 <h3>debilidades $\rightarrow$ contramedidas</h3>
                 <p>ídem Elgamal</p>
             </section>
