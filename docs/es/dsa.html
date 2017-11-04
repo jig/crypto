@@ -119,7 +119,7 @@
                 <h2>Firma</h2>
                 <ol>
                     <li>calcula el hash del mensaje $h(m)$</li>
-                    <li>generamos un random $k$, tal que $1 \leq k \leq p-1$ con $\text{mcd}(k, p-1)=1$; $\,k$ debe ser privado y único</li>
+                    <li>generamos un random $k$, tal que $1 \leq k \leq p-1$ con $\text{mcd}(k, p-1)=1$; $\,k$ debe ser <u>privado y único</u></li>
                     <br/>
                     <li>$r = \alpha^k \bmod p$</li>
                     <br/>
@@ -135,7 +135,7 @@
                     <p>A partir de la recepción del mensaje $m$ y la firma $(r,s)$</p>
                     <ol>
                         <li>(previo: calculamos el hash $h(m)$)</li>
-                        <li>(previo: verificamos que $1 \leq r \leq p-1$)</li>
+                        <li>(previo: verificamos que $r$ y $s$ son válidos: $1 \leq r \leq p-1$)</li>
                         <li>$v_2 = \alpha^{h(m)} \bmod p$</li>
                         <li>$v_1 = (y_\text{u})^{r} r^s \bmod p$</li>
                         <li>$v_1 \overset{?}{=} v_2 \implies$ firma válida</li>
