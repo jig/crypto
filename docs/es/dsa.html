@@ -129,35 +129,40 @@
                 <p>La firma de $m$ es la tupla $(r, s)$</p>
             </section>
 
-            <section style="text-align: left;">
-                <section id="elgamal-verification">
+                <section style="text-align: left;" id="elgamal-verification">
                     <h2>Verificación</h2>
                     <p>A partir de la recepción del mensaje $m$ y la firma $(r,s)$</p>
                     <ol>
-                        <li>(previo: calculamos el hash $h(m)$)</li>
-                        <li>(previo: verificamos que $r$ y $s$ son válidos: $1 \leq r \leq p-1$)</li>
+                        <li>previo: calculamos el hash del mensaje $m \rightarrow h(m)$</li>
+                        <li>previo: verificamos que $r$ y $s$ son válidos: $\left\{ 
+                                \begin{aligned}
+                                1 & \leq r \leq p-1 \\
+                                1 & \leq s \leq p-1
+                                \end{aligned}
+                                \right.$
+                        </li>
                         <li>$v_2 = \alpha^{h(m)} \bmod p$</li>
                         <li>$v_1 = (y_\text{u})^{r} r^s \bmod p$</li>
-                        <li>$v_1 \overset{?}{=} v_2 \implies$ firma válida</li>
+                        <li>sii $v_1$ y $v_2$ son iguales la firma es válida</li>
                     </ol>
-                    <br/>
-                    <p class="fragment">
-                        $\text{Nota: }\left\{
-                        \begin{eqnarray}
-                            v_2 &=& \alpha^{h(m)} \bmod p \\
-                                &=& \alpha^{a_\text{u}r+ks \bmod{(p-1)}} \bmod p \\
-                                &=& \color{blue}{\alpha^{a_\text{u}r+ks} \bmod{p}} \\
-                            v_1 &=& (y_\text{u})^{r} r^s \bmod p \\
-                                &=& \alpha^{a_\text{u}r} \alpha^{ks} \bmod{p} \\
-                                &=& \color{blue}{\alpha^{a_\text{u}r+ks} \bmod{p}}
-                        \end{eqnarray}
-                        \right.$
-                    </p>
+                
                 </section>
-                <section>
-                    <p>
-                        $\text{Nota: }\left\{
-                        \begin{eqnarray}
+                <section style="text-align: left;">
+                    <p style="color:grey;">Firma:
+                        
+                        $\begin{aligned}
+                        r &= \alpha^k \bmod p \\
+                        s &= \dfrac{h(m)-a_\text{u}r}{k} \bmod {(p-1)} \\
+                        \end{aligned}$
+                    </p>
+                    <p>Verificación:
+                        $\begin{aligned}
+                        v_2 &= \alpha^{h(m)} \bmod p \\
+                        v_1 &= (y_\text{u})^{r} r^s \bmod p
+                        \end{aligned}\longrightarrow$
+                       
+                        $\left\{
+                            \begin{eqnarray}
                         v_2 &=& \alpha^{h(m)} \bmod p \\
                         &=& \alpha^{a_\text{u}r+ks \bmod{(p-1)}} \bmod p \\
                         &=& \color{blue}{\alpha^{a_\text{u}r+ks} \bmod{p}} \\
@@ -168,7 +173,7 @@
                         \right.$
                     </p>
                 </section>
-            </section>
+            
             <!--&=& \alpha^{a_\text{u}r} r^{(\frac{h(m)-a_\text{u}r}{k} \bmod{p-1})} \bmod{p} = \\-->
             <section id="elgamal-vs-rsa-benchmark">
                 <h3>Rendimiento: Elgamal <span style="text-transform:none;">vs</span> RSA</h3>
@@ -198,6 +203,35 @@
                 </table>
             </section>
 
+            <section id="threats">
+                    <h3>debilidades $\rightarrow$ contramedidas</h3>
+                    <ul>
+                        <li>sobre la predicibilidad del aleatorio $k$ &nbsp; ($r = \alpha^k \bmod p$)</li>
+                        <span style="color:grey;">
+                            <li>Ataques de tiempo $\rightarrow$ randomización en la ejecución</li>
+                            <li>Ataques sobre el consumo, la radiación, etc.</li>
+                            <li>compromiso de clave: acceso software o físico al sistema</li>
+                            <li>calidad de los números aleatorios</li>
+                            <li>a futuro: <a href="threats.html#/asymmetric-crypto" style="color:grey;">computación cuántica</a></li>
+                            <li>...</li>
+                        </span>
+                    </ul>
+            </section>
+            <section>
+                <h3>Ataque sobre el reúso de $k$</h3>
+                <p>Si reusamos $k$, y por tanto $r$:</p>
+                <p>
+                    $s_1 = \dfrac{h(m_1)-a_\text{u}\color{red}{r}}{\color{red}{k}} \bmod {(p-1)} \text{ y } s_2 = \dfrac{h(m_2)-a_\text{u}\color{red}{r}}{\color{red}{k}} \bmod {(p-1)}$
+                    </p>
+                    <p>
+                    $\begin{aligned}
+                    s_2 - s_1 &= \dfrac{h(m_2)-h(m_1)}{\color{red}{k}} \bmod {(p-1)} \\
+                    \color{red}{k} &= \dfrac{h(m_2)-h(m_1)}{s_2-s_1} \bmod {(p-1)}
+                    \end{aligned}$
+                </p>
+                <p>En general, $k$ debe ser disinto en cada firma, y no relacionados entre ellos (aleatorios)</p>
+            </section>
+
             <!--
             <section data-background="#FF8888">
                 <h2>debilitats $\rightarrow$ contramesures</h2>
@@ -225,8 +259,8 @@
             </section>
 
             <section id="elgamal-vs-dsa">
-                <p>Elgamal $\rightarrow$ DSA: reducimos $r$ y $s$ módulo $\color{red}{q}$, donde $\color{red}{q | (p-1)}$:</p>
-                <p>\[\begin{eqnarray}
+                <p><span style="color:grey;">Elgamal</span> $\rightarrow$ DSA: reducimos $r$ y $s$ módulo $\color{red}{q}$, donde $\color{red}{q | (p-1)}$:</p>
+                <p style="color:grey;">\[\begin{eqnarray}
                     \text{random }k &\rightarrow& 1 \leq k \leq p-1 \\
                     r &=& \alpha^k \bmod p \\
                     s &=& \dfrac{h(m)-a_\text{u}r}{k} \bmod{(p-1)}\quad \\
@@ -294,17 +328,7 @@
 
             <section id="threats">
                 <h3>debilidades $\rightarrow$ contramedidas</h3>
-                <ul>
-                    <li>sobre la predicibilidad del aleatorio $k$ &nbsp; <span style="color:darkgrey;">($r = \alpha^k \bmod p$)</span></li>
-                    <span style="color:grey;">
-                        <li>Ataques de tiempo $\rightarrow$ randomización en la ejecución</li>
-                        <li>Ataques sobre el consumo, la radiación, etc.</li>
-                        <li>compromiso de clave: acceso software o físico al sistema</li>
-                        <li>calidad de los números aleatorios</li>
-                        <li>a futuro: <a href="threats.html#/asymmetric-crypto" style="color:grey;">computación cuántica</a></li>
-                        <li>...</li>
-                    </span>
-                </ul>
+                <p>ídem Elgamal</p>
             </section>
 
             <section id="keysize">
