@@ -73,7 +73,7 @@
                 <h3>computación cuántica: cripto asimétrica</h3>
                 <p>los computadores cuánticos utilizan algoritmos cuánticos; ciertos problemas exponenciales o
                     subexponencials en computadores tradicionales se convierten en polinómicos:</p>
-                <p>DH, DSA, RSA y les variantes ECC quedarán obsoletas:
+                <p>DH, DSA, RSA y las variantes ECC quedarán obsoletas:
                     <br/>el algoritmo de
                     <a href="http://arxiv.org/abs/quant-ph/9508027">Shor, 1994</a>
                     es polinómico para factorizar $pq$
@@ -103,7 +103,7 @@
                 <span class="fragment">
                     <p>no se sabe cuando habrá <u>un</u> computador cuántico utilizable, ni quien
                         lo tendrá
-                        <br/> (pero suponer que probablemente no lo haga público)
+                        <br/> (pero probablemente no lo haga público)
                     </p>
                 </span>
                 <p>se ha de estar preparado para tener un backup para la criptografía asimétrica probablemente hacia el 2030</p>
@@ -119,7 +119,7 @@
                     <h3>computació cuántica: cripto simétrica</h3>
                 <p>el algoritmo de <a href="http://arxiv.org/abs/quant-ph/9605043">Grover, 1996</a> permite encontrar
                     las claves AES-128 en $2^{64}$ operaciones (cuánticas) conociendo una pequeña cantidad de texto en claro</p>
-                <p>si pasamos a AES-256 tendremos una seguridad equivalente de $128$ bit (ara tenemos $256$ bit de seguridad
+                <p>si pasamos a AES-256 tendremos una seguridad equivalente de $128$ bit (ahora tenemos $256$ bit de seguridad
                 equivalente)</p>
             </section>
 
@@ -151,7 +151,7 @@
                     Supersingular Isogeny
                     <br/>Diffie-Hellman Key Exchange</h3>
                 <p>SIDH está basado en curvas elíptiques</p>
-                <p>tiene complejeidad clássica de $O(\sqrt[4]{2^b})$ y complejidad cuántica de $O(\sqrt[6]{2^b})$ por
+                <p>tiene complejidad clásica de $O(\sqrt[4]{2^b})$ y complejidad cuántica de $O(\sqrt[6]{2^b})$ por
                     tanto tiene complejidad exponencial en ambos tipos de computadores
                 </p>
                 <p>la longitud recomendada contra un ordenador clásico (deducido de las $O()$ anteriores), es:
@@ -220,7 +220,8 @@
                     <li>gestión segura de software,
                         restricción de la "sección" presentada,
                         gestión de actualizaciones fiable&hellip;</li>
-                    <li>los algoritmos con parámetros (ECC) deben estar validados</li>
+                    <li>los algoritmos con parámetros (ECC) deben estar <a title="SafeCurves:
+                        choosing safe curves for elliptic-curve cryptography" href="https://safecurves.cr.yp.to">validados</a></li>
                     <li>no usar algoritmos obsoletos: se cree que son capaces de descifrar RC4 sistemáticamente,
                     encontrar colisiones en MD5, y quizás resolver DLP hasta a $p=1024$...</li>
                     <li>&hellip;</li>
