@@ -23,6 +23,10 @@ Transparencias en [jig.github.io/crypto/es](https://jig.github.io/crypto/es), pe
 
 (Nota: el número a la derecha de cada entrada indica el número de transparencias aproximado)
 
+### OPCIONAL: práctica OpenSSL
+
+Material para los ejercicios prácticos **opcionales** comentados en la sesión síncrona del martes 7 de Noviembre de 2017: [jig/docker-openssl](https://github.com/jig/docker-openssl)
+
 ### Resumen
   
   - [Resumen](http://jig.github.io/crypto/es/abstract.html) de los objetivos de las funciones criptográficas y de las responsabilidades de las autoridades PKI `8`
