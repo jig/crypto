@@ -64,7 +64,11 @@
             <section id="rng">
                 <h1>RNG</h1>
                 <p>o TRNG (<em>True Random Number Generation</em>)</p>
-                <p>paréntesis: RNG en ordinadores tradicionales (no HSM)</p>
+            </section>
+
+            <section>
+                <h3>RNG</h3>
+                <p>La generación de números aleatorios (RNG) no se puede implementar con un algoritmo, a diferencia de PRNG que precisamente eran algoritmos con un parámetro o semilla que les permitía generar secuencias impredecibles<br/>(impredecibles a condición de que no se conozca la semilla)</p>
             </section>
 
             <section>
@@ -72,25 +76,27 @@
                 <p>¿Cómo implementamos un RNG si no es algorítmico?</p>
                 <ul>
                     <li>Recopilando eventos de entrada (I/O) y acumulando sus parámetros (habitualmente las cifras menos significativas de la hora en ns ó μs)</li>
-                    <li>Mediante dispositivos especializados (<a href="hsm.html">HSM</a>*)</p>
+                    <li>Mediante dispositivos especializados (<a href="#hsm">HSM</a>*)</p>
                         <p><br/></p>
                         <p>*) HSM: Hardware Secure Module</p>
             </section>
 
+                <!--
             <section>
                 <h3>RNG: acumulación de aleatoriedad</h3>
                 <p>las distintas fuentes que usaremos para generar la secuencia del RNG
                     &mdash;ya sea de I/O, o de dispositivos hardware especializados&mdash;
                     las podemos acumular de diferentes fuentes individuales mediante $\oplus$
                 </p>
-                <p>en el caso de que una de las fuentes no sea del todo uniforme, esto no empeora la calidad final del RNG
+                <p>en el caso de que una de las fuentes no sea del todo uniformes, esto no empeora la calidad final del RNG
                     a condición de que al menos una de ellas si que lo sea</p>
             </section>
+
             <section>
                 <h3>RNG: acumulación de aleatoriedad</h3>
                 <p>se ha de vigilar que la acumulación garantice que:</p>
                 <ul>
-                    <li>RNG tinga una distribución uniforme</li>
+                    <li>RNG tenga una distribución uniforme</li>
                     <li>después de $n$ no se debe poder predecir el $n+1$ con una probabilidad diferente de $1/2$</li>
                 </ul>
             </section>
@@ -110,6 +116,7 @@
                     <li>los bps del RNG (antes y sobretodo después de reducir) pueden ser pocos (lentitud)</li>
                 </ul>
             </section>
+        -->
             <section>
                 <h3>RNG: fuentes</h3>
                 <p><span title="User Interface">UI</span> ($\ll 1$ kbps después de reducción)</p>
@@ -250,7 +257,7 @@
             <!-- HSM  HSM  HSM  HSM  HSM  HSM  HSM  HSM  HSM  HSM  HSM -->
 
 
-            <section>
+            <section id="hsm">
                 <h1>HSM</h1>
                 <p><em>(Hardware Secure Module)</em></p>
             </section>
