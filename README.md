@@ -17,7 +17,7 @@ Transparencias en [jig.github.io/crypto/es](https://jig.github.io/crypto/es), pe
   - [Criptografía de curva elíptica](https://jig.github.io/crypto/es/ecc.html) `18`  
   - [Complejidad algorítmica](http://jig.github.io/crypto/es/complexity.html) `5` (&Sigma; → `127`)
   - [Amenazas](http://jig.github.io/crypto/es/threats.html) `15` 
-  - [HSM](https://jig.github.io/crypto/es/hsm.html) `41` 
+  - [RND y HSM](https://jig.github.io/crypto/es/hsm.html) `41` 
   - [Conexiones (TLS)](http://jig.github.io/crypto/es/tls.html) `11`
   - [Infraestructura de Clave Pública (PKI)](http://jig.github.io/crypto/es/pki.html) `59` (&Sigma; → `126`)
 
