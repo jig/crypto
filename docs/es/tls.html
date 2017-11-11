@@ -184,7 +184,7 @@
         </section>
 
         <section>
-            <h3>Protocol: inicialización</h3>
+            <h3>Protocol: inicialización (caso PFS)</h3>
             <p>a partir de los dos <code>InputSecret</code> se genera el <code>MasterSecret</code></p>
             <p>del <code>MasterSecret</code> se derivan 4 claves y 2 IV:</p>
             <ul>
@@ -192,8 +192,26 @@
                 <li>IV, para el cifrado de cliente a servidor (y viceversa)</li>
                 <li>clave HMAC de cliente a servidor (y viceversa)</li>
             </ul>
+            <p>
+                <code>InputSecret<sub>cliente</sub></code>: $\alpha^i$
+                <br/>
+                <code>InputSecret<sub>servidor</sub></code>: $\alpha^j$
+                <br/>
+                <code>MasterSecret</code>: $ = \alpha^{ij}$
+            </p>
         </section>
-
+        
+        <section>
+            <h3>Protocol: inicialización (caso no-PFS)</h3>
+            <p>En el caso de no usar DHE (ni ECDHE) el cliente debe enviar el <code>MasterSecret</code> al servidor cifrándolo con la clave del servidor:</p>
+            <p>
+                <code>MasterSecret: PBK<sub>servidor</sub>(MasterSecret<sub>cliente</sub>)</code> 
+            </p>
+            <p class="fragment">
+                En este caso (no-PFS) una revelación de la clave privada del servidor en cualquier momento, permite descifrar el tráfico futuro y también el tráfico pasado. Con PFS esto no sucede ya que las claves de efímeras (EDH ó ECDHE) cambian en cada acuerdo y no se almacenan nunca
+            </p>
+        </section>
+        
         <section>
             <h3>protocolo: transporte <em>(record)</em></h3>
             <p>los datos se fragmentan en bloques de hasta 16 kB</p>
@@ -244,8 +262,9 @@
             </code></p>
             <p>Notas:
                 <ul>
-                    <li>eliminación de acuerdos de claves no efímeros</li>
-                    <li><code>RSA-2048</code>, <code>ECDSA-224</code>, <code>ECDH-224</code>: longitudes mínimas;</li>
+                    <li>claves de sesión establecidas por acuerdo de claves (PFS)</li>
+                    <li><code>DH-2048</code>, <code>ECDH-256</code>, <code>X25519</code>: longitudes mínimas para acuerdo de claves</li>
+                    <li><code>RSA-2048</code>, <code>ECDSA-256</code>, <code>EdDSA25519</code>: longitudes mínimas para firma</li>
                     <li>desaparecen <code>DSA</code>, <code>SHA-1</code>, <code>SHA-224</code>, <code>3DES</code></li>
                 </ul>
             </p>
@@ -275,7 +294,7 @@
             </table>
         </section>
 
-        <section data-background="#FFFFDD">
+        <section>
             <h2>Seguridad</h2>
             <ul>
             <li><strong>Algoritmos</strong>: TLS hasta (v1.2) permite configurar algoritmos (<em>cipher suites</em>) que actualmente son obsoletos</li>
@@ -285,13 +304,13 @@
             </ul>
         </section>
 
-        <section data-background="#FFFFDD">
+        <section>
             <h2>Seguridad: Algoritmos</h2>
             <p>TLS hasta (v1.2) permite configurar algoritmos obsoletos (v1.3 es aún un borrador)</p>
             <p>TLS renegocia el mejor protocolo entre cliente y servidor. Un cliente "antiguo" puede forzar a usar o bien un cipher suite obsoleto o bien no dejarlo conectar</p>
         </section>
 
-        <section data-background="#FFFFDD">
+        <section>
             <table>
                 <tr>
                     <td>
@@ -389,7 +408,7 @@ TLS_ECDH_RSA_WITH_AES_256_GCM_SHA384
             </table>
         </section>
 
-        <section data-background="#FFFFDD">
+        <section>
             <h2>Seguridad: Algoritmos</h2>            
             <p>eliminando NULL, ANON, sin acuerdo de claves, con acuerdo de claves no efímero</p>
             <p>eliminar opcionalmente también SHA<!-- SHA1 -->, 3DES, DSS (DSA)</p>
@@ -426,18 +445,18 @@ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
                     </td>
                 </tr>
             </table>       
-            <p>se debe vigilar que RSA y <a href="threats.html#countermeasures">DHE</a> sean de 2048 bit o más, y que ECDSA y ECDH usen P-256, P-384 o P-521</p>  
+            <p>se debe vigilar que RSA y <a href="threats.html#countermeasures">DHE</a> sean de 2048 bit o más, y que ECDSA y ECDH usen P-256, P-384, P-521, Curve25519 ó Curve448</p>  
             <p class="fragment">problema: S.O. antiguos no podrán conectarse</p> 
         </section>
 
-        <section data-background="#FFFFDD">
-            <h2>Seguridad: <em><a href="threats.html#countermeasures">Forward Secrecy</a></em></h2>       
+        <section>
+            <h2>Seguridad &laquo;a futuro&raquo;:<br/><em><a href="threats.html#countermeasures">Perfect Forward Secrecy</a></em></h2>       
             <p>un ataque que revele una clave privada implica que se debe cambiar la clave privada</p>
             <p>pero si no se usa <code>_DHE_</code> ó <code>_ECDHE_</code> el revelado de la clave privada permite el descifrado de tráfico pasado</p>
         </section>
 
 
-        <section data-background="#FFFFDD">
+        <section>
             <h2>Seguridad: Protocolo</h2>
             <ul>
                 <li>versiones antiguas</li>
@@ -449,7 +468,7 @@ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
             <p class="fragment">problema: S.O. antiguos no podrán conectarse</p> 
         </section>
 
-        <section data-background="#FFFFDD">
+        <section>
             <h2>Seguridad: Implementaciones</h2>
             <p>hay muchas implementaciones de TLS: es recomendable usar implementaciones abiertas y ampliamente usadas (e.g. OpenSSL); pero también esto implica hay más difusión de herramientas para explotar las vulnerabilidades cuando las haya</p>
             <ul>
@@ -459,7 +478,7 @@ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
             </ul>
         </section>
 
-        <section data-background="#FFFFDD">
+        <section>
             <h2>Seguridad: condiciones de uso</h2>
             <ul>
                 <li>claves protegidas (sólo) por el <span title="Sistema Operativo">S.O.</span></li>
