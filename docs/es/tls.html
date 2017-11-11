@@ -88,21 +88,22 @@
             <h3>TLS: funciones</h3>
             <p>Funcionalmente equivalente a un socket
                 <a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol">TCP</a>
-                aportandole:
+                aportándole:
             </p>
             <ul>
                 <li>autenticidad: Clave pública
                     <ul>
-                        <li><u>autenticación mutua</u>: cliente y servidor tienen certificado/<code>PVK</code></li>
-                        <li><u>autenticación de servidor</u>: el cliente no precisa certificado/<code>PVK</code></li>
+                        <li><u>autenticación mutua</u>: cliente y servidor tienen certificado${}^\dagger$/<code title="Private Key">PVK</code></li>
+                        <li><u>autenticación de servidor</u>: el cliente no precisa certificado/<code title="Private Key">PVK</code></li>
                     </ul>
                 </li>
                 <li>integridad: <a href="hmac.html">HMAC</a>/<a href="ecbc-mac.html">MAC</a></li>
-                <li>confidencialidad: <a href="dh.html">acuerdo de claves</a> + <a href="symmetric.html">cifrado simétrico</a></li>
-                <li>confidencialidad persistente* (opcional hasta TLS v1.2)</li>
+                <li>confidencialidad: cifrado asimétrico de claves + cifrado simétrico</li>
+                <li>confidencialidad persistente${}^\ddagger$: acuerdo de claves + cifrado simétrico</li>
             </ul>
             <p><br/></p>
-            <p>*) PFS: <em>Perfect Forward Secrecy</em>; acuerdo de claves independiente de la autenticación</p>
+            <p>$\dagger$) el certificado es una <code title="Public Key">PBK</code> (veremos certificados en detalle en <a href="pki.html">PKI</a>)</p>
+            <p>$\ddagger$) PFS: <em>Perfect Forward Secrecy</em> implica no usar cifrado asimétrico</p>
         </section>
 
         <section>
