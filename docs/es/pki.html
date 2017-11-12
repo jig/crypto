@@ -154,7 +154,7 @@
                 firma esta tupla:</p>
             <p><code>PVK<sub>TTP</sub>(identidad interlocutor, PBK<sub>interlocutor</sub>)</code></p>
             <p><br/></p>
-            <p>Nota: <code>PVK<sub>TTP</sub>(</code>&hellip;<code>)</code> significa firma RSA o ECDSA sobre la cadena "&hellip;"</p>
+            <p>Nota: <code>PVK<sub>TTP</sub>(</code>&hellip;<code>)</code> significa <u>firma</u> RSA o ECDSA sobre la cadena "&hellip;"</p>
         </section>
         <section>
             <h3>Tercera parte de confianza</h3>
@@ -263,7 +263,7 @@
         <section>
             <h3>CA<span style="text-transform:none;">s</span> múltiples</h3>
             <ul>
-                <li>los usuarios deben incorporar una lista de <code>PBK<sub>CA<sub>i</sub></sub></code>
+                <li>los usuarios deben conocer de antemano una lista de <code>PBK<sub>CA<sub>i</sub></sub></code>
                     <ul><li>son las <u>CAs raíz</u> (<em>root CA</em>)</li></ul>
                 </li>
                 <br/>
@@ -275,7 +275,7 @@
         </section>
         <section>
             <h3>CA<span style="text-transform:none;">s</span> raíz</h3>
-            <p>las diferentes CAs pueden especializarse: niveles de seguridad, métodos de registro, legislación, costos,
+            <p>las diferentes CAs pueden especializarse: niveles de seguridad, métodos de registro, legislación, costes,
                 o simplemente diferentes organizaciones</p>
             <p>los usarios pueden escoger en qué CAs raíz confiar y en cuales no</p>
             <p class="fragment">el usuario (&hellip;) debe <u>gestionar</u>
@@ -631,13 +631,13 @@ TBSCertificate  ::=  SEQUENCE  {
              -->
         </section>
 
-        <section data-background="#FFFFDD">
+        <section>
             <h3>Certificados &ldquo;verdes&rdquo;</h3>
             <p>¿Hay CAs raíz buenas? ¿cómo gestiono la lista de CAs raíz que usaré? </p>
 	    <p>Si el certificado del servidor HTTPS al que nos conectamos está bajo una de estas CA raíz: se muestra en verde</p>
         </section>
 
-        <section data-background="#FFFFDD">
+        <section>
             <h2>CA no fiables</h2>
             <ul>
                 <li>Digisign Server ID – (Enrich) (Malasia, subordinada de Entrust.net Certification Authority (2048)): erróneamente emitió certificados con claves de titular de 512 bit. Se revocó la CA.</li>
@@ -652,14 +652,14 @@ TBSCertificate  ::=  SEQUENCE  {
             </ul>
         </section>
 
-	<section data-background="#FFFFDD">
+	<section>
 	  <h3></h3>
             <p>El hecho que la lista de certificados pueda ser manipulada (usuario, sysadmin) ha hecho que aparezcan
               mecanismos "más seguros"</p>
 	    <p>Por ejemplo: los navegadores han separado en de dos listas las CA root confiables: una modificable por el usuario/administrador y otra no (<a href="https://cabforum.org/" title="CA|Browser Forum">CABforum</a>)</p>
 	  </section>
 	
-	<section data-background="#FFFFDD">
+	<section>
 	    <h3>verdes y verdes</h3>
               <p>Certificados EV, <em>Extended Validation</em>: las CAs que emiten estos certificados siguen unos procedimientos
                 específicos para la validación de los datos del titular (<a href="registration">registro</a>); la lista de certificados raíz normalmente está grabada en el código fuente de los navegadores, etc. Los certificados EV exigen que el propietario del dominio siga procedimientos que se auditan (presencialmente)</p>
@@ -671,20 +671,20 @@ TBSCertificate  ::=  SEQUENCE  {
 	     
         </section>
 
-	<section data-background="#FFFFDD">
+	<section>
 	  <h3>Contramedidas adicionales: HPKP</h3>
 	  <p>HPKP, <em>HTTPS PBK Pinning</em>: el servidor HTTP envía una cabecera en la que indica que la clave del servidor (hash) y durante cuanto tiempo será válida</p>
 	  <p>el navegador almacena ese valor y comprueba en cada acceso que la PBK del servidor no ha variado</p>
         </section>
 
-	<section data-background="#FFFFDD">
+	<section>
 	  <h3>Contramedidas adicionales: DNS CAA, DANE</h3>
 	  <p>DNS CAA, <em>DNS CA Authorization</em>: la CA comprueba que el DNS (CAA record) del nombre del servidor debe ser firmado por ella</p>
 	  <p>DANE, <em>DNS based Authentication of Named Entities</em>: los clientes validan que la clave pública del servidor es la misma que la que se publica en el DNS</p>
 	  <!-- DNSSEC per a signar les dades -->
          </section>
 
-	<section data-background="#FFFFDD">
+	<section>
 	  <h3>Certificate Transparency</h3>
 	  <p>las CA bajo Certificate Transparency publican los certificados que emiten en una base de datos distribuida</p>
 	  <p>los propietarios legítimos (y cualquier usuario) puede consultar si alguna otra CA ha certificado nuestro dominio</p>
