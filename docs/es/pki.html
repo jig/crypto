@@ -506,7 +506,6 @@ Lrb5fFz7UWlT6/2lwe7o1BB5A8sxfrhPpsl8xj5qolZX+0yp9z4no0/ro/3BDYXA
                 <li><code>SEQUENCE OF</code>: equivalente a un vector <code>[]</code> de C/C++</li>
                 <li><code>SET</code>: como <code>SEQUENCE</code> pero sin orden (semántica)</li>
                 <li><code>SET OF</code>: como <code>SEQUENCE OF</code> pero sin orden (semántica)</li>
-                <li><code>SEQUENCE</code>: equivalente a un <code>struct</code> de C/C++</li>
                 <li><code>CHOICE</code>: alternativa de tipo; equivalente a <code>union</code> de C/C++</li>
             </ul>
         </section>
@@ -577,7 +576,7 @@ TBSCertificate  ::=  SEQUENCE  {
             <p>un DN es una secuencia de RDN (<em>Relative</em> DN)</p>
             <p style="text-align: left;">RDNs habituales:</p>
             <ul>
-                <li>CN: <em>Common Name</em> (Nommbre del usuari o DNS del servidor)</li>
+                <li>CN: <em>Common Name</em> (Nombre del usuari o DNS del servidor)</li>
                 <li>OU: <em>Organisational Unit</em> (Departamento)</li>
                 <li>O: <em>Organisation</em> (Empresa)</li>
                 <li>C: <em>Country</em> (Estado)</li>
@@ -605,10 +604,10 @@ TBSCertificate  ::=  SEQUENCE  {
             <p>hay extensiones que hace falta que sean procesadas:<br/>se marcan con <code>Critical True</code>: si un
             sistema procesa el certificado y no entiende la extensión (no conoce el <code>OID</code>) debe dar el certificado por inválido</p>
             <ul>
-                <li><code>BasicConstraints</code>: <code>cA, pathLenConstraint</code></li>
-                <li><code>KeyUsage</code></li>
-                <li><code>NameConstraints</code></li>
-                <li><code>AuthorityInformationAccess</code></li>
+                <li><code>BasicConstraints (2.5.29.19)</code>: <code>cA, pathLenConstraint</code></li>
+                <li><code>KeyUsage (2.5.29.15)</code></li>
+                <li><code>NameConstraints (2.5.29.30)</code></li>
+                <li><code>AuthorityInformationAccess (1.3.6.1.5.5.7.1.1)</code></li>
                 <li>&hellip;</li>
             </ul>
         </section>
@@ -641,7 +640,7 @@ TBSCertificate  ::=  SEQUENCE  {
             <h2>CA no fiables</h2>
             <ul>
                 <li>Digisign Server ID – (Enrich) (Malasia, subordinada de Entrust.net Certification Authority (2048)): erróneamente emitió certificados con claves de titular de 512 bit. Se revocó la CA.</li>
-                <li>Digisign Server ID (Enrich) (Malasia,  subordinada de GTE CyberTrust Global Root): erróneamente emitió certificados con claves de titular de 512 bit. Se revocó la CA.</li>
+                <!-- <li>Digisign Server ID (Enrich) (Malasia,  subordinada de GTE CyberTrust Global Root): erróneamente emitió certificados con claves de titular de 512 bit. Se revocó la CA.</li> -->
                 <li>DigiNotar (Holanda, varias CA raíz): fueron hackeadas y se emitieron certificados fraudulentos</li>
                 <li>MCS Holding (test): la CA no estaba conectada (directamente?) a un HSM. Se emitieron certificados de forma fraudulenta para <code>*.google.com</code> entre otros</li>
                 <li>MD5 Collisions Inc.: una prueba de concepto que se "coló" en Firefox y Chromre al menos</li>
@@ -656,7 +655,7 @@ TBSCertificate  ::=  SEQUENCE  {
 	  <h3></h3>
             <p>El hecho que la lista de certificados pueda ser manipulada (usuario, sysadmin) ha hecho que aparezcan
               mecanismos "más seguros"</p>
-	    <p>Por ejemplo: los navegadores han separado en de dos listas las CA root confiables: una modificable por el usuario/administrador y otra no (<a href="https://cabforum.org/" title="CA|Browser Forum">CABforum</a>)</p>
+	    <p>Por ejemplo: los navegadores han separado en dos listas las CA root confiables: una modificable por el usuario/administrador y otra no (<a href="https://cabforum.org/" title="CA|Browser Forum">CABforum</a>)</p>
 	  </section>
 	
 	<section>
@@ -671,11 +670,12 @@ TBSCertificate  ::=  SEQUENCE  {
 	     
         </section>
 
-	<section>
+	<section data-background="#FF8888">
 	  <h3>Contramedidas adicionales: HPKP</h3>
 	  <p>HPKP, <em>HTTPS PBK Pinning</em>: el servidor HTTP envía una cabecera en la que indica que la clave del servidor (hash) y durante cuanto tiempo será válida</p>
-	  <p>el navegador almacena ese valor y comprueba en cada acceso que la PBK del servidor no ha variado</p>
-        </section>
+      <p>el navegador almacena ese valor y comprueba en cada acceso que la PBK del servidor no ha variado</p>
+      <p><a href="https://groups.google.com/a/chromium.org/forum/m/#!msg/blink-dev/he9tr7p3rZ8/eNMwKPmUBAAJ?hn">OBSOLETO</a></p>
+    </section>
 
 	<section>
 	  <h3>Contramedidas adicionales: DNS CAA, DANE</h3>
