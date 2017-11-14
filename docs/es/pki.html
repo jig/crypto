@@ -697,7 +697,7 @@ TBSCertificate  ::=  SEQUENCE  {
                     <li>&hellip;</li>
                 </ul>
             </section>
-            
+
         <section>
             <h1>Revocaciones</h1>
         </section>
@@ -833,9 +833,9 @@ TBSCertList  ::=  SEQUENCE  {
         </section>
         <section id="tsa">
             <h3>TSA: Time-Stamp Authority</h3>
-            <p>las TSA se parecen a las CA pero a parte de disposar de HSM, tienen una fuente fiable de tiempo:
+            <p>las TSA se parecen a las CA pero a parte de disponer de HSM, tienen una fuente fiable de tiempo:
                 <br/>reloj atómico, o un reloj estabilizado térmicamente, o conexión GPS, o connexión a un
-            servidor NTP (Stratum-2 o proper), o alguna combinación de las anteriores (habitualmente las CA utilizan exclusivamente NTP)</p>
+            servidor NTP (Stratum-2 o similar), o alguna combinación de las anteriores (habitualmente las CA utilizan exclusivamente NTP)</p>
         </section>
 
         <section>
@@ -902,13 +902,13 @@ SignerInfos ::= SET OF SignerInfo
 
         <section>
             <h3 style="text-transform:none;">PKCS #7: <code>content</code>$\rightarrow$<code>EnvelopedData</code></h3>
-            <p>cifrado, simétrio o asimétrico (ensobrado)</p>
+            <p>cifrado, simétrico o asimétrico (ensobrado)</p>
             <pre>
 EnvelopedData ::= SEQUENCE {
     version CMSVersion,
     originatorInfo [0] IMPLICIT OriginatorInfo OPTIONAL,
-    recipientInfos RecipientInfos,
-    encryptedContentInfo EncryptedContentInfo,
+    recipientInfos RecipientInfos,               -- claves simétricas firmadas al receptor(es)
+    encryptedContentInfo EncryptedContentInfo,   -- datos cifrados con clave simétrica anterior
     unprotectedAttrs [1] IMPLICIT UnprotectedAttributes OPTIONAL
 }
             </pre>
@@ -927,7 +927,7 @@ EnvelopedData ::= SEQUENCE {
             <h3>PKCS #7: como archivo de certificados</h3>
             <p>el PKCS #7 se usa a veces como formato para entregar certificados (y CRL)
                 <br/>(e.g. mi certificado y la cadena de CA):</p>
-            <p>el PKCS #7 se le da con <code>content</code> <code>SignedData</code>&hellip; conteniendo los certificados
+            <p>el PKCS #7 contiene (<code>content</code>) <code>SignedData</code>&hellip; conteniendo los certificados
                 y/o las CRL, pero sin datos ni firmas</p>
         </section>
 
