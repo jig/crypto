@@ -92,14 +92,28 @@
             </section>
 
             <section id="birthday-paradox">
-                <h3>Paradoja del cumpleaños</h3>
-                <p>(<em>Birthday paradox</em>)</p>
-                <p>hay un ataque mejor que el anterior de fuerza bruta, que deriva de
-                    <br/>la paradoja del cumpleaños:</p>
-                    <p><em>&ldquo;si tenemos un grupo de 23 personas, la probabilidad de tener un par con la misma fecha de cumpleaños
-                    es del 50%&rdquo;</em></p>
-                <p>sólo hace falta que el grupo llegue a 70 personas para que la probabilidad sea del 99%</p>
-                <p class="fragment">en general, $p=0.5$ si la cantidad de experimentos es $x \approx 1,25 \sqrt{\text{elementos}}$</p>
+                <section>
+                    <h3>Paradoja del cumpleaños</h3>
+                    <p>(<em>Birthday paradox</em>)</p>
+                    <p>hay un ataque mejor que el anterior de fuerza bruta, que deriva de
+                        <br/>la paradoja del cumpleaños:</p>
+                        <p><a href="#birthday-paradox-365"><em>&ldquo;si tenemos un grupo de 23 personas, la probabilidad de tener un par con la misma fecha de cumpleaños
+                        es del 50%&rdquo;</em></a></p>
+                    <p>sólo hace falta que el grupo llegue a 70 personas para que la probabilidad sea del 99%</p>
+                    <p class="fragment">en general, $p=0.5$ si la cantidad de experimentos es $x \approx 1,25 \sqrt{\text{elementos}}$</p>
+                </section>
+                <section id="birthday-paradox-365">
+                    <p>La probabilidad de que <strong>dos</strong> personas <strong>no</strong> tengan el mismo aniversario es:</p>
+                    <p>$p=\frac{364}{365} = 99'7\%$</p>
+                    <p>La probabilidad de que <strong>tres</strong> personas <strong>no</strong> tengan el mismo aniversario es:</p>
+                    <p>$p=\frac{364}{365} \frac{363}{365} = 99'2\%$</p>
+                    <p>La probabilidad de que <strong>cuatro</strong> personas <strong>no</strong> tengan el mismo aniversario es:</p>
+                    <p>$p=\frac{364}{365} \frac{363}{365} \frac{362}{365} = 98'4\%$</p>
+                    <p>$\vdots$</p>   
+                    <p>La probabilidad de que <strong>23</strong> personas <strong>no</strong> tengan el mismo aniversario es:</p>
+                    <p>$p=\frac{364}{365} \cdots \frac{365-22}{365} = 49'3\%$</p>
+                    <p>(es decir, es <strong>más</strong> probable que sí haya dos personas con el mismo aniversario en un conjunto de 23, que qué no)</p>                 
+                </section>
             </section>
 
             <section  id="birthday-attack">
