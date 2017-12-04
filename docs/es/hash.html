@@ -166,12 +166,12 @@
 
             <section>
                 <h2>Protocolos: Sesión</h2>
-                <ul>
-                    <li>añadiendo un identificador de secuencia
-                        <br/>$\{1\|m_1, 2\|m_2 \dots \}$</li>
-                    <li>añadiendo el hash del mensaje anterior
-                        <br/>$\{m_1, \text{hash}(m_1)\|m_2, \text{hash}(m_2)\|m_3 \dots \}$</li>
-                </ul>
+                
+                    <p>por ejemplo, añadiendo un identificador de secuencia
+                        <br/>$\{1\|\text{more}\|m_1, 2\|\text{more}\|m_2, \dots, n\|\text{last}\|m_n\}$</p>
+                    <!-- <li>añadiendo el hash del mensaje anterior
+                        <br/>$\{m_1, \text{hash}(m_1)\|m_2, \text{hash}(m_2)\|m_3 \dots \}$</li> -->
+                    <p>cada mensaje debe ir protegido por hash, HMAC o firma, cifrado, etc. </p>
             </section>
 
             <section>
