@@ -70,18 +70,23 @@
 
             <section>
                 <h3>Criptografía $\Rightarrow$ Cifrado</h3>
-                <p>Hasta los '70 la criptografía servía para dificultar que un tercero pudiera discernir lo que se envía</p>
+                <p>Hasta los '70 la criptografía servía para dificultar que un tercero pudiera discernir lo que se envía
+                    (<u>confidencialidad</u>)
+                </p>
                 <p>$c = e(k,m)$</p>
-                <p style="color:#888">
-                    un mensaje $m$ (<em>plain-text</em>) se cifra con la función de cifrado $e()$, que se
-                    le pasa junto a una clave $k$ para dar el mensaje <br/>cifrado $c$ (<em>cipher-text</em>)
-                </p>
-                <br/>
-                <p>$m = d(k,c)$</p>
-                <p style="color:#888">
-                    para descifrar hace falta la clave $k$ y el mensaje cifrado $c$ a la función de descifrado
-                    $m=d(k,c)$<br/>El resultado $m$ es el mensaje en claro de vuelta
-                </p>
+                <div class="fragment">
+                    <p>
+                        un mensaje $m$ (<em>plain-text</em>) se cifra con la función de cifrado $e()$, que se
+                        le pasa junto a una clave $k$ para dar el mensaje <br/>cifrado $c$ (<em>cipher-text</em>)
+                    </p>
+                </div>
+                <div class="fragment">
+                    <p>$m = d(k,c)$</p>
+                    <p>
+                        para descifrar hace falta la clave $k$ y el mensaje cifrado $c$ a la función de descifrado
+                        $m=d(k,c)$<br/>El resultado $m$ es el mensaje en claro de vuelta
+                    </p>
+                </div>
             </section>
 
             <section>
