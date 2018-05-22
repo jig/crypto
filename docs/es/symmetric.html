@@ -853,12 +853,12 @@
                 <h3>AES</h3>
                 <p>AES es un cifrado de bloque con:</p>
                 <ul>
-                    <li>bloque: $128$ bit ($16$ Byte)</li>
-                    <li>clave:
+                    <li>longitud de bloque: $128$ bit ($16$ Byte)</li>
+                    <li>longitud de clave:
                         <ul>
-                            <li>$128$ bit $\implies$ 10 etapes</li>
-                            <li>$192$ bit $\implies$ 12 etapes</li>
-                            <li>$256$ bit $\implies$ 14 etapes</li>
+                            <li>clave de $128$ bit $\implies$ 10 etapas</li>
+                            <li>clave de $192$ bit $\implies$ 12 etapas</li>
+                            <li>clave de $256$ bit $\implies$ 14 etapas</li>
                         </ul>
                     </li>
                 </ul>
@@ -911,20 +911,26 @@
             </section>
 
             <section>
-                <h3>AES: vulnerabilidades</h3>
-                <span class="fragment">
-                    <p>...la estadística del mensaje en claro aparece en el texto cifrado igual que en el cifrado del César (!)</p>
-                    <p>ahora los bloques son de $16$ B, no de $1$ B por tanto la estadística es menos importante
-                        <br/>($|\text{bloque}|=2^{128}$), pero en secuencias constantes
-                    (por ejemplo, como las de un gráfico) se pueden dar bloques enteros idénticos
-                    </p>
-                </span>
-                <span class="fragment">
-                    <p>
-                         <img src="img/Tux.jpg"/><img src="img/Tux_ecb.jpg"/><br/>
-                        <small>(fuente <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation">Wikipedia</a>)</small>
-                    </p>
-                </span>
+                <section>
+                        <h3>AES: vulnerabilidades</h3>
+                    <span class="fragment">
+                        <p>...la estadística del mensaje en claro aparece en el texto cifrado igual que en el cifrado del César (!)</p>
+                        <p>ahora los bloques son de $16$ B, no de $1$ B por tanto la estadística es menos importante
+                            <br/>($|\text{bloque}|=2^{128}$), pero en secuencias constantes
+                        (por ejemplo, como las de un gráfico) se pueden dar bloques enteros idénticos
+                        </p>
+                    </span>
+                    <span class="fragment">
+                        <p>
+                            <img src="img/Tux.jpg"/><img src="img/Tux_ecb.jpg"/><br/>
+                            <small>(fuente <a href="https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation">Wikipedia</a>)</small>
+                        </p>
+                    </span>
+                </section>
+                <section>
+                    <p>Un dato cifrado debe parecerse a:</p>
+                    <img data-src="gimp/bio-c.png"/>
+                </section>
             </section>
 
             <section>
