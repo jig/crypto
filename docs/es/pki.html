@@ -655,25 +655,37 @@ TBSCertificate  ::=  SEQUENCE  {
 	     
         </section>
 
-	<section data-background="#FF8888">
-	  <h3>Contramedidas adicionales: HPKP</h3>
-	  <p>HPKP, <em>HTTPS PBK Pinning</em>: el servidor HTTP envía una cabecera en la que indica que la clave del servidor (hash) y durante cuanto tiempo será válida</p>
-      <p>el navegador almacena ese valor y comprueba en cada acceso que la PBK del servidor no ha variado</p>
-      <p><a href="https://groups.google.com/a/chromium.org/forum/m/#!msg/blink-dev/he9tr7p3rZ8/eNMwKPmUBAAJ?hn">OBSOLETO</a></p>
+	<!--
+        <section data-background="#FF8888">
+            <h3>Contramedidas adicionales: HPKP</h3>
+            <p>HPKP, <em>HTTPS PBK Pinning</em>: el servidor HTTP envía una cabecera en la que indica que la clave del servidor (hash) y durante cuanto tiempo será válida</p>
+            <p>el navegador almacena ese valor y comprueba en cada acceso que la PBK del servidor no ha variado</p>
+            <p><a href="https://groups.google.com/a/chromium.org/forum/m/#!msg/blink-dev/he9tr7p3rZ8/eNMwKPmUBAAJ?hn">OBSOLETO</a></p>
+        </section>
+    -->
+	<section>
+        <h3>Contramedidas adicionales: Certificate Transparency</h3>
+        <p>las CA bajo Certificate Transparency publican los certificados que emiten en una base de datos distribuida</p>
+        <p>los propietarios legítimos puede consultar (monitorizar) si alguna otra CA ha certificado nuestro dominio</p>
+        <p>en realidad, cualquier usuario puede escribir y leer esta BB.DD. distribuida</p>
+        <p>Ver: <a href="https://sslmate.com/account/certspotter">SSLmate Cert Spotter</a></p>
     </section>
+    <section>
+        <h3>Contramedidas adicionales: DNS CAA</h3>
+        <p><em>DNS CA Authorization</em> (DNS CAA): la CA comprueba que el DNS (CAA record) le autoriza a emitir certificados para el dominio</p>
+        <p>Esto obliga a un atacante a tener que comprometer no sólo el servidor
+            <br/>(en caso de usar desafío sobre el control del servidor)
+            <br/>si no el control de titularidad del dominio</p>
+    </section>
+   <!--
+    <section>
+	    <h3>Contramedidas adicionales: DNS CAA, DANE</h3>
+            <p>DNS CAA, <em>DNS CA Authorization</em>: la CA comprueba que el DNS (CAA record) del nombre del servidor debe ser firmado por ella</p>
+            <p>DANE, <em>DNS based Authentication of Named Entities</em>: los clientes validan que la clave pública del servidor es la misma que la que se publica en el DNS</p>
+            // DNSSEC per a signar les dades
+    </section>
+    -->
 
-	<section>
-	  <h3>Contramedidas adicionales: DNS CAA, DANE</h3>
-	  <p>DNS CAA, <em>DNS CA Authorization</em>: la CA comprueba que el DNS (CAA record) del nombre del servidor debe ser firmado por ella</p>
-	  <p>DANE, <em>DNS based Authentication of Named Entities</em>: los clientes validan que la clave pública del servidor es la misma que la que se publica en el DNS</p>
-	  <!-- DNSSEC per a signar les dades -->
-         </section>
-
-	<section>
-	  <h3>Certificate Transparency</h3>
-	  <p>las CA bajo Certificate Transparency publican los certificados que emiten en una base de datos distribuida</p>
-	  <p>los propietarios legítimos (y cualquier usuario) puede consultar si alguna otra CA ha certificado nuestro dominio</p>
-	  </section>
         <!-- <section id="registration">
             <h3>Registre, procediment de</h3>
             <ul>
