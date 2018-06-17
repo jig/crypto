@@ -22,7 +22,9 @@ Transparencias en [jig.github.io/crypto/es](https://jig.github.io/crypto/es), pe
   - ⭐️ ⭐️ [Infraestructura de Clave Pública (PKI)](http://jig.github.io/crypto/es/pki.html) `59` (&Sigma; → `126`)
 
 **Nota**: ⭐️ ⭐️ estudiaremos este material
+
 **Nota**: ⭐️ estudiaremos este material parcialmente
+
 **Nota**: el número a la derecha de cada entrada indica el número de transparencias aproximado
 
 ### OPCIONAL: práctica OpenSSL
