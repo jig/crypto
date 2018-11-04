@@ -2,12 +2,16 @@
 
 Transparencias en [jig.github.io/crypto/es](https://jig.github.io/crypto/es), pero puedes acceder directamente a cada capítulo seleccionando los enlaces en el apartado "Contenido".
 
-## Contenido
+## Contenido VIU 2018-11-13 / 2018-11-24
+
+Estos enlaces corresponden a las transparencias en video que podéis encontrar en http://campus.viu.es
+
+En el curso 2018-11 _no entrarán_ los paquetes de transparencias/videos marcados como opcionales en este índice de aquí debajo. Las transparencias/videos se han mantenido como material opcional.
 
   - [Índice](https://jig.github.io/crypto/es) `8`
   - [Objetivos](https://jig.github.io/crypto/es/objectives.html) `25` 
   - [Introducción, historia](https://jig.github.io/crypto/es/intro.html) `40`
-  - OPCIONAL [Criptografía simétrica](https://jig.github.io/crypto/es/symmetric.html) `91` (&Sigma; → `126`)
+  - OPCIONAL [Criptografía simétrica, AES](https://jig.github.io/crypto/es/symmetric.html) `91` (&Sigma; → `126`)
   - OPCIONAL [Hash, HMAC, cifrado autenticado](https://jig.github.io/crypto/es/hash.html) `13`  
   - OPCIONAL [MAC](https://jig.github.io/crypto/es/ecbc-mac.html) `11` 
   - [Teoría de números](https://jig.github.io/crypto/es/number-theory.html) `33`
@@ -21,10 +25,6 @@ Transparencias en [jig.github.io/crypto/es](https://jig.github.io/crypto/es), pe
   - [Conexiones (TLS)](http://jig.github.io/crypto/es/tls.html) `11`
   - [Infraestructura de Clave Pública (PKI)](http://jig.github.io/crypto/es/pki.html) `59` (&Sigma; → `126`)
   - OPCIONAL Certificación de un servidor con Let's Encrypt
-
-**Nota**: ⭐️ ⭐️ estudiaremos este material
-
-**Nota**: ⭐️ estudiaremos este material parcialmente
 
 **Nota**: el número a la derecha de cada entrada indica el número de transparencias aproximado
 
