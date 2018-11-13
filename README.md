@@ -8,7 +8,7 @@ Estos enlaces corresponden a las transparencias en video que podéis encontrar e
 
 En el curso 2018-11 _no entrarán_ los paquetes de transparencias/videos marcados como opcionales en este índice de aquí debajo. Las transparencias/videos se han mantenido como material opcional.
 
-  - [Índice](https://jig.github.io/crypto/es) `8`
+  - OPCIONAL [Índice](https://jig.github.io/crypto/es) `8`
   - [Objetivos](https://jig.github.io/crypto/es/objectives.html) `25` 
   - [Introducción, historia](https://jig.github.io/crypto/es/intro.html) `40`
   - OPCIONAL [Criptografía simétrica, AES](https://jig.github.io/crypto/es/symmetric.html) `91` (&Sigma; → `126`)
