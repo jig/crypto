@@ -43,7 +43,7 @@
 
         <section>
             <h1>TLS</h1>
-            <p><em>(Transport Layer Security/<a href="https://tools.ietf.org/html/rfc5246">rfc5246</a>)</em></p>
+            <p><em>(Transport Layer Security/<a href="https://tools.ietf.org/html/rfc8446">rfc8446</a>)</em></p>
             <p><em>(antes de TLS 1.0 $\rightarrow$ SSL, Secure Sockets Layer)  </em></p>
 
             <small><em><a rel="license" href="http://creativecommons.org/licenses/by/4.0/">
@@ -141,7 +141,7 @@
                 <li>TLS 1.0 $\rightarrow$ mínima versión del protocolo utilizable</li>
                 <li>TLS 1.1</li>
                 <li>TLS 1.2 $\rightarrow$ versión recomendada</li>
-                <li>TLS 1.3 draft $\rightarrow$ fuerza a utilizar DHE/ECDHE para acuerdo de claves</li>
+                <li>TLS 1.3 $\rightarrow$ fuerza a utilizar DHE/ECDHE para acuerdo de claves</li>
             </ul>
         </section>
         <!-- <section>
@@ -164,7 +164,7 @@
         </section> -->
         <section>
             <small>
-            <h3>inicialización (resumen; suponiendo caché TLS vacía) <a title="TLS-1.3 draft #18: Protocol Overview" href="https://tools.ietf.org/html/draft-ietf-tls-tls13-18#section-2">*</a></h3>
+            <h3>inicialización (resumen; suponiendo caché TLS vacía) <a title="TLS-1.3: Protocol Overview" href="https://tools.ietf.org/html/rfc8446#section-2">*</a></h3>
             <p style="text-align: left;"><code>ClientHello</code> $\longrightarrow$<br/>contiene un random, cipher-suites soportados, versión</p>
                 <p/>
             <p style="text-align: right;">$\longleftarrow$ <code>ServerHello</code><br/>contiene un random, session-ID, y la versión de TLS y el cipher-suite usado<!-- extensions --></p>
@@ -239,15 +239,7 @@
         </section>
 
         <section style="text-align: left;">
-            <h3>Algoritmos en TLS v1.3 <span style="text-transform:none;">
-                (<a
-                        title="draft-18"
-                        href="https://tools.ietf.org/html/draft-ietf-tls-tls13-18"
-                >borrador-18</a
-                >/<a
-                    href="https://github.com/tlswg/tls13-spec"
-                >git</a
-                >)</span></h3>
+            <h3>Algoritmos en TLS v1.3</h3>
             <p>los siguientes <em>cipher-suites</em> son de obligada implementación (<a title="MUST ⇒ OBLIGATORIO" href="https://tools.ietf.org/html/rfc2119">MUST</a>):
             <br/><code>
                 {DHE|ECDHE}_ECDSA_WITH_AES_128_GCM_SHA256
@@ -297,7 +289,7 @@
         <section>
             <h2>Seguridad</h2>
             <ul>
-            <li><strong>Algoritmos</strong>: TLS hasta (v1.2) permite configurar algoritmos (<em>cipher suites</em>) que actualmente son obsoletos</li>
+            <li><strong>Algoritmos</strong>: TLS hasta la versión v1.2 permite configurar algoritmos (<em>cipher suites</em>) que actualmente son obsoletos</li>
             <li><strong>Protocolo</strong>: versiones antiguas, mecanismos de renegoaciación (para bajar a versiones antiguas)&hellip;</li>
             <li><strong>Implementaciones</strong>: limitación de parámetros, uso de PRNG de baja calidad</li>
             <li><strong>Condiciones de uso</strong>: gestión del servidor (o el cliente)</li>
@@ -306,11 +298,12 @@
 
         <section>
             <h2>Seguridad: Algoritmos</h2>
-            <p>TLS hasta (v1.2) permite configurar algoritmos obsoletos (v1.3 es aún un borrador)</p>
-            <p>TLS renegocia el mejor protocolo entre cliente y servidor. Un cliente "antiguo" puede forzar a usar o bien un cipher suite obsoleto o bien no dejarlo conectar</p>
+            <p>TLS hasta la versión v1.2 permite configurar algoritmos obsoletos (v1.3 lo impide pero su publicación es muy reciente como para que todos los componentes lo hayan adoptado)</p>
+            <p>TLS hasta la versión v1.2 renegocia el mejor protocolo entre cliente y servidor. Un cliente "antiguo" puede forzar a usar o bien un cipher suite obsoleto o bien no dejarlo conectar</p>
         </section>
 
         <section>
+            <h3>cipher-suites TLS v1.2...</h3>
             <table>
                 <tr>
                     <td>
@@ -409,9 +402,10 @@ TLS_ECDH_RSA_WITH_AES_256_GCM_SHA384
         </section>
 
         <section>
-            <h2>Seguridad: Algoritmos</h2>            
-            <p>eliminando NULL, ANON, sin acuerdo de claves, con acuerdo de claves no efímero</p>
-            <p>eliminar opcionalmente también SHA<!-- SHA1 -->, 3DES, DSS (DSA)</p>
+            <h2>Seguridad: Algoritmos (TLS v1.3)</h2>
+            <p>en la versión v1.3 se han eliminado cualquier algoritmo que resulte en un cipher-suite inseguro, facilitando la configuración segura de los servidores</p>           
+            <p>⇒ eliminados NULL, ANON, sin acuerdo de claves, con acuerdo de claves no efímero, SHA-1, 3DES, DSS (DSA)</p>
+            <p>la lista de cipher-suites que se mantiene en v1.3 es:</p>
             <table>
                 <tr>
                     <td>
@@ -421,16 +415,20 @@ TLS_DHE_RSA_WITH_AES_128_CBC_SHA256
 TLS_DHE_RSA_WITH_AES_256_CBC_SHA256
                             </code>
                         </small>
+                        <p></p>
+                        <small>
+                        <code title="cipher suites definidos en rfc 4492">
+                                TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA 
+                                TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA 
+                                TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA   
+                                TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA   
+                                                            </code>
+                                                        </small>
                     </td>
                     <td>
                         <small>
-                            <code title="cipher suites definidos en rfc 4492">
-TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA 
-TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA 
-TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA   
-TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA   
-                            </code>
-                            <p></p>
+                            
+                            
                             <code title="cipher suites definidos en rfc 5246">
 TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256
 TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384
