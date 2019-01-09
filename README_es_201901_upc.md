@@ -4,16 +4,12 @@ Transparencias en [jig.github.io/crypto/es](https://jig.github.io/crypto/es), pe
 
 ## Contenido UPC 2019-1-10,14,15
 
-Estos enlaces corresponden a las transparencias en video que podéis encontrar en http://campus.viu.es
-
-En el curso 2018-11 _no entrarán_ los paquetes de transparencias/videos marcados como opcionales en este índice de aquí debajo. Las transparencias/videos se han mantenido como material opcional.
+En el curso 2019-01 _no entrarán_ los paquetes de transparencias/videos marcados como opcionales en este índice de aquí debajo.
 
   - OPCIONAL [Índice](https://jig.github.io/crypto/es) `8`
   - [Objetivos](https://jig.github.io/crypto/es/objectives.html) `25` 
-  - [Conexiones (TLS)](http://jig.github.io/crypto/es/tls.html) `11`
-  - [Infraestructura de Clave Pública (PKI)](http://jig.github.io/crypto/es/pki.html) `59`
-  - [Introducción/història criptografía simétrica](https://jig.github.io/crypto/es/intro.html) `40` 
-  - [Criptografía simétrica, AES](https://jig.github.io/crypto/es/symmetric.html) `91` ([AES y modos de operación](https://jig.github.io/crypto/es/symmetric.html#aes), resto OPCIONAL)
+  - [Introducción, historia](https://jig.github.io/crypto/es/intro.html) `40`
+  - OPCIONAL [Criptografía simétrica, AES](https://jig.github.io/crypto/es/symmetric.html) `91` (&Sigma; → `126`) ([AES y modos de operación](https://jig.github.io/crypto/es/symmetric.html#aes), resto OPCIONAL)
   - OPCIONAL [Hash, HMAC, cifrado autenticado](https://jig.github.io/crypto/es/hash.html) `13`  
   - OPCIONAL [MAC](https://jig.github.io/crypto/es/ecbc-mac.html) `11` 
   - [Teoría de números](https://jig.github.io/crypto/es/number-theory.html) `33`
@@ -21,9 +17,11 @@ En el curso 2018-11 _no entrarán_ los paquetes de transparencias/videos marcado
   - [RSA](https://jig.github.io/crypto/es/rsa.html) `23`
   - OPCIONAL [DSA](https://jig.github.io/crypto/es/dsa.html) `15`
   - OPCIONAL [Criptografía de curva elíptica](https://jig.github.io/crypto/es/ecc.html) `18`  
-  - OPCIONAL [Complejidad algorítmica](http://jig.github.io/crypto/es/complexity.html) `5`
+  - [Complejidad algorítmica](http://jig.github.io/crypto/es/complexity.html) `5` (&Sigma; → `127`)
   - OPCIONAL [Amenazas](http://jig.github.io/crypto/es/threats.html) `15` 
   - OPCIONAL [RND y HSM](https://jig.github.io/crypto/es/hsm.html) `41` 
+  - [Conexiones (TLS)](http://jig.github.io/crypto/es/tls.html) `11`
+  - [Infraestructura de Clave Pública (PKI)](http://jig.github.io/crypto/es/pki.html) `59` (&Sigma; → `126`)
   - OPCIONAL Certificación de un servidor con Let's Encrypt
 
 **Nota**: el número a la derecha de cada entrada indica el número de transparencias aproximado
