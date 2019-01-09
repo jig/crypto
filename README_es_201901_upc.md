@@ -13,7 +13,7 @@ En el curso 2018-11 _no entrarán_ los paquetes de transparencias/videos marcado
   - [Conexiones (TLS)](http://jig.github.io/crypto/es/tls.html) `11`
   - [Infraestructura de Clave Pública (PKI)](http://jig.github.io/crypto/es/pki.html) `59`
   - [Introducción/història criptografía simétrica](https://jig.github.io/crypto/es/intro.html) `40` 
-  - [Criptografía simétrica, AES](https://jig.github.io/crypto/es/symmetric.html) `91` ([AES y modos de operación](https://jig.github.io/crypto/es/symmetric.html#AES), resto OPCIONAL)
+  - [Criptografía simétrica, AES](https://jig.github.io/crypto/es/symmetric.html) `91` ([AES y modos de operación](https://jig.github.io/crypto/es/symmetric.html#aes), resto OPCIONAL)
   - OPCIONAL [Hash, HMAC, cifrado autenticado](https://jig.github.io/crypto/es/hash.html) `13`  
   - OPCIONAL [MAC](https://jig.github.io/crypto/es/ecbc-mac.html) `11` 
   - [Teoría de números](https://jig.github.io/crypto/es/number-theory.html) `33`
