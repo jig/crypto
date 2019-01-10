@@ -4,7 +4,7 @@ Transparencias en [jig.github.io/crypto/es](https://jig.github.io/crypto/es), pe
 
 ## Contenido UPC 2019-1-10,14,15
 
-En el curso 2019-01 _no entrarán_ los paquetes de transparencias/videos marcados como opcionales en este índice de aquí debajo.
+En el curso 2019-01 _no entrarán_ los paquetes de transparencias marcados como opcionales en este índice de aquí debajo.
 
   - OPCIONAL [Índice](https://jig.github.io/crypto/es) `8`
   - [Objetivos](https://jig.github.io/crypto/es/objectives.html) `25` 
