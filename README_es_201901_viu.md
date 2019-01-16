@@ -11,7 +11,7 @@ En el curso 2019-1 _no entrarán_ los paquetes de transparencias/videos marcados
   - OPCIONAL [Índice](https://jig.github.io/crypto/es) `8`
   - [Objetivos](https://jig.github.io/crypto/es/objectives.html) `25` 
   - [Introducción, historia](https://jig.github.io/crypto/es/intro.html) `40`
-  - OPCIONAL [Criptografía simétrica, AES](https://jig.github.io/crypto/es/symmetric.html) `91` (&Sigma; → `126`)
+  - OPCIONAL [Criptografía simétrica, AES](https://jig.github.io/crypto/es/symmetric.html) `91` (&Sigma; → `126`) ([AES y modos de operación](https://jig.github.io/crypto/es/symmetric.html#aes), resto OPCIONAL)
   - OPCIONAL [Hash, HMAC, cifrado autenticado](https://jig.github.io/crypto/es/hash.html) `13`  
   - OPCIONAL [MAC](https://jig.github.io/crypto/es/ecbc-mac.html) `11` 
   - [Teoría de números](https://jig.github.io/crypto/es/number-theory.html) `33`
