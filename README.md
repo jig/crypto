@@ -2,14 +2,14 @@
 
 Transparencias en [jig.github.io/crypto/es](https://jig.github.io/crypto/es), pero puedes acceder directamente a cada capítulo seleccionando los enlaces en el apartado "Contenido".
 
-## Contenido UPC 2019-4-8,9
+## Contenido VIU 2019-5-13,18
 
-En el curso 2019-04 _no entrarán_ los paquetes de transparencias marcados como opcionales en este índice de aquí debajo.
+En el curso 2019-05 _no entrarán_ los paquetes de transparencias marcados como opcionales en este índice de aquí debajo.
 
   - OPCIONAL [Índice](https://jig.github.io/crypto/es) `8`
   - [Objetivos](https://jig.github.io/crypto/es/objectives.html) `25` 
   - [Introducción, historia](https://jig.github.io/crypto/es/intro.html) `40`
-  - OPCIONAL [Criptografía simétrica, AES](https://jig.github.io/crypto/es/symmetric.html) `91` (&Sigma; → `126`) ([AES y modos de operación](https://jig.github.io/crypto/es/symmetric.html#aes), resto OPCIONAL)
+  - [Criptografía simétrica, AES](https://jig.github.io/crypto/es/symmetric.html) `91` (&Sigma; → `126`) 
   - OPCIONAL [Hash, HMAC, cifrado autenticado](https://jig.github.io/crypto/es/hash.html) `13`  
   - OPCIONAL [MAC](https://jig.github.io/crypto/es/ecbc-mac.html) `11` 
   - [Teoría de números](https://jig.github.io/crypto/es/number-theory.html) `33`
