@@ -2,33 +2,31 @@
 
 Transparencias en [jig.github.io/crypto/es](https://jig.github.io/crypto/es), pero puedes acceder directamente a cada capítulo seleccionando los enlaces en el apartado "Contenido".
 
-## Contenido VIU 2019-5-13,18
+## Contenido
 
-En el curso 2019-05 _no entrarán_ los paquetes de transparencias marcados como opcionales en este índice de aquí debajo.
-
-  - OPCIONAL [Índice](https://jig.github.io/crypto/es) `8`
+  - [Índice](https://jig.github.io/crypto/es) `8`
   - [Objetivos](https://jig.github.io/crypto/es/objectives.html) `25` 
   - [Introducción, historia](https://jig.github.io/crypto/es/intro.html) `40`
   - [Criptografía simétrica, AES](https://jig.github.io/crypto/es/symmetric.html) `91` (&Sigma; → `126`) 
-  - OPCIONAL [Hash, HMAC, cifrado autenticado](https://jig.github.io/crypto/es/hash.html) `13`  
-  - OPCIONAL [MAC](https://jig.github.io/crypto/es/ecbc-mac.html) `11` 
+  - [Hash, HMAC, cifrado autenticado](https://jig.github.io/crypto/es/hash.html) `13`  
+  - [MAC](https://jig.github.io/crypto/es/ecbc-mac.html) `11` 
   - [Teoría de números](https://jig.github.io/crypto/es/number-theory.html) `33`
   - [Acuerdo de claves Diffie-Hellman](https://jig.github.io/crypto/es/dh.html) `9`
   - [RSA](https://jig.github.io/crypto/es/rsa.html) `23`
-  - OPCIONAL [DSA](https://jig.github.io/crypto/es/dsa.html) `15`
-  - OPCIONAL [Criptografía de curva elíptica](https://jig.github.io/crypto/es/ecc.html) `18`  
+  - [DSA](https://jig.github.io/crypto/es/dsa.html) `15`
+  - [Criptografía de curva elíptica](https://jig.github.io/crypto/es/ecc.html) `18`  
   - [Complejidad algorítmica](http://jig.github.io/crypto/es/complexity.html) `5` (&Sigma; → `127`)
-  - OPCIONAL [Amenazas](http://jig.github.io/crypto/es/threats.html) `15` 
-  - OPCIONAL [RND y HSM](https://jig.github.io/crypto/es/hsm.html) `41` 
+  - [Amenazas](http://jig.github.io/crypto/es/threats.html) `15` 
+  - [RND y HSM](https://jig.github.io/crypto/es/hsm.html) `41` 
   - [Conexiones (TLS)](http://jig.github.io/crypto/es/tls.html) `11`
   - [Infraestructura de Clave Pública (PKI)](http://jig.github.io/crypto/es/pki.html) `59` (&Sigma; → `126`)
-  - OPCIONAL Certificación de un servidor con Let's Encrypt
+  - Certificación de un servidor con Let's Encrypt
 
 **Nota**: el número a la derecha de cada entrada indica el número de transparencias aproximado
 
 ### OPCIONAL: práctica OpenSSL
 
-Material para los ejercicios prácticos **opcionales** comentados en la sesión síncrona del martes 7 de Noviembre de 2017: [jig/docker-openssl](https://github.com/jig/docker-openssl)
+Material para los ejercicios prácticos **opcionales**: [jig/docker-openssl](https://github.com/jig/docker-openssl)
 
 ### Resumen
   
@@ -80,4 +78,4 @@ Esta obra esta sujeta a una licencia de [Atribución 4.0 Internacional de Creati
 
 [![Licencia de Creative Commons](https://i.creativecommons.org/l/by/4.0/88x31.png)](http://creativecommons.org/licenses/by/4.0/)
 
-Copyright © 2016-2017 [Jordi Íñigo Griera](https://github.com/jig)
+Copyright © 2016-2020 [Jordi Íñigo Griera](https://github.com/jig)
